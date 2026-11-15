@@ -1,0 +1,974 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Математика без паніки</title>
+
+<style>
+:root {
+    --bg: #071426;
+    --panel: #10233d;
+    --panel2: #142b49;
+    --blue: #3298f3;
+    --blue2: #176fc1;
+    --text: #eef5ff;
+    --muted: #a5b7cf;
+    --green: #28c58a;
+    --red: #ff6575;
+    --border: rgba(255,255,255,.09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 10% 5%, rgba(30,110,210,.18), transparent 30%),
+        radial-gradient(circle at 90% 40%, rgba(30,160,190,.10), transparent 30%),
+        var(--bg);
+    min-height: 100vh;
+}
+
+.container {
+    width: min(1050px, 92%);
+    margin: auto;
+}
+
+header {
+    padding: 35px 0 20px;
+}
+
+.back {
+    display: inline-block;
+    color: #8fc8ff;
+    text-decoration: none;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.back:hover {
+    color: white;
+}
+
+.hero {
+    background: linear-gradient(135deg, #153b68, #10233d 75%);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 35px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "∑";
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    font-size: 145px;
+    color: rgba(255,255,255,.055);
+    font-weight: bold;
+}
+
+.label {
+    display: inline-block;
+    background: rgba(40,197,138,.15);
+    color: #65e5b2;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    margin: 18px 0 12px;
+}
+
+.hero p {
+    color: #c2d5ed;
+    line-height: 1.7;
+    max-width: 650px;
+    margin-bottom: 0;
+}
+
+main {
+    padding: 25px 0 55px;
+}
+
+.section-title {
+    margin: 30px 0 16px;
+    font-size: 23px;
+}
+
+.levels {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.level {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 17px 13px;
+    cursor: pointer;
+    transition: .2s;
+    color: var(--text);
+    text-align: left;
+    font: inherit;
+}
+
+.level:hover {
+    transform: translateY(-3px);
+    border-color: var(--blue);
+}
+
+.level.active {
+    border: 2px solid var(--blue);
+    background: #15385e;
+}
+
+.level-number {
+    font-size: 12px;
+    color: #70baff;
+    font-weight: bold;
+}
+
+.level-name {
+    font-weight: bold;
+    margin: 9px 0 6px;
+    font-size: 15px;
+}
+
+.level-info {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.level-score {
+    display: block;
+    margin-top: 10px;
+    color: #65e5b2;
+    font-size: 12px;
+}
+
+.quiz {
+    margin-top: 25px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 27px;
+}
+
+.quiz-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.tag {
+    color: #8ec8ff;
+    background: rgba(50,152,243,.13);
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.counter {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.progress {
+    width: 100%;
+    height: 7px;
+    background: #263b55;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 28px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #2688e5, #36c4d7);
+    transition: width .3s;
+}
+
+.question {
+    font-size: 22px;
+    line-height: 1.5;
+    font-weight: bold;
+    margin-bottom: 22px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.option {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .2s;
+    line-height: 1.5;
+}
+
+.option:hover:not(:disabled) {
+    border-color: var(--blue);
+    background: #1b3b60;
+}
+
+.option:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.option.correct {
+    border-color: var(--green);
+    background: rgba(40,197,138,.13);
+}
+
+.option.wrong {
+    border-color: var(--red);
+    background: rgba(255,101,117,.12);
+}
+
+.feedback {
+    display: none;
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    line-height: 1.65;
+    font-size: 14px;
+}
+
+.feedback.good {
+    display: block;
+    background: rgba(40,197,138,.11);
+    border: 1px solid rgba(40,197,138,.3);
+}
+
+.feedback.bad {
+    display: block;
+    background: rgba(255,101,117,.10);
+    border: 1px solid rgba(255,101,117,.3);
+}
+
+.feedback strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 16px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: 0;
+    border-radius: 10px;
+    padding: 13px 22px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: .2s;
+}
+
+.btn-primary {
+    background: var(--blue);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--blue2);
+}
+
+.btn-secondary {
+    background: #243a56;
+    color: #dceaff;
+}
+
+.btn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.result {
+    display: none;
+    text-align: center;
+    padding: 25px 10px;
+}
+
+.result-number {
+    font-size: 58px;
+    font-weight: bold;
+    color: #64b9ff;
+    margin: 20px 0 8px;
+}
+
+.result p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.result-message {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.tips {
+    margin-top: 28px;
+    background: rgba(50,152,243,.08);
+    border: 1px solid rgba(50,152,243,.2);
+    border-radius: 15px;
+    padding: 22px;
+    line-height: 1.7;
+}
+
+.tips h3 {
+    margin-top: 0;
+}
+
+.tips p {
+    color: #bdcde0;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 25px 10px;
+    color: #71869f;
+    font-size: 12px;
+}
+
+@media(max-width: 800px) {
+    .levels {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 520px) {
+    .hero {
+        padding: 25px;
+    }
+
+    .hero::after {
+        font-size: 90px;
+        right: 15px;
+    }
+
+    .levels {
+        grid-template-columns: 1fr;
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz {
+        padding: 18px;
+    }
+
+    .question {
+        font-size: 19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <a class="back" href="pilot-10.html">← Повернутися до матеріалів</a>
+
+    <div class="hero">
+        <span class="label">ТРЕНАЖЕР ДЛЯ 12 КЛАСУ</span>
+        <h1>Математика без паніки</h1>
+        <p>
+            Програмування починається не з коду, а з уміння
+            мислити. Перевір, наскільки добре ти вмієш
+            працювати з числами, формулами та задачами.
+        </p>
+    </div>
+</header>
+
+<main>
+
+    <h2 class="section-title">Обери рівень</h2>
+
+    <div class="levels" id="levels"></div>
+
+    <section class="quiz" id="quiz">
+
+        <div id="question-area">
+
+            <div class="quiz-top">
+                <span class="tag" id="level-tag">Рівень 1</span>
+                <span class="counter" id="counter">Завдання 1 з 6</span>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+
+            <div class="question" id="question"></div>
+
+            <div class="options" id="options"></div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="actions">
+                <button class="btn btn-secondary" onclick="restartLevel()">
+                    Почати спочатку
+                </button>
+
+                <button class="btn btn-primary" id="next"
+                    onclick="nextQuestion()" disabled>
+                    Наступне завдання →
+                </button>
+            </div>
+
+        </div>
+
+        <div class="result" id="result">
+            <div class="label">РІВЕНЬ ЗАВЕРШЕНО</div>
+            <div class="result-number" id="result-number">0/6</div>
+            <div class="result-message" id="result-message"></div>
+            <p id="result-text"></p>
+
+            <button class="btn btn-primary" onclick="restartLevel()">
+                Спробувати ще раз
+            </button>
+
+            <button class="btn btn-secondary" onclick="nextLevel()">
+                Наступний рівень →
+            </button>
+        </div>
+
+    </section>
+
+    <div class="tips">
+        <h3>💡 Порада</h3>
+        <p>
+            Не поспішай натискати на відповідь.
+            Спочатку прочитай умову, визнач, що відомо,
+            подумай, яку дію потрібно виконати,
+            і лише тоді обирай результат.
+            Помилятися можна. Головне — зрозуміти чому.
+        </p>
+    </div>
+
+</main>
+
+<footer>
+    Кабінет інформатики · Ліцей імені Олександра Цинкаловського · 2026
+</footer>
+
+</div>
+
+<script>
+
+const levelsData = [
+
+{
+    name: "Арифметика",
+    description: "Числа, дії та відсотки",
+    questions: [
+
+        {
+            q: "Обчисли: 25 × 4 − 30",
+            a: ["70", "100", "130", "90"],
+            correct: 0,
+            why: "Спочатку множимо: 25 × 4 = 100. Потім віднімаємо: 100 − 30 = 70."
+        },
+
+        {
+            q: "Скільки становить 20% від 300?",
+            a: ["30", "50", "60", "80"],
+            correct: 2,
+            why: "20% = 0,2. Обчислюємо: 300 × 0,2 = 60."
+        },
+
+        {
+            q: "Обчисли: (48 + 12) ÷ 5",
+            a: ["10", "12", "15", "20"],
+            correct: 1,
+            why: "Спочатку дужки: 48 + 12 = 60. Потім 60 ÷ 5 = 12."
+        },
+
+        {
+            q: "Товар коштував 500 грн. Його ціну знизили на 10%. Скільки він коштує тепер?",
+            a: ["450 грн", "490 грн", "400 грн", "550 грн"],
+            correct: 0,
+            why: "10% від 500 = 50 грн. Нова ціна: 500 − 50 = 450 грн."
+        },
+
+        {
+            q: "Чому дорівнює 3/4 від числа 80?",
+            a: ["20", "40", "60", "70"],
+            correct: 2,
+            why: "Спочатку 80 ділимо на 4: отримуємо 20. Потім множимо на 3: 20 × 3 = 60."
+        },
+
+        {
+            q: "Обчисли: 120 ÷ 4 + 15 × 2",
+            a: ["45", "60", "90", "75"],
+            correct: 0,
+            why: "Спочатку ділення і множення: 120 ÷ 4 = 30, 15 × 2 = 30. Додаємо: 30 + 30 = 60. Правильна відповідь — 60.",
+            fix: true
+        }
+
+    ]
+},
+
+{
+    name: "Формули",
+    description: "Геометрія та фізичні величини",
+    questions: [
+
+        {
+            q: "Сторона квадрата дорівнює 6 см. Чому дорівнює його периметр?",
+            a: ["12 см", "24 см", "36 см", "18 см"],
+            correct: 1,
+            why: "Периметр квадрата: P = 4 × a. Отже, 4 × 6 = 24 см."
+        },
+
+        {
+            q: "Довжина прямокутника 8 см, ширина 5 см. Знайди площу.",
+            a: ["13 см²", "26 см²", "40 см²", "80 см²"],
+            correct: 2,
+            why: "Площа прямокутника: S = a × b. Отже, 8 × 5 = 40 см²."
+        },
+
+        {
+            q: "Автомобіль рухається зі швидкістю 60 км/год протягом 3 годин. Яку відстань він подолає?",
+            a: ["20 км", "120 км", "180 км", "240 км"],
+            correct: 2,
+            why: "Відстань = швидкість × час. S = 60 × 3 = 180 км."
+        },
+
+        {
+            q: "Відстань між містами 240 км. Автомобіль рухався зі швидкістю 80 км/год. Скільки годин тривала поїздка?",
+            a: ["2 год", "3 год", "4 год", "5 год"],
+            correct: 1,
+            why: "Час = відстань ÷ швидкість. t = 240 ÷ 80 = 3 години."
+        },
+
+        {
+            q: "Довжина прямокутника 10 см, ширина 4 см. Чому дорівнює периметр?",
+            a: ["14 см", "28 см", "40 см", "20 см"],
+            correct: 1,
+            why: "P = 2 × (a + b). Отже, 2 × (10 + 4) = 28 см."
+        },
+
+        {
+            q: "Знайди середнє арифметичне чисел 10, 20 і 30.",
+            a: ["15", "20", "25", "60"],
+            correct: 1,
+            why: "Середнє арифметичне = сума чисел ÷ їх кількість. (10 + 20 + 30) ÷ 3 = 20."
+        }
+
+    ]
+},
+
+{
+    name: "Життєві задачі",
+    description: "Покупки, витрати та розрахунки",
+    questions: [
+
+        {
+            q: "Один зошит коштує 18 грн. Скільки коштують 7 зошитів?",
+            a: ["108 грн", "126 грн", "136 грн", "144 грн"],
+            correct: 1,
+            why: "Вартість = ціна × кількість. 18 × 7 = 126 грн."
+        },
+
+        {
+            q: "На рахунку було 2500 грн. Витратили 750 грн. Скільки залишилося?",
+            a: ["1750 грн", "1800 грн", "1850 грн", "2000 грн"],
+            correct: 0,
+            why: "Залишок = початкова сума − витрати. 2500 − 750 = 1750 грн."
+        },
+
+        {
+            q: "Працівник отримує 800 грн за день. Скільки він заробить за 5 днів?",
+            a: ["3200 грн", "3500 грн", "4000 грн", "4500 грн"],
+            correct: 2,
+            why: "Заробіток = оплата за день × кількість днів. 800 × 5 = 4000 грн."
+        },
+
+        {
+            q: "Телефон коштував 8000 грн. Ціну знизили на 10%. Яка нова ціна?",
+            a: ["7200 грн", "7000 грн", "7900 грн", "7800 грн"],
+            correct: 0,
+            why: "10% від 8000 = 800 грн. 8000 − 800 = 7200 грн."
+        },
+
+        {
+            q: "Три однакові товари коштують 240 грн. Скільки коштують 5 таких товарів?",
+            a: ["300 грн", "360 грн", "400 грн", "450 грн"],
+            correct: 2,
+            why: "Один товар: 240 ÷ 3 = 80 грн. П'ять товарів: 80 × 5 = 400 грн."
+        },
+
+        {
+            q: "Автомобіль споживає 8 літрів пального на 100 км. Скільки літрів потрібно на 300 км?",
+            a: ["16 л", "20 л", "24 л", "32 л"],
+            correct: 2,
+            why: "300 км — це три відрізки по 100 км. 8 × 3 = 24 літри."
+        }
+
+    ]
+},
+
+{
+    name: "Математична логіка",
+    description: "Знайди залежність та помилку",
+    questions: [
+
+        {
+            q: "Яке число потрібно поставити замість знака питання: 3, 6, 12, 24, ?",
+            a: ["30", "36", "42", "48"],
+            correct: 3,
+            why: "Кожне наступне число вдвічі більше за попереднє: 24 × 2 = 48."
+        },
+
+        {
+            q: "Знайди невідоме число: x + 15 = 42",
+            a: ["27", "37", "57", "17"],
+            correct: 0,
+            why: "Щоб знайти невідомий доданок, від суми віднімаємо відомий доданок: x = 42 − 15 = 27."
+        },
+
+        {
+            q: "Знайди невідоме число: 5 × x = 60",
+            a: ["10", "11", "12", "15"],
+            correct: 2,
+            why: "Щоб знайти невідомий множник, добуток ділимо на відомий множник: x = 60 ÷ 5 = 12."
+        },
+
+        {
+            q: "Який результат правильний? 100 − 20 × 3",
+            a: ["240", "40", "80", "60"],
+            correct: 1,
+            why: "Спочатку виконуємо множення: 20 × 3 = 60. Потім віднімання: 100 − 60 = 40."
+        },
+
+        {
+            q: "Програма обчислює: x = 10, y = 5. Вираз x × 2 + y має результат:",
+            a: ["15", "20", "25", "30"],
+            correct: 2,
+            why: "Підставляємо значення: 10 × 2 + 5 = 20 + 5 = 25."
+        },
+
+        {
+            q: "Знайди помилку: учень обчислив 50 ÷ 5 × 2 = 5. Який правильний результат?",
+            a: ["5", "10", "20", "25"],
+            correct: 2,
+            why: "Множення та ділення мають однаковий пріоритет. Виконуємо зліва направо: 50 ÷ 5 = 10, потім 10 × 2 = 20."
+        }
+
+    ]
+},
+
+{
+    name: "Мислення програміста",
+    description: "Від задачі до математичного виразу",
+    questions: [
+
+        {
+            q: "Потрібно обчислити суму двох чисел a і b. Який вираз правильний?",
+            a: ["a - b", "a * b", "a + b", "a / b"],
+            correct: 2,
+            why: "Сума — це результат додавання. Математичний вираз: a + b."
+        },
+
+        {
+            q: "Є ціна товару p і кількість n. Як обчислити загальну вартість?",
+            a: ["p + n", "p * n", "p - n", "p / n"],
+            correct: 1,
+            why: "Загальна вартість = ціна одного товару × кількість. Вираз: p * n."
+        },
+
+        {
+            q: "Який математичний вираз відповідає формулі площі прямокутника зі сторонами a і b?",
+            a: ["a + b", "2 * (a + b)", "a * b", "a - b"],
+            correct: 2,
+            why: "Площа прямокутника дорівнює добутку довжини та ширини: S = a * b."
+        },
+
+        {
+            q: "У змінній x зберігається число 15. Який вираз обчислить число, збільшене на 8?",
+            a: ["x - 8", "x * 8", "x / 8", "x + 8"],
+            correct: 3,
+            why: "Збільшити число на 8 означає додати 8. Вираз: x + 8."
+        },
+
+        {
+            q: "Потрібно знайти залишок від ділення числа a на 2. Яку операцію використати в Python?",
+            a: ["a / 2", "a // 2", "a % 2", "a * 2"],
+            correct: 2,
+            why: "Оператор % знаходить остачу від ділення. Наприклад, 7 % 2 = 1."
+        },
+
+        {
+            q: "Який вираз у Python обчислить середнє арифметичне трьох чисел a, b, c?",
+            a: ["a + b + c / 3", "(a + b + c) / 3", "a * b * c / 3", "(a + b) / c"],
+            correct: 1,
+            why: "Спочатку потрібно додати всі три числа, а потім поділити суму на 3. Дужки забезпечують правильний порядок дій."
+        }
+
+    ]
+}
+
+];
+
+let currentLevel = 0;
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+let levelScores = {};
+
+function renderLevels() {
+
+    const box = document.getElementById("levels");
+    box.innerHTML = "";
+
+    levelsData.forEach((level, index) => {
+
+        const button = document.createElement("button");
+        button.className = "level" + (index === currentLevel ? " active" : "");
+
+        const scoreText = levelScores[index] !== undefined
+            ? `Результат: ${levelScores[index]}/6`
+            : "Ще не пройдено";
+
+        button.innerHTML = `
+            <div class="level-number">РІВЕНЬ ${index + 1}</div>
+            <div class="level-name">${level.name}</div>
+            <div class="level-info">${level.description}</div>
+            <span class="level-score">${scoreText}</span>
+        `;
+
+        button.addEventListener("click", () => {
+            currentLevel = index;
+            restartLevel();
+        });
+
+        box.appendChild(button);
+    });
+}
+
+function loadQuestion() {
+
+    answered = false;
+
+    const level = levelsData[currentLevel];
+    const question = level.questions[currentQuestion];
+
+    document.getElementById("question-area").style.display = "block";
+    document.getElementById("result").style.display = "none";
+
+    document.getElementById("level-tag").textContent =
+        `Рівень ${currentLevel + 1}: ${level.name}`;
+
+    document.getElementById("counter").textContent =
+        `Завдання ${currentQuestion + 1} з ${level.questions.length}`;
+
+    document.getElementById("question").textContent = question.q;
+
+    document.getElementById("progress").style.width =
+        (currentQuestion / level.questions.length * 100) + "%";
+
+    const options = document.getElementById("options");
+    options.innerHTML = "";
+
+    question.a.forEach((answer, index) => {
+
+        const button = document.createElement("button");
+        button.className = "option";
+        button.textContent = String.fromCharCode(65 + index) + ") " + answer;
+
+        button.addEventListener("click", () => checkAnswer(index));
+
+        options.appendChild(button);
+    });
+
+    const feedback = document.getElementById("feedback");
+    feedback.className = "feedback";
+    feedback.innerHTML = "";
+
+    document.getElementById("next").disabled = true;
+    document.getElementById("next").textContent =
+        currentQuestion === level.questions.length - 1
+        ? "Завершити рівень →"
+        : "Наступне завдання →";
+}
+
+function checkAnswer(index) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const question = levelsData[currentLevel].questions[currentQuestion];
+    const buttons = document.querySelectorAll(".option");
+    const feedback = document.getElementById("feedback");
+
+    buttons.forEach((button, i) => {
+
+        button.disabled = true;
+
+        if (i === question.correct) {
+            button.classList.add("correct");
+        }
+
+        if (i === index && index !== question.correct) {
+            button.classList.add("wrong");
+        }
+    });
+
+    if (index === question.correct) {
+
+        score++;
+
+        feedback.className = "feedback good";
+        feedback.innerHTML =
+            `<strong>✓ Правильно! Гарна робота.</strong>${question.why}`;
+
+    } else {
+
+        feedback.className = "feedback bad";
+        feedback.innerHTML =
+            `<strong>✕ Не зовсім правильно.</strong>
+            Правильна відповідь: <b>${question.a[question.correct]}</b>.
+            <br>${question.why}`;
+    }
+
+    document.getElementById("next").disabled = false;
+}
+
+function nextQuestion() {
+
+    if (!answered) return;
+
+    const total = levelsData[currentLevel].questions.length;
+
+    if (currentQuestion < total - 1) {
+
+        currentQuestion++;
+        loadQuestion();
+
+    } else {
+
+        showResult();
+
+    }
+}
+
+function showResult() {
+
+    const total = levelsData[currentLevel].questions.length;
+
+    levelScores[currentLevel] = score;
+
+    document.getElementById("question-area").style.display = "none";
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("result-number").textContent =
+        `${score}/${total}`;
+
+    let message = "";
+    let text = "";
+
+    if (score === total) {
+
+        message = "Відмінно! Усі відповіді правильні!";
+        text = "Ти чудово впорався із завданнями. Можна переходити далі.";
+
+    } else if (score >= 4) {
+
+        message = "Добрий результат!";
+        text = "Основи вже є. Переглянь пояснення до помилок і спробуй покращити результат.";
+
+    } else if (score >= 2) {
+
+        message = "Є над чим попрацювати.";
+        text = "Не поспішай. Повтори завдання, зверни увагу на пояснення та спробуй ще раз.";
+
+    } else {
+
+        message = "Починаємо з основ!";
+        text = "Це лише тренування. Спробуй ще раз і уважно розбирай кожне пояснення.";
+    }
+
+    document.getElementById("result-message").textContent = message;
+    document.getElementById("result-text").textContent = text;
+
+    document.getElementById("progress").style.width = "100%";
+
+    renderLevels();
+}
+
+function restartLevel() {
+
+    currentQuestion = 0;
+    score = 0;
+    answered = false;
+
+    renderLevels();
+    loadQuestion();
+
+    document.getElementById("progress").style.width = "0%";
+}
+
+function nextLevel() {
+
+    if (currentLevel < levelsData.length - 1) {
+
+        currentLevel++;
+        restartLevel();
+
+    } else {
+
+        currentLevel = 0;
+        restartLevel();
+
+    }
+}
+
+renderLevels();
+loadQuestion();
+
+</script>
+
+</body>
+</html>
