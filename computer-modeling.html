@@ -1,0 +1,954 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Навчальні матеріали з інформатики. Комп'ютерне моделювання. 10 клас.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Комп'ютерне моделювання | Кабінет інформатики</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #071426;
+    --card: rgba(17, 36, 62, 0.88);
+    --card-light: rgba(24, 49, 80, 0.75);
+    --text: #eaf2ff;
+    --muted: #a9bdd8;
+    --blue: #4da3ff;
+    --cyan: #35d5e8;
+    --border: rgba(130, 180, 230, 0.18);
+    --green: #45d69b;
+    --yellow: #ffd166;
+    --red: #ff7373;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 10% 5%, rgba(31, 108, 190, 0.22), transparent 30%),
+        radial-gradient(circle at 90% 25%, rgba(27, 184, 202, 0.12), transparent 28%),
+        var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100vh;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+}
+
+header {
+    padding: 35px 0 25px;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--cyan);
+    text-decoration: none;
+    margin-bottom: 25px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.back-link:hover {
+    color: white;
+    transform: translateX(-4px);
+}
+
+.hero {
+    text-align: center;
+    padding: 35px 20px 40px;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(23, 58, 99, 0.8), rgba(10, 30, 54, 0.8));
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background: rgba(53, 213, 232, 0.10);
+    border-radius: 50%;
+    top: -120px;
+    right: -50px;
+}
+
+.hero .label {
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: clamp(28px, 5vw, 43px);
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 700px;
+    margin: auto;
+    font-size: 17px;
+}
+
+.lesson-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.info-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 30px;
+    color: #dceaff;
+    font-size: 14px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 9px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    background: rgba(52, 127, 205, 0.3);
+    border-color: var(--blue);
+}
+
+section {
+    margin: 25px 0;
+    padding: 27px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.section-title {
+    font-size: 25px;
+    margin-bottom: 18px;
+    color: #f2f7ff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title span {
+    color: var(--cyan);
+}
+
+h3 {
+    color: #8fcaff;
+    margin: 20px 0 9px;
+    font-size: 18px;
+}
+
+p {
+    margin: 9px 0;
+}
+
+ul, ol {
+    padding-left: 24px;
+    margin: 10px 0;
+}
+
+li {
+    margin: 7px 0;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.highlight {
+    color: var(--cyan);
+    font-weight: bold;
+}
+
+.note {
+    padding: 15px 18px;
+    border-left: 4px solid var(--cyan);
+    background: rgba(53, 213, 232, 0.08);
+    border-radius: 0 12px 12px 0;
+    margin: 17px 0;
+}
+
+.warning {
+    padding: 15px 18px;
+    border-left: 4px solid var(--yellow);
+    background: rgba(255, 209, 102, 0.08);
+    border-radius: 0 12px 12px 0;
+    margin: 17px 0;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 15px;
+    margin: 18px 0;
+}
+
+.card {
+    background: var(--card-light);
+    border: 1px solid var(--border);
+    padding: 18px;
+    border-radius: 15px;
+}
+
+.card .icon {
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.card h3 {
+    margin: 4px 0 8px;
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 11px 13px;
+    text-align: left;
+}
+
+th {
+    background: rgba(49, 112, 177, 0.3);
+    color: #cce5ff;
+}
+
+td {
+    background: rgba(255,255,255,0.025);
+}
+
+.formula {
+    display: block;
+    padding: 13px 16px;
+    margin: 12px 0;
+    background: rgba(0,0,0,0.22);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: #8de5ff;
+    font-family: Consolas, monospace;
+    overflow-x: auto;
+}
+
+.task {
+    background: rgba(30, 67, 105, 0.45);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 19px;
+    margin: 17px 0;
+}
+
+.task-number {
+    color: var(--cyan);
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.task h3 {
+    margin-top: 5px;
+}
+
+.task-time {
+    display: inline-block;
+    color: var(--yellow);
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+}
+
+.steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 10px 10px 10px 48px;
+    margin: 10px 0;
+    background: rgba(255,255,255,0.035);
+    border-radius: 10px;
+}
+
+.steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 12px;
+    top: 9px;
+    width: 25px;
+    height: 25px;
+    display: grid;
+    place-items: center;
+    background: rgba(53, 213, 232, 0.18);
+    color: var(--cyan);
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.test-question {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid var(--border);
+    padding: 17px;
+    border-radius: 13px;
+    margin: 14px 0;
+}
+
+.test-question p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.test-question label {
+    display: block;
+    padding: 7px 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #d4e3f6;
+    transition: 0.2s;
+}
+
+.test-question label:hover {
+    background: rgba(77, 163, 255, 0.12);
+}
+
+.test-question input {
+    margin-right: 8px;
+    accent-color: var(--cyan);
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    padding: 12px 22px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2688e8, #20b9cf);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(32, 185, 207, 0.2);
+}
+
+#result {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 12px;
+    display: none;
+}
+
+.result-good {
+    display: block !important;
+    background: rgba(69, 214, 155, 0.12);
+    border: 1px solid rgba(69, 214, 155, 0.4);
+}
+
+.result-bad {
+    display: block !important;
+    background: rgba(255, 115, 115, 0.12);
+    border: 1px solid rgba(255, 115, 115, 0.4);
+}
+
+footer {
+    text-align: center;
+    padding: 30px 10px 35px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+footer strong {
+    color: #cce5ff;
+}
+
+@media (max-width: 600px) {
+    section {
+        padding: 19px;
+    }
+
+    .section-title {
+        font-size: 21px;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <a class="back-link" href="pilot-10.html">← До тем 10 класу</a>
+
+    <div class="hero">
+        <div class="label">Інформатика · 10 клас</div>
+        <h1>Комп’ютерне моделювання</h1>
+        <p>
+            Як за допомогою комп’ютера досліджувати процеси,
+            перевіряти припущення та передбачати результати?
+        </p>
+
+        <div class="lesson-info">
+            <div class="info-item">⏱ 45 хвилин</div>
+            <div class="info-item">📘 Теорія</div>
+            <div class="info-item">💻 Практична робота</div>
+            <div class="info-item">📝 Тест</div>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <a href="#theory">Теорія</a>
+    <a href="#examples">Приклади</a>
+    <a href="#practice">Практична робота</a>
+    <a href="#test">Перевір себе</a>
+</nav>
+
+<!-- ТЕОРІЯ -->
+
+<section id="theory">
+    <h2 class="section-title"><span>01</span> Що таке комп’ютерне моделювання?</h2>
+
+    <p>
+        У повсякденному житті ми часто хочемо дізнатися, що станеться,
+        якщо змінити певні умови. Наприклад:
+    </p>
+
+    <ul>
+        <li>Скільки грошей можна накопичити за рік?</li>
+        <li>Як зміниться температура повітря протягом доби?</li>
+        <li>Скільки часу потрібно для подорожі за різної швидкості?</li>
+        <li>Як зміниться кількість населення міста через кілька років?</li>
+    </ul>
+
+    <p>
+        Не завжди зручно або можливо перевірити це в реальному житті.
+        Тому використовують <span class="highlight">моделі</span>.
+    </p>
+
+    <div class="note">
+        <strong>Комп’ютерне моделювання</strong> — це дослідження об’єктів,
+        процесів або явищ за допомогою комп’ютерної моделі.
+    </div>
+
+    <h3>Що таке комп’ютерна модель?</h3>
+
+    <p>
+        Комп’ютерна модель — це модель, яку створюють і досліджують
+        за допомогою комп’ютерних програм. Вона може бути представлена
+        у вигляді таблиці, графіка, формул, зображення або спеціальної програми.
+    </p>
+
+    <h3>Основні складові моделі</h3>
+
+    <div class="cards">
+        <div class="card">
+            <div class="icon">📥</div>
+            <h3>Вхідні дані</h3>
+            <p>Початкові значення, які ми задаємо моделі.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚙️</div>
+            <h3>Правила та залежності</h3>
+            <p>Формули або правила, за якими модель опрацьовує дані.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📊</div>
+            <h3>Результат</h3>
+            <p>Значення, які отримуємо після опрацювання даних.</p>
+        </div>
+    </div>
+
+    <h3>Етапи комп’ютерного моделювання</h3>
+
+    <ol>
+        <li><strong>Постановка завдання.</strong> Визначаємо, що саме потрібно дослідити.</li>
+        <li><strong>Створення моделі.</strong> Визначаємо потрібні дані та залежності між ними.</li>
+        <li><strong>Введення даних.</strong> Задаємо початкові значення.</li>
+        <li><strong>Дослідження.</strong> Змінюємо параметри та спостерігаємо за результатами.</li>
+        <li><strong>Аналіз.</strong> Робимо висновки та оцінюємо отримані результати.</li>
+    </ol>
+
+    <div class="warning">
+        <strong>Важливо!</strong> Комп’ютерна модель не завжди повністю
+        відображає реальність. Її точність залежить від початкових даних,
+        обраних залежностей і врахованих умов.
+    </div>
+</section>
+
+<!-- ПРИКЛАДИ -->
+
+<section id="examples">
+    <h2 class="section-title"><span>02</span> Де використовують комп’ютерне моделювання?</h2>
+
+    <div class="cards">
+        <div class="card">
+            <div class="icon">🌦️</div>
+            <h3>Прогноз погоди</h3>
+            <p>Моделювання змін температури, опадів, вітру та інших погодних умов.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏙️</div>
+            <h3>Міське планування</h3>
+            <p>Дослідження транспортних потоків, забудови та руху людей.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">✈️</div>
+            <h3>Авіація</h3>
+            <p>Моделювання польотів і перевірка поведінки літаків у різних умовах.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🧬</div>
+            <h3>Наука і медицина</h3>
+            <p>Дослідження складних процесів і перевірка наукових припущень.</p>
+        </div>
+    </div>
+
+    <h3>Простий приклад моделі</h3>
+
+    <p>
+        Припустимо, людина щомісяця відкладає певну суму грошей.
+        Ми хочемо визначити, скільки вона накопичить за кілька місяців.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Місяць</th>
+                <th>Внесок за місяць</th>
+                <th>Усього накопичено</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>500 грн</td><td>500 грн</td></tr>
+            <tr><td>2</td><td>500 грн</td><td>1000 грн</td></tr>
+            <tr><td>3</td><td>500 грн</td><td>1500 грн</td></tr>
+            <tr><td>4</td><td>500 грн</td><td>2000 грн</td></tr>
+        </tbody>
+    </table>
+
+    <p>
+        У цій моделі можна змінювати щомісячний внесок або кількість місяців
+        і досліджувати, як зміниться загальна сума.
+    </p>
+
+    <div class="note">
+        Саме так працюватимемо під час практичної роботи:
+        створимо модель у табличному процесорі та проведемо кілька досліджень.
+    </div>
+</section>
+
+<!-- ПРАКТИЧНА РОБОТА -->
+
+<section id="practice">
+    <h2 class="section-title"><span>03</span> Практична робота</h2>
+
+    <h3>Тема: Створення та дослідження комп’ютерної моделі накопичення коштів</h3>
+
+    <p>
+        <strong>Мета:</strong> навчитися створювати просту комп’ютерну модель
+        у табличному процесорі, використовувати формули, змінювати вхідні дані
+        та аналізувати результати.
+    </p>
+
+    <p>
+        <strong>Потрібно:</strong> комп’ютер і табличний процесор
+        Microsoft Excel або Google Таблиці.
+    </p>
+
+    <div class="task">
+        <div class="task-number">Завдання 1 · 10 хвилин</div>
+        <h3>Створюємо комп’ютерну модель</h3>
+
+        <p>
+            Уявіть, що ви плануєте накопичити гроші на новий смартфон.
+            Щомісяця ви відкладаєте однакову суму.
+        </p>
+
+        <p><strong>Початкові умови:</strong></p>
+        <ul>
+            <li>Щомісячний внесок — 500 грн.</li>
+            <li>Період накопичення — 12 місяців.</li>
+            <li>На початку накопичень — 0 грн.</li>
+        </ul>
+
+        <p><strong>Крок 1.</strong> Створіть у табличному процесорі таблицю:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Місяць</th>
+                    <th>Щомісячний внесок</th>
+                    <th>Накопичено</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>500</td><td>500</td></tr>
+                <tr><td>2</td><td>500</td><td>1000</td></tr>
+                <tr><td>3</td><td>500</td><td>1500</td></tr>
+                <tr><td>4</td><td>500</td><td>2000</td></tr>
+                <tr><td>5</td><td>500</td><td>2500</td></tr>
+                <tr><td>...</td><td>...</td><td>...</td></tr>
+                <tr><td>12</td><td>500</td><td>6000</td></tr>
+            </tbody>
+        </table>
+
+        <p>
+            <strong>Крок 2.</strong> Замість того щоб обчислювати накопичення
+            вручну, використайте формулу.
+        </p>
+
+        <p>
+            Якщо стовпці розміщені так: A — місяць, B — внесок,
+            C — накопичено, то:
+        </p>
+
+        <span class="formula">C2 = B2</span>
+        <span class="formula">C3 = C2 + B3</span>
+
+        <p>
+            Введіть формулу для другого місяця та скопіюйте її вниз
+            до останнього рядка. У результаті таблиця автоматично
+            обчислить накопичену суму.
+        </p>
+
+        <div class="warning">
+            У формулах використовуйте адреси клітинок, а не вводьте
+            готові результати вручну. Саме формули перетворюють таблицю
+            на комп’ютерну модель.
+        </div>
+    </div>
+
+    <div class="task">
+        <div class="task-number">Завдання 2 · 8 хвилин</div>
+        <h3>Досліджуємо вплив вхідних даних</h3>
+
+        <p>
+            Тепер перевіримо, як зміниться результат, якщо змінити
+            щомісячний внесок.
+        </p>
+
+        <p><strong>Виконайте три дослідження:</strong></p>
+
+        <ol>
+            <li>Змініть щомісячний внесок із 500 грн на 700 грн.</li>
+            <li>Змініть щомісячний внесок на 1000 грн.</li>
+            <li>Порівняйте результати за 12 місяців.</li>
+        </ol>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Внесок за місяць</th>
+                    <th>Кількість місяців</th>
+                    <th>Накопичено</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>500 грн</td><td>12</td><td>6000 грн</td></tr>
+                <tr><td>700 грн</td><td>12</td><td>8400 грн</td></tr>
+                <tr><td>1000 грн</td><td>12</td><td>12000 грн</td></tr>
+            </tbody>
+        </table>
+
+        <p>
+            Зверніть увагу: достатньо змінити значення внеску,
+            щоб усі результати в таблиці перерахувалися автоматично.
+        </p>
+    </div>
+
+    <div class="task">
+        <div class="task-number">Завдання 3 · 7 хвилин</div>
+        <h3>Змінюємо тривалість накопичення</h3>
+
+        <p>
+            Залиште щомісячний внесок 500 грн, але змініть кількість
+            місяців накопичення.
+        </p>
+
+        <p><strong>Дослідіть три ситуації:</strong></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Кількість місяців</th>
+                    <th>Щомісячний внесок</th>
+                    <th>Загальна сума</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>6</td><td>500 грн</td><td>3000 грн</td></tr>
+                <tr><td>12</td><td>500 грн</td><td>6000 грн</td></tr>
+                <tr><td>18</td><td>500 грн</td><td>9000 грн</td></tr>
+            </tbody>
+        </table>
+
+        <p>
+            За бажанням створіть стовпчасту діаграму, яка показує,
+            як змінюється сума накопичень залежно від кількості місяців.
+        </p>
+    </div>
+
+    <div class="task">
+        <div class="task-number">Завдання 4 · 3 хвилини</div>
+        <h3>Формулюємо висновок</h3>
+
+        <p>
+            Дайте письмові відповіді на запитання:
+        </p>
+
+        <ol>
+            <li>Які дані були вхідними для вашої моделі?</li>
+            <li>Який результат обчислювала таблиця?</li>
+            <li>Як змінився результат після збільшення внеску?</li>
+            <li>Для чого можна використовувати таку модель у реальному житті?</li>
+        </ol>
+    </div>
+
+    <div class="note">
+        <strong>Результат практичної роботи:</strong>
+        створена таблиця з формулами, проведені дослідження
+        та сформульований висновок про вплив вхідних даних на результат.
+    </div>
+
+    <p class="muted">
+        Загальний час практичної роботи — 28 хвилин.
+    </p>
+</section>
+
+<!-- ТЕСТ -->
+
+<section id="test">
+    <h2 class="section-title"><span>04</span> Перевір себе</h2>
+
+    <p class="muted">
+        Оберіть одну правильну відповідь у кожному запитанні.
+        Після завершення натисніть кнопку «Перевірити відповіді».
+    </p>
+
+    <form id="quiz">
+
+        <div class="test-question">
+            <p>1. Що таке комп’ютерне моделювання?</p>
+            <label><input type="radio" name="q1" value="a"> Створення текстового документа</label>
+            <label><input type="radio" name="q1" value="b"> Дослідження об’єктів і процесів за допомогою комп’ютерної моделі</label>
+            <label><input type="radio" name="q1" value="c"> Перегляд вебсторінок</label>
+        </div>
+
+        <div class="test-question">
+            <p>2. Що таке комп’ютерна модель?</p>
+            <label><input type="radio" name="q2" value="a"> Модель, яку створюють і досліджують за допомогою комп’ютера</label>
+            <label><input type="radio" name="q2" value="b"> Будь-який комп’ютер</label>
+            <label><input type="radio" name="q2" value="c"> Лише тривимірне зображення</label>
+        </div>
+
+        <div class="test-question">
+            <p>3. Що належить до вхідних даних моделі?</p>
+            <label><input type="radio" name="q3" value="a"> Отриманий результат</label>
+            <label><input type="radio" name="q3" value="b"> Початкові значення, які задає користувач</label>
+            <label><input type="radio" name="q3" value="c"> Назва комп’ютерної програми</label>
+        </div>
+
+        <div class="test-question">
+            <p>4. Що може бути результатом комп’ютерного моделювання?</p>
+            <label><input type="radio" name="q4" value="a"> Лише текст</label>
+            <label><input type="radio" name="q4" value="b"> Лише зображення</label>
+            <label><input type="radio" name="q4" value="c"> Числа, таблиці, графіки або інші дані</label>
+        </div>
+
+        <div class="test-question">
+            <p>5. Який із наведених прикладів є комп’ютерним моделюванням?</p>
+            <label><input type="radio" name="q5" value="a"> Написання листа</label>
+            <label><input type="radio" name="q5" value="b"> Прогнозування погоди за допомогою комп’ютерної моделі</label>
+            <label><input type="radio" name="q5" value="c"> Друкування тексту</label>
+        </div>
+
+        <div class="test-question">
+            <p>6. Що потрібно зробити після створення моделі?</p>
+            <label><input type="radio" name="q6" value="a"> Ввести дані, дослідити результати та проаналізувати їх</label>
+            <label><input type="radio" name="q6" value="b"> Обов’язково видалити модель</label>
+            <label><input type="radio" name="q6" value="c"> Вимкнути комп’ютер</label>
+        </div>
+
+        <div class="test-question">
+            <p>7. Для чого використовують формули в табличній моделі?</p>
+            <label><input type="radio" name="q7" value="a"> Для оформлення заголовків</label>
+            <label><input type="radio" name="q7" value="b"> Для автоматичного обчислення результатів</label>
+            <label><input type="radio" name="q7" value="c"> Для зміни кольору таблиці</label>
+        </div>
+
+        <div class="test-question">
+            <p>8. Що відбудеться, якщо змінити вхідні дані в моделі накопичення коштів?</p>
+            <label><input type="radio" name="q8" value="a"> Результат може змінитися</label>
+            <label><input type="radio" name="q8" value="b"> Комп’ютер перестане працювати</label>
+            <label><input type="radio" name="q8" value="c"> Дані не матимуть жодного впливу</label>
+        </div>
+
+        <div class="test-question">
+            <p>9. Чи завжди комп’ютерна модель повністю відповідає реальності?</p>
+            <label><input type="radio" name="q9" value="a"> Так, завжди</label>
+            <label><input type="radio" name="q9" value="b"> Ні, модель може враховувати не всі умови</label>
+            <label><input type="radio" name="q9" value="c"> Так, якщо вона створена в таблиці</label>
+        </div>
+
+        <div class="test-question">
+            <p>10. Яка головна мета дослідження комп’ютерної моделі?</p>
+            <label><input type="radio" name="q10" value="a"> Змінити зовнішній вигляд програми</label>
+            <label><input type="radio" name="q10" value="b"> Знайти якомога більше чисел</label>
+            <label><input type="radio" name="q10" value="c"> Зрозуміти поведінку об’єкта або процесу за різних умов</label>
+        </div>
+
+        <button type="button" onclick="checkQuiz()">Перевірити відповіді</button>
+        <button type="button" onclick="resetQuiz()" style="background:linear-gradient(135deg,#52647c,#75869b); margin-left:8px;">Скинути</button>
+
+        <div id="result"></div>
+
+    </form>
+</section>
+
+<footer>
+    <strong>Кабінет інформатики</strong><br>
+    Ліцей імені Олександра Цинкаловського<br>
+    © 2026
+</footer>
+
+</div>
+
+<script>
+function checkQuiz() {
+    const answers = {
+        q1: "b",
+        q2: "a",
+        q3: "b",
+        q4: "c",
+        q5: "b",
+        q6: "a",
+        q7: "b",
+        q8: "a",
+        q9: "b",
+        q10: "c"
+    };
+
+    let correct = 0;
+    let unanswered = 0;
+
+    for (let question in answers) {
+        const selected = document.querySelector(
+            'input[name="' + question + '"]:checked'
+        );
+
+        if (!selected) {
+            unanswered++;
+        } else if (selected.value === answers[question]) {
+            correct++;
+        }
+    }
+
+    const result = document.getElementById("result");
+    result.style.display = "block";
+
+    if (unanswered > 0) {
+        result.className = "result-bad";
+        result.innerHTML =
+            "<strong>Ви відповіли не на всі запитання.</strong><br>" +
+            "Залишилося відповісти: " + unanswered + ".<br>" +
+            "Правильних відповідей наразі: " + correct + " із 10.";
+        return;
+    }
+
+    let message = "";
+
+    if (correct === 10) {
+        message = "Чудово! Ви чудово засвоїли тему.";
+    } else if (correct >= 8) {
+        message = "Дуже добре! Ви добре розумієте тему.";
+    } else if (correct >= 6) {
+        message = "Непогано! Але деякі поняття варто повторити.";
+    } else {
+        message = "Потрібно ще раз опрацювати матеріал уроку.";
+    }
+
+    result.className = "result-good";
+    result.innerHTML =
+        "<strong>Ваш результат: " + correct + " із 10.</strong><br>" +
+        message;
+}
+
+function resetQuiz() {
+    document.getElementById("quiz").reset();
+
+    const result = document.getElementById("result");
+    result.style.display = "none";
+    result.className = "";
+    result.innerHTML = "";
+}
+</script>
+
+</body>
+</html>
