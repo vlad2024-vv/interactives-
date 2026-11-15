@@ -97,7 +97,7 @@ h1 {
     font-size: 21px;
 }
 
-/* Картки */
+/* Картки тем */
 
 .cards {
     display: grid;
@@ -169,8 +169,6 @@ h1 {
     filter: brightness(1.15);
 }
 
-/* Позначка готовності */
-
 .status {
     display: inline-block;
     align-self: flex-start;
@@ -181,6 +179,231 @@ h1 {
     background: rgba(34, 197, 94, 0.12);
     font-size: 12px;
     font-weight: bold;
+}
+
+/* Випадкове завдання */
+
+.challenge {
+    margin-top: 42px;
+    padding: 28px;
+    border: 1px solid rgba(91, 145, 224, 0.35);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 95% 5%, rgba(89, 83, 190, 0.22), transparent 35%),
+        linear-gradient(135deg, rgba(20, 49, 83, 0.95), rgba(19, 30, 65, 0.95));
+    box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+}
+
+.challenge-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.challenge-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 15px;
+    font-size: 28px;
+    background: rgba(255, 209, 102, 0.13);
+}
+
+.challenge-heading h2 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.challenge-description {
+    color: #b4c6df;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+.challenge-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.challenge-info span {
+    padding: 7px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.07);
+    color: #c9dcf5;
+    font-size: 12px;
+}
+
+.question-area {
+    padding: 22px;
+    border: 1px solid rgba(140, 180, 230, 0.18);
+    border-radius: 14px;
+    background: rgba(5, 17, 35, 0.48);
+}
+
+.question-category {
+    color: #69d8e9;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.question-text {
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.answer-list {
+    display: grid;
+    gap: 10px;
+}
+
+.answer-option {
+    width: 100%;
+    margin: 0;
+    padding: 13px 15px;
+    border: 1px solid rgba(140, 180, 230, 0.2);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.045);
+    color: #eaf2ff;
+    text-align: left;
+    font-size: 15px;
+    font-weight: normal;
+    transition: 0.2s;
+}
+
+.answer-option:hover:not(:disabled) {
+    background: rgba(53, 126, 207, 0.2);
+    border-color: #5597db;
+    transform: translateX(3px);
+    box-shadow: none;
+}
+
+.answer-option:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.answer-option.correct {
+    background: rgba(42, 177, 112, 0.18);
+    border-color: #45d69b;
+    color: #a5f0c9;
+}
+
+.answer-option.incorrect {
+    background: rgba(220, 80, 80, 0.15);
+    border-color: #ff7373;
+    color: #ffaaaa;
+}
+
+.feedback {
+    display: none;
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.feedback.good {
+    display: block;
+    background: rgba(69, 214, 155, 0.12);
+    border: 1px solid rgba(69, 214, 155, 0.35);
+    color: #a5f0c9;
+}
+
+.feedback.bad {
+    display: block;
+    background: rgba(255, 115, 115, 0.10);
+    border: 1px solid rgba(255, 115, 115, 0.3);
+    color: #ffc0c0;
+}
+
+.challenge-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.challenge-button {
+    margin: 0;
+    padding: 12px 19px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #2563eb, #5140a9);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.challenge-button:hover:not(:disabled) {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+}
+
+.challenge-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.challenge-button.secondary {
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(140,180,230,0.25);
+}
+
+.score-line {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 17px;
+    color: #aabbd3;
+    font-size: 13px;
+}
+
+.progress-track {
+    height: 7px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #35d5e8, #45d69b);
+    transition: width 0.3s;
+}
+
+.challenge-finish {
+    display: none;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.challenge-finish h3 {
+    color: #9ee6bd;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.challenge-finish p {
+    color: #b4c6df;
+    line-height: 1.6;
 }
 
 /* Інформаційний блок */
@@ -231,6 +454,22 @@ footer {
 
     .info {
         padding: 18px;
+    }
+
+    .challenge {
+        padding: 19px;
+    }
+
+    .question-area {
+        padding: 16px;
+    }
+
+    .challenge-heading h2 {
+        font-size: 20px;
+    }
+
+    .question-text {
+        font-size: 17px;
     }
 }
 </style>
@@ -288,7 +527,6 @@ footer {
 
             </article>
 
-
             <!-- ТЕМА 2 -->
 
             <article class="card">
@@ -311,7 +549,6 @@ footer {
                 </a>
 
             </article>
-
 
             <!-- ТЕМА 3 -->
 
@@ -338,6 +575,110 @@ footer {
 
         </div>
 
+        <!-- ВИПАДКОВЕ ЗАВДАННЯ -->
+
+        <section class="challenge" id="challenge">
+
+            <div class="challenge-heading">
+                <div class="challenge-icon">🎯</div>
+                <div>
+                    <h2>Випадкове завдання</h2>
+                    <div style="color:#aabbd3; font-size:13px; margin-top:5px;">
+                        Перевір свої знання з інформатики!
+                    </div>
+                </div>
+            </div>
+
+            <p class="challenge-description">
+                На тебе чекають запитання з вивчених тем.
+                Обирай правильну відповідь, набирай бали
+                та перевіряй свої знання!
+            </p>
+
+            <div class="challenge-info">
+                <span>📚 3 навчальні теми</span>
+                <span>❓ 12 запитань</span>
+                <span>🏆 Підрахунок балів</span>
+            </div>
+
+            <div id="questionArea" class="question-area">
+
+                <div class="question-category">
+                    ГОТОВИЙ ПЕРЕВІРИТИ СЕБЕ?
+                </div>
+
+                <div class="question-text">
+                    Натисни кнопку та отримай випадкове запитання!
+                </div>
+
+                <div class="challenge-controls">
+                    <button class="challenge-button"
+                            id="startButton"
+                            type="button"
+                            onclick="startGame()">
+                        Почати перевірку →
+                    </button>
+                </div>
+
+            </div>
+
+            <div id="gameArea" style="display:none;">
+
+                <div class="question-area">
+
+                    <div class="question-category" id="questionCategory"></div>
+
+                    <div class="question-text" id="questionText"></div>
+
+                    <div class="answer-list" id="answerList"></div>
+
+                    <div class="feedback" id="feedback"></div>
+
+                    <div class="challenge-controls">
+                        <button class="challenge-button"
+                                id="nextButton"
+                                type="button"
+                                onclick="nextQuestion()"
+                                disabled>
+                            Наступне завдання →
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="score-line">
+                    <span id="questionCounter">Запитання 1 із 12</span>
+                    <span id="scoreCounter">Правильних відповідей: 0</span>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+            </div>
+
+            <div id="finishArea" class="challenge-finish">
+
+                <div style="font-size:45px;">🏆</div>
+
+                <h3>Перевірку завершено!</h3>
+
+                <p id="finalScore"></p>
+
+                <div class="challenge-controls" style="justify-content:center;">
+                    <button class="challenge-button"
+                            type="button"
+                            onclick="startGame()">
+                        Спробувати ще раз ↻
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ІНФОРМАЦІЯ -->
+
         <section class="info">
 
             <h2>Навчальні матеріали</h2>
@@ -357,6 +698,342 @@ footer {
     </footer>
 
 </div>
+
+<script>
+
+/* БАНК ЗАПИТАНЬ */
+
+const questions = [
+
+    {
+        category: "Аналіз даних та їх візуалізація",
+        question: "Скільки бітів містить один байт?",
+        answers: ["4 біти", "8 бітів", "16 бітів"],
+        correct: 1
+    },
+
+    {
+        category: "Аналіз даних та їх візуалізація",
+        question: "Який тип діаграми найкраще підходить для порівняння кількох категорій?",
+        answers: ["Стовпчаста діаграма", "Текстовий документ", "Звичайний список"],
+        correct: 0
+    },
+
+    {
+        category: "Аналіз даних та їх візуалізація",
+        question: "Яку дію виконують під час фільтрування даних?",
+        answers: [
+            "Видаляють усю таблицю",
+            "Змінюють колір клітинок",
+            "Відображають лише дані, що відповідають певним умовам"
+        ],
+        correct: 2
+    },
+
+    {
+        category: "Аналіз даних та їх візуалізація",
+        question: "Що показує середнє арифметичне набору чисел?",
+        answers: [
+            "Суму всіх чисел",
+            "Суму чисел, поділену на їх кількість",
+            "Найбільше число"
+        ],
+        correct: 1
+    },
+
+    {
+        category: "Інформаційні моделі",
+        question: "Що таке модель?",
+        answers: [
+            "Спрощене подання реального об'єкта, процесу або явища",
+            "Лише комп'ютерна програма",
+            "Обов'язково точна копія об'єкта"
+        ],
+        correct: 0
+    },
+
+    {
+        category: "Інформаційні моделі",
+        question: "Яка з наведених моделей є інформаційною?",
+        answers: [
+            "Макет будинку",
+            "Паперовий літачок",
+            "Креслення будинку"
+        ],
+        correct: 2
+    },
+
+    {
+        category: "Інформаційні моделі",
+        question: "У якій формі можна подати інформаційну модель?",
+        answers: [
+            "Лише у вигляді тексту",
+            "У текстовій, графічній, табличній або математичній формі",
+            "Лише у вигляді фотографії"
+        ],
+        correct: 1
+    },
+
+    {
+        category: "Інформаційні моделі",
+        question: "Що потрібно визначити перед створенням моделі?",
+        answers: [
+            "Мету моделювання",
+            "Колір комп'ютера",
+            "Розмір монітора"
+        ],
+        correct: 0
+    },
+
+    {
+        category: "Комп’ютерне моделювання",
+        question: "Що таке комп'ютерне моделювання?",
+        answers: [
+            "Створення презентацій",
+            "Дослідження об'єктів і процесів за допомогою комп'ютерної моделі",
+            "Перегляд вебсторінок"
+        ],
+        correct: 1
+    },
+
+    {
+        category: "Комп’ютерне моделювання",
+        question: "Що належить до вхідних даних моделі?",
+        answers: [
+            "Початкові значення, які задає користувач",
+            "Лише отриманий результат",
+            "Назва комп'ютерної програми"
+        ],
+        correct: 0
+    },
+
+    {
+        category: "Комп’ютерне моделювання",
+        question: "Для чого використовують формули в табличній моделі?",
+        answers: [
+            "Для оформлення заголовків",
+            "Для зміни кольору таблиці",
+            "Для автоматичного обчислення результатів"
+        ],
+        correct: 2
+    },
+
+    {
+        category: "Комп’ютерне моделювання",
+        question: "Що може відбутися після зміни вхідних даних моделі?",
+        answers: [
+            "Комп'ютер перестане працювати",
+            "Результат моделювання зміниться",
+            "Дані не матимуть жодного впливу"
+        ],
+        correct: 1
+    }
+
+];
+
+/* ЗМІННІ ГРИ */
+
+let gameQuestions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+/* ПЕРЕМІШУВАННЯ ЗАПИТАНЬ */
+
+function shuffleQuestions(array) {
+
+    const shuffled = [...array];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+
+    }
+
+    return shuffled;
+
+}
+
+/* ПОЧАТОК ГРИ */
+
+function startGame() {
+
+    gameQuestions = shuffleQuestions(questions);
+
+    currentQuestion = 0;
+    score = 0;
+    answered = false;
+
+    document.getElementById("questionArea").style.display = "none";
+    document.getElementById("gameArea").style.display = "block";
+    document.getElementById("finishArea").style.display = "none";
+
+    showQuestion();
+
+}
+
+/* ВІДОБРАЖЕННЯ ЗАПИТАННЯ */
+
+function showQuestion() {
+
+    answered = false;
+
+    const question = gameQuestions[currentQuestion];
+
+    document.getElementById("questionCategory").textContent =
+        question.category;
+
+    document.getElementById("questionText").textContent =
+        question.question;
+
+    document.getElementById("questionCounter").textContent =
+        "Запитання " + (currentQuestion + 1) + " із " + gameQuestions.length;
+
+    document.getElementById("scoreCounter").textContent =
+        "Правильних відповідей: " + score;
+
+    document.getElementById("progressBar").style.width =
+        (currentQuestion / gameQuestions.length * 100) + "%";
+
+    const answerList = document.getElementById("answerList");
+
+    answerList.innerHTML = "";
+
+    question.answers.forEach(function(answer, index) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "answer-option";
+        button.textContent = answer;
+
+        button.addEventListener("click", function() {
+            checkAnswer(index);
+        });
+
+        answerList.appendChild(button);
+
+    });
+
+    const feedback = document.getElementById("feedback");
+
+    feedback.className = "feedback";
+    feedback.textContent = "";
+
+    document.getElementById("nextButton").disabled = true;
+
+    document.getElementById("nextButton").textContent =
+        currentQuestion === gameQuestions.length - 1
+        ? "Завершити перевірку ✓"
+        : "Наступне завдання →";
+
+}
+
+/* ПЕРЕВІРКА ВІДПОВІДІ */
+
+function checkAnswer(selectedIndex) {
+
+    if (answered) {
+        return;
+    }
+
+    answered = true;
+
+    const question = gameQuestions[currentQuestion];
+
+    const buttons = document.querySelectorAll(".answer-option");
+
+    buttons.forEach(function(button, index) {
+
+        button.disabled = true;
+
+        if (index === question.correct) {
+            button.classList.add("correct");
+        }
+
+        if (index === selectedIndex && selectedIndex !== question.correct) {
+            button.classList.add("incorrect");
+        }
+
+    });
+
+    const feedback = document.getElementById("feedback");
+
+    if (selectedIndex === question.correct) {
+
+        score++;
+
+        feedback.className = "feedback good";
+        feedback.textContent = "✓ Правильно! Чудова робота!";
+
+    } else {
+
+        feedback.className = "feedback bad";
+        feedback.textContent =
+            "✗ На жаль, неправильна відповідь. Правильний варіант: " +
+            question.answers[question.correct] + ".";
+
+    }
+
+    document.getElementById("scoreCounter").textContent =
+        "Правильних відповідей: " + score;
+
+    document.getElementById("nextButton").disabled = false;
+
+}
+
+/* НАСТУПНЕ ЗАПИТАННЯ */
+
+function nextQuestion() {
+
+    if (!answered) {
+        return;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion >= gameQuestions.length) {
+        finishGame();
+    } else {
+        showQuestion();
+    }
+
+}
+
+/* ЗАВЕРШЕННЯ ГРИ */
+
+function finishGame() {
+
+    document.getElementById("gameArea").style.display = "none";
+
+    const finishArea = document.getElementById("finishArea");
+
+    finishArea.style.display = "block";
+
+    document.getElementById("progressBar").style.width = "100%";
+
+    let message = "";
+
+    if (score === 12) {
+        message = "Неймовірно! Усі відповіді правильні!";
+    } else if (score >= 10) {
+        message = "Чудовий результат! Ви відмінно знаєте матеріал.";
+    } else if (score >= 8) {
+        message = "Дуже добре! Ви добре засвоїли теми.";
+    } else if (score >= 6) {
+        message = "Непогано! Є ще над чим попрацювати.";
+    } else {
+        message = "Радимо повторити навчальні матеріали та спробувати ще раз.";
+    }
+
+    document.getElementById("finalScore").textContent =
+        "Ваш результат: " + score + " із 12. " + message;
+
+}
+
+</script>
 
 </body>
 </html>
