@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -20,9 +19,13 @@
   --danger: #ff7777;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -74,31 +77,6 @@ header p {
   max-width: 700px;
 }
 
-/* Повернення до переліку тем */
-
-.back-navigation {
-  margin: 0 0 22px;
-}
-
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--text);
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  transition: .2s;
-}
-
-.back-link:hover {
-  background: #1d4771;
-  border-color: var(--accent);
-}
-
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -123,6 +101,11 @@ nav a:hover {
   border-color: var(--accent);
 }
 
+nav a.back-link {
+  color: #8ed0ff;
+  border-color: rgba(69,166,255,.35);
+}
+
 section {
   background: rgba(16,36,62,.92);
   border: 1px solid var(--border);
@@ -143,39 +126,12 @@ h3 {
   margin: 24px 0 9px;
 }
 
-p { margin: 10px 0; }
-
-.muted { color: var(--muted); }
-
-.key-term {
-  display: inline;
-  color: #9bd8ff;
-  background: rgba(69,166,255,.15);
-  border: 1px solid rgba(69,166,255,.25);
-  border-radius: 5px;
-  padding: 2px 6px;
-  font-weight: bold;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+p {
+  margin: 10px 0;
 }
 
-.definition {
-  background: linear-gradient(110deg, rgba(69,166,255,.16), rgba(69,166,255,.05));
-  border: 1px solid rgba(69,166,255,.28);
-  border-left: 4px solid var(--accent);
-  border-radius: 10px;
-  padding: 15px 18px;
-  margin: 16px 0;
-}
-
-.key-sentence {
-  display: block;
-  color: #eafff8;
-  background: rgba(56,217,169,.09);
-  border-left: 4px solid var(--green);
-  border-radius: 8px;
-  padding: 12px 15px;
-  margin: 14px 0;
+.muted {
+  color: var(--muted);
 }
 
 .highlight {
@@ -361,6 +317,36 @@ button.secondary {
   border: 1px solid rgba(255,119,119,.3);
 }
 
+/* Практична робота */
+
+.task-box {
+  background: #0a1b30;
+  border: 1px solid rgba(69,166,255,.25);
+  border-radius: 13px;
+  padding: 18px;
+  margin: 18px 0;
+}
+
+.task-box h3 {
+  margin-top: 0;
+}
+
+.task-steps {
+  padding-left: 22px;
+}
+
+.task-steps li {
+  margin: 9px 0;
+}
+
+.task-note {
+  background: rgba(56,217,169,.09);
+  border-left: 4px solid var(--green);
+  padding: 13px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
 footer {
   text-align: center;
   color: var(--muted);
@@ -374,9 +360,17 @@ footer {
 }
 
 @media(max-width:600px) {
-  .container { padding: 12px 10px 35px; }
-  section { padding: 19px 15px; }
-  header { padding: 35px 15px; }
+  .container {
+    padding: 12px 10px 35px;
+  }
+
+  section {
+    padding: 19px 15px;
+  }
+
+  header {
+    padding: 35px 15px;
+  }
 
   .chart-row {
     grid-template-columns: 65px 1fr 30px;
@@ -393,6 +387,7 @@ footer {
 </head>
 
 <body>
+
 <div class="container">
 
 <header>
@@ -404,20 +399,14 @@ footer {
   </p>
 </header>
 
-<!-- ПОВЕРНЕННЯ ДО ТЕМ 10 КЛАСУ -->
-
-<div class="back-navigation">
-  <a href="pilot-10.html" class="back-link">
-    <span>←</span> До тем 10 класу
-  </a>
-</div>
-
 <nav>
+  <a href="pilot-10.html" class="back-link">← До тем 10 класу</a>
   <a href="#analysis">Аналіз даних</a>
   <a href="#visual">Візуалізація</a>
   <a href="#information">Одиниці інформації</a>
   <a href="#code">Довжина коду</a>
-  <a href="#practice">Практика</a>
+  <a href="#practical">Практична робота</a>
+  <a href="#practice">Тест</a>
 </nav>
 
 <!-- АНАЛІЗ ДАНИХ -->
@@ -426,7 +415,7 @@ footer {
   <h2>1. Що таке аналіз даних?</h2>
 
   <p>
-    <strong class="key-term">Дані</strong> — це відомості про об'єкти, явища,
+    <strong>Дані</strong> — це відомості про об'єкти, явища,
     події або процеси, які можна зберігати, опрацьовувати
     та передавати.
   </p>
@@ -438,8 +427,8 @@ footer {
     переглядів відео.
   </p>
 
-  <div class="definition">
-    <strong class="key-term">Аналіз даних</strong> — це процес дослідження
+  <div class="highlight">
+    <strong>Аналіз даних</strong> — це процес дослідження
     інформації для виявлення закономірностей, порівняння
     показників та отримання висновків.
   </div>
@@ -467,10 +456,10 @@ footer {
 
   <h3>Основні способи аналізу</h3>
 
-  <p><strong class="key-term">Порівняння</strong> — зіставлення двох або більше значень.</p>
-  <p><strong class="key-term">Сортування</strong> — упорядкування даних за зростанням або спаданням.</p>
-  <p><strong class="key-term">Фільтрування</strong> — відбір даних, які відповідають певній умові.</p>
-  <p><strong class="key-term">Обчислення</strong> — визначення суми, середнього, найбільшого та найменшого значень.</p>
+  <p><strong>Порівняння</strong> — зіставлення двох або більше значень.</p>
+  <p><strong>Сортування</strong> — упорядкування даних за зростанням або спаданням.</p>
+  <p><strong>Фільтрування</strong> — відбір даних, які відповідають певній умові.</p>
+  <p><strong>Обчислення</strong> — визначення суми, середнього, найбільшого та найменшого значень.</p>
 
   <h3>Приклад набору даних</h3>
 
@@ -536,11 +525,11 @@ footer {
 <section id="visual">
   <h2>2. Візуалізація даних</h2>
 
-  <div class="definition">
-    <strong class="key-term">Візуалізація даних</strong> — це подання інформації
+  <p>
+    <strong>Візуалізація даних</strong> — це подання інформації
     у графічній формі: за допомогою діаграм, графіків,
     схем та інших зображень.
-  </div>
+  </p>
 
   <p>
     Візуалізація допомагає швидше зрозуміти інформацію,
@@ -566,7 +555,9 @@ footer {
 
   <h3>Приклад стовпчастої діаграми</h3>
 
-  <p>Кількість книжок, прочитаних учнями за місяць.</p>
+  <p>
+    Кількість книжок, прочитаних учнями за місяць.
+  </p>
 
   <div class="chart">
     <div class="chart-row">
@@ -591,7 +582,7 @@ footer {
     </div>
   </div>
 
-  <div class="key-sentence">
+  <div class="highlight">
     За діаграмою можна швидко визначити, що Софія прочитала
     найбільше книжок — 10, а Олег найменше — 3.
   </div>
@@ -637,14 +628,14 @@ footer {
   <h3>Біт</h3>
 
   <p>
-    <strong class="key-term">Біт</strong> — найменша одиниця вимірювання
+    <strong>Біт</strong> — найменша одиниця вимірювання
     інформації. Він може набувати одного з двох значень: 0 або 1.
   </p>
 
   <h3>Байт</h3>
 
   <p>
-    <strong class="key-term">Байт</strong> — це група з восьми бітів.
+    <strong>Байт</strong> — це група з восьми бітів.
   </p>
 
   <div class="formula">
@@ -672,7 +663,7 @@ footer {
     <tr><td>1 ТБ</td><td>1024 ГБ</td></tr>
   </table>
 
-  <div class="key-sentence">
+  <div class="highlight">
     У наведених навчальних задачах використовуємо
     двійкові співвідношення: 1 КБ = 1024 байти,
     1 МБ = 1024 КБ.
@@ -701,7 +692,7 @@ footer {
   </p>
 
   <p>
-    <strong class="key-term">Довжина двійкового коду</strong> — це кількість
+    <strong>Довжина двійкового коду</strong> — це кількість
     бітів, використаних для кодування повідомлення.
   </p>
 
@@ -731,11 +722,10 @@ footer {
     <tr><td>8 бітів</td><td>256</td></tr>
   </table>
 
-  <div class="definition">
+  <div class="highlight">
     Щоб визначити найменшу кількість бітів для кодування
     символів алфавіту, потрібно знайти найменше ціле число n,
-    для якого виконується умова <strong class="key-term">2ⁿ ≥ N</strong>,
-    де N — кількість символів.
+    для якого виконується умова 2ⁿ ≥ N, де N — кількість символів.
   </div>
 
   <h3>Приклад 1</h3>
@@ -781,18 +771,96 @@ footer {
     Переведемо у байти:
     2500 : 8 = 312,5 байта.
   </p>
-
-  <div class="key-sentence">
+  <p>
     Отже, код має довжину 2500 бітів,
     або 312,5 байта (якщо рахувати обсяг у байтах,
     потрібно виділити щонайменше 313 цілих байтів).
-  </div>
+  </p>
 </section>
 
-<!-- ПРАКТИКА -->
+<!-- ПРАКТИЧНА РОБОТА -->
+
+<section id="practical">
+  <h2>5. Практична робота</h2>
+
+  <p>
+    <strong>Тема:</strong> Аналіз даних та побудова діаграми.
+  </p>
+
+  <p>
+    <strong>Мета:</strong> навчитися впорядковувати дані,
+    порівнювати показники, будувати діаграму та формулювати висновки.
+  </p>
+
+  <div class="task-box">
+    <h3>Завдання. Як учні добираються до ліцею?</h3>
+
+    <p>
+      Проведено умовне опитування 28 учнів.
+      Результати наведено в таблиці.
+    </p>
+
+    <table>
+      <tr>
+        <th>Спосіб пересування</th>
+        <th>Кількість учнів</th>
+      </tr>
+      <tr><td>Пішки</td><td>8</td></tr>
+      <tr><td>Автобусом</td><td>12</td></tr>
+      <tr><td>Автомобілем</td><td>5</td></tr>
+      <tr><td>Велосипедом</td><td>3</td></tr>
+      <tr><th>Усього</th><th>28</th></tr>
+    </table>
+  </div>
+
+  <h3>Послідовність виконання</h3>
+
+  <ol class="task-steps">
+    <li>
+      Відкрийте табличний процесор (Excel або Google Таблиці).
+    </li>
+    <li>
+      Створіть таблицю за наведеними даними: спосіб пересування
+      та кількість учнів.
+    </li>
+    <li>
+      Перевірте загальну кількість учнів за допомогою обчислення.
+    </li>
+    <li>
+      Побудуйте за даними таблиці стовпчасту діаграму.
+    </li>
+    <li>
+      Додайте до діаграми назву: «Як учні добираються до ліцею».
+    </li>
+    <li>
+      Проаналізуйте діаграму та дайте відповіді на запитання.
+    </li>
+  </ol>
+
+  <h3>Запитання для аналізу</h3>
+
+  <ol class="task-steps">
+    <li>Який спосіб пересування найпопулярніший?</li>
+    <li>Який спосіб пересування обрали найменше учнів?</li>
+    <li>На скільки більше учнів добираються автобусом, ніж автомобілем?</li>
+    <li>Який висновок можна зробити за результатами опитування?</li>
+  </ol>
+
+  <div class="task-note">
+    <strong>Очікуваний результат:</strong>
+    таблиця з даними, побудована діаграма та короткий висновок
+    (2–3 речення).
+  </div>
+
+  <p class="muted">
+    Орієнтовний час виконання: 20 хвилин.
+  </p>
+</section>
+
+<!-- ІНТЕРАКТИВНИЙ ТЕСТ -->
 
 <section id="practice">
-  <h2>5. Перевір себе</h2>
+  <h2>6. Перевір себе</h2>
 
   <p class="muted">
     Виконайте завдання та перевірте свої знання.
