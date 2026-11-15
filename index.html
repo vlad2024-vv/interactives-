@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Інтерактивні навчальні інструменти та вправи.">
+<title>Інтерактивні матеріали</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #eaf2ff;
+    background:
+        radial-gradient(circle at 15% 10%, #15345a 0, transparent 35%),
+        radial-gradient(circle at 85% 85%, #281b52 0, transparent 35%),
+        #071426;
+}
+
+.container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+/* Шапка */
+
+header {
+    text-align: center;
+    padding: 55px 15px 45px;
+}
+
+.logo {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 22px;
+    border-radius: 22px;
+    font-size: 38px;
+    background: linear-gradient(135deg, #2563eb, #7045c5);
+    box-shadow: 0 10px 35px rgba(37, 99, 235, 0.3);
+}
+
+h1 {
+    margin: 0 0 15px;
+    font-size: clamp(28px, 5vw, 42px);
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #aabbd3;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Заголовок розділу */
+
+.section-title {
+    margin: 20px 0 22px;
+    font-size: 21px;
+}
+
+/* Картки */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+    padding: 25px;
+    border: 1px solid #29466c;
+    border-radius: 16px;
+    background: rgba(17, 35, 61, 0.88);
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #5285c7;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+.card-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    font-size: 29px;
+    background: linear-gradient(135deg, #174a82, #392d75);
+}
+
+.card h3 {
+    margin: 0 0 12px;
+    font-size: 21px;
+}
+
+.card p {
+    margin: 0 0 22px;
+    color: #aabbd3;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    padding: 12px 17px;
+    border-radius: 8px;
+    color: white;
+    background: linear-gradient(135deg, #2563eb, #5140a9);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.card a:hover {
+    filter: brightness(1.15);
+}
+
+/* Інформаційний блок */
+
+.info {
+    margin-top: 35px;
+    padding: 22px 25px;
+    border: 1px solid #29466c;
+    border-radius: 14px;
+    background: rgba(12, 29, 52, 0.7);
+}
+
+.info h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.info p {
+    margin: 0;
+    color: #aabbd3;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Підвал */
+
+footer {
+    margin-top: 55px;
+    padding: 20px 10px;
+    border-top: 1px solid #203955;
+    color: #8297b2;
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    header {
+        padding: 40px 5px 35px;
+    }
+
+    .card {
+        min-height: 240px;
+    }
+
+    .info {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">✦</div>
+
+        <h1>Інтерактивні матеріали</h1>
+
+        <div class="subtitle">
+            Навчальні інструменти для практичної роботи,
+            експериментів та інтерактивного навчання.
+        </div>
+    </header>
+
+    <main>
+
+        <h2 class="section-title">Навчальні інструменти</h2>
+
+        <div class="cards">
+
+            <!-- PYTHON ONLINE -->
+
+            <article class="card">
+
+                <div class="card-icon">🐍</div>
+
+                <h3>Python Online</h3>
+
+                <p>
+                    Онлайн-середовище для написання,
+                    редагування та запуску програм мовою Python.
+                    Працюйте з кодом без встановлення додаткових програм.
+                </p>
+
+                <a href="python.html">
+                    Відкрити редактор
+                    <span>→</span>
+                </a>
+
+            </article>
+
+        </div>
+
+        <section class="info">
+            <h2>Про платформу</h2>
+
+            <p>
+                Тут збиратимуться окремі інтерактивні інструменти
+                та навчальні матеріали, створені для практичного
+                використання на уроках.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        © 2026 Кабінет інформатики
+    </footer>
+
+</div>
+
+</body>
+</html>
