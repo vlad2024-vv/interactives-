@@ -1,0 +1,1014 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Інформаційні моделі</title>
+
+<style>
+:root {
+  --bg: #071426;
+  --panel: #10243e;
+  --panel2: #142c49;
+  --text: #edf4ff;
+  --muted: #a9bdd5;
+  --accent: #45a6ff;
+  --green: #38d9a9;
+  --border: rgba(255,255,255,.10);
+  --danger: #ff7777;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(circle at 10% 5%, #12345b 0, transparent 30%),
+    radial-gradient(circle at 90% 30%, #102b4b 0, transparent 28%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 25px 18px 50px;
+}
+
+header {
+  text-align: center;
+  padding: 48px 20px 38px;
+  background: linear-gradient(135deg, #123c69, #10243e);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  margin-bottom: 25px;
+  box-shadow: 0 15px 45px rgba(0,0,0,.25);
+}
+
+header .label {
+  display: inline-block;
+  color: #a8d7ff;
+  background: rgba(69,166,255,.15);
+  border: 1px solid rgba(69,166,255,.3);
+  border-radius: 30px;
+  padding: 5px 15px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+header h1 {
+  font-size: clamp(27px, 5vw, 43px);
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+header p {
+  color: #c3d7ed;
+  margin: 12px auto 0;
+  max-width: 700px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  justify-content: center;
+  margin: 20px 0 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: .2s;
+}
+
+nav a:hover {
+  background: #1d4771;
+  border-color: var(--accent);
+}
+
+nav a.back-link {
+  color: #8ed0ff;
+  border-color: rgba(69,166,255,.35);
+}
+
+section {
+  background: rgba(16,36,62,.92);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px;
+  margin-bottom: 22px;
+}
+
+h2 {
+  color: #8ecaff;
+  font-size: 25px;
+  margin: 0 0 18px;
+}
+
+h3 {
+  color: #b5dcff;
+  font-size: 19px;
+  margin: 24px 0 9px;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.highlight {
+  background: rgba(69,166,255,.10);
+  border-left: 4px solid var(--accent);
+  padding: 14px 17px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.formula {
+  background: #071a30;
+  border: 1px solid rgba(69,166,255,.25);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  font-size: 19px;
+  font-weight: bold;
+  color: #8ed0ff;
+  margin: 14px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #1a3859;
+  color: #b9dcff;
+}
+
+tr:nth-child(even) td {
+  background: rgba(255,255,255,.025);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 13px;
+  margin: 18px 0;
+}
+
+.card {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 17px;
+}
+
+.card strong {
+  color: #8ecaff;
+  display: block;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.example {
+  background: #0a1b30;
+  border: 1px solid rgba(69,166,255,.25);
+  border-radius: 13px;
+  padding: 18px;
+  margin: 18px 0;
+}
+
+.question {
+  background: #10243e;
+  border: 1px solid var(--border);
+  padding: 18px;
+  border-radius: 13px;
+  margin: 15px 0;
+}
+
+.question-title {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.option {
+  display: block;
+  padding: 9px 12px;
+  margin: 7px 0;
+  background: #172f4d;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.option:hover {
+  border-color: var(--accent);
+  background: #1d3b5e;
+}
+
+.option input {
+  margin-right: 8px;
+  accent-color: var(--accent);
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--accent);
+  color: #06172a;
+  transition: .2s;
+  margin-top: 12px;
+}
+
+button:hover {
+  background: #76c0ff;
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: #294563;
+  color: white;
+}
+
+.result {
+  margin-top: 13px;
+  padding: 12px;
+  border-radius: 9px;
+  display: none;
+}
+
+.result.good {
+  display: block;
+  background: rgba(56,217,169,.13);
+  color: var(--green);
+  border: 1px solid rgba(56,217,169,.3);
+}
+
+.result.bad {
+  display: block;
+  background: rgba(255,119,119,.12);
+  color: var(--danger);
+  border: 1px solid rgba(255,119,119,.3);
+}
+
+.task-steps {
+  padding-left: 22px;
+}
+
+.task-steps li {
+  margin: 9px 0;
+}
+
+.task-note {
+  background: rgba(56,217,169,.09);
+  border-left: 4px solid var(--green);
+  padding: 13px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 28px 10px;
+  font-size: 13px;
+}
+
+@media(max-width:600px) {
+  .container {
+    padding: 12px 10px 35px;
+  }
+
+  section {
+    padding: 19px 15px;
+  }
+
+  header {
+    padding: 35px 15px;
+  }
+
+  th, td {
+    padding: 9px 7px;
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div class="label">Інформатика · 10 клас</div>
+  <h1>Інформаційні моделі</h1>
+  <p>
+    Як описувати об'єкти, явища та процеси за допомогою
+    інформації, схем, таблиць і формул.
+  </p>
+</header>
+
+<nav>
+  <a href="pilot-10.html" class="back-link">← До тем 10 класу</a>
+  <a href="#model">Поняття моделі</a>
+  <a href="#types">Види моделей</a>
+  <a href="#forms">Форми подання</a>
+  <a href="#stages">Створення моделі</a>
+  <a href="#practical">Практична робота</a>
+  <a href="#test">Тест</a>
+</nav>
+
+<!-- 1. ПОНЯТТЯ МОДЕЛІ -->
+
+<section id="model">
+  <h2>1. Що таке модель?</h2>
+
+  <p>
+    У реальному житті нас оточують різноманітні об'єкти:
+    будинки, автомобілі, рослини, комп'ютери, люди.
+    Кожен об'єкт має певні властивості та характеристики.
+  </p>
+
+  <p>
+    Іноді потрібно дослідити об'єкт, не використовуючи
+    сам об'єкт безпосередньо. Для цього створюють його модель.
+  </p>
+
+  <div class="highlight">
+    <strong>Модель</strong> — це спрощене подання реального
+    об'єкта, явища або процесу, яке відображає його
+    найважливіші властивості відповідно до мети дослідження.
+  </div>
+
+  <h3>Приклади моделей у повсякденному житті</h3>
+
+  <div class="cards">
+    <div class="card">
+      <strong>Глобус</strong>
+      Модель Землі, яка допомагає вивчати материки, океани та географічні об'єкти.
+    </div>
+
+    <div class="card">
+      <strong>Карта міста</strong>
+      Модель розташування вулиць, будинків і важливих місць.
+    </div>
+
+    <div class="card">
+      <strong>Макет будинку</strong>
+      Модель майбутньої споруди, яка показує її форму та розміри.
+    </div>
+
+    <div class="card">
+      <strong>Розклад уроків</strong>
+      Модель організації навчального процесу в часі.
+    </div>
+  </div>
+
+  <h3>Навіщо створюють моделі?</h3>
+
+  <ul>
+    <li>Щоб краще зрозуміти будову або властивості об'єкта.</li>
+    <li>Щоб дослідити явище або процес.</li>
+    <li>Щоб передбачити можливі результати.</li>
+    <li>Щоб спланувати певну діяльність.</li>
+    <li>Щоб зобразити складну інформацію у зрозумілій формі.</li>
+  </ul>
+
+  <div class="highlight">
+    Модель не обов'язково має повністю відтворювати об'єкт.
+    Вона повинна містити саме ті властивості, які важливі
+    для поставленої мети.
+  </div>
+</section>
+
+<!-- 2. ВИДИ МОДЕЛЕЙ -->
+
+<section id="types">
+  <h2>2. Матеріальні та інформаційні моделі</h2>
+
+  <p>
+    За способом подання моделі поділяють на дві великі групи:
+    матеріальні та інформаційні.
+  </p>
+
+  <h3>Матеріальні моделі</h3>
+
+  <p>
+    <strong>Матеріальні моделі</strong> — це реальні предмети,
+    які відтворюють зовнішній вигляд, будову або окремі
+    властивості інших об'єктів.
+  </p>
+
+  <div class="example">
+    <ul>
+      <li>макет автомобіля;</li>
+      <li>модель літака;</li>
+      <li>глобус;</li>
+      <li>навчальний скелет людини;</li>
+      <li>макет будівлі.</li>
+    </ul>
+  </div>
+
+  <h3>Інформаційні моделі</h3>
+
+  <p>
+    <strong>Інформаційні моделі</strong> — це моделі, які
+    описують об'єкти, явища або процеси за допомогою
+    інформації.
+  </p>
+
+  <p>
+    Вони можуть містити текст, числа, таблиці, малюнки,
+    схеми, графіки та формули.
+  </p>
+
+  <div class="example">
+    <ul>
+      <li>карта маршруту;</li>
+      <li>розклад руху транспорту;</li>
+      <li>таблиця результатів змагань;</li>
+      <li>схема будови комп'ютера;</li>
+      <li>формула обчислення площі прямокутника.</li>
+    </ul>
+  </div>
+
+  <h3>Порівняння моделей</h3>
+
+  <table>
+    <tr>
+      <th>Матеріальна модель</th>
+      <th>Інформаційна модель</th>
+    </tr>
+    <tr>
+      <td>Глобус</td>
+      <td>Географічна карта</td>
+    </tr>
+    <tr>
+      <td>Макет будинку</td>
+      <td>План будинку</td>
+    </tr>
+    <tr>
+      <td>Модель автомобіля</td>
+      <td>Креслення автомобіля</td>
+    </tr>
+    <tr>
+      <td>Навчальний скелет</td>
+      <td>Схема скелета людини</td>
+    </tr>
+  </table>
+
+  <div class="highlight">
+    Головна відмінність: матеріальна модель є предметом,
+    який можна побачити та дослідити фізично, а інформаційна
+    модель подає відомості про об'єкт у певній формі.
+  </div>
+</section>
+
+<!-- 3. ФОРМИ ПОДАННЯ -->
+
+<section id="forms">
+  <h2>3. Форми подання інформаційних моделей</h2>
+
+  <p>
+    Інформаційну модель можна подати різними способами.
+    Вибір форми залежить від того, яку інформацію потрібно
+    передати та для чого вона буде використовуватися.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <strong>Текстова</strong>
+      Опис об'єкта за допомогою слів і речень.
+      <p class="muted">Наприклад: опис маршруту екскурсії.</p>
+    </div>
+
+    <div class="card">
+      <strong>Графічна</strong>
+      Подання інформації за допомогою малюнків, схем, карт і креслень.
+      <p class="muted">Наприклад: схема будови комп'ютера.</p>
+    </div>
+
+    <div class="card">
+      <strong>Таблична</strong>
+      Розміщення даних у рядках і стовпцях.
+      <p class="muted">Наприклад: розклад уроків.</p>
+    </div>
+
+    <div class="card">
+      <strong>Математична</strong>
+      Опис об'єкта або процесу за допомогою чисел, формул і залежностей.
+      <p class="muted">Наприклад: S = a × b.</p>
+    </div>
+  </div>
+
+  <h3>Приклад текстової моделі</h3>
+
+  <div class="example">
+    Шкільна бібліотека працює з понеділка до п'ятниці
+    з 9:00 до 16:00. Учні можуть брати книжки додому
+    та повертати їх протягом двох тижнів.
+  </div>
+
+  <h3>Приклад графічної моделі</h3>
+
+  <div class="example">
+    <p><strong>Схема руху учня до ліцею:</strong></p>
+
+    <div class="formula">
+      Дім → Зупинка → Ліцей
+    </div>
+  </div>
+
+  <h3>Приклад табличної моделі</h3>
+
+  <table>
+    <tr>
+      <th>День</th>
+      <th>Перший урок</th>
+      <th>Другий урок</th>
+    </tr>
+    <tr>
+      <td>Понеділок</td>
+      <td>Інформатика</td>
+      <td>Математика</td>
+    </tr>
+    <tr>
+      <td>Вівторок</td>
+      <td>Історія</td>
+      <td>Українська мова</td>
+    </tr>
+    <tr>
+      <td>Середа</td>
+      <td>Фізика</td>
+      <td>Інформатика</td>
+    </tr>
+  </table>
+
+  <h3>Приклад математичної моделі</h3>
+
+  <p>
+    Потрібно обчислити площу прямокутної кімнати.
+    Для цього використовують довжину та ширину.
+  </p>
+
+  <div class="formula">
+    S = a × b
+  </div>
+
+  <p>
+    Якщо довжина кімнати 5 м, а ширина 4 м,
+    то її площа дорівнює:
+  </p>
+
+  <div class="formula">
+    S = 5 × 4 = 20 м²
+  </div>
+
+  <div class="highlight">
+    Один об'єкт можна подати кількома інформаційними моделями.
+    Наприклад, маршрут можна описати словами, показати на карті
+    або подати у вигляді таблиці.
+  </div>
+</section>
+
+<!-- 4. СТВОРЕННЯ МОДЕЛІ -->
+
+<section id="stages">
+  <h2>4. Як створити інформаційну модель?</h2>
+
+  <p>
+    Перш ніж створювати модель, потрібно визначити,
+    що саме ми хочемо дослідити або описати.
+  </p>
+
+  <h3>Основні етапи створення моделі</h3>
+
+  <div class="cards">
+    <div class="card">
+      <strong>1. Визначення мети</strong>
+      Для чого потрібна модель? Яке завдання вона має допомогти виконати?
+    </div>
+
+    <div class="card">
+      <strong>2. Вибір об'єкта</strong>
+      Що саме будемо описувати або досліджувати?
+    </div>
+
+    <div class="card">
+      <strong>3. Визначення властивостей</strong>
+      Які характеристики об'єкта важливі для нашої мети?
+    </div>
+
+    <div class="card">
+      <strong>4. Вибір форми</strong>
+      Як краще подати інформацію: текстом, таблицею, схемою чи формулою?
+    </div>
+
+    <div class="card">
+      <strong>5. Створення моделі</strong>
+      Подання зібраної інформації у вибраній формі.
+    </div>
+
+    <div class="card">
+      <strong>6. Перевірка</strong>
+      Чи відповідає створена модель поставленій меті?
+    </div>
+  </div>
+
+  <h3>Що таке властивості об'єкта?</h3>
+
+  <p>
+    Кожен об'єкт має характеристики, за якими його можна
+    описати. Наприклад, для автомобіля це марка, колір,
+    рік випуску, швидкість та кількість місць.
+  </p>
+
+  <table>
+    <tr>
+      <th>Об'єкт</th>
+      <th>Можливі властивості</th>
+    </tr>
+    <tr>
+      <td>Автомобіль</td>
+      <td>Марка, колір, швидкість, рік випуску</td>
+    </tr>
+    <tr>
+      <td>Книжка</td>
+      <td>Назва, автор, рік видання, кількість сторінок</td>
+    </tr>
+    <tr>
+      <td>Комп'ютер</td>
+      <td>Процесор, оперативна пам'ять, накопичувач</td>
+    </tr>
+    <tr>
+      <td>Учень</td>
+      <td>Ім'я, клас, дата народження</td>
+    </tr>
+  </table>
+
+  <div class="highlight">
+    Важливо: для створення моделі потрібно обирати лише ті
+    властивості, які мають значення для поставленої мети.
+    Наприклад, для розкладу уроків важливі день, час і назва
+    предмета, але не колір очей учителя.
+  </div>
+</section>
+
+<!-- 5. ПРАКТИЧНА РОБОТА -->
+
+<section id="practical">
+  <h2>5. Практична робота</h2>
+
+  <p><strong>Тема:</strong> Створення інформаційної моделі шкільного заходу.</p>
+
+  <p>
+    <strong>Мета:</strong> навчитися визначати об'єкт моделювання,
+    обирати його важливі властивості та подавати інформацію у вигляді таблиці.
+  </p>
+
+  <div class="example">
+    <h3>Завдання. Організація шкільної екскурсії</h3>
+
+    <p>
+      Уявіть, що клас планує екскурсію до музею.
+      Потрібно створити інформаційну модель, яка допоможе
+      учням зрозуміти основні умови поїздки.
+    </p>
+
+    <p>
+      Відомі такі дані:
+    </p>
+
+    <table>
+      <tr>
+        <th>Характеристика</th>
+        <th>Значення</th>
+      </tr>
+      <tr>
+        <td>Місце призначення</td>
+        <td>Музей</td>
+      </tr>
+      <tr>
+        <td>Дата</td>
+        <td>20 листопада</td>
+      </tr>
+      <tr>
+        <td>Час виїзду</td>
+        <td>09:00</td>
+      </tr>
+      <tr>
+        <td>Час повернення</td>
+        <td>14:00</td>
+      </tr>
+      <tr>
+        <td>Кількість учасників</td>
+        <td>25 учнів</td>
+      </tr>
+      <tr>
+        <td>Транспорт</td>
+        <td>Автобус</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>Послідовність виконання</h3>
+
+  <ol class="task-steps">
+    <li>
+      Відкрийте текстовий редактор або табличний процесор.
+    </li>
+    <li>
+      Створіть таблицю з двома стовпцями:
+      «Характеристика» та «Значення».
+    </li>
+    <li>
+      Внесіть у таблицю всі наведені дані про екскурсію.
+    </li>
+    <li>
+      Додайте назву таблиці: «Інформаційна модель шкільної екскурсії».
+    </li>
+    <li>
+      Оформіть таблицю: виділіть заголовки та вирівняйте текст.
+    </li>
+    <li>
+      Перевірте, чи містить модель усю інформацію,
+      необхідну для організації поїздки.
+    </li>
+  </ol>
+
+  <h3>Запитання для аналізу</h3>
+
+  <ol class="task-steps">
+    <li>Що є об'єктом моделювання в цій роботі?</li>
+    <li>Які властивості екскурсії відображено в таблиці?</li>
+    <li>До якого виду належить створена модель?</li>
+    <li>Яку ще інформацію можна було б додати до цієї моделі?</li>
+  </ol>
+
+  <div class="task-note">
+    <strong>Очікуваний результат:</strong>
+    створена таблиця з характеристиками екскурсії та короткі
+    відповіді на запитання.
+  </div>
+
+  <p class="muted">
+    Орієнтовний час виконання: 20 хвилин.
+  </p>
+</section>
+
+<!-- 6. ІНТЕРАКТИВНИЙ ТЕСТ -->
+
+<section id="test">
+  <h2>6. Перевір себе</h2>
+
+  <p class="muted">
+    Оберіть одну правильну відповідь у кожному запитанні.
+    Після завершення натисніть кнопку перевірки.
+  </p>
+
+  <div id="questions"></div>
+
+  <button onclick="checkAnswers()">Перевірити відповіді</button>
+  <button class="secondary" onclick="resetTest()">Почати спочатку</button>
+
+  <div id="totalResult" class="result"></div>
+</section>
+
+<footer>
+  Кабінет інформатики · Ліцей імені Олександра Цинкаловського
+  <br>
+  Навчальні матеріали · 2026
+</footer>
+
+</div>
+
+<script>
+const questions = [
+  {
+    q: "1. Що називають моделлю?",
+    options: [
+      "Точну копію будь-якого об'єкта",
+      "Спрощене подання об'єкта, явища або процесу",
+      "Лише комп'ютерну програму"
+    ],
+    answer: 1,
+    explanation: "Модель відображає важливі властивості об'єкта відповідно до мети."
+  },
+  {
+    q: "2. Яка з наведених моделей є матеріальною?",
+    options: [
+      "Географічна карта",
+      "Розклад уроків",
+      "Глобус"
+    ],
+    answer: 2,
+    explanation: "Глобус — це матеріальна модель Землі."
+  },
+  {
+    q: "3. Що таке інформаційна модель?",
+    options: [
+      "Модель, подана за допомогою інформації",
+      "Будь-який реальний предмет",
+      "Лише зображення на екрані"
+    ],
+    answer: 0,
+    explanation: "Інформаційна модель описує об'єкт за допомогою тексту, чисел, схем та інших даних."
+  },
+  {
+    q: "4. Яка модель подає дані у рядках і стовпцях?",
+    options: [
+      "Графічна",
+      "Таблична",
+      "Матеріальна"
+    ],
+    answer: 1,
+    explanation: "Таблична модель організовує дані у рядках і стовпцях."
+  },
+  {
+    q: "5. Який приклад є математичною моделлю?",
+    options: [
+      "S = a × b",
+      "Фотографія будинку",
+      "Розклад уроків"
+    ],
+    answer: 0,
+    explanation: "Формула S = a × b описує залежність площі прямокутника від його сторін."
+  },
+  {
+    q: "6. Для чого створюють моделі?",
+    options: [
+      "Лише для прикрашання документів",
+      "Щоб досліджувати об'єкти та явища",
+      "Щоб замінити всі реальні об'єкти"
+    ],
+    answer: 1,
+    explanation: "Моделі допомагають досліджувати, пояснювати та описувати об'єкти."
+  },
+  {
+    q: "7. Яку форму моделі доцільно використати для подання маршруту на схемі?",
+    options: [
+      "Графічну",
+      "Табличну",
+      "Математичну"
+    ],
+    answer: 0,
+    explanation: "Схема маршруту є графічною моделлю."
+  },
+  {
+    q: "8. Що потрібно визначити перед створенням моделі?",
+    options: [
+      "Колір оформлення",
+      "Мету моделювання",
+      "Розмір шрифту"
+    ],
+    answer: 1,
+    explanation: "Спочатку потрібно зрозуміти, для чого створюється модель."
+  },
+  {
+    q: "9. Які властивості потрібно включати до моделі?",
+    options: [
+      "Усі можливі властивості об'єкта",
+      "Лише випадкові характеристики",
+      "Ті, що важливі для поставленої мети"
+    ],
+    answer: 2,
+    explanation: "Модель має відображати властивості, важливі саме для конкретного завдання."
+  },
+  {
+    q: "10. До якого виду належить розклад уроків?",
+    options: [
+      "Матеріальна модель",
+      "Таблична інформаційна модель",
+      "Математична модель"
+    ],
+    answer: 1,
+    explanation: "Розклад подає інформацію у вигляді таблиці."
+  }
+];
+
+const questionsBox = document.getElementById("questions");
+
+function renderQuestions() {
+  questionsBox.innerHTML = "";
+
+  questions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+
+    const title = document.createElement("div");
+    title.className = "question-title";
+    title.textContent = q.q;
+    div.appendChild(title);
+
+    q.options.forEach((option, i) => {
+      const label = document.createElement("label");
+      label.className = "option";
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "question" + index;
+      input.value = i;
+
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(option));
+      div.appendChild(label);
+    });
+
+    const result = document.createElement("div");
+    result.className = "result";
+    result.id = "result" + index;
+    div.appendChild(result);
+
+    questionsBox.appendChild(div);
+  });
+}
+
+function checkAnswers() {
+  let score = 0;
+
+  questions.forEach((q, index) => {
+    const selected = document.querySelector(
+      'input[name="question' + index + '"]:checked'
+    );
+
+    const userAnswer = selected ? Number(selected.value) : null;
+    const correct = userAnswer === q.answer;
+    const result = document.getElementById("result" + index);
+
+    if (correct) {
+      score++;
+      result.className = "result good";
+      result.textContent = "Правильно! " + q.explanation;
+    } else {
+      result.className = "result bad";
+
+      result.textContent =
+        (userAnswer === null ? "Ви не дали відповіді. " : "Неправильно. ") +
+        "Правильна відповідь: " + q.options[q.answer] +
+        ". " + q.explanation;
+    }
+  });
+
+  const total = document.getElementById("totalResult");
+  total.className = score >= 7 ? "result good" : "result bad";
+  total.textContent =
+    "Ваш результат: " + score + " із " + questions.length +
+    " правильних відповідей.";
+
+  total.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+function resetTest() {
+  renderQuestions();
+
+  const total = document.getElementById("totalResult");
+  total.className = "result";
+  total.textContent = "";
+
+  document.getElementById("test").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+renderQuestions();
+</script>
+
+</body>
+</html>
