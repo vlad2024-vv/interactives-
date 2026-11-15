@@ -1,1 +1,1419 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Онлайн-середовище для написання та запуску програм Python.">
+<title>Python Online — Кабінет інформатики</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 25px 15px;
+    font-family: Arial, sans-serif;
+    color: #eaf2ff;
+    background:
+        radial-gradient(circle at 15% 10%, #15345a 0, transparent 35%),
+        radial-gradient(circle at 85% 85%, #281b52 0, transparent 35%),
+        #071426;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+header a {
+    color: #8bbcff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+h1 {
+    margin: 18px 0 8px;
+    font-size: 32px;
+}
+
+.subtitle {
+    color: #aabbd3;
+    font-size: 15px;
+}
+
+.panel {
+    background: rgba(17, 35, 61, 0.94);
+    border: 1px solid #29466c;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.panel h2 {
+    margin: 0 0 15px;
+    font-size: 19px;
+}
+
+.toolbar,
+.example-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 17px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.run-button {
+    background: linear-gradient(135deg, #16a36a, #087d54);
+    color: white;
+}
+
+.clear-button,
+.console-button,
+.input-clear-button {
+    background: #334b6b;
+    color: white;
+}
+
+.input-clear-button {
+    background: #8b3d4b;
+    color: white;
+}
+
+.input-clear-button:hover {
+    background: #a84858;
+}
+
+.download-button {
+    background: #315ca3;
+    color: white;
+}
+
+.example-button {
+    background: linear-gradient(135deg, #e6a832, #bd7414);
+    color: #172033;
+}
+
+select {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px;
+    color: #eaf2ff;
+    background: #102641;
+    border: 1px solid #456386;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Розташування робочих вікон */
+
+.workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.9fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.workspace-main,
+.workspace-side {
+    min-width: 0;
+}
+
+.workspace .panel {
+    margin-bottom: 0;
+}
+
+.workspace-side {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Редактор */
+
+.CodeMirror {
+    height: 520px;
+    font-size: 15px;
+    line-height: 1.55;
+    border-radius: 8px;
+    border: 1px solid #395575;
+}
+
+/* Підказки */
+
+.hint {
+    color: #aabbd3;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+/* Вхідні дані */
+
+.input-data {
+    width: 100%;
+    min-height: 145px;
+    resize: vertical;
+    padding: 12px;
+    color: #eaf2ff;
+    background: #071426;
+    border: 1px solid #395575;
+    border-radius: 8px;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+}
+
+/* Консоль */
+
+.console {
+    min-height: 260px;
+    max-height: 420px;
+    overflow: auto;
+    padding: 15px;
+    color: #b9f6ca;
+    background: #050d18;
+    border: 1px solid #29466c;
+    border-radius: 8px;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.status {
+    margin-top: 12px;
+    color: #9db6d5;
+    font-size: 13px;
+}
+
+footer {
+    text-align: center;
+    color: #8297b2;
+    font-size: 13px;
+    padding: 15px 0;
+}
+
+/* Планшети */
+
+@media (max-width: 900px) {
+    .workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .workspace-side {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+}
+
+/* Телефони */
+
+@media (max-width: 650px) {
+    body {
+        padding: 18px 10px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .panel {
+        padding: 14px;
+    }
+
+    .workspace-side {
+        display: flex;
+    }
+
+    .CodeMirror {
+        height: 360px;
+        font-size: 13px;
+    }
+
+    button {
+        flex: 1;
+    }
+
+    .toolbar button {
+        min-width: 135px;
+    }
+
+    .console {
+        min-height: 190px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <a href="https://lyceum-inf.page.gd/">← Кабінет інформатики</a>
+    <h1>🐍 Python Online</h1>
+    <div class="subtitle">
+        Онлайн-середовище для написання та запуску програм Python
+    </div>
+</header>
+
+<!-- БІБЛІОТЕКА ПРИКЛАДІВ -->
+
+<section class="panel">
+    <h2>📚 Бібліотека прикладів Python</h2>
+
+    <div class="example-row">
+        <select id="categorySelect">
+            <option value="">Оберіть категорію...</option>
+        </select>
+
+        <select id="exampleSelect" disabled>
+            <option value="">Спочатку оберіть категорію...</option>
+        </select>
+    </div>
+
+    <div class="toolbar">
+        <button class="example-button" id="loadExampleButton">
+            📥 Завантажити приклад
+        </button>
+    </div>
+
+    <div class="hint" id="exampleDescription">
+        Оберіть категорію, а потім потрібний приклад.
+        Код з'явиться в редакторі після натискання кнопки.
+    </div>
+</section>
+
+<!-- РОБОЧА ОБЛАСТЬ -->
+
+<div class="workspace">
+
+    <!-- ЛІВА ЧАСТИНА: РЕДАКТОР -->
+
+    <div class="workspace-main">
+
+        <section class="panel">
+            <h2>💻 Редактор Python</h2>
+
+            <div class="toolbar">
+                <button class="run-button" id="runButton" disabled>
+                    ▶ Запустити програму
+                </button>
+
+                <button class="clear-button" id="clearCodeButton">
+                    🗑 Очистити код
+                </button>
+
+                <button class="download-button" id="downloadButton">
+                    ⬇ Завантажити .py
+                </button>
+            </div>
+
+            <textarea id="codeEditor"># Моя перша програма Python
+
+ім_я = input("Як тебе звати? ")
+
+print("Привіт,", ім_я)
+print("Вітаю у Python Online!")</textarea>
+
+            <div class="hint">
+                <strong>Швидкі клавіші:</strong>
+                Ctrl + Enter — запустити програму;
+                Ctrl + Пробіл — відкрити підказки коду;
+                Tab або Enter — вставити вибрану підказку.
+                Почніть вводити команду або назву змінної — редактор запропонує варіанти.
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ПРАВА ЧАСТИНА: ВВЕДЕННЯ ТА РЕЗУЛЬТАТ -->
+
+    <div class="workspace-side">
+
+        <section class="panel">
+            <h2>⌨ Вхідні дані</h2>
+
+            <textarea
+                class="input-data"
+                id="inputData"
+                placeholder="Введіть дані для input(). Кожне значення з нового рядка."
+            ></textarea>
+
+            <div class="toolbar" style="margin-top: 10px; margin-bottom: 0;">
+                <button class="input-clear-button" id="clearInputButton" type="button">
+                    🧹 Очистити вхідні дані
+                </button>
+            </div>
+
+            <div class="hint">
+                Якщо програма використовує input(), введіть потрібні значення тут.
+                Кожне значення має бути з нового рядка. Після запуску поле очищується автоматично.
+                Для швидкого очищення натисніть Ctrl + Backspace.
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>🖥 Результат виконання</h2>
+
+            <div class="toolbar">
+                <button class="console-button" id="clearConsoleButton">
+                    Очистити консоль
+                </button>
+            </div>
+
+            <div class="console" id="console">Очікування запуску програми...</div>
+
+            <div class="status" id="status">
+                Завантаження Python...
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+<footer>© 2026 Кабінет інформатики</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.29.5/full/pyodide.js"></script>
+
+<script>
+
+// ==================================================
+// 1. БІБЛІОТЕКА ПРИКЛАДІВ
+// ==================================================
+
+const categories = [
+
+{
+    name: "Основи Python",
+    examples: [
+        {
+            name: "Виведення тексту",
+            description: "Команда print() виводить інформацію на екран.",
+            code: `# Виведення тексту
+
+print("Привіт!")
+print("Я вивчаю Python")
+
+print("Моя перша програма")`
+        },
+        {
+            name: "Коментарі в програмі",
+            description: "Коментарі допомагають пояснювати код.",
+            code: `# Це коментар
+
+print("Привіт!")
+
+# Цей рядок пояснює наступну команду
+print("Вивчаємо Python")`
+        },
+        {
+            name: "Змінні",
+            description: "Змінні використовуються для збереження значень.",
+            code: `# Створюємо змінні
+
+ім_я = "Олена"
+вік = 15
+
+print("Ім'я:", ім_я)
+print("Вік:", вік)`
+        },
+        {
+            name: "Типи даних",
+            description: "Приклади цілих, дійсних і текстових значень.",
+            code: `# Різні типи даних
+
+число = 15
+дійсне_число = 3.14
+текст = "Python"
+
+print(type(число))
+print(type(дійсне_число))
+print(type(текст))`
+        }
+    ]
+},
+
+{
+    name: "Введення та виведення даних",
+    examples: [
+        {
+            name: "Введення тексту",
+            description: "Отримання текстового значення за допомогою input().",
+            code: `# Введення імені
+
+ім_я = input("Як тебе звати? ")
+
+print("Привіт,", ім_я)`
+        },
+        {
+            name: "Введення цілого числа",
+            description: "Перетворення введеного тексту на ціле число.",
+            code: `# Введення віку
+
+вік = int(input("Скільки тобі років? "))
+
+print("Наступного року тобі буде", вік + 1)`
+        },
+        {
+            name: "Введення дійсного числа",
+            description: "Використання float() для введення дробового числа.",
+            code: `# Введення дійсного числа
+
+число = float(input("Введіть число: "))
+
+print("Ваше число:", число)
+print("Подвоєне значення:", число * 2)`
+        },
+        {
+            name: "Два числа в різних рядках",
+            description: "Кожне число вводиться окремою командою input().",
+            code: `# Два числа в різних рядках
+
+a = int(input())
+b = int(input())
+
+print("Сума:", a + b)`
+        }
+    ]
+},
+
+{
+    name: "split() і map()",
+    examples: [
+        {
+            name: "Два числа через пробіл",
+            description: "map(int, input().split()) отримує два цілі числа з одного рядка.",
+            code: `# Введення двох чисел через пробіл
+
+a, b = map(int, input().split())
+
+print("Сума:", a + b)`
+        },
+        {
+            name: "Три числа через пробіл",
+            description: "Розподілення трьох значень між змінними.",
+            code: `# Введення трьох чисел
+
+a, b, c = map(int, input().split())
+
+print("Сума:", a + b + c)`
+        },
+        {
+            name: "Кілька чисел у список",
+            description: "list() створює список із результату map().",
+            code: `# Введення кількох чисел
+
+числа = list(map(int, input().split()))
+
+print("Список:", числа)
+print("Сума:", sum(числа))`
+        },
+        {
+            name: "Текст через split()",
+            description: "Метод split() розділяє рядок на окремі слова.",
+            code: `# Введення кількох слів
+
+рядок = input()
+
+слова = рядок.split()
+
+print("Список слів:", слова)
+print("Кількість слів:", len(слова))`
+        }
+    ]
+},
+
+{
+    name: "Арифметичні операції",
+    examples: [
+        {
+            name: "Основні арифметичні дії",
+            description: "Додавання, віднімання, множення та ділення.",
+            code: `# Основні арифметичні операції
+
+a = 20
+b = 6
+
+print("Додавання:", a + b)
+print("Віднімання:", a - b)
+print("Множення:", a * b)
+print("Ділення:", a / b)`
+        },
+        {
+            name: "Цілочисельне ділення",
+            description: "Оператор // відкидає дробову частину результату ділення.",
+            code: `# Цілочисельне ділення
+
+a = 17
+b = 5
+
+print(a // b)`
+        },
+        {
+            name: "Остача від ділення",
+            description: "Оператор % знаходить остачу від ділення.",
+            code: `# Знаходження остачі
+
+число = 17
+
+print("Остача від ділення на 5:", число % 5)`
+        },
+        {
+            name: "Степінь числа",
+            description: "Оператор ** підносить число до степеня.",
+            code: `# Піднесення до степеня
+
+число = 3
+степінь = 4
+
+результат = число ** степінь
+
+print("Результат:", результат)`
+        }
+    ]
+},
+
+{
+    name: "Умовні оператори",
+    examples: [
+        {
+            name: "Перевірка додатного числа",
+            description: "Використання if, elif та else.",
+            code: `# Перевірка числа
+
+число = int(input())
+
+if число > 0:
+    print("Додатне число")
+elif число < 0:
+    print("Від'ємне число")
+else:
+    print("Нуль")`
+        },
+        {
+            name: "Парне чи непарне",
+            description: "Перевірка остачі від ділення на 2.",
+            code: `# Перевірка парності
+
+число = int(input())
+
+if число % 2 == 0:
+    print("Парне")
+else:
+    print("Непарне")`
+        },
+        {
+            name: "Більше з двох чисел",
+            description: "Порівняння двох чисел.",
+            code: `# Пошук більшого числа
+
+a, b = map(int, input().split())
+
+if a > b:
+    print(a)
+elif b > a:
+    print(b)
+else:
+    print("Числа рівні")`
+        },
+        {
+            name: "Логічні оператори",
+            description: "Використання and, or та порівнянь.",
+            code: `# Перевірка діапазону
+
+число = int(input())
+
+if число >= 1 and число <= 100:
+    print("Число належить діапазону")
+else:
+    print("Число поза діапазоном")`
+        }
+    ]
+},
+
+{
+    name: "Розгалуження: життєві ситуації",
+    examples: [
+        {
+            name: "Перевірка повноліття",
+            description: "Якщо вік не менший за 18 років, програма повідомляє про повноліття.",
+            code: `# Перевірка повноліття
+
+вік = int(input("Скільки вам років? "))
+
+if вік >= 18:
+    print("Ви повнолітні")`
+        },
+        {
+            name: "Потрібна парасоля?",
+            description: "Програма обирає повідомлення залежно від відповіді про дощ.",
+            code: `# Чи потрібна парасоля?
+
+дощ = input("На вулиці дощ? (так/ні) ")
+
+if дощ == "так":
+    print("Візьміть парасолю")
+else:
+    print("Парасоля не потрібна")`
+        },
+        {
+            name: "Оцінка за результатом",
+            description: "Визначення рівня результату за кількістю набраних балів.",
+            code: `# Визначення результату
+
+бали = int(input("Скільки балів набрано? "))
+
+if бали >= 90:
+    print("Відмінно")
+elif бали >= 70:
+    print("Добре")
+elif бали >= 50:
+    print("Задовільно")
+else:
+    print("Потрібно попрацювати")`
+        },
+        {
+            name: "Перевірка температури",
+            description: "Програма визначає, чи холодно, комфортно або спекотно. Окремо перевіряє межі введення.",
+            code: `# Оцінювання температури
+
+температура = int(input("Введіть температуру: "))
+
+if температура < -50:
+    print("Перевірте введені дані")
+elif температура < 10:
+    print("Холодно")
+elif температура <= 25:
+    print("Комфортно")
+elif температура <= 60:
+    print("Спекотно")
+else:
+    print("Перевірте введені дані")`
+        },
+        {
+            name: "Квиток у кіно",
+            description: "Вкладені умови: спочатку перевіряється вік, а потім наявність учнівського квитка.",
+            code: `# Визначення вартості квитка
+
+вік = int(input("Введіть вік: "))
+учнівський = input("Є учнівський квиток? (так/ні) ")
+
+if вік < 18:
+    if учнівський == "так":
+        print("Пільговий квиток")
+    else:
+        print("Дитячий квиток")
+else:
+    print("Дорослий квиток")`
+        },
+        {
+            name: "Порівняння двох цін",
+            description: "Порівняння вартості двох товарів із повідомленням, якщо ціни однакові.",
+            code: `# Порівняння цін
+
+ціна_1, ціна_2 = map(int, input("Введіть дві ціни через пробіл: ").split())
+
+if ціна_1 < ціна_2:
+    print("Перший товар дешевший")
+elif ціна_2 < ціна_1:
+    print("Другий товар дешевший")
+else:
+    print("Ціни однакові")`
+        }
+    ]
+},
+
+{
+    name: "Цикли",
+    examples: [
+        {
+            name: "Цикл for",
+            description: "Повторення команд за допомогою for.",
+            code: `# Виведення чисел від 1 до 5
+
+for число in range(1, 6):
+    print(число)`
+        },
+        {
+            name: "Цикл while",
+            description: "Повторення команд, поки умова істинна.",
+            code: `# Виведення чисел від 1 до 5
+
+число = 1
+
+while число <= 5:
+    print(число)
+    число = число + 1`
+        },
+        {
+            name: "Сума чисел від 1 до N",
+            description: "Обчислення суми за допомогою циклу.",
+            code: `# Знаходимо суму чисел від 1 до N
+
+n = int(input())
+
+сума = 0
+
+for число in range(1, n + 1):
+    сума = сума + число
+
+print(сума)`
+        },
+        {
+            name: "Таблиця множення",
+            description: "Використання циклу для створення таблиці множення.",
+            code: `# Таблиця множення
+
+число = int(input())
+
+for множник in range(1, 11):
+    print(число, "*", множник, "=", число * множник)`
+        }
+    ]
+},
+
+{
+    name: "Рядки",
+    examples: [
+        {
+            name: "Довжина рядка",
+            description: "Функція len() визначає кількість символів.",
+            code: `# Довжина рядка
+
+текст = input()
+
+print("Кількість символів:", len(текст))`
+        },
+        {
+            name: "Звернення до символів",
+            description: "Отримання символів за їх індексами.",
+            code: `# Індекси символів у рядку
+
+текст = "Python"
+
+print(текст[0])
+print(текст[1])
+print(текст[2])`
+        },
+        {
+            name: "Перебір символів",
+            description: "Перегляд усіх символів рядка за допомогою циклу.",
+            code: `# Перебір символів
+
+текст = input()
+
+for символ in текст:
+    print(символ)`
+        },
+        {
+            name: "Зріз рядка",
+            description: "Отримання частини рядка за допомогою зрізу.",
+            code: `# Зріз рядка
+
+текст = "Інформатика"
+
+print("Перші 5 символів:", текст[0:5])
+print("Від третього символу:", текст[2:])`
+        }
+    ]
+},
+
+{
+    name: "Списки",
+    examples: [
+        {
+            name: "Створення списку",
+            description: "Створення списку та звернення до його елементів.",
+            code: `# Створення списку
+
+оцінки = [10, 11, 9, 12, 8]
+
+print(оцінки)
+print("Перший елемент:", оцінки[0])
+print("Останній елемент:", оцінки[-1])`
+        },
+        {
+            name: "Додавання елемента",
+            description: "Метод append() додає новий елемент до списку.",
+            code: `# Додавання елементів до списку
+
+числа = [2, 4, 6]
+
+числа.append(8)
+числа.append(10)
+
+print(числа)`
+        },
+        {
+            name: "Сума та середнє значення",
+            description: "Використання sum() та len().",
+            code: `# Обчислення середнього значення
+
+числа = [5, 10, 15, 20]
+
+сума = sum(числа)
+середнє = сума / len(числа)
+
+print("Сума:", сума)
+print("Середнє:", середнє)`
+        },
+        {
+            name: "Найбільше та найменше число",
+            description: "Використання функцій max() та min().",
+            code: `# Пошук найбільшого і найменшого
+
+числа = [12, 5, 18, 3, 9]
+
+print("Найбільше:", max(числа))
+print("Найменше:", min(числа))`
+        }
+    ]
+},
+
+{
+    name: "Функції",
+    examples: [
+        {
+            name: "Створення функції",
+            description: "Оголошення функції за допомогою def.",
+            code: `# Створення функції
+
+def привітання():
+    print("Привіт!")
+    print("Вивчаємо Python")
+
+привітання()`
+        },
+        {
+            name: "Функція з параметром",
+            description: "Передавання значення у функцію.",
+            code: `# Функція з параметром
+
+def привітання(ім_я):
+    print("Привіт,", ім_я)
+
+привітання("Олена")
+привітання("Андрій")`
+        },
+        {
+            name: "Функція з return",
+            description: "Повернення результату з функції.",
+            code: `# Функція повертає суму
+
+def додати(a, b):
+    результат = a + b
+    return результат
+
+сума = додати(10, 20)
+
+print("Сума:", сума)`
+        },
+        {
+            name: "Функція для перевірки парності",
+            description: "Створення функції, яка повертає True або False.",
+            code: `# Перевірка парності числа
+
+def парне(число):
+    if число % 2 == 0:
+        return True
+    else:
+        return False
+
+число = int(input())
+
+print(парне(число))`
+        }
+    ]
+},
+
+{
+    name: "Алгоритмічні приклади",
+    examples: [
+        {
+            name: "Сума цифр числа",
+            description: "Знаходження суми цифр за допомогою ділення та остачі.",
+            code: `# Сума цифр числа
+
+число = int(input())
+
+сума = 0
+
+while число > 0:
+    цифра = число % 10
+    сума = сума + цифра
+    число = число // 10
+
+print(сума)`
+        },
+        {
+            name: "Кількість цифр числа",
+            description: "Підрахунок кількості цифр у натуральному числі.",
+            code: `# Кількість цифр числа
+
+число = int(input())
+
+кількість = 0
+
+while число > 0:
+    кількість = кількість + 1
+    число = число // 10
+
+print(кількість)`
+        },
+        {
+            name: "Пошук найбільшого з трьох чисел",
+            description: "Пошук найбільшого значення за допомогою умов.",
+            code: `# Найбільше з трьох чисел
+
+a, b, c = map(int, input().split())
+
+найбільше = a
+
+if b > найбільше:
+    найбільше = b
+
+if c > найбільше:
+    найбільше = c
+
+print(найбільше)`
+        },
+        {
+            name: "Перевірка простого числа",
+            description: "Перевірка, чи має число дільники, крім 1 та самого себе.",
+            code: `# Перевірка простого числа
+
+число = int(input())
+
+просте = True
+
+if число < 2:
+    просте = False
+else:
+    for дільник in range(2, число):
+        if число % дільник == 0:
+            просте = False
+
+if просте:
+    print("Просте")
+else:
+    print("Складене або менше 2")`
+        }
+    ]
+}
+
+];
+
+
+// ==================================================
+// 2. НАЛАШТУВАННЯ РЕДАКТОРА
+// ==================================================
+
+const STORAGE_CODE = "python_online_code";
+
+const editor = CodeMirror.fromTextArea(
+    document.getElementById("codeEditor"),
+    {
+        mode: "python",
+        theme: "material-darker",
+        lineNumbers: true,
+        indentUnit: 4,
+        tabSize: 4,
+        indentWithTabs: false,
+        lineWrapping: true,
+        extraKeys: {
+            "Ctrl-Enter": runPython,
+            "Cmd-Enter": runPython,
+            "Ctrl-Space": "autocomplete"
+        }
+    }
+);
+
+// Автопідказки Python та назв змінних, зокрема українською.
+const pythonSuggestions = [
+    "print", "input", "int", "float", "str", "bool", "len", "range",
+    "sum", "min", "max", "abs", "round", "type", "list", "map",
+    "if", "elif", "else", "for", "while", "in", "not", "and", "or",
+    "True", "False", "None", "break", "continue", "def", "return",
+    "import", "from", "as", "class", "try", "except"
+];
+
+CodeMirror.registerHelper("hint", "python", function(cm) {
+    const cursor = cm.getCursor();
+    const token = cm.getTokenAt(cursor);
+    const start = token.start;
+    const end = cursor.ch;
+    const currentWord = token.string.slice(0, end - start);
+    const allCode = cm.getValue();
+    const variableMatches = allCode.match(/[\p{L}_][\p{L}\p{N}_]*/gu) || [];
+    const suggestions = Array.from(new Set(pythonSuggestions.concat(variableMatches)));
+    const lowerWord = currentWord.toLocaleLowerCase();
+    const list = suggestions
+        .filter(word => word.toLocaleLowerCase().startsWith(lowerWord) && word !== currentWord)
+        .sort((a, b) => a.localeCompare(b, "uk"));
+
+    return {
+        list: list,
+        from: CodeMirror.Pos(cursor.line, start),
+        to: CodeMirror.Pos(cursor.line, end)
+    };
+});
+
+CodeMirror.commands.autocomplete = function(cm) {
+    CodeMirror.showHint(cm, CodeMirror.hint.python, { completeSingle: false });
+};
+
+editor.on("inputRead", function(cm, change) {
+    if (change.text && change.text.some(part => /[\p{L}\p{N}_]/u.test(part))) {
+        CodeMirror.commands.autocomplete(cm);
+    }
+});
+
+const inputArea = document.getElementById("inputData");
+const consoleElement = document.getElementById("console");
+const statusElement = document.getElementById("status");
+const runButton = document.getElementById("runButton");
+
+let pyodide = null;
+let isRunning = false;
+
+
+// ==================================================
+// 3. ЗБЕРЕЖЕННЯ КОДУ
+// ==================================================
+
+const savedCode = localStorage.getItem(STORAGE_CODE);
+
+if (savedCode !== null) {
+    editor.setValue(savedCode);
+}
+
+editor.on("change", function() {
+    localStorage.setItem(STORAGE_CODE, editor.getValue());
+});
+
+
+// ==================================================
+// 4. РОБОТА З КАТЕГОРІЯМИ
+// ==================================================
+
+const categorySelect = document.getElementById("categorySelect");
+const exampleSelect = document.getElementById("exampleSelect");
+const exampleDescription = document.getElementById("exampleDescription");
+
+categories.forEach(function(category, index) {
+    const option = document.createElement("option");
+
+    option.value = index;
+    option.textContent = category.name;
+
+    categorySelect.appendChild(option);
+});
+
+categorySelect.addEventListener("change", function() {
+
+    exampleSelect.innerHTML = "";
+    exampleDescription.textContent = "Тепер оберіть потрібний приклад.";
+
+    const categoryIndex = categorySelect.value;
+
+    if (categoryIndex === "") {
+        exampleSelect.disabled = true;
+
+        const option = document.createElement("option");
+        option.textContent = "Спочатку оберіть категорію...";
+        exampleSelect.appendChild(option);
+
+        return;
+    }
+
+    const selectedCategory = categories[Number(categoryIndex)];
+
+    const firstOption = document.createElement("option");
+    firstOption.value = "";
+    firstOption.textContent = "Оберіть приклад...";
+    exampleSelect.appendChild(firstOption);
+
+    selectedCategory.examples.forEach(function(example, index) {
+        const option = document.createElement("option");
+
+        option.value = index;
+        option.textContent = example.name;
+
+        exampleSelect.appendChild(option);
+    });
+
+    exampleSelect.disabled = false;
+});
+
+exampleSelect.addEventListener("change", function() {
+
+    const categoryIndex = categorySelect.value;
+    const exampleIndex = exampleSelect.value;
+
+    if (categoryIndex === "" || exampleIndex === "") {
+        exampleDescription.textContent = "Оберіть приклад зі списку.";
+        return;
+    }
+
+    const example = categories[Number(categoryIndex)]
+        .examples[Number(exampleIndex)];
+
+    exampleDescription.textContent = example.description;
+});
+
+
+// ==================================================
+// 5. ЗАВАНТАЖЕННЯ ПРИКЛАДУ В РЕДАКТОР
+// ==================================================
+
+document.getElementById("loadExampleButton").addEventListener("click", function() {
+
+    const categoryIndex = categorySelect.value;
+    const exampleIndex = exampleSelect.value;
+
+    if (categoryIndex === "" || exampleIndex === "") {
+        alert("Спочатку оберіть категорію та приклад.");
+        return;
+    }
+
+    if (editor.getValue().trim() !== "") {
+
+        const answer = confirm(
+            "Поточний код буде замінено вибраним прикладом.\n\nПродовжити?"
+        );
+
+        if (!answer) {
+            return;
+        }
+    }
+
+    const example = categories[Number(categoryIndex)]
+        .examples[Number(exampleIndex)];
+
+    editor.setValue(example.code);
+    editor.focus();
+
+    consoleElement.textContent =
+        "Приклад завантажено. Можна запускати програму.";
+
+    statusElement.textContent = "Готово до роботи.";
+});
+
+
+// ==================================================
+// 6. КОНСОЛЬ
+// ==================================================
+
+function writeConsole(text) {
+    consoleElement.textContent += text;
+    consoleElement.scrollTop = consoleElement.scrollHeight;
+}
+
+
+// ==================================================
+// 7. ЗАВАНТАЖЕННЯ PYTHON
+// ==================================================
+
+async function initializePython() {
+
+    try {
+        statusElement.textContent = "Завантаження Python...";
+
+        pyodide = await loadPyodide();
+
+        pyodide.setStdout({
+            batched: function(text) {
+                writeConsole(text + "\n");
+            }
+        });
+
+        pyodide.setStderr({
+            batched: function(text) {
+                writeConsole(text + "\n");
+            }
+        });
+
+        runButton.disabled = false;
+
+        statusElement.textContent = "Python готовий до роботи!";
+
+    } catch (error) {
+
+        statusElement.textContent = "Не вдалося завантажити Python.";
+        consoleElement.textContent = error.message;
+    }
+}
+
+
+// ==================================================
+// 8. ЗАПУСК ПРОГРАМИ
+// ==================================================
+
+async function runPython() {
+
+    if (!pyodide || isRunning) {
+        return;
+    }
+
+    const code = editor.getValue();
+    const inputData = inputArea.value;
+
+    if (code.trim() === "") {
+        consoleElement.textContent = "Спочатку введіть програму!";
+        return;
+    }
+
+    isRunning = true;
+    runButton.disabled = true;
+
+    consoleElement.textContent = "Запуск програми...\n";
+    statusElement.textContent = "Програма виконується...";
+
+    let runGlobals = null;
+
+    try {
+        const preparedCode =
+            "import sys\n" +
+            "import io\n" +
+            "sys.stdin = io.StringIO(" +
+            JSON.stringify(inputData) +
+            ")\n" +
+            "def input(prompt=''):\n" +
+            "    if prompt:\n" +
+            "        print(prompt, end='')\n" +
+            "    value = sys.stdin.readline()\n" +
+            "    if value == '':\n" +
+            "        raise EOFError('Не вистачає вхідних даних. Перевірте поле введення.')\n" +
+            "    value = value.rstrip('\\r\\n')\n" +
+            "    print(value)\n" +
+            "    return value\n\n" +
+            code;
+
+        // Для кожного запуску створюється окремий простір імен.
+        runGlobals = pyodide.globals.get("dict")();
+        await pyodide.runPythonAsync(preparedCode, { globals: runGlobals });
+
+        writeConsole("\nПрограму завершено.");
+        statusElement.textContent = "Виконання завершено успішно.";
+
+    } catch (error) {
+        writeConsole("\nПОМИЛКА:\n" + error.message);
+        statusElement.textContent = "Під час виконання виникла помилка.";
+
+    } finally {
+        if (runGlobals) {
+            runGlobals.destroy();
+        }
+
+        // Вхідні дані не зберігаються та очищуються після кожної спроби.
+        inputArea.value = "";
+        localStorage.removeItem("python_online_input");
+
+        isRunning = false;
+        runButton.disabled = false;
+    }
+}
+
+runButton.addEventListener("click", runPython);
+
+
+// ==================================================
+// 9. ІНШІ КНОПКИ
+// ==================================================
+
+document.getElementById("clearCodeButton").addEventListener("click", function() {
+
+    if (confirm("Очистити весь код у редакторі?")) {
+        editor.setValue("");
+        editor.focus();
+    }
+});
+
+document.getElementById("downloadButton").addEventListener("click", function() {
+
+    const code = editor.getValue();
+
+    const file = new Blob(
+        [code],
+        { type: "text/x-python;charset=utf-8" }
+    );
+
+    const url = URL.createObjectURL(file);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "main.py";
+    link.click();
+
+    URL.revokeObjectURL(url);
+});
+
+document.getElementById("clearConsoleButton").addEventListener("click", function() {
+
+    consoleElement.textContent = "";
+});
+
+document.getElementById("clearInputButton").addEventListener("click", function() {
+    inputArea.value = "";
+    inputArea.focus();
+});
+
+// Ctrl + Backspace очищує поле вхідних даних, коли курсор у ньому.
+inputArea.addEventListener("keydown", function(event) {
+    if (event.ctrlKey && event.key === "Backspace") {
+        event.preventDefault();
+        inputArea.value = "";
+    }
+});
+
+
+// ==================================================
+// 10. ЗАПУСК
+// ==================================================
+
+initializePython();
+
+</script>
+</body>
+</html>
