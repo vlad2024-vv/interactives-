@@ -74,6 +74,31 @@ header p {
   max-width: 700px;
 }
 
+/* Повернення до переліку тем */
+
+.back-navigation {
+  margin: 0 0 22px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.back-link:hover {
+  background: #1d4771;
+  border-color: var(--accent);
+}
+
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -122,7 +147,6 @@ p { margin: 10px 0; }
 
 .muted { color: var(--muted); }
 
-/* Виділення ключових термінів */
 .key-term {
   display: inline;
   color: #9bd8ff;
@@ -135,7 +159,6 @@ p { margin: 10px 0; }
   -webkit-box-decoration-break: clone;
 }
 
-/* Виділення важливих визначень */
 .definition {
   background: linear-gradient(110deg, rgba(69,166,255,.16), rgba(69,166,255,.05));
   border: 1px solid rgba(69,166,255,.28);
@@ -145,7 +168,6 @@ p { margin: 10px 0; }
   margin: 16px 0;
 }
 
-/* Виділення важливих висновків */
 .key-sentence {
   display: block;
   color: #eafff8;
@@ -156,7 +178,6 @@ p { margin: 10px 0; }
   margin: 14px 0;
 }
 
-/* Звичайні інформаційні блоки */
 .highlight {
   background: rgba(69,166,255,.10);
   border-left: 4px solid var(--accent);
@@ -382,6 +403,14 @@ footer {
     будувати діаграми та визначати обсяг цифрової інформації.
   </p>
 </header>
+
+<!-- ПОВЕРНЕННЯ ДО ТЕМ 10 КЛАСУ -->
+
+<div class="back-navigation">
+  <a href="pilot-10.html" class="back-link">
+    <span>←</span> До тем 10 класу
+  </a>
+</div>
 
 <nav>
   <a href="#analysis">Аналіз даних</a>
