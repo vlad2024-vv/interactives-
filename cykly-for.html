@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Цикл for з параметром</title>
+<style>
+:root{--bg:#071426;--panel:#10233d;--panel2:#172e4c;--blue:#3298f3;--text:#eef5ff;--muted:#a5b7cf;--green:#28c58a;--red:#ff6575;--border:rgba(255,255,255,.09)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:var(--text);min-height:100vh;line-height:1.7;
+background:radial-gradient(circle at 10% 5%,rgba(30,110,210,.18),transparent 30%),radial-gradient(circle at 90% 40%,rgba(30,160,190,.10),transparent 30%),var(--bg)}
+.container{width:min(1050px,92%);margin:auto}
+header{padding:30px 0 20px}
+.back{display:inline-block;color:#8fc8ff;text-decoration:none;margin-bottom:22px;font-size:14px}
+.back:hover{color:#fff}
+.hero{background:linear-gradient(135deg,#153b68,#10233d 75%);border:1px solid var(--border);border-radius:22px;padding:35px;position:relative;overflow:hidden}
+.hero:after{content:"for";position:absolute;right:30px;top:30px;font-size:90px;color:rgba(255,255,255,.07);font-weight:bold;font-family:Consolas,monospace}
+.label{display:inline-block;background:rgba(40,197,138,.15);color:#65e5b2;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(30px,5vw,44px);margin:18px 0 12px}
+.hero p{color:#c2d5ed;max-width:680px;margin:0}
+main{padding:10px 0 50px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:26px;margin-top:22px}
+h2{font-size:23px;margin:0 0 12px}
+h3{font-size:17px;margin:20px 0 8px;color:#bfe0ff}
+p,li{color:#d2e1f3;font-size:15px}
+.muted{color:var(--muted)}
+code{color:#82c5ff;font-family:Consolas,monospace;background:rgba(50,152,243,.12);padding:1px 6px;border-radius:5px}
+pre{background:#0b1b30;border:1px solid var(--border);border-radius:12px;padding:15px;overflow-x:auto;margin:12px 0;font-family:Consolas,monospace;font-size:15px;line-height:1.6;color:#dceaff}
+pre code{background:none;padding:0}
+.note,.tip{border-radius:12px;padding:14px 17px;margin:14px 0;font-size:14px}
+.note{background:rgba(255,101,117,.10);border:1px solid rgba(255,101,117,.3)}
+.tip{background:rgba(50,152,243,.08);border:1px solid rgba(50,152,243,.25)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{border:1px solid var(--border);padding:9px 11px;text-align:left}
+th{background:var(--panel2)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.mini{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:15px}
+.mini b{display:block;color:#8ec8ff;margin-bottom:4px}
+.mini span{font-size:13px;color:var(--muted)}
+input,select,textarea{background:#0b1b30;color:var(--text);border:1px solid var(--border);border-radius:9px;padding:11px;font-size:15px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blue)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:12px 0}
+.row label{display:flex;flex-direction:column;font-size:13px;font-weight:bold;color:var(--muted);gap:4px}
+.row input{width:100px}
+.btn{border:0;border-radius:10px;padding:12px 20px;font-weight:bold;cursor:pointer;font-size:14px;background:var(--blue);color:#fff;transition:.2s}
+.btn:hover{background:#176fc1}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sec{background:#243a56;color:#dceaff}
+.btn.ok{background:#1b9e70}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0;min-height:38px}
+.chip{background:rgba(50,152,243,.2);border:1px solid var(--blue);color:#cfe8ff;border-radius:18px;padding:4px 14px;font-weight:bold}
+.bad{color:var(--red);font-weight:bold}.good{color:#65e5b2;font-weight:bold}
+details{background:var(--panel2);border:1px solid var(--border);border-radius:12px;margin:10px 0;padding:0 16px}
+summary{cursor:pointer;padding:14px 0;font-weight:bold;color:#dceaff}
+details[open] summary{border-bottom:1px solid var(--border);margin-bottom:6px}
+.out{white-space:pre-wrap;background:#050d18;border:1px solid var(--border);border-radius:10px;padding:12px;font-family:Consolas,monospace;font-size:14px;color:#b9f6ca;min-height:48px;margin-top:10px}
+.q{background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:16px;margin:14px 0}
+.q input{width:100%;font-family:Consolas,monospace;margin-top:4px}
+.q .btn{margin-top:10px}
+textarea.code{width:100%;min-height:160px;resize:vertical;font-family:Consolas,monospace;tab-size:4;line-height:1.5}
+footer{border-top:1px solid var(--border);text-align:center;padding:25px 10px;color:#71869f;font-size:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:25px}.hero:after{font-size:55px;right:15px}.card{padding:18px}.row input{width:84px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <a class="back" href="index.html">← На головну</a>
+  <div class="hero">
+    <span class="label">ПОВТОРЕННЯ · ПРОГРАМУВАННЯ PYTHON</span>
+    <h1>Цикл for з параметром</h1>
+    <p>Дізнайся, як змусити програму повторювати дії, як працює range(), як стежити за змінною циклу та як розв’язувати задачі з циклами. Є пояснення, приклади, візуалізація й практика прямо в браузері.</p>
+  </div>
+</header>
+
+<main>
+
+<section class="card">
+  <h2>🧭 План уроку</h2>
+  <div class="grid">
+    <div class="mini"><b>1. Теорія</b><span>Навіщо цикл, як він записується, три форми range()</span></div>
+    <div class="mini"><b>2. Приклади</b><span>Шість готових програм із результатом і поясненням</span></div>
+    <div class="mini"><b>3. Практика</b><span>Тренажер, вправи «що виведе програма» й власні програми</span></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>1. Навіщо потрібен цикл</h2>
+  <p>Щоб вивести числа від 1 до 5, без циклу довелося б написати п’ять команд:</p>
+<pre><code>print(1)
+print(2)
+print(3)
+print(4)
+print(5)</code></pre>
+  <p>А якщо чисел тисяча? Цикл дозволяє записати команди <b>один раз</b>, а виконати їх стільки разів, скільки потрібно. Цикл <code>for</code> застосовують, коли <b>заздалегідь відомо</b>, скільки разів щось повторювати.</p>
+</section>
+
+<section class="card">
+  <h2>2. Як записується цикл for</h2>
+<pre><code>for i in range(1, 6):
+    print(i)</code></pre>
+  <table>
+    <tr><th>Частина</th><th>Що означає</th></tr>
+    <tr><td><code>for</code></td><td>початок циклу</td></tr>
+    <tr><td><code>i</code></td><td><b>змінна циклу</b> (параметр): на кожному повторенні отримує наступне значення. Ім’я може бути будь-яким: <code>i</code>, <code>k</code>, <code>day</code></td></tr>
+    <tr><td><code>range(1, 6)</code></td><td>які значення пройде змінна: 1, 2, 3, 4, 5</td></tr>
+    <tr><td><code>:</code></td><td>двокрапка в кінці рядка обов’язкова</td></tr>
+    <tr><td>відступ (4 пробіли)</td><td>усе, що з відступом, входить у <b>тіло циклу</b> і повторюється</td></tr>
+  </table>
+  <div class="note">⚠ Останнє число в <code>range</code> <b>не входить</b> у діапазон. <code>range(1, 6)</code> дає 1, 2, 3, 4, 5, а число 6 уже ні.</div>
+  <div class="tip">💡 Кожне виконання тіла циклу називають <b>ітерацією</b> (повторенням). У <code>range(1, 6)</code> їх п’ять.</div>
+</section>
+
+<section class="card">
+  <h2>3. Три форми range()</h2>
+  <table>
+    <tr><th>Запис</th><th>Що дає</th><th>Приклад</th></tr>
+    <tr><td><code>range(n)</code></td><td>від 0 до n − 1, рівно n значень</td><td><code>range(4)</code> → 0 1 2 3</td></tr>
+    <tr><td><code>range(a, b)</code></td><td>від a до b − 1</td><td><code>range(2, 6)</code> → 2 3 4 5</td></tr>
+    <tr><td><code>range(a, b, k)</code></td><td>від a до b − 1 з кроком k</td><td><code>range(1, 10, 3)</code> → 1 4 7</td></tr>
+    <tr><td><code>range(a, b, −k)</code></td><td>у зворотному порядку (a більше за b)</td><td><code>range(5, 0, -1)</code> → 5 4 3 2 1</td></tr>
+  </table>
+
+  <h3>🧪 Дослідник range</h3>
+  <p class="muted">Змінюй числа й дивись, що отримає змінна циклу. Спробуй старт 10, кінець 0, крок −2.</p>
+  <div class="row">
+    <label>Початок (a)<input type="number" id="ra" value="1"></label>
+    <label>Кінець (b)<input type="number" id="rb" value="10"></label>
+    <label>Крок (k)<input type="number" id="rs" value="2"></label>
+  </div>
+  <pre><code id="rcode"></code></pre>
+  <div class="chips" id="rchips"></div>
+  <div id="rinfo"></div>
+</section>
+
+<section class="card">
+  <h2>4. Покроковий перегляд циклу</h2>
+  <p>Подивись, як змінюються значення під час роботи програми. Обери N і натискай «Наступний крок».</p>
+<pre><code>total = 0
+for i in range(1, N + 1):
+    total = total + i
+print(total)</code></pre>
+  <div class="row">
+    <label>N<input type="number" id="tn" value="5" min="1" max="10"></label>
+    <button class="btn" id="tstep">Наступний крок →</button>
+    <button class="btn sec" id="treset">Спочатку</button>
+  </div>
+  <table><thead><tr><th>Ітерація</th><th>i</th><th>total було</th><th>total стало</th></tr></thead><tbody id="tbody"></tbody></table>
+  <div id="tinfo" class="muted">Початково total = 0.</div>
+</section>
+
+<section class="card">
+  <h2>5. Приклади програм</h2>
+  <p class="muted">Відкривай приклади, читай код і результат. Спробуй передбачити відповідь, перш ніж дивитися.</p>
+
+  <details><summary>1. Повторення дії: range(n)</summary>
+<pre><code>for i in range(3):
+    print("Привіт!")</code></pre>
+    <div class="out">Привіт!
+Привіт!
+Привіт!</div>
+    <p>Змінну <code>i</code> тут не використовуємо, потрібна лише кількість повторень.</p></details>
+
+  <details><summary>2. Зворотний відлік: від’ємний крок</summary>
+<pre><code>for i in range(5, 0, -1):
+    print(i)
+print("Старт!")</code></pre>
+    <div class="out">5
+4
+3
+2
+1
+Старт!</div>
+    <p>Рядок <code>print("Старт!")</code> без відступу стоїть <b>після</b> циклу й виконується один раз.</p></details>
+
+  <details><summary>3. Таблиця множення</summary>
+<pre><code>for k in range(1, 4):
+    print(7, "*", k, "=", 7 * k)</code></pre>
+    <div class="out">7 * 1 = 7
+7 * 2 = 14
+7 * 3 = 21</div>
+    <p>Змінна циклу <code>k</code> використовується у формулі.</p></details>
+
+  <details><summary>4. Сума чисел (накопичення)</summary>
+<pre><code>total = 0
+for i in range(1, 6):
+    total = total + i
+print(total)</code></pre>
+    <div class="out">15</div>
+    <p>Спочатку створюємо <code>total = 0</code>, потім у циклі додаємо кожне число: 1 + 2 + 3 + 4 + 5.</p></details>
+
+  <details><summary>5. Підрахунок кількості: if усередині for</summary>
+<pre><code>count = 0
+for i in range(1, 11):
+    if i % 2 == 0:
+        count = count + 1
+print(count)</code></pre>
+    <div class="out">5</div>
+    <p>Лічильник збільшується лише для парних чисел: 2, 4, 6, 8, 10.</p></details>
+
+  <details><summary>6. Сума парних чисел: крок 2</summary>
+<pre><code>total = 0
+for i in range(2, 11, 2):
+    total = total + i
+print(total)</code></pre>
+    <div class="out">30</div>
+    <p>Крок 2 одразу дає парні числа: 2 + 4 + 6 + 8 + 10 = 30, перевірка <code>if</code> не потрібна.</p></details>
+</section>
+
+<section class="card">
+  <h2>6. Типові помилки</h2>
+  <table>
+    <tr><th>Помилка</th><th>Наслідок</th></tr>
+    <tr><td><code>range(1, n)</code> замість <code>range(1, n + 1)</code></td><td>пропущено останнє число</td></tr>
+    <tr><td>немає двокрапки після <code>range(...)</code></td><td>SyntaxError</td></tr>
+    <tr><td>немає відступу в тілі циклу</td><td>IndentationError</td></tr>
+    <tr><td><code>print(total)</code> з відступом усередині циклу</td><td>результат виводиться щоразу, а не один раз</td></tr>
+    <tr><td><code>total = 0</code> усередині циклу</td><td>сума щоразу обнуляється</td></tr>
+    <tr><td>крок <code>0</code> у range</td><td>ValueError</td></tr>
+  </table>
+  <h3>Шпаргалка</h3>
+  <div class="grid">
+    <div class="mini"><b>Скільки повторень?</b><span>range(a, b): b − a. range(n): n.</span></div>
+    <div class="mini"><b>Сума чи кількість?</b><span>Змінну створи до циклу, а print напиши після нього.</span></div>
+    <div class="mini"><b>Усі числа від 1 до N</b><span>range(1, N + 1)</span></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>7. Що виведе програма?</h2>
+  <p class="muted">Запиши результат через пробіл (наприклад: 1 2 3).</p>
+  <div id="quiz"></div>
+</section>
+
+<section class="card">
+  <h2>8. Практика: напиши програму</h2>
+  <p class="muted">Обери завдання, напиши код і натисни «Перевірити». Програма запускається в браузері й перевіряється на кількох тестах.</p>
+  <select id="taskSel"></select>
+  <p id="taskText"></p>
+  <textarea class="code" id="code" spellcheck="false"></textarea>
+  <div class="row">
+    <button class="btn ok" id="runBtn">▶ Запустити</button>
+    <button class="btn" id="checkBtn">✔ Перевірити</button>
+    <input id="stdin" placeholder="Вхідні дані для запуску" style="flex:1;min-width:150px">
+  </div>
+  <div class="out" id="out">Результат з’явиться тут. Перший запуск Python може тривати до 20 секунд.</div>
+  <div id="verdict" style="margin-top:10px"></div>
+</section>
+
+</main>
+
+<footer>Кабінет інформатики · Ліцей імені Олександра Цинкаловського · 2026</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
+<script>
+// ----- Дослідник range -----
+function updateRange(){
+  var a=parseInt(ra.value,10),b=parseInt(rb.value,10),s=parseInt(rs.value,10);
+  rchips.innerHTML="";
+  if(isNaN(a)||isNaN(b)||isNaN(s)){rcode.textContent="";rinfo.textContent="Введи цілі числа.";return}
+  rcode.textContent="for i in range("+a+", "+b+", "+s+"):\n    print(i)";
+  if(s===0){rinfo.innerHTML='<span class="bad">Крок не може дорівнювати 0: Python покаже помилку.</span>';return}
+  var v=[];for(var i=a;s>0?i<b:i>b;i+=s){v.push(i);if(v.length>60)break}
+  v.forEach(function(x){var c=document.createElement("span");c.className="chip";c.textContent=x;rchips.appendChild(c)});
+  rinfo.textContent=v.length?"Кількість повторень: "+v.length+(v.length>60?" (показано перші 60)":""):"Порожній діапазон: цикл не виконається жодного разу.";
+}
+["ra","rb","rs"].forEach(function(id){document.getElementById(id).addEventListener("input",updateRange)});
+updateRange();
+
+// ----- Покроковий перегляд -----
+var tStep=0,tTotal=0;
+function resetTrace(){tStep=0;tTotal=0;tbody.innerHTML="";tinfo.textContent="Початково total = 0.";tstep.disabled=false}
+tstep.onclick=function(){
+  var n=Math.max(1,Math.min(10,parseInt(tn.value,10)||1));
+  tStep++;var before=tTotal;tTotal+=tStep;
+  var tr=document.createElement("tr");
+  [tStep,tStep,before,tTotal].forEach(function(x){var td=document.createElement("td");td.textContent=x;tr.appendChild(td)});
+  tbody.appendChild(tr);
+  if(tStep>=n){tinfo.innerHTML='<span class="good">Цикл завершено. print(total) виведе '+tTotal+'.</span>';tstep.disabled=true}
+  else tinfo.textContent="Далі i = "+(tStep+1)+".";
+};
+treset.onclick=resetTrace;tn.addEventListener("input",resetTrace);
+
+// ----- Вправи -----
+var quiz=[
+ {c:"for i in range(3):\n    print(i)",a:"0 1 2"},
+ {c:"for i in range(2, 6):\n    print(i)",a:"2 3 4 5"},
+ {c:"for i in range(1, 10, 3):\n    print(i)",a:"1 4 7"},
+ {c:"for i in range(4, 0, -1):\n    print(i)",a:"4 3 2 1"},
+ {c:"total = 0\nfor i in range(1, 4):\n    total = total + i\nprint(total)",a:"6"},
+ {c:"for k in range(1, 4):\n    print(k * 5)",a:"5 10 15"},
+ {c:"count = 0\nfor i in range(1, 8):\n    if i % 2 == 1:\n        count = count + 1\nprint(count)",a:"4"}
+];
+quiz.forEach(function(q,n){
+  var d=document.createElement("div");d.className="q";
+  var t=document.createElement("b");t.textContent="Завдання "+(n+1);
+  var p=document.createElement("pre");var c=document.createElement("code");c.textContent=q.c;p.appendChild(c);
+  var inp=document.createElement("input");inp.placeholder="Твоя відповідь";
+  var b=document.createElement("button");b.className="btn";b.textContent="Перевірити";
+  var r=document.createElement("div");r.style.marginTop="8px";
+  b.onclick=function(){
+    var v=inp.value.trim().split(/\s+/).join(" ");
+    if(v===q.a){r.className="good";r.textContent="✓ Правильно!"}
+    else{r.className="bad";r.textContent="✕ Не зовсім. Прокрути цикл по кроках і випиши значення змінної."}
+  };
+  d.append(t,p,inp,b,r);document.getElementById("quiz").appendChild(d);
+});
+
+// ----- Практика -----
+var tasks=[
+ {t:"1. Числа від 1 до N",x:"Введи ціле N і виведи числа від 1 до N, кожне з нового рядка.",tests:[["3","1\n2\n3"],["1","1"],["6","1\n2\n3\n4\n5\n6"]]},
+ {t:"2. Сума від 1 до N",x:"Введи ціле N і виведи суму всіх чисел від 1 до N.",tests:[["4","10"],["1","1"],["10","55"]]},
+ {t:"3. Таблиця множення",x:"Введи ціле N і виведи N * 1, N * 2, ..., N * 5, кожне з нового рядка.",tests:[["2","2\n4\n6\n8\n10"],["7","7\n14\n21\n28\n35"],["1","1\n2\n3\n4\n5"]]},
+ {t:"4. Парні числа",x:"Введи ціле N і виведи, скільки парних чисел є серед чисел від 1 до N.",tests:[["1","0"],["8","4"],["9","4"]]},
+ {t:"5. Зворотний відлік",x:"Введи ціле N і виведи числа від N до 1 у зворотному порядку, кожне з нового рядка.",tests:[["3","3\n2\n1"],["1","1"],["5","5\n4\n3\n2\n1"]]}
+];
+tasks.forEach(function(t,i){var o=document.createElement("option");o.value=i;o.textContent=t.t;taskSel.appendChild(o)});
+function loadTask(){taskText.textContent=tasks[taskSel.value].x;code.value="n = int(input())\n\n# Твій код\n";verdict.textContent=""}
+taskSel.addEventListener("change",loadTask);loadTask();
+code.addEventListener("keydown",function(e){if(e.key==="Tab"){e.preventDefault();code.setRangeText("    ",code.selectionStart,code.selectionEnd,"end")}});
+
+var py=null;
+async function runProgram(src,input){
+  if(!py)py=await loadPyodide();
+  var lines=input.replace(/\r/g,"").split("\n"),idx=0,out="";
+  py.setStdin({stdin:function(){return idx<lines.length?lines[idx++]:null}});
+  py.setStdout({batched:function(s){out+=s+"\n"}});
+  py.setStderr({batched:function(s){out+=s+"\n"}});
+  try{await py.runPythonAsync(src,{globals:py.globals.get("dict")()})}
+  catch(e){out+=String(e.message||e).trim().split("\n").slice(-2).join("\n")+"\n";return{out:out,err:true}}
+  return{out:out,err:false};
+}
+function busy(b,txt){runBtn.disabled=b;checkBtn.disabled=b;if(txt)out.textContent=txt}
+runBtn.onclick=async function(){
+  busy(true,"⏳ Виконання...");verdict.textContent="";
+  var r=await runProgram(code.value,stdin.value);
+  out.textContent=r.out||"(програма нічого не вивела)";busy(false);
+};
+checkBtn.onclick=async function(){
+  var t=tasks[taskSel.value],ok=0;busy(true,"⏳ Перевірка...");verdict.textContent="";
+  for(var i=0;i<t.tests.length;i++){
+    var r=await runProgram(code.value,t.tests[i][0]);
+    if(!r.err&&r.out.trim()===t.tests[i][1])ok++;
+  }
+  out.textContent="Пройдено тестів: "+ok+" з "+t.tests.length;
+  verdict.className=ok===t.tests.length?"good":"bad";
+  verdict.textContent=ok===t.tests.length?"🎉 Чудово! Усі тести пройдено.":"Є помилки. Перевір межі в range і те, де виводиться результат.";
+  busy(false);
+};
+</script>
+</body>
+</html>
