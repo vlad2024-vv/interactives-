@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -37,12 +38,6 @@ header {
     margin-bottom: 25px;
 }
 
-header a {
-    color: #8bbcff;
-    text-decoration: none;
-    font-size: 14px;
-}
-
 h1 {
     margin: 18px 0 8px;
     font-size: 32px;
@@ -67,7 +62,12 @@ h1 {
     font-size: 19px;
 }
 
-.toolbar,
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 12px;
+}
 
 button {
     border: 0;
@@ -96,8 +96,7 @@ button:disabled {
 }
 
 .clear-button,
-.console-button,
-.input-clear-button {
+.console-button {
     background: #334b6b;
     color: white;
 }
@@ -107,28 +106,10 @@ button:disabled {
     color: white;
 }
 
-.input-clear-button:hover {
-    background: #a84858;
-}
-
 .download-button {
     background: #315ca3;
     color: white;
 }
-
-
-select {
-    flex: 1;
-    min-width: 220px;
-    padding: 12px;
-    color: #eaf2ff;
-    background: #102641;
-    border: 1px solid #456386;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-/* Розташування робочих вікон */
 
 .workspace {
     display: grid;
@@ -152,8 +133,6 @@ select {
     gap: 18px;
 }
 
-/* Редактор */
-
 .CodeMirror {
     height: 520px;
     font-size: 15px;
@@ -162,16 +141,12 @@ select {
     border: 1px solid #395575;
 }
 
-/* Підказки */
-
 .hint {
     color: #aabbd3;
     font-size: 13px;
     line-height: 1.5;
     margin-top: 10px;
 }
-
-/* Вхідні дані */
 
 .input-data {
     width: 100%;
@@ -185,8 +160,6 @@ select {
     font-family: Consolas, monospace;
     font-size: 14px;
 }
-
-/* Консоль */
 
 .console {
     min-height: 260px;
@@ -217,8 +190,6 @@ footer {
     padding: 15px 0;
 }
 
-/* Планшети */
-
 @media (max-width: 900px) {
     .workspace {
         grid-template-columns: 1fr;
@@ -230,8 +201,6 @@ footer {
         align-items: start;
     }
 }
-
-/* Телефони */
 
 @media (max-width: 650px) {
     body {
@@ -274,21 +243,15 @@ footer {
 <div class="container">
 
 <header>
-    <a href="https://lyceum-inf.page.gd/">← Кабінет інформатики</a>
     <h1>🐍 Python Online</h1>
     <div class="subtitle">
         Онлайн-середовище для написання та запуску програм Python
     </div>
 </header>
 
-<!-- РОБОЧА ОБЛАСТЬ -->
-
 <div class="workspace">
 
-    <!-- ЛІВА ЧАСТИНА: РЕДАКТОР -->
-
     <div class="workspace-main">
-
         <section class="panel">
             <h2>💻 Редактор Python</h2>
 
@@ -316,15 +279,11 @@ print("Вітаю у Python Online!")</textarea>
             <div class="hint">
                 <strong>Швидкі клавіші:</strong>
                 Ctrl + Enter — запустити програму;
-                Ctrl + Пробіл — відкрити підказки коду;
-                Tab або Enter — вставити вибрану підказку.
+                Ctrl + Пробіл — відкрити підказки коду.
                 Почніть вводити команду або назву змінної — редактор запропонує варіанти.
             </div>
         </section>
-
     </div>
-
-    <!-- ПРАВА ЧАСТИНА: ВВЕДЕННЯ ТА РЕЗУЛЬТАТ -->
 
     <div class="workspace-side">
 
@@ -345,7 +304,8 @@ print("Вітаю у Python Online!")</textarea>
 
             <div class="hint">
                 Якщо програма використовує input(), введіть потрібні значення тут.
-                Кожне значення має бути з нового рядка. Після запуску поле очищується автоматично.
+                Кожне значення має бути з нового рядка.
+                Після запуску поле очищується автоматично.
                 Для швидкого очищення натисніть Ctrl + Backspace.
             </div>
         </section>
@@ -367,7 +327,6 @@ print("Вітаю у Python Online!")</textarea>
         </section>
 
     </div>
-
 </div>
 
 <footer>© 2026 Кабінет інформатики</footer>
@@ -405,13 +364,14 @@ const editor = CodeMirror.fromTextArea(
     }
 );
 
-// Автопідказки Python та назв змінних, зокрема українською.
+// Список команд Python для автопідказок.
 const pythonSuggestions = [
-    "print", "input", "int", "float", "str", "bool", "len", "range",
-    "sum", "min", "max", "abs", "round", "type", "list", "map",
-    "if", "elif", "else", "for", "while", "in", "not", "and", "or",
-    "True", "False", "None", "break", "continue", "def", "return",
-    "import", "from", "as", "class", "try", "except"
+    "print", "input", "int", "float", "str", "bool", "len",
+    "range", "sum", "min", "max", "abs", "round", "type",
+    "list", "map", "if", "elif", "else", "for", "while",
+    "in", "not", "and", "or", "True", "False", "None",
+    "break", "continue", "def", "return", "import", "from",
+    "as", "class", "try", "except"
 ];
 
 CodeMirror.registerHelper("hint", "python", function(cm) {
@@ -420,12 +380,23 @@ CodeMirror.registerHelper("hint", "python", function(cm) {
     const start = token.start;
     const end = cursor.ch;
     const currentWord = token.string.slice(0, end - start);
+
     const allCode = cm.getValue();
-    const variableMatches = allCode.match(/[\p{L}_][\p{L}\p{N}_]*/gu) || [];
-    const suggestions = Array.from(new Set(pythonSuggestions.concat(variableMatches)));
+
+    const variableMatches =
+        allCode.match(/[\p{L}_][\p{L}\p{N}_]*/gu) || [];
+
+    const suggestions = Array.from(
+        new Set(pythonSuggestions.concat(variableMatches))
+    );
+
     const lowerWord = currentWord.toLocaleLowerCase();
+
     const list = suggestions
-        .filter(word => word.toLocaleLowerCase().startsWith(lowerWord) && word !== currentWord)
+        .filter(word =>
+            word.toLocaleLowerCase().startsWith(lowerWord) &&
+            word !== currentWord
+        )
         .sort((a, b) => a.localeCompare(b, "uk"));
 
     return {
@@ -436,11 +407,18 @@ CodeMirror.registerHelper("hint", "python", function(cm) {
 });
 
 CodeMirror.commands.autocomplete = function(cm) {
-    CodeMirror.showHint(cm, CodeMirror.hint.python, { completeSingle: false });
+    CodeMirror.showHint(
+        cm,
+        CodeMirror.hint.python,
+        { completeSingle: false }
+    );
 };
 
 editor.on("inputRead", function(cm, change) {
-    if (change.text && change.text.some(part => /[\p{L}\p{N}_]/u.test(part))) {
+    if (
+        change.text &&
+        change.text.some(part => /[\p{L}\p{N}_]/u.test(part))
+    ) {
         CodeMirror.commands.autocomplete(cm);
     }
 });
@@ -484,7 +462,6 @@ function writeConsole(text) {
 // ==================================================
 
 async function initializePython() {
-
     try {
         statusElement.textContent = "Завантаження Python...";
 
@@ -507,7 +484,6 @@ async function initializePython() {
         statusElement.textContent = "Python готовий до роботи!";
 
     } catch (error) {
-
         statusElement.textContent = "Не вдалося завантажити Python.";
         consoleElement.textContent = error.message;
     }
@@ -519,7 +495,6 @@ async function initializePython() {
 // ==================================================
 
 async function runPython() {
-
     if (!pyodide || isRunning) {
         return;
     }
@@ -558,9 +533,13 @@ async function runPython() {
             "    return value\n\n" +
             code;
 
-        // Для кожного запуску створюється окремий простір імен.
+        // Новий простір імен для кожного запуску.
         runGlobals = pyodide.globals.get("dict")();
-        await pyodide.runPythonAsync(preparedCode, { globals: runGlobals });
+
+        await pyodide.runPythonAsync(
+            preparedCode,
+            { globals: runGlobals }
+        );
 
         writeConsole("\nПрограму завершено.");
         statusElement.textContent = "Виконання завершено успішно.";
@@ -574,7 +553,7 @@ async function runPython() {
             runGlobals.destroy();
         }
 
-        // Вхідні дані не зберігаються та очищуються після кожної спроби.
+        // Вхідні дані очищуються після запуску.
         inputArea.value = "";
         localStorage.removeItem("python_online_input");
 
@@ -591,7 +570,6 @@ runButton.addEventListener("click", runPython);
 // ==================================================
 
 document.getElementById("clearCodeButton").addEventListener("click", function() {
-
     if (confirm("Очистити весь код у редакторі?")) {
         editor.setValue("");
         editor.focus();
@@ -599,7 +577,6 @@ document.getElementById("clearCodeButton").addEventListener("click", function() 
 });
 
 document.getElementById("downloadButton").addEventListener("click", function() {
-
     const code = editor.getValue();
 
     const file = new Blob(
@@ -618,7 +595,6 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 });
 
 document.getElementById("clearConsoleButton").addEventListener("click", function() {
-
     consoleElement.textContent = "";
 });
 
@@ -627,7 +603,7 @@ document.getElementById("clearInputButton").addEventListener("click", function()
     inputArea.focus();
 });
 
-// Ctrl + Backspace очищує поле вхідних даних, коли курсор у ньому.
+// Ctrl + Backspace очищує поле вхідних даних.
 inputArea.addEventListener("keydown", function(event) {
     if (event.ctrlKey && event.key === "Backspace") {
         event.preventDefault();
