@@ -20,13 +20,9 @@
   --danger: #ff7777;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -122,14 +118,45 @@ h3 {
   margin: 24px 0 9px;
 }
 
-p {
-  margin: 10px 0;
+p { margin: 10px 0; }
+
+.muted { color: var(--muted); }
+
+/* Виділення ключових термінів */
+.key-term {
+  display: inline;
+  color: #9bd8ff;
+  background: rgba(69,166,255,.15);
+  border: 1px solid rgba(69,166,255,.25);
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-weight: bold;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
-.muted {
-  color: var(--muted);
+/* Виділення важливих визначень */
+.definition {
+  background: linear-gradient(110deg, rgba(69,166,255,.16), rgba(69,166,255,.05));
+  border: 1px solid rgba(69,166,255,.28);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  padding: 15px 18px;
+  margin: 16px 0;
 }
 
+/* Виділення важливих висновків */
+.key-sentence {
+  display: block;
+  color: #eafff8;
+  background: rgba(56,217,169,.09);
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin: 14px 0;
+}
+
+/* Звичайні інформаційні блоки */
 .highlight {
   background: rgba(69,166,255,.10);
   border-left: 4px solid var(--accent);
@@ -326,17 +353,9 @@ footer {
 }
 
 @media(max-width:600px) {
-  .container {
-    padding: 12px 10px 35px;
-  }
-
-  section {
-    padding: 19px 15px;
-  }
-
-  header {
-    padding: 35px 15px;
-  }
+  .container { padding: 12px 10px 35px; }
+  section { padding: 19px 15px; }
+  header { padding: 35px 15px; }
 
   .chart-row {
     grid-template-columns: 65px 1fr 30px;
@@ -353,7 +372,6 @@ footer {
 </head>
 
 <body>
-
 <div class="container">
 
 <header>
@@ -379,7 +397,7 @@ footer {
   <h2>1. Що таке аналіз даних?</h2>
 
   <p>
-    <strong>Дані</strong> — це відомості про об'єкти, явища,
+    <strong class="key-term">Дані</strong> — це відомості про об'єкти, явища,
     події або процеси, які можна зберігати, опрацьовувати
     та передавати.
   </p>
@@ -391,8 +409,8 @@ footer {
     переглядів відео.
   </p>
 
-  <div class="highlight">
-    <strong>Аналіз даних</strong> — це процес дослідження
+  <div class="definition">
+    <strong class="key-term">Аналіз даних</strong> — це процес дослідження
     інформації для виявлення закономірностей, порівняння
     показників та отримання висновків.
   </div>
@@ -420,10 +438,10 @@ footer {
 
   <h3>Основні способи аналізу</h3>
 
-  <p><strong>Порівняння</strong> — зіставлення двох або більше значень.</p>
-  <p><strong>Сортування</strong> — упорядкування даних за зростанням або спаданням.</p>
-  <p><strong>Фільтрування</strong> — відбір даних, які відповідають певній умові.</p>
-  <p><strong>Обчислення</strong> — визначення суми, середнього, найбільшого та найменшого значень.</p>
+  <p><strong class="key-term">Порівняння</strong> — зіставлення двох або більше значень.</p>
+  <p><strong class="key-term">Сортування</strong> — упорядкування даних за зростанням або спаданням.</p>
+  <p><strong class="key-term">Фільтрування</strong> — відбір даних, які відповідають певній умові.</p>
+  <p><strong class="key-term">Обчислення</strong> — визначення суми, середнього, найбільшого та найменшого значень.</p>
 
   <h3>Приклад набору даних</h3>
 
@@ -489,11 +507,11 @@ footer {
 <section id="visual">
   <h2>2. Візуалізація даних</h2>
 
-  <p>
-    <strong>Візуалізація даних</strong> — це подання інформації
+  <div class="definition">
+    <strong class="key-term">Візуалізація даних</strong> — це подання інформації
     у графічній формі: за допомогою діаграм, графіків,
     схем та інших зображень.
-  </p>
+  </div>
 
   <p>
     Візуалізація допомагає швидше зрозуміти інформацію,
@@ -519,9 +537,7 @@ footer {
 
   <h3>Приклад стовпчастої діаграми</h3>
 
-  <p>
-    Кількість книжок, прочитаних учнями за місяць.
-  </p>
+  <p>Кількість книжок, прочитаних учнями за місяць.</p>
 
   <div class="chart">
     <div class="chart-row">
@@ -546,7 +562,7 @@ footer {
     </div>
   </div>
 
-  <div class="highlight">
+  <div class="key-sentence">
     За діаграмою можна швидко визначити, що Софія прочитала
     найбільше книжок — 10, а Олег найменше — 3.
   </div>
@@ -592,14 +608,14 @@ footer {
   <h3>Біт</h3>
 
   <p>
-    <strong>Біт</strong> — найменша одиниця вимірювання
+    <strong class="key-term">Біт</strong> — найменша одиниця вимірювання
     інформації. Він може набувати одного з двох значень: 0 або 1.
   </p>
 
   <h3>Байт</h3>
 
   <p>
-    <strong>Байт</strong> — це група з восьми бітів.
+    <strong class="key-term">Байт</strong> — це група з восьми бітів.
   </p>
 
   <div class="formula">
@@ -627,7 +643,7 @@ footer {
     <tr><td>1 ТБ</td><td>1024 ГБ</td></tr>
   </table>
 
-  <div class="highlight">
+  <div class="key-sentence">
     У наведених навчальних задачах використовуємо
     двійкові співвідношення: 1 КБ = 1024 байти,
     1 МБ = 1024 КБ.
@@ -656,7 +672,7 @@ footer {
   </p>
 
   <p>
-    <strong>Довжина двійкового коду</strong> — це кількість
+    <strong class="key-term">Довжина двійкового коду</strong> — це кількість
     бітів, використаних для кодування повідомлення.
   </p>
 
@@ -686,10 +702,11 @@ footer {
     <tr><td>8 бітів</td><td>256</td></tr>
   </table>
 
-  <div class="highlight">
+  <div class="definition">
     Щоб визначити найменшу кількість бітів для кодування
     символів алфавіту, потрібно знайти найменше ціле число n,
-    для якого виконується умова 2ⁿ ≥ N, де N — кількість символів.
+    для якого виконується умова <strong class="key-term">2ⁿ ≥ N</strong>,
+    де N — кількість символів.
   </div>
 
   <h3>Приклад 1</h3>
@@ -735,11 +752,12 @@ footer {
     Переведемо у байти:
     2500 : 8 = 312,5 байта.
   </p>
-  <p>
+
+  <div class="key-sentence">
     Отже, код має довжину 2500 бітів,
     або 312,5 байта (якщо рахувати обсяг у байтах,
     потрібно виділити щонайменше 313 цілих байтів).
-  </p>
+  </div>
 </section>
 
 <!-- ПРАКТИКА -->
