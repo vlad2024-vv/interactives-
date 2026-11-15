@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
-
 <title>Від умови до програми</title>
 
 <style>
@@ -20,438 +18,188 @@
     --red:#ff6575;
     --border:rgba(255,255,255,.09);
 }
-
-* { box-sizing:border-box; }
-
-body {
-    margin:0;
-    font-family:Arial,sans-serif;
-    color:var(--text);
+*{box-sizing:border-box}
+body{
+    margin:0;font-family:Arial,sans-serif;color:var(--text);
     background:
-      radial-gradient(circle at 10% 5%,rgba(30,110,210,.18),transparent 30%),
-      radial-gradient(circle at 90% 40%,rgba(30,160,190,.10),transparent 30%),
-      var(--bg);
-    min-height:100vh;
+    radial-gradient(circle at 10% 5%,rgba(30,110,210,.18),transparent 30%),
+    radial-gradient(circle at 90% 40%,rgba(30,160,190,.10),transparent 30%),
+    var(--bg);min-height:100vh
 }
-
-.container {
-    width:min(1050px,92%);
-    margin:auto;
-}
-
-header { padding:30px 0 20px; }
-
-.back {
-    display:inline-block;
-    color:#8fc8ff;
-    text-decoration:none;
-    margin-bottom:22px;
-    font-size:14px;
-}
-
-.hero {
+.container{width:min(1050px,92%);margin:auto}
+header{padding:30px 0 20px}
+.back{display:inline-block;color:#8fc8ff;text-decoration:none;margin-bottom:22px;font-size:14px}
+.back:hover{color:white}
+.hero{
     background:linear-gradient(135deg,#153b68,#10233d 75%);
-    border:1px solid var(--border);
-    border-radius:22px;
-    padding:35px;
-    position:relative;
-    overflow:hidden;
+    border:1px solid var(--border);border-radius:22px;
+    padding:35px;position:relative;overflow:hidden
 }
-
-.hero::after {
-    content:"</>";
-    position:absolute;
-    right:30px;
-    top:35px;
-    font-size:95px;
-    color:rgba(255,255,255,.07);
-    font-weight:bold;
+.hero:after{
+    content:"</>";position:absolute;right:30px;top:35px;
+    font-size:95px;color:rgba(255,255,255,.07);font-weight:bold
 }
-
-.label {
-    display:inline-block;
-    background:rgba(40,197,138,.15);
-    color:#65e5b2;
-    padding:7px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
+.label{
+    display:inline-block;background:rgba(40,197,138,.15);
+    color:#65e5b2;padding:7px 12px;border-radius:20px;
+    font-size:12px;font-weight:bold
 }
-
-h1 {
-    font-size:clamp(30px,5vw,44px);
-    margin:18px 0 12px;
+h1{font-size:clamp(30px,5vw,44px);margin:18px 0 12px}
+.hero p{color:#c2d5ed;line-height:1.7;max-width:650px;margin:0}
+main{padding:20px 0 55px}
+.section-title{font-size:23px;margin:30px 0 16px}
+.intro{color:var(--muted);line-height:1.7;font-size:14px}
+.modules{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
+.module{
+    background:var(--panel);border:1px solid var(--border);
+    color:var(--text);border-radius:15px;padding:16px 12px;
+    text-align:left;cursor:pointer;transition:.2s;min-width:0
 }
-
-.hero p {
-    color:#c2d5ed;
-    line-height:1.7;
-    max-width:650px;
-    margin:0;
+.module:hover{transform:translateY(-3px);border-color:var(--blue)}
+.module.active{border:2px solid var(--blue);background:#15385e}
+.module-icon{font-size:25px;margin-bottom:10px}
+.module-name{font-weight:bold;font-size:14px;line-height:1.4}
+.module-info{color:var(--muted);font-size:11px;margin-top:7px;line-height:1.5}
+.module-score{display:block;color:#65e5b2;font-size:11px;margin-top:10px}
+.lesson{
+    margin-top:25px;background:var(--panel);
+    border:1px solid var(--border);border-radius:20px;padding:26px
 }
-
-main { padding:20px 0 55px; }
-
-.section-title {
-    font-size:23px;
-    margin:30px 0 16px;
+.lesson-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.tag{color:#8ec8ff;background:rgba(50,152,243,.13);padding:7px 12px;border-radius:20px;font-size:12px}
+.counter{color:var(--muted);font-size:13px}
+.progress{height:7px;background:#263b55;border-radius:20px;overflow:hidden;margin-bottom:25px}
+.progress-bar{height:100%;background:linear-gradient(90deg,#2688e5,#36c4d7);width:0%;transition:.3s}
+.question{font-size:21px;font-weight:bold;line-height:1.5;margin-bottom:16px}
+.task{
+    background:#0b1b30;border:1px solid var(--border);
+    border-radius:12px;padding:17px;line-height:1.7;
+    color:#dceaff;margin:18px 0;font-size:15px
 }
-
-.intro {
-    color:var(--muted);
-    line-height:1.7;
-    font-size:14px;
+.task strong{color:white}
+.task code,.option code{color:#82c5ff;font-family:Consolas,monospace}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.option{
+    background:var(--panel2);border:1px solid var(--border);
+    color:var(--text);border-radius:11px;padding:15px;
+    text-align:left;font-size:14px;cursor:pointer;
+    transition:.2s;line-height:1.6;overflow-wrap:anywhere
 }
+.option:hover:not(:disabled){border-color:var(--blue);background:#1b3b60}
+.option:disabled{cursor:default;opacity:1}
+.option.correct{border-color:var(--green);background:rgba(40,197,138,.13)}
+.option.wrong{border-color:var(--red);background:rgba(255,101,117,.12)}
+.feedback{display:none;margin-top:20px;padding:17px;border-radius:12px;font-size:14px;line-height:1.7}
+.feedback.good{display:block;background:rgba(40,197,138,.11);border:1px solid rgba(40,197,138,.3)}
+.feedback.bad{display:block;background:rgba(255,101,117,.10);border:1px solid rgba(255,101,117,.3)}
+.feedback strong{display:block;margin-bottom:6px;font-size:16px}
 
-.modules {
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-    margin-top:20px;
+/* Вправи на впорядкування */
+.order-instruction{color:var(--muted);font-size:13px;margin:15px 0}
+.order-list{display:flex;flex-direction:column;gap:9px}
+.order-item{
+    display:flex;align-items:center;gap:10px;
+    background:var(--panel2);border:1px solid var(--border);
+    border-radius:11px;padding:11px;cursor:grab;
+    transition:.15s;user-select:none
 }
-
-.module {
-    background:var(--panel);
-    border:1px solid var(--border);
-    color:var(--text);
-    border-radius:15px;
-    padding:16px 12px;
-    text-align:left;
-    cursor:pointer;
-    transition:.2s;
-    min-width:0;
+.order-item.dragging{opacity:.35;border-color:var(--blue)}
+.order-item.over{border:2px dashed var(--blue)}
+.order-item.locked{cursor:default}
+.order-number{
+    width:27px;height:27px;flex-shrink:0;
+    display:grid;place-items:center;border-radius:7px;
+    background:#263e5d;color:#9ccfff;font-weight:bold;font-size:13px
 }
-
-.module:hover {
-    transform:translateY(-3px);
-    border-color:var(--blue);
+.order-text{flex:1;line-height:1.5;font-size:14px;overflow-wrap:anywhere}
+.order-text code{color:#82c5ff;font-family:Consolas,monospace}
+.order-controls{display:flex;gap:5px}
+.move-btn{
+    background:#263e5d;color:white;border:0;
+    border-radius:7px;width:30px;height:30px;
+    cursor:pointer;font-size:16px
 }
-
-.module.active {
-    border:2px solid var(--blue);
-    background:#15385e;
+.move-btn:disabled{opacity:.25;cursor:not-allowed}
+.drag-handle{color:#7893b3;font-size:18px;padding:0 3px}
+.order-item.correct-order{border-color:var(--green)}
+.actions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{
+    border:0;border-radius:10px;padding:13px 20px;
+    font-weight:bold;cursor:pointer;font-size:14px;transition:.2s
 }
-
-.module-icon {
-    font-size:25px;
-    margin-bottom:10px;
-}
-
-.module-name {
-    font-weight:bold;
-    font-size:14px;
-    line-height:1.4;
-}
-
-.module-info {
-    color:var(--muted);
-    font-size:11px;
-    margin-top:7px;
-    line-height:1.5;
-}
-
-.module-score {
-    display:block;
-    color:#65e5b2;
-    font-size:11px;
-    margin-top:10px;
-}
-
-.lesson {
-    margin-top:25px;
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:26px;
-}
-
-.lesson-top {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
-}
-
-.tag {
-    color:#8ec8ff;
-    background:rgba(50,152,243,.13);
-    padding:7px 12px;
-    border-radius:20px;
-    font-size:12px;
-}
-
-.counter {
-    color:var(--muted);
-    font-size:13px;
-}
-
-.progress {
-    height:7px;
-    background:#263b55;
-    border-radius:20px;
-    overflow:hidden;
-    margin-bottom:25px;
-}
-
-.progress-bar {
-    height:100%;
-    background:linear-gradient(90deg,#2688e5,#36c4d7);
-    width:0%;
-    transition:.3s;
-}
-
-.question {
-    font-size:21px;
-    font-weight:bold;
-    line-height:1.5;
-    margin-bottom:16px;
-}
-
-.task {
-    background:#0b1b30;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:17px;
-    line-height:1.7;
-    color:#dceaff;
-    margin:18px 0;
-    font-size:15px;
-}
-
-.task strong { color:white; }
-
-.task code, .option code {
-    color:#82c5ff;
-    font-family:Consolas,monospace;
-}
-
-.options {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:11px;
-}
-
-.option {
-    background:var(--panel2);
-    border:1px solid var(--border);
-    color:var(--text);
-    border-radius:11px;
-    padding:15px;
-    text-align:left;
-    font-size:14px;
-    cursor:pointer;
-    transition:.2s;
-    line-height:1.6;
-    overflow-wrap:anywhere;
-}
-
-.option:hover:not(:disabled) {
-    border-color:var(--blue);
-    background:#1b3b60;
-}
-
-.option:disabled { cursor:default; opacity:1; }
-
-.option.correct {
-    border-color:var(--green);
-    background:rgba(40,197,138,.13);
-}
-
-.option.wrong {
-    border-color:var(--red);
-    background:rgba(255,101,117,.12);
-}
-
-.feedback {
-    display:none;
-    margin-top:20px;
-    padding:17px;
-    border-radius:12px;
-    font-size:14px;
-    line-height:1.7;
-}
-
-.feedback.good {
-    display:block;
-    background:rgba(40,197,138,.11);
-    border:1px solid rgba(40,197,138,.3);
-}
-
-.feedback.bad {
-    display:block;
-    background:rgba(255,101,117,.10);
-    border:1px solid rgba(255,101,117,.3);
-}
-
-.feedback strong {
-    display:block;
-    margin-bottom:6px;
-    font-size:16px;
-}
-
-.actions {
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-top:22px;
-}
-
-.btn {
-    border:0;
-    border-radius:10px;
-    padding:13px 20px;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:14px;
-    transition:.2s;
-}
-
-.btn-primary {
-    background:var(--blue);
-    color:white;
-}
-
-.btn-primary:hover { background:#176fc1; }
-
-.btn-secondary {
-    background:#243a56;
-    color:#dceaff;
-}
-
-.btn:disabled {
-    opacity:.4;
-    cursor:not-allowed;
-}
-
-.result {
-    display:none;
-    text-align:center;
-    padding:25px 10px;
-}
-
-.result-number {
-    font-size:58px;
-    font-weight:bold;
-    color:#64b9ff;
-    margin:20px 0 8px;
-}
-
-.result-message {
-    font-size:20px;
-    font-weight:bold;
-    margin:15px 0;
-}
-
-.result p {
-    color:var(--muted);
-    line-height:1.7;
-}
-
-.hint {
-    margin-top:25px;
-    background:rgba(50,152,243,.08);
+.btn-primary{background:var(--blue);color:white}
+.btn-primary:hover{background:#176fc1}
+.btn-secondary{background:#243a56;color:#dceaff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.result{display:none;text-align:center;padding:25px 10px}
+.result-number{font-size:58px;font-weight:bold;color:#64b9ff;margin:20px 0 8px}
+.result-message{font-size:20px;font-weight:bold;margin:15px 0}
+.result p{color:var(--muted);line-height:1.7}
+.hint{
+    margin-top:25px;background:rgba(50,152,243,.08);
     border:1px solid rgba(50,152,243,.2);
-    border-radius:15px;
-    padding:21px;
-    line-height:1.7;
+    border-radius:15px;padding:21px;line-height:1.7
 }
-
-.hint p {
-    color:#bdcde0;
-    font-size:14px;
-    margin-bottom:0;
-}
-
-.hint h3 { margin-top:0; }
-
-footer {
-    border-top:1px solid var(--border);
-    text-align:center;
-    padding:25px 10px;
-    color:#71869f;
-    font-size:12px;
-}
-
-@media(max-width:850px) {
-    .modules { grid-template-columns:repeat(2,1fr); }
-}
-
-@media(max-width:520px) {
-    .hero { padding:25px; }
-    .hero::after { font-size:60px; right:15px; }
-    .modules { grid-template-columns:1fr; }
-    .options { grid-template-columns:1fr; }
-    .lesson { padding:17px; }
-    .question { font-size:19px; }
+.hint p{color:#bdcde0;font-size:14px;margin-bottom:0}
+.hint h3{margin-top:0}
+footer{border-top:1px solid var(--border);text-align:center;padding:25px 10px;color:#71869f;font-size:12px}
+@media(max-width:850px){.modules{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){
+    .hero{padding:25px}.hero:after{font-size:60px;right:15px}
+    .modules{grid-template-columns:1fr}
+    .options{grid-template-columns:1fr}
+    .lesson{padding:17px}.question{font-size:19px}
+    .order-item{gap:6px;padding:8px}
+    .order-text{font-size:13px}
+    .move-btn{width:27px;height:27px}
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
 <header>
     <a class="back" href="pilot-10.html">← Повернутися до матеріалів</a>
-
     <div class="hero">
         <span class="label">ТРЕНАЖЕР З ІНФОРМАТИКИ · 12 КЛАС</span>
         <h1>Від умови до програми</h1>
         <p>
-            Як навчитися розв'язувати задачі з програмування?
-            Розбираємо умову, обираємо дії, будуємо алгоритм
-            і лише після цього пишемо код.
+            Навчися розбирати умови задач, знаходити спосіб розв'язання,
+            будувати алгоритми та складати програми на Python.
+            Тут потрібно не просто вгадувати, а діяти!
         </p>
     </div>
 </header>
 
 <main>
-
     <h2 class="section-title">Тренажери</h2>
-
     <p class="intro">
-        Обери напрям і виконай інтерактивні вправи.
-        Не поспішай: головне не вгадати відповідь,
-        а зрозуміти логіку розв'язання.
+        Обери напрям і виконай вправи. У деяких завданнях потрібно
+        обрати відповідь, в інших — самостійно скласти правильну
+        послідовність кроків або рядків коду.
     </p>
 
     <div class="modules" id="modules"></div>
 
-    <section class="lesson" id="lesson">
-
+    <section class="lesson">
         <div id="question-area">
-
             <div class="lesson-top">
                 <span class="tag" id="module-tag">Модуль 1</span>
-                <span class="counter" id="counter">Завдання 1 з 6</span>
+                <span class="counter" id="counter">Вправа 1 з 6</span>
             </div>
 
-            <div class="progress">
-                <div class="progress-bar" id="progress"></div>
-            </div>
-
+            <div class="progress"><div class="progress-bar" id="progress"></div></div>
             <div class="question" id="question"></div>
-
             <div class="task" id="task"></div>
-
-            <div class="options" id="options"></div>
-
+            <div id="interaction"></div>
             <div class="feedback" id="feedback"></div>
 
             <div class="actions">
-                <button class="btn btn-secondary" onclick="restartModule()">
-                    Почати спочатку
-                </button>
-
-                <button class="btn btn-primary" id="next"
-                    onclick="nextQuestion()" disabled>
-                    Наступна вправа →
-                </button>
+                <button class="btn btn-secondary" onclick="restartModule()">Почати спочатку</button>
+                <button class="btn btn-primary" id="check" onclick="checkCurrent()" disabled>Перевірити</button>
+                <button class="btn btn-primary" id="next" onclick="nextQuestion()" hidden>Наступна вправа →</button>
             </div>
-
         </div>
 
         <div class="result" id="result">
@@ -459,16 +207,9 @@ footer {
             <div class="result-number" id="result-number">0/6</div>
             <div class="result-message" id="result-message"></div>
             <p id="result-text"></p>
-
-            <button class="btn btn-primary" onclick="restartModule()">
-                Спробувати ще раз
-            </button>
-
-            <button class="btn btn-secondary" onclick="nextModule()">
-                Наступний модуль →
-            </button>
+            <button class="btn btn-primary" onclick="restartModule()">Спробувати ще раз</button>
+            <button class="btn btn-secondary" onclick="nextModule()">Наступний модуль →</button>
         </div>
-
     </section>
 
     <div class="hint">
@@ -482,394 +223,252 @@ footer {
             6. Запиши програму та перевір результат.
         </p>
     </div>
-
 </main>
 
 <footer>
     Кабінет інформатики · Ліцей імені Олександра Цинкаловського · 2026
 </footer>
-
 </div>
 
 <script>
-
 const modulesData = [
 
+/* МОДУЛЬ 1. АНАЛІЗ УМОВИ */
 {
-    name:"Аналіз умови",
-    icon:"🔍",
+    name:"Аналіз умови",icon:"🔍",
     info:"Що відомо і що потрібно знайти",
+    type:"choice",
     questions:[
-
         {
-            q:"Прочитай умову та визнач, що потрібно знайти.",
-            task:"<strong>Задача.</strong> У магазині купили 4 зошити по 25 грн кожен. Потрібно визначити загальну вартість покупки.",
+            q:"Що потрібно знайти в цій задачі?",
+            task:"<strong>Задача.</strong> Купили 4 зошити по 25 грн кожен. Потрібно визначити загальну вартість покупки.",
             a:["Ціну одного зошита","Кількість зошитів","Загальну вартість покупки","Кількість грошей у магазині"],
-            correct:2,
-            why:"Умова прямо вказує: потрібно визначити загальну вартість усіх зошитів."
+            c:2,why:"Потрібно знайти загальну вартість усіх зошитів."
         },
-
         {
             q:"Які дані відомі в задачі?",
-            task:"<strong>Задача.</strong> Автомобіль проїхав 180 км за 3 години. Потрібно визначити його середню швидкість.",
+            task:"<strong>Задача.</strong> Автомобіль проїхав 180 км за 3 години. Потрібно визначити середню швидкість.",
             a:["180 км і 3 години","Тільки швидкість","180 км і швидкість","3 години і швидкість"],
-            correct:0,
-            why:"Відомі відстань 180 км і час 3 години. Швидкість потрібно знайти."
+            c:0,why:"Відомі відстань 180 км і час 3 години. Швидкість потрібно знайти."
         },
-
         {
             q:"Що потрібно обчислити?",
-            task:"<strong>Задача.</strong> Прямокутна кімната має довжину 6 м і ширину 4 м. Потрібно визначити, скільки квадратних метрів має підлога.",
+            task:"<strong>Задача.</strong> Кімната має довжину 6 м і ширину 4 м. Потрібно визначити площу підлоги.",
             a:["Периметр","Площу","Довжину","Ширину"],
-            correct:1,
-            why:"Площа показує, скільки квадратних метрів займає поверхня підлоги."
+            c:1,why:"Площа показує, скільки квадратних метрів займає поверхня підлоги."
         },
-
         {
-            q:"Які значення потрібно ввести до програми?",
+            q:"Які дані потрібно ввести до програми?",
             task:"<strong>Задача.</strong> Дано два числа. Потрібно обчислити їх суму.",
             a:["Тільки суму","Результат множення","Два початкові числа","Кількість чисел"],
-            correct:2,
-            why:"Програма повинна отримати два початкові числа, щоб обчислити їх суму."
+            c:2,why:"Програма повинна отримати два початкові числа, щоб обчислити їх суму."
         },
-
         {
-            q:"Визнач, що потрібно знайти.",
+            q:"Що потрібно знайти?",
             task:"<strong>Задача.</strong> Товар коштував 800 грн. Ціну знизили на 100 грн. Потрібно визначити нову ціну.",
             a:["Розмір знижки","Стару ціну","Нову ціну товару","Кількість товарів"],
-            correct:2,
-            why:"Нова ціна — це початкова ціна мінус знижка."
+            c:2,why:"Нова ціна — це початкова ціна мінус знижка."
         },
-
         {
             q:"Яких даних бракує для розв'язання задачі?",
             task:"<strong>Задача.</strong> Автомобіль проїхав певну відстань. Потрібно визначити час руху.",
-            a:["Відстані та швидкості","Тільки часу","Тільки кольору автомобіля","Нічого не бракує"],
-            correct:0,
-            why:"Щоб знайти час, потрібні відстань і швидкість: t = S / v."
+            a:["Відстані та швидкості","Тільки часу","Кольору автомобіля","Нічого не бракує"],
+            c:0,why:"Щоб знайти час, потрібні відстань і швидкість: t = S / v."
         }
-
     ]
 },
 
+/* МОДУЛЬ 2. ВИБІР ВИРАЗУ */
 {
-    name:"Вибір виразу",
-    icon:"🧮",
+    name:"Вибір виразу",icon:"🧮",
     info:"З умови до математичної формули",
+    type:"choice",
     questions:[
-
         {
             q:"Який вираз допоможе розв'язати задачу?",
-            task:"<strong>Задача.</strong> Один товар коштує 30 грн. Купили 5 таких товарів. Потрібно знайти загальну вартість.",
+            task:"Один товар коштує 30 грн. Купили 5 таких товарів. Потрібно знайти загальну вартість.",
             a:["30 + 5","30 × 5","30 − 5","30 ÷ 5"],
-            correct:1,
-            why:"Загальна вартість = ціна одного товару × кількість. 30 × 5 = 150 грн."
+            c:1,why:"Загальна вартість = ціна одного товару × кількість. 30 × 5 = 150 грн."
         },
-
         {
             q:"Яку формулу потрібно використати?",
-            task:"<strong>Задача.</strong> Відомі відстань S і швидкість v. Потрібно знайти час руху.",
+            task:"Відомі відстань S і швидкість v. Потрібно знайти час руху.",
             a:["t = S × v","t = S + v","t = S / v","t = v / S"],
-            correct:2,
-            why:"Час руху визначаємо діленням відстані на швидкість: t = S / v."
+            c:2,why:"Час руху визначаємо діленням відстані на швидкість: t = S / v."
         },
-
         {
             q:"Який вираз обчислює площу прямокутника?",
             task:"Відомі довжина a і ширина b. Потрібно знайти площу.",
             a:["a + b","2 × (a + b)","a × b","a − b"],
-            correct:2,
-            why:"Площа прямокутника обчислюється множенням довжини на ширину."
+            c:2,why:"Площа прямокутника обчислюється множенням довжини на ширину."
         },
-
         {
-            q:"Який вираз допоможе знайти середнє арифметичне трьох чисел?",
-            task:"Дано три числа: a, b і c. Потрібно знайти їх середнє арифметичне.",
+            q:"Як знайти середнє арифметичне трьох чисел?",
+            task:"Дано три числа: a, b і c.",
             a:["a + b + c","(a + b + c) / 3","a × b × c","(a + b) / c"],
-            correct:1,
-            why:"Спочатку додаємо всі числа, потім ділимо суму на їх кількість — 3."
+            c:1,why:"Спочатку додаємо всі числа, потім ділимо суму на їх кількість — 3."
         },
-
         {
             q:"Яку формулу потрібно використати?",
-            task:"<strong>Задача.</strong> Квадрат має сторону a. Потрібно знайти його периметр.",
+            task:"Квадрат має сторону a. Потрібно знайти його периметр.",
             a:["P = a × a","P = 4 × a","P = 2 × a","P = a + 4"],
-            correct:1,
-            why:"У квадрата чотири однакові сторони. Периметр: P = 4 × a."
+            c:1,why:"У квадрата чотири однакові сторони. Периметр: P = 4 × a."
         },
-
         {
             q:"Який вираз обчислить нову ціну товару після знижки?",
-            task:"Початкова ціна — p. Розмір знижки — d. Потрібно знайти нову ціну.",
+            task:"Початкова ціна — p. Розмір знижки — d.",
             a:["p + d","p × d","p − d","p / d"],
-            correct:2,
-            why:"Після знижки ціна зменшується: нова ціна = p − d."
+            c:2,why:"Після знижки ціна зменшується: нова ціна = p − d."
         }
-
     ]
 },
 
+/* МОДУЛЬ 3. ПОБУДУЙ АЛГОРИТМ */
 {
-    name:"Побудова алгоритму",
-    icon:"⚙️",
-    info:"Правильна послідовність дій",
+    name:"Побудуй алгоритм",icon:"↕️",
+    info:"Розташуй кроки в правильному порядку",
+    type:"order",
     questions:[
-
         {
-            q:"У якому порядку потрібно виконати дії?",
-            task:"<strong>Задача.</strong> Потрібно обчислити суму двох введених чисел.",
-            a:[
-                "Вивести суму → ввести числа → обчислити",
-                "Ввести числа → обчислити суму → вивести результат",
-                "Обчислити → вивести → ввести",
-                "Ввести одне число → вивести результат"
-            ],
-            correct:1,
-            why:"Спочатку отримуємо дані, потім виконуємо обчислення і виводимо результат."
+            q:"Розташуй кроки алгоритму в правильному порядку.",
+            task:"<strong>Задача:</strong> знайти суму двох чисел.",
+            items:["Вивести результат","Обчислити суму","Ввести два числа"],
+            answer:["Ввести два числа","Обчислити суму","Вивести результат"],
+            why:"Спочатку отримуємо дані, потім виконуємо обчислення і лише після цього виводимо результат."
         },
-
         {
-            q:"Який крок має бути першим?",
-            task:"<strong>Задача.</strong> Програма повинна знайти площу прямокутника за довжиною та шириною.",
-            a:[
-                "Вивести площу",
-                "Помножити довжину на ширину",
-                "Ввести довжину та ширину",
-                "Завершити програму"
-            ],
-            correct:2,
-            why:"Спочатку програма повинна отримати початкові дані — довжину та ширину."
+            q:"Побудуй алгоритм знаходження площі прямокутника.",
+            task:"Відомі довжина та ширина прямокутника.",
+            items:["Вивести площу","Ввести довжину та ширину","Обчислити добуток довжини та ширини"],
+            answer:["Ввести довжину та ширину","Обчислити добуток довжини та ширини","Вивести площу"],
+            why:"Потрібно спочатку отримати довжину і ширину, потім перемножити їх і показати результат."
         },
-
         {
-            q:"Що потрібно зробити після обчислення результату?",
-            task:"Програма вже виконала дію: suma = a + b",
-            a:[
-                "Ввести числа ще раз",
-                "Вивести значення suma",
-                "Видалити змінні",
-                "Помножити числа"
-            ],
-            correct:1,
-            why:"Після обчислення результат потрібно показати користувачеві за допомогою print()."
-        },
-
-        {
-            q:"Яка послідовність правильна для обчислення середнього арифметичного?",
+            q:"Розташуй дії для знаходження середнього арифметичного.",
             task:"Дано три числа. Потрібно знайти їх середнє арифметичне.",
-            a:[
-                "Ввести числа → знайти суму → поділити на 3 → вивести результат",
-                "Вивести результат → ввести числа → поділити на 3",
-                "Поділити одне число на 3 → ввести решту",
-                "Знайти добуток → вивести результат"
-            ],
-            correct:0,
-            why:"Спочатку вводимо всі числа, додаємо їх, ділимо суму на 3 і виводимо відповідь."
+            items:["Вивести середнє арифметичне","Поділити суму на 3","Ввести три числа","Знайти суму трьох чисел"],
+            answer:["Ввести три числа","Знайти суму трьох чисел","Поділити суму на 3","Вивести середнє арифметичне"],
+            why:"Спочатку вводимо числа, додаємо їх, ділимо суму на 3 і виводимо результат."
         },
-
         {
-            q:"Що потрібно зробити перед написанням коду?",
-            task:"Отримано текстову умову задачі. Потрібно підготувати розв'язання.",
-            a:[
-                "Одразу писати випадкові команди",
-                "Визначити вхідні дані, результат і спосіб обчислення",
-                "Видалити умову",
-                "Відкрити калькулятор і вгадати відповідь"
-            ],
-            correct:1,
-            why:"Перед програмуванням потрібно зрозуміти задачу: які дані маємо, що шукаємо і як це обчислити."
+            q:"Побудуй алгоритм обчислення вартості покупки.",
+            task:"Відомі ціна одного товару та кількість товарів.",
+            items:["Вивести загальну вартість","Ввести ціну та кількість","Помножити ціну на кількість"],
+            answer:["Ввести ціну та кількість","Помножити ціну на кількість","Вивести загальну вартість"],
+            why:"Загальна вартість дорівнює ціні, помноженій на кількість."
         },
-
         {
-            q:"Який порядок відповідає розв'язанню задачі на швидкість?",
-            task:"Відомі відстань і час. Потрібно знайти швидкість.",
-            a:[
-                "Ввести дані → обчислити S / t → вивести швидкість",
-                "Вивести швидкість → ввести дані → поділити",
-                "Ввести дані → обчислити S × t → вивести",
-                "Обчислити t / S → завершити"
-            ],
-            correct:0,
-            why:"Швидкість = відстань / час. Спочатку вводимо дані, потім обчислюємо та виводимо результат."
+            q:"Розташуй кроки знаходження швидкості.",
+            task:"Відомі відстань і час руху.",
+            items:["Вивести швидкість","Поділити відстань на час","Ввести відстань і час"],
+            answer:["Ввести відстань і час","Поділити відстань на час","Вивести швидкість"],
+            why:"Швидкість = відстань / час. Спочатку потрібні початкові дані."
+        },
+        {
+            q:"Побудуй алгоритм обчислення нової ціни після знижки.",
+            task:"Відомі початкова ціна та розмір знижки.",
+            items:["Вивести нову ціну","Ввести початкову ціну та знижку","Відняти знижку від початкової ціни"],
+            answer:["Ввести початкову ціну та знижку","Відняти знижку від початкової ціни","Вивести нову ціну"],
+            why:"Нова ціна = початкова ціна − знижка. Результат виводимо наприкінці."
         }
-
     ]
 },
 
+/* МОДУЛЬ 4. ЗНАЙДИ ПОМИЛКУ */
 {
-    name:"Пошук помилок",
-    icon:"🐞",
-    info:"Знайди помилку в програмі",
+    name:"Знайди помилку",icon:"🐞",
+    info:"Перевір готовий Python-код",
+    type:"choice",
     questions:[
-
         {
             q:"Знайди помилку в програмі.",
-            task:'<strong>Задача:</strong> знайти суму двох чисел.<br><br><code>a = 10<br>b = 5<br>suma = a * b<br>print(suma)</code>',
-            a:[
-                "Потрібно використати a + b",
-                "Потрібно використати a - b",
-                "Помилка в print",
-                "Помилок немає"
-            ],
-            correct:0,
-            why:"У задачі потрібно знайти суму, але програма виконує множення. Правильно: suma = a + b."
+            task:"<strong>Задача:</strong> знайти суму двох чисел.<br><br><code>a = 10<br>b = 5<br>suma = a * b<br>print(suma)</code>",
+            a:["Потрібно використати a + b","Потрібно використати a - b","Помилка в print","Помилок немає"],
+            c:0,why:"У задачі потрібно знайти суму, але програма виконує множення. Правильно: suma = a + b."
         },
-
         {
             q:"Чому програма неправильно знаходить середнє арифметичне?",
-            task:'<code>a = 10<br>b = 20<br>c = 30<br>seredne = a + b + c / 3</code>',
-            a:[
-                "Потрібно використати множення",
-                "Потрібно додати дужки навколо суми",
-                "Потрібно видалити число c",
-                "Помилки немає"
-            ],
-            correct:1,
-            why:"Ділення виконується раніше за додавання. Правильно: seredne = (a + b + c) / 3."
+            task:"<code>a = 10<br>b = 20<br>c = 30<br>seredne = a + b + c / 3</code>",
+            a:["Потрібно використати множення","Потрібно додати дужки навколо суми","Потрібно видалити c","Помилки немає"],
+            c:1,why:"Ділення виконується раніше за додавання. Правильно: seredne = (a + b + c) / 3."
         },
-
         {
             q:"Знайди помилку у програмі.",
-            task:'<strong>Задача:</strong> знайти площу прямокутника.<br><br><code>a = 8<br>b = 4<br>s = a + b<br>print(s)</code>',
-            a:[
-                "Потрібно відняти числа",
-                "Потрібно помножити a на b",
-                "Потрібно поділити a на b",
-                "Помилок немає"
-            ],
-            correct:1,
-            why:"Площа прямокутника дорівнює добутку довжини та ширини. Правильно: s = a * b."
+            task:"<strong>Задача:</strong> знайти площу прямокутника.<br><br><code>a = 8<br>b = 4<br>s = a + b<br>print(s)</code>",
+            a:["Потрібно відняти числа","Потрібно помножити a на b","Потрібно поділити a на b","Помилок немає"],
+            c:1,why:"Площа прямокутника дорівнює добутку довжини та ширини. Правильно: s = a * b."
         },
-
         {
             q:"Програма повинна збільшити число x на 10. Де помилка?",
-            task:'<code>x = 25<br>y = x - 10<br>print(y)</code>',
-            a:[
-                "Потрібно додати 10",
-                "Потрібно помножити на 10",
-                "Потрібно поділити на 10",
-                "Помилок немає"
-            ],
-            correct:0,
-            why:"Збільшити число означає додати. Правильно: y = x + 10."
+            task:"<code>x = 25<br>y = x - 10<br>print(y)</code>",
+            a:["Потрібно додати 10","Потрібно помножити на 10","Потрібно поділити на 10","Помилок немає"],
+            c:0,why:"Збільшити число означає додати. Правильно: y = x + 10."
         },
-
         {
             q:"Яка помилка допущена у програмі?",
-            task:'<code>a = 20<br>b = 5<br>result = a / b<br>print(a)</code>',
-            a:[
-                "Неправильна дія",
-                "Виводиться не та змінна",
-                "Потрібно використати множення",
-                "Помилок немає"
-            ],
-            correct:1,
-            why:"Результат ділення збережено в змінній result, але виводиться a. Правильно: print(result)."
+            task:"<code>a = 20<br>b = 5<br>result = a / b<br>print(a)</code>",
+            a:["Неправильна дія","Виводиться не та змінна","Потрібно використати множення","Помилок немає"],
+            c:1,why:"Результат ділення збережено в змінній result, але виводиться a. Правильно: print(result)."
         },
-
         {
             q:"Знайди помилку.",
-            task:'<strong>Задача:</strong> знайти периметр квадрата зі стороною a.<br><br><code>a = 7<br>p = a * 2<br>print(p)</code>',
-            a:[
-                "Потрібно помножити сторону на 4",
-                "Потрібно поділити на 4",
-                "Потрібно додати 2",
-                "Помилок немає"
-            ],
-            correct:0,
-            why:"Квадрат має чотири однакові сторони. Периметр: p = a * 4."
+            task:"<strong>Задача:</strong> знайти периметр квадрата зі стороною a.<br><br><code>a = 7<br>p = a * 2<br>print(p)</code>",
+            a:["Потрібно помножити сторону на 4","Потрібно поділити на 4","Потрібно додати 2","Помилок немає"],
+            c:0,why:"Квадрат має чотири однакові сторони. Периметр: p = a * 4."
         }
-
     ]
 },
 
+/* МОДУЛЬ 5. СКЛАДИ ПРОГРАМУ */
 {
-    name:"Доповни програму",
-    icon:"💻",
-    info:"Застосуй знання на практиці",
+    name:"Склади програму",icon:"💻",
+    info:"Розташуй рядки коду в правильному порядку",
+    type:"order",
     questions:[
-
         {
-            q:"Яку команду потрібно вставити?",
-            task:'<strong>Задача:</strong> знайти суму двох чисел.<br><br><code>a = 12<br>b = 8<br>suma = ???<br>print(suma)</code>',
-            a:[
-                "a - b",
-                "a * b",
-                "a + b",
-                "a / b"
-            ],
-            correct:2,
-            why:"Для знаходження суми потрібно використати додавання: suma = a + b."
+            q:"Склади програму для знаходження суми двох чисел.",
+            task:"<strong>Мета:</strong> отримати два числа, знайти їх суму та вивести результат.<br><br>Перемісти рядки коду в правильному порядку.",
+            items:["print(suma)","b = int(input())","suma = a + b","a = int(input())"],
+            answer:["a = int(input())","b = int(input())","suma = a + b","print(suma)"],
+            why:"Спочатку вводимо перше і друге число, потім обчислюємо суму та виводимо її."
         },
-
         {
-            q:"Що потрібно записати замість знака питання?",
-            task:'<strong>Задача:</strong> знайти площу прямокутника.<br><br><code>a = 9<br>b = 5<br>s = a ??? b<br>print(s)</code>',
-            a:[
-                "+",
-                "*",
-                "-",
-                "/"
-            ],
-            correct:1,
-            why:"Площа прямокутника — це добуток довжини та ширини. Використовуємо *."
+            q:"Склади програму для знаходження площі прямокутника.",
+            task:"Відомі довжина a та ширина b. Потрібно знайти площу S.",
+            items:["print(S)","S = a * b","b = int(input())","a = int(input())"],
+            answer:["a = int(input())","b = int(input())","S = a * b","print(S)"],
+            why:"Вводимо обидві сторони, перемножуємо їх і виводимо площу."
         },
-
         {
-            q:"Яку команду потрібно використати для введення числа?",
-            task:'<strong>Задача:</strong> користувач вводить число, яке потрібно зберегти в змінній x.<br><br><code>x = ???</code>',
-            a:[
-                "print()",
-                "input()",
-                "int()",
-                "range()"
-            ],
-            correct:1,
-            why:"input() отримує введення користувача. Для введення цілого числа зазвичай використовують x = int(input())."
+            q:"Склади програму для знаходження середнього арифметичного двох чисел.",
+            task:"Потрібно ввести два числа, обчислити середнє арифметичне та вивести його.",
+            items:["print(seredne)","seredne = (a + b) / 2","b = int(input())","a = int(input())"],
+            answer:["a = int(input())","b = int(input())","seredne = (a + b) / 2","print(seredne)"],
+            why:"Спочатку вводимо два числа, потім знаходимо їх суму та ділимо на 2."
         },
-
         {
-            q:"Як правильно вивести значення змінної suma?",
-            task:'<code>a = 10<br>b = 20<br>suma = a + b<br>???</code>',
-            a:[
-                "input(suma)",
-                "int(suma)",
-                "print(suma)",
-                "suma()"
-            ],
-            correct:2,
-            why:"Команда print() виводить результат на екран."
+            q:"Склади програму для обчислення вартості покупки.",
+            task:"Користувач вводить ціну товару та кількість товарів. Програма обчислює загальну вартість.",
+            items:["print(suma)","suma = cena * kilkist","kilkist = int(input())","cena = int(input())"],
+            answer:["cena = int(input())","kilkist = int(input())","suma = cena * kilkist","print(suma)"],
+            why:"Вводимо ціну і кількість, множимо їх та виводимо загальну вартість."
         },
-
         {
-            q:"Який вираз потрібно записати?",
-            task:'<strong>Задача:</strong> знайти час руху за відомими відстанню S та швидкістю v.<br><br><code>S = 180<br>v = 60<br>t = ???</code>',
-            a:[
-                "S * v",
-                "S + v",
-                "S / v",
-                "v / S"
-            ],
-            correct:2,
-            why:"Час = відстань / швидкість. t = S / v = 180 / 60 = 3 години."
+            q:"Склади програму для обчислення часу руху.",
+            task:"Відомі відстань S і швидкість v. Потрібно знайти час t = S / v.",
+            items:["print(t)","t = S / v","v = int(input())","S = int(input())"],
+            answer:["S = int(input())","v = int(input())","t = S / v","print(t)"],
+            why:"Спочатку вводимо відстань і швидкість, потім ділимо відстань на швидкість."
         },
-
         {
-            q:"Який код правильно обчислює добуток двох введених чисел?",
-            task:"Обери правильний варіант програми.",
-            a:[
-                "a = int(input())<br>b = int(input())<br>print(a + b)",
-                "a = int(input())<br>b = int(input())<br>print(a * b)",
-                "a = input()<br>b = input()<br>print(a + b)",
-                "a = int(input())<br>print(a * b)"
-            ],
-            correct:1,
-            why:"Програма вводить два цілі числа, множить їх і виводить результат. Саме це потрібно за умовою."
+            q:"Склади програму для знаходження периметра квадрата.",
+            task:"Користувач вводить сторону квадрата a. Потрібно обчислити P = 4 * a.",
+            items:["print(P)","P = 4 * a","a = int(input())"],
+            answer:["a = int(input())","P = 4 * a","print(P)"],
+            why:"Вводимо довжину сторони, множимо її на 4 та виводимо периметр."
         }
-
     ]
 }
-
 ];
 
 let currentModule = 0;
@@ -877,32 +476,30 @@ let currentQuestion = 0;
 let score = 0;
 let answered = false;
 let moduleScores = {};
+let currentOrder = [];
+let draggedIndex = null;
 
-function renderModules() {
+function renderModules(){
+    const box=document.getElementById("modules");
+    box.innerHTML="";
 
-    const box = document.getElementById("modules");
-    box.innerHTML = "";
+    modulesData.forEach((module,index)=>{
+        const button=document.createElement("button");
+        button.className="module"+(index===currentModule?" active":"");
 
-    modulesData.forEach((module,index) => {
+        const result=moduleScores[index]!==undefined
+            ?`Результат: ${moduleScores[index]}/6`
+            :"Ще не пройдено";
 
-        const button = document.createElement("button");
-
-        button.className = "module" +
-            (index === currentModule ? " active" : "");
-
-        const result = moduleScores[index] !== undefined
-            ? `Результат: ${moduleScores[index]}/6`
-            : "Ще не пройдено";
-
-        button.innerHTML = `
+        button.innerHTML=`
             <div class="module-icon">${module.icon}</div>
             <div class="module-name">${index+1}. ${module.name}</div>
             <div class="module-info">${module.info}</div>
             <span class="module-score">${result}</span>
         `;
 
-        button.addEventListener("click", () => {
-            currentModule = index;
+        button.addEventListener("click",()=>{
+            currentModule=index;
             restartModule();
         });
 
@@ -910,190 +507,306 @@ function renderModules() {
     });
 }
 
-function loadQuestion() {
+function loadQuestion(){
+    answered=false;
 
-    answered = false;
+    const module=modulesData[currentModule];
+    const question=module.questions[currentQuestion];
 
-    const module = modulesData[currentModule];
-    const question = module.questions[currentQuestion];
+    document.getElementById("question-area").style.display="block";
+    document.getElementById("result").style.display="none";
 
-    document.getElementById("question-area").style.display = "block";
-    document.getElementById("result").style.display = "none";
-
-    document.getElementById("module-tag").textContent =
+    document.getElementById("module-tag").textContent=
         `Модуль ${currentModule+1}: ${module.name}`;
 
-    document.getElementById("counter").textContent =
+    document.getElementById("counter").textContent=
         `Вправа ${currentQuestion+1} з ${module.questions.length}`;
 
-    document.getElementById("question").textContent = question.q;
-    document.getElementById("task").innerHTML = question.task;
+    document.getElementById("question").textContent=question.q;
+    document.getElementById("task").innerHTML=question.task;
 
-    document.getElementById("progress").style.width =
-        (currentQuestion / module.questions.length * 100) + "%";
+    document.getElementById("progress").style.width=
+        (currentQuestion/module.questions.length*100)+"%";
 
-    const options = document.getElementById("options");
-    options.innerHTML = "";
+    const interaction=document.getElementById("interaction");
+    interaction.innerHTML="";
 
-    question.a.forEach((answer,index) => {
+    if(module.type==="choice"){
+        renderChoice(question,interaction);
+    }else{
+        renderOrder(question,interaction);
+    }
 
-        const button = document.createElement("button");
-        button.className = "option";
+    const feedback=document.getElementById("feedback");
+    feedback.className="feedback";
+    feedback.innerHTML="";
 
-        button.innerHTML =
-            String.fromCharCode(65+index) + ") " + answer;
+    document.getElementById("check").hidden=false;
+    document.getElementById("check").disabled=true;
+    document.getElementById("next").hidden=true;
+}
 
-        button.addEventListener("click", () => checkAnswer(index));
+function renderChoice(question,container){
+    const options=document.createElement("div");
+    options.className="options";
+
+    question.a.forEach((answer,index)=>{
+        const button=document.createElement("button");
+        button.className="option";
+        button.innerHTML=String.fromCharCode(65+index)+") "+answer;
+
+        button.addEventListener("click",()=>{
+            if(answered)return;
+
+            container.querySelectorAll(".option").forEach(b=>{
+                b.disabled=true;
+            });
+
+            button.dataset.selected=index;
+            container.dataset.selected=index;
+
+            document.getElementById("check").disabled=false;
+        });
 
         options.appendChild(button);
     });
 
-    const feedback = document.getElementById("feedback");
-    feedback.className = "feedback";
-    feedback.innerHTML = "";
-
-    document.getElementById("next").disabled = true;
-
-    document.getElementById("next").textContent =
-        currentQuestion === module.questions.length-1
-        ? "Завершити модуль →"
-        : "Наступна вправа →";
+    container.appendChild(options);
 }
 
-function checkAnswer(index) {
+function renderOrder(question,container){
+    currentOrder=question.items.map((text,index)=>({
+        text:text,
+        original:index
+    }));
 
-    if(answered) return;
+    const instruction=document.createElement("div");
+    instruction.className="order-instruction";
+    instruction.textContent=
+        "Перетягни рядки мишкою або змінюй їх порядок стрілками ↑ ↓.";
 
-    answered = true;
+    container.appendChild(instruction);
 
-    const question =
-        modulesData[currentModule].questions[currentQuestion];
+    const list=document.createElement("div");
+    list.className="order-list";
+    list.id="order-list";
+    container.appendChild(list);
 
-    const buttons = document.querySelectorAll(".option");
-    const feedback = document.getElementById("feedback");
+    renderOrderItems();
+}
 
-    buttons.forEach((button,i) => {
+function renderOrderItems(){
+    const list=document.getElementById("order-list");
+    list.innerHTML="";
 
-        button.disabled = true;
+    currentOrder.forEach((item,index)=>{
+        const row=document.createElement("div");
+        row.className="order-item"+(answered?" locked":"");
+        row.draggable=!answered;
+        row.dataset.index=index;
 
-        if(i === question.correct) {
-            button.classList.add("correct");
-        }
+        const number=document.createElement("div");
+        number.className="order-number";
+        number.textContent=index+1;
 
-        if(i === index && index !== question.correct) {
-            button.classList.add("wrong");
-        }
+        const handle=document.createElement("span");
+        handle.className="drag-handle";
+        handle.textContent="⠿";
+
+        const text=document.createElement("div");
+        text.className="order-text";
+        text.textContent=item.text;
+
+        const controls=document.createElement("div");
+        controls.className="order-controls";
+
+        const up=document.createElement("button");
+        up.className="move-btn";
+        up.type="button";
+        up.textContent="↑";
+        up.title="Перемістити вгору";
+        up.disabled=answered||index===0;
+        up.addEventListener("click",()=>{
+            moveItem(index,index-1);
+        });
+
+        const down=document.createElement("button");
+        down.className="move-btn";
+        down.type="button";
+        down.textContent="↓";
+        down.title="Перемістити вниз";
+        down.disabled=answered||index===currentOrder.length-1;
+        down.addEventListener("click",()=>{
+            moveItem(index,index+1);
+        });
+
+        controls.append(up,down);
+        row.append(handle,number,text,controls);
+
+        row.addEventListener("dragstart",event=>{
+            if(answered)return;
+            draggedIndex=index;
+            row.classList.add("dragging");
+            event.dataTransfer.effectAllowed="move";
+            event.dataTransfer.setData("text/plain",String(index));
+        });
+
+        row.addEventListener("dragend",()=>{
+            row.classList.remove("dragging");
+            list.querySelectorAll(".over").forEach(el=>el.classList.remove("over"));
+        });
+
+        row.addEventListener("dragover",event=>{
+            if(answered)return;
+            event.preventDefault();
+            row.classList.add("over");
+        });
+
+        row.addEventListener("dragleave",()=>{
+            row.classList.remove("over");
+        });
+
+        row.addEventListener("drop",event=>{
+            if(answered)return;
+            event.preventDefault();
+            const from=draggedIndex;
+            const to=Number(row.dataset.index);
+            if(from!==null&&from!==to){
+                moveItem(from,to);
+            }
+            draggedIndex=null;
+        });
+
+        list.appendChild(row);
     });
 
-    if(index === question.correct) {
-
-        score++;
-
-        feedback.className = "feedback good";
-
-        feedback.innerHTML =
-            `<strong>✓ Правильно!</strong>${question.why}`;
-
-    } else {
-
-        feedback.className = "feedback bad";
-
-        feedback.innerHTML =
-            `<strong>✕ Спробуй розібратися.</strong>
-            Правильна відповідь:
-            <b>${question.a[question.correct]}</b>.
-            <br>${question.why}`;
-    }
-
-    document.getElementById("next").disabled = false;
+    document.getElementById("check").disabled=answered;
 }
 
-function nextQuestion() {
+function moveItem(from,to){
+    if(answered||to<0||to>=currentOrder.length)return;
 
-    if(!answered) return;
+    const moved=currentOrder.splice(from,1)[0];
+    currentOrder.splice(to,0,moved);
 
-    const total = modulesData[currentModule].questions.length;
+    renderOrderItems();
+}
 
-    if(currentQuestion < total-1) {
+function checkCurrent(){
+    if(answered)return;
 
+    const module=modulesData[currentModule];
+    const question=module.questions[currentQuestion];
+    let isCorrect=false;
+
+    if(module.type==="choice"){
+        const selected=document.getElementById("interaction").dataset.selected;
+        if(selected===undefined)return;
+
+        const index=Number(selected);
+        isCorrect=index===question.c;
+
+        const buttons=document.querySelectorAll("#interaction .option");
+        buttons.forEach((button,i)=>{
+            button.disabled=true;
+            if(i===question.c)button.classList.add("correct");
+            if(i===index&&index!==question.c)button.classList.add("wrong");
+        });
+
+    }else{
+        isCorrect=currentOrder.every((item,index)=>
+            item.text===question.answer[index]
+        );
+
+        answered=true;
+        renderOrderItems();
+    }
+
+    answered=true;
+
+    if(isCorrect)score++;
+
+    showFeedback(isCorrect,question);
+    document.getElementById("check").hidden=true;
+    document.getElementById("next").hidden=false;
+}
+
+function showFeedback(isCorrect,question){
+    const feedback=document.getElementById("feedback");
+
+    if(isCorrect){
+        feedback.className="feedback good";
+        feedback.innerHTML=
+            `<strong>✓ Правильно!</strong>${question.why}`;
+    }else{
+        feedback.className="feedback bad";
+        feedback.innerHTML=
+            `<strong>✕ Не зовсім правильно.</strong>
+            ${question.why}`;
+    }
+}
+
+function nextQuestion(){
+    if(!answered)return;
+
+    const total=modulesData[currentModule].questions.length;
+
+    if(currentQuestion<total-1){
         currentQuestion++;
         loadQuestion();
-
-    } else {
-
+    }else{
         showResult();
-
     }
 }
 
-function showResult() {
+function showResult(){
+    const total=modulesData[currentModule].questions.length;
+    moduleScores[currentModule]=score;
 
-    const total = modulesData[currentModule].questions.length;
+    document.getElementById("question-area").style.display="none";
+    document.getElementById("result").style.display="block";
 
-    moduleScores[currentModule] = score;
+    document.getElementById("result-number").textContent=`${score}/${total}`;
 
-    document.getElementById("question-area").style.display = "none";
-    document.getElementById("result").style.display = "block";
+    let message="",text="";
 
-    document.getElementById("result-number").textContent =
-        `${score}/${total}`;
-
-    let message = "";
-    let text = "";
-
-    if(score === total) {
-
-        message = "Чудово! Усі відповіді правильні!";
-        text = "Ти добре розумієш цей етап розв'язування задач.";
-
-    } else if(score >= 4) {
-
-        message = "Хороший результат!";
-        text = "Ти вже орієнтуєшся в матеріалі. Переглянь пояснення до помилок.";
-
-    } else if(score >= 2) {
-
-        message = "Є над чим попрацювати.";
-        text = "Не поспішай переходити далі. Спробуй ще раз.";
-
-    } else {
-
-        message = "Почнемо з основ!";
-        text = "Уважно прочитай пояснення та повтори вправи.";
+    if(score===total){
+        message="Чудово! Усі відповіді правильні!";
+        text="Ти добре розумієш цей етап розв'язування задач.";
+    }else if(score>=4){
+        message="Хороший результат!";
+        text="Ти вже орієнтуєшся в матеріалі. Переглянь пояснення до помилок.";
+    }else if(score>=2){
+        message="Є над чим попрацювати.";
+        text="Не поспішай переходити далі. Спробуй ще раз.";
+    }else{
+        message="Почнемо з основ!";
+        text="Уважно прочитай пояснення та повтори вправи.";
     }
 
-    document.getElementById("result-message").textContent = message;
-    document.getElementById("result-text").textContent = text;
-
-    document.getElementById("progress").style.width = "100%";
+    document.getElementById("result-message").textContent=message;
+    document.getElementById("result-text").textContent=text;
+    document.getElementById("progress").style.width="100%";
 
     renderModules();
 }
 
-function restartModule() {
-
-    currentQuestion = 0;
-    score = 0;
-    answered = false;
-
+function restartModule(){
+    currentQuestion=0;
+    score=0;
+    answered=false;
     renderModules();
     loadQuestion();
-
-    document.getElementById("progress").style.width = "0%";
+    document.getElementById("progress").style.width="0%";
 }
 
-function nextModule() {
-
-    currentModule =
-        (currentModule + 1) % modulesData.length;
-
+function nextModule(){
+    currentModule=(currentModule+1)%modulesData.length;
     restartModule();
 }
 
 renderModules();
 loadQuestion();
-
 </script>
-
 </body>
 </html>
