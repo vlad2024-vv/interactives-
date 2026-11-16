@@ -1,0 +1,1068 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+
+<title>Від умови до програми | 8 клас</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #eaf2ff;
+    background:
+        radial-gradient(circle at 10% 5%, #15345a 0, transparent 35%),
+        radial-gradient(circle at 90% 90%, #281b52 0, transparent 35%),
+        #071426;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+    padding: 25px 20px 40px;
+}
+
+/* Шапка */
+
+header {
+    text-align: center;
+    padding: 35px 15px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border-radius: 20px;
+    font-size: 34px;
+    background: linear-gradient(135deg, #2563eb, #7045c5);
+    box-shadow: 0 10px 35px rgba(37, 99, 235, 0.3);
+}
+
+h1 {
+    margin: 0 0 12px;
+    font-size: clamp(27px, 5vw, 40px);
+    line-height: 1.2;
+}
+
+.subtitle {
+    max-width: 680px;
+    margin: auto;
+    color: #aabbd3;
+    font-size: 16px;
+}
+
+/* Кнопка повернення */
+
+.back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    border: 1px solid #345477;
+    border-radius: 9px;
+    color: #dceaff;
+    text-decoration: none;
+    background: rgba(17, 35, 61, 0.8);
+    transition: 0.2s;
+}
+
+.back:hover {
+    background: #1c416b;
+    border-color: #6598d5;
+}
+
+/* Розділи */
+
+.section {
+    margin-top: 28px;
+    padding: 25px;
+    border: 1px solid #29466c;
+    border-radius: 16px;
+    background: rgba(17, 35, 61, 0.88);
+}
+
+.section h2 {
+    margin: 0 0 18px;
+    font-size: 23px;
+}
+
+.section h3 {
+    margin: 22px 0 10px;
+    font-size: 18px;
+    color: #d8e8ff;
+}
+
+p {
+    color: #c2d1e5;
+    margin: 10px 0;
+}
+
+/* Визначення */
+
+.definition {
+    margin: 18px 0;
+    padding: 18px 20px;
+    border-left: 4px solid #4b91f1;
+    border-radius: 10px;
+    background: rgba(37, 99, 235, 0.13);
+}
+
+.definition-title {
+    display: block;
+    margin-bottom: 7px;
+    color: #7db5ff;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.definition strong {
+    color: #ffffff;
+}
+
+/* Приклад */
+
+.example {
+    margin-top: 18px;
+    padding: 20px;
+    border: 1px solid #365b82;
+    border-radius: 12px;
+    background: rgba(8, 24, 44, 0.8);
+}
+
+.example-title {
+    color: #8fc2ff;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.steps {
+    padding-left: 22px;
+    color: #c8d8ed;
+}
+
+.steps li {
+    margin: 8px 0;
+}
+
+.result {
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 9px;
+    background: rgba(34, 197, 94, 0.1);
+    color: #a7f3c0;
+}
+
+/* Код */
+
+pre {
+    overflow-x: auto;
+    padding: 17px;
+    border: 1px solid #29466c;
+    border-radius: 10px;
+    background: #071426;
+    color: #b9dcff;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+code {
+    font-family: Consolas, monospace;
+}
+
+/* Інтерактивні завдання */
+
+.question {
+    margin: 20px 0;
+    padding: 18px;
+    border: 1px solid #345477;
+    border-radius: 12px;
+    background: rgba(7, 20, 38, 0.65);
+}
+
+.question p {
+    color: #eef5ff;
+    font-weight: bold;
+}
+
+.options {
+    display: grid;
+    gap: 9px;
+    margin-top: 12px;
+}
+
+.option {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #36577a;
+    border-radius: 9px;
+    color: #dceaff;
+    background: #112944;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option:hover:not(:disabled) {
+    border-color: #6ba7f5;
+    background: #193c62;
+}
+
+.option:disabled {
+    cursor: default;
+    opacity: 0.9;
+}
+
+.option.correct {
+    border-color: #35bd79;
+    background: rgba(22, 163, 74, 0.2);
+}
+
+.option.wrong {
+    border-color: #e16b6b;
+    background: rgba(220, 38, 38, 0.16);
+}
+
+.feedback {
+    margin-top: 12px;
+    color: #aabbd3;
+    font-size: 14px;
+    min-height: 22px;
+}
+
+.feedback.good {
+    color: #86efac;
+}
+
+.feedback.bad {
+    color: #fca5a5;
+}
+
+/* Впорядкування */
+
+.order-list {
+    display: grid;
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #36577a;
+    border-radius: 9px;
+    background: #112944;
+}
+
+.order-text {
+    flex: 1;
+    color: #e4efff;
+}
+
+.order-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.order-buttons button {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #52769c;
+    border-radius: 7px;
+    color: white;
+    background: #1c416b;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.order-buttons button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Кнопки */
+
+.action-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    background: linear-gradient(135deg, #2563eb, #5140a9);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.action-button:hover {
+    filter: brightness(1.15);
+}
+
+.action-button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.score {
+    margin-top: 15px;
+    padding: 13px 16px;
+    border-radius: 9px;
+    background: rgba(37, 99, 235, 0.13);
+    color: #b9d7ff;
+}
+
+/* Підвал */
+
+footer {
+    margin-top: 45px;
+    padding: 20px 10px;
+    border-top: 1px solid #203955;
+    color: #8297b2;
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    header {
+        padding: 25px 5px;
+    }
+
+    .section {
+        padding: 18px;
+    }
+
+    .order-item {
+        align-items: flex-start;
+    }
+
+    .order-buttons {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a class="back" href="index.html">
+        ← На головну
+    </a>
+
+    <header>
+        <div class="logo">🧩</div>
+
+        <h1>Від умови до програми</h1>
+
+        <div class="subtitle">
+            Навчимося аналізувати задачі, знаходити спосіб їх розв'язання,
+            будувати алгоритми та створювати прості програми.
+        </div>
+    </header>
+
+
+    <!-- ТЕОРІЯ -->
+
+    <section class="section">
+
+        <h2>1. Як розв'язати задачу?</h2>
+
+        <p>
+            Коли ми отримуємо задачу, не потрібно відразу писати програму.
+            Спочатку варто уважно прочитати умову та зрозуміти,
+            що саме потрібно зробити.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Задача</strong> — це ситуація або проблема,
+            для якої потрібно знайти розв'язання.
+        </div>
+
+        <h3>З чого почати?</h3>
+
+        <ol class="steps">
+            <li>Прочитати умову задачі.</li>
+            <li>Визначити, які дані нам відомі.</li>
+            <li>З'ясувати, що потрібно знайти.</li>
+            <li>Подумати, як отримати відповідь.</li>
+            <li>Скласти алгоритм і програму.</li>
+        </ol>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Вхідні дані</strong> — це інформація,
+            яку ми отримуємо для розв'язання задачі.
+            <br><br>
+            <strong>Результат (вихідні дані)</strong> — це відповідь,
+            яку потрібно отримати після виконання задачі.
+        </div>
+
+    </section>
+
+
+    <!-- ПРИКЛАД -->
+
+    <section class="section">
+
+        <h2>2. Розглянемо приклад</h2>
+
+        <p>
+            У магазині купили 3 кг яблук. Один кілограм коштує 35 грн.
+            Скільки потрібно заплатити?
+        </p>
+
+        <div class="example">
+
+            <div class="example-title">Аналізуємо умову</div>
+
+            <p><strong>Відомо:</strong></p>
+
+            <ul class="steps">
+                <li>Кількість яблук — 3 кг.</li>
+                <li>Ціна одного кілограма — 35 грн.</li>
+            </ul>
+
+            <p><strong>Потрібно знайти:</strong> загальну вартість.</p>
+
+            <p><strong>Спосіб розв'язання:</strong></p>
+
+            <p>
+                Загальна вартість = кількість × ціна.
+            </p>
+
+            <div class="result">
+                3 × 35 = 105 грн
+                <br>
+                <strong>Відповідь: 105 грн.</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- АЛГОРИТМ -->
+
+    <section class="section">
+
+        <h2>3. Що таке алгоритм?</h2>
+
+        <p>
+            Щоб отримати правильний результат, потрібно виконувати
+            дії в певному порядку. Наприклад, під час приготування
+            бутерброда ми спочатку беремо хліб, потім додаємо начинку,
+            а вже після цього подаємо його до столу.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Алгоритм</strong> — це скінченна послідовність
+            чітких команд, виконання яких приводить до розв'язання задачі.
+        </div>
+
+        <h3>Властивості алгоритму</h3>
+
+        <ul class="steps">
+            <li><strong>Зрозумілість:</strong> команди мають бути зрозумілими виконавцю.</li>
+            <li><strong>Послідовність:</strong> команди виконуються у визначеному порядку.</li>
+            <li><strong>Скінченність:</strong> алгоритм повинен завершуватися.</li>
+            <li><strong>Результативність:</strong> виконання алгоритму має приводити до результату.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- PYTHON -->
+
+    <section class="section">
+
+        <h2>4. Від алгоритму до програми Python</h2>
+
+        <p>
+            Комп'ютер може виконувати алгоритми, записані мовою програмування.
+            Для цього використовують команди, які він розуміє.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Програма</strong> — це алгоритм,
+            записаний мовою програмування.
+        </div>
+
+        <h3>Основні команди Python</h3>
+
+        <div class="example">
+
+            <p><strong>1. input()</strong> — введення даних.</p>
+
+            <pre><code>name = input("Як тебе звати? ")</code></pre>
+
+            <p><strong>2. print()</strong> — виведення інформації.</p>
+
+            <pre><code>print("Привіт!")</code></pre>
+
+            <p><strong>3. Обчислення</strong> — виконання математичних дій.</p>
+
+            <pre><code>a = 10
+b = 5
+c = a + b
+
+print(c)</code></pre>
+
+        </div>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Змінна</strong> — це іменована ділянка пам'яті,
+            у якій зберігається певне значення.
+        </div>
+
+        <h3>Приклад програми</h3>
+
+        <p>
+            Програма запитує ціну та кількість товару,
+            обчислює загальну вартість і виводить результат.
+        </p>
+
+        <pre><code>price = int(input("Введіть ціну: "))
+count = int(input("Введіть кількість: "))
+
+total = price * count
+
+print("До сплати:", total, "грн")</code></pre>
+
+        <p>
+            У цій програмі користувач вводить два числа,
+            комп'ютер множить їх і показує відповідь.
+        </p>
+
+    </section>
+
+
+    <!-- ТЕСТ -->
+
+    <section class="section">
+
+        <h2>5. Перевір свої знання</h2>
+
+        <p>
+            Обери правильну відповідь. Після кожного запитання
+            ти одразу побачиш результат.
+        </p>
+
+        <div id="quiz"></div>
+
+        <div class="score" id="quizScore">
+            Правильних відповідей: 0 із 5
+        </div>
+
+        <button class="action-button" onclick="restartQuiz()">
+            Почати тест спочатку
+        </button>
+
+    </section>
+
+
+    <!-- ПОСЛІДОВНІСТЬ -->
+
+    <section class="section">
+
+        <h2>6. Побудуй алгоритм</h2>
+
+        <p>
+            Розташуй команди у правильному порядку.
+            Потрібно скласти алгоритм обчислення суми двох чисел.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Завдання</span>
+            Переміщуй команди за допомогою стрілок,
+            щоб отримати правильну послідовність.
+        </div>
+
+        <div id="orderList" class="order-list"></div>
+
+        <button class="action-button" onclick="checkOrder()">
+            Перевірити порядок
+        </button>
+
+        <button class="action-button" onclick="resetOrder()">
+            Почати спочатку
+        </button>
+
+        <div id="orderFeedback" class="feedback"></div>
+
+    </section>
+
+
+    <!-- СКЛАДАННЯ ПРОГРАМИ -->
+
+    <section class="section">
+
+        <h2>7. Склади програму</h2>
+
+        <p>
+            Частини програми Python переплуталися.
+            Розташуй їх у правильному порядку,
+            щоб програма обчислювала суму двох чисел.
+        </p>
+
+        <div id="codeList" class="order-list"></div>
+
+        <button class="action-button" onclick="checkCode()">
+            Перевірити програму
+        </button>
+
+        <button class="action-button" onclick="resetCode()">
+            Почати спочатку
+        </button>
+
+        <div id="codeFeedback" class="feedback"></div>
+
+    </section>
+
+
+    <footer>
+        Кабінет інформатики · Ліцей імені Олександра Цинкаловського · 2026
+    </footer>
+
+</div>
+
+
+<script>
+
+/* ===================================
+   ТЕСТОВІ ЗАПИТАННЯ
+=================================== */
+
+const questions = [
+    {
+        question: "Що називають вхідними даними?",
+        answers: [
+            "Інформацію, яку отримуємо для розв'язання задачі",
+            "Відповідь програми",
+            "Назву програми"
+        ],
+        correct: 0,
+        explanation: "Вхідні дані — це інформація, з якою ми працюємо."
+    },
+    {
+        question: "Що потрібно зробити перед написанням програми?",
+        answers: [
+            "Відразу запускати Python",
+            "Проаналізувати умову задачі",
+            "Видалити всі змінні"
+        ],
+        correct: 1,
+        explanation: "Спочатку потрібно зрозуміти умову та визначити, що відомо і що потрібно знайти."
+    },
+    {
+        question: "Що таке алгоритм?",
+        answers: [
+            "Будь-який текст",
+            "Назва комп'ютера",
+            "Послідовність команд для розв'язання задачі"
+        ],
+        correct: 2,
+        explanation: "Алгоритм складається з команд, які виконуються для отримання результату."
+    },
+    {
+        question: "Для чого використовують команду print()?",
+        answers: [
+            "Для виведення інформації",
+            "Для введення даних",
+            "Для завершення комп'ютера"
+        ],
+        correct: 0,
+        explanation: "Команда print() виводить інформацію на екран."
+    },
+    {
+        question: "Що таке змінна?",
+        answers: [
+            "Команда для друку",
+            "Іменована ділянка пам'яті для зберігання значення",
+            "Помилка в програмі"
+        ],
+        correct: 1,
+        explanation: "Змінна має ім'я та зберігає певне значення."
+    }
+];
+
+let quizScore = 0;
+let answeredQuestions = 0;
+
+function renderQuiz() {
+
+    const container = document.getElementById("quiz");
+    container.innerHTML = "";
+
+    questions.forEach((q, index) => {
+
+        const card = document.createElement("div");
+        card.className = "question";
+
+        const title = document.createElement("p");
+        title.textContent = (index + 1) + ". " + q.question;
+
+        const options = document.createElement("div");
+        options.className = "options";
+
+        const feedback = document.createElement("div");
+        feedback.className = "feedback";
+
+        q.answers.forEach((answer, answerIndex) => {
+
+            const button = document.createElement("button");
+            button.className = "option";
+            button.textContent = answer;
+
+            button.addEventListener("click", () => {
+
+                if (card.dataset.answered === "true") {
+                    return;
+                }
+
+                card.dataset.answered = "true";
+                answeredQuestions++;
+
+                const allButtons = options.querySelectorAll("button");
+
+                allButtons.forEach((item, i) => {
+                    item.disabled = true;
+
+                    if (i === q.correct) {
+                        item.classList.add("correct");
+                    }
+                });
+
+                if (answerIndex === q.correct) {
+
+                    quizScore++;
+                    feedback.textContent = "Правильно! " + q.explanation;
+                    feedback.className = "feedback good";
+
+                } else {
+
+                    button.classList.add("wrong");
+                    feedback.textContent = "Не зовсім правильно. " + q.explanation;
+                    feedback.className = "feedback bad";
+
+                }
+
+                updateQuizScore();
+
+            });
+
+            options.appendChild(button);
+
+        });
+
+        card.appendChild(title);
+        card.appendChild(options);
+        card.appendChild(feedback);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+function updateQuizScore() {
+
+    document.getElementById("quizScore").textContent =
+        "Правильних відповідей: " + quizScore + " із 5. " +
+        "Виконано запитань: " + answeredQuestions + " із 5.";
+
+}
+
+function restartQuiz() {
+
+    quizScore = 0;
+    answeredQuestions = 0;
+
+    updateQuizScore();
+    renderQuiz();
+
+}
+
+
+/* ===================================
+   ВПОРЯДКУВАННЯ АЛГОРИТМУ
+=================================== */
+
+const correctOrder = [
+    "Ввести перше число",
+    "Ввести друге число",
+    "Обчислити суму чисел",
+    "Вивести результат"
+];
+
+let orderItems = [
+    "Обчислити суму чисел",
+    "Вивести результат",
+    "Ввести перше число",
+    "Ввести друге число"
+];
+
+function renderOrder() {
+
+    const container = document.getElementById("orderList");
+    container.innerHTML = "";
+
+    orderItems.forEach((item, index) => {
+
+        const row = document.createElement("div");
+        row.className = "order-item";
+
+        const text = document.createElement("div");
+        text.className = "order-text";
+        text.textContent = (index + 1) + ". " + item;
+
+        const buttons = document.createElement("div");
+        buttons.className = "order-buttons";
+
+        const up = document.createElement("button");
+        up.textContent = "↑";
+        up.title = "Перемістити вгору";
+        up.disabled = index === 0;
+
+        up.onclick = () => moveOrder(index, -1);
+
+        const down = document.createElement("button");
+        down.textContent = "↓";
+        down.title = "Перемістити вниз";
+        down.disabled = index === orderItems.length - 1;
+
+        down.onclick = () => moveOrder(index, 1);
+
+        buttons.appendChild(up);
+        buttons.appendChild(down);
+
+        row.appendChild(text);
+        row.appendChild(buttons);
+
+        container.appendChild(row);
+
+    });
+
+}
+
+function moveOrder(index, direction) {
+
+    const newIndex = index + direction;
+
+    if (newIndex < 0 || newIndex >= orderItems.length) {
+        return;
+    }
+
+    [orderItems[index], orderItems[newIndex]] =
+        [orderItems[newIndex], orderItems[index]];
+
+    document.getElementById("orderFeedback").textContent = "";
+
+    renderOrder();
+
+}
+
+function checkOrder() {
+
+    const correct = orderItems.every((item, index) =>
+        item === correctOrder[index]
+    );
+
+    const feedback = document.getElementById("orderFeedback");
+
+    if (correct) {
+
+        feedback.textContent =
+            "Чудово! Ти правильно побудував алгоритм.";
+
+        feedback.className = "feedback good";
+
+    } else {
+
+        feedback.textContent =
+            "Порядок поки неправильний. Подумай, яка дія має бути першою.";
+
+        feedback.className = "feedback bad";
+
+    }
+
+}
+
+function resetOrder() {
+
+    orderItems = [
+        "Обчислити суму чисел",
+        "Вивести результат",
+        "Ввести перше число",
+        "Ввести друге число"
+    ];
+
+    document.getElementById("orderFeedback").textContent = "";
+
+    renderOrder();
+
+}
+
+
+/* ===================================
+   СКЛАДАННЯ ПРОГРАМИ
+=================================== */
+
+const correctCode = [
+    'a = int(input("Введіть перше число: "))',
+    'b = int(input("Введіть друге число: "))',
+    's = a + b',
+    'print("Сума:", s)'
+];
+
+let codeItems = [
+    'print("Сума:", s)',
+    'b = int(input("Введіть друге число: "))',
+    's = a + b',
+    'a = int(input("Введіть перше число: "))'
+];
+
+function renderCode() {
+
+    const container = document.getElementById("codeList");
+    container.innerHTML = "";
+
+    codeItems.forEach((item, index) => {
+
+        const row = document.createElement("div");
+        row.className = "order-item";
+
+        const text = document.createElement("div");
+        text.className = "order-text";
+        text.style.fontFamily = "Consolas, monospace";
+        text.style.fontSize = "13px";
+        text.textContent = (index + 1) + ". " + item;
+
+        const buttons = document.createElement("div");
+        buttons.className = "order-buttons";
+
+        const up = document.createElement("button");
+        up.textContent = "↑";
+        up.disabled = index === 0;
+        up.title = "Перемістити вгору";
+        up.onclick = () => moveCode(index, -1);
+
+        const down = document.createElement("button");
+        down.textContent = "↓";
+        down.disabled = index === codeItems.length - 1;
+        down.title = "Перемістити вниз";
+        down.onclick = () => moveCode(index, 1);
+
+        buttons.appendChild(up);
+        buttons.appendChild(down);
+
+        row.appendChild(text);
+        row.appendChild(buttons);
+
+        container.appendChild(row);
+
+    });
+
+}
+
+function moveCode(index, direction) {
+
+    const newIndex = index + direction;
+
+    if (newIndex < 0 || newIndex >= codeItems.length) {
+        return;
+    }
+
+    [codeItems[index], codeItems[newIndex]] =
+        [codeItems[newIndex], codeItems[index]];
+
+    document.getElementById("codeFeedback").textContent = "";
+
+    renderCode();
+
+}
+
+function checkCode() {
+
+    const correct = codeItems.every((item, index) =>
+        item === correctCode[index]
+    );
+
+    const feedback = document.getElementById("codeFeedback");
+
+    if (correct) {
+
+        feedback.textContent =
+            "Правильно! Програма спочатку вводить числа, потім обчислює суму та виводить результат.";
+
+        feedback.className = "feedback good";
+
+    } else {
+
+        feedback.textContent =
+            "Є помилка в послідовності. Згадай: спочатку вводимо дані, потім виконуємо обчислення, а наприкінці виводимо результат.";
+
+        feedback.className = "feedback bad";
+
+    }
+
+}
+
+function resetCode() {
+
+    codeItems = [
+        'print("Сума:", s)',
+        'b = int(input("Введіть друге число: "))',
+        's = a + b',
+        'a = int(input("Введіть перше число: "))'
+    ];
+
+    document.getElementById("codeFeedback").textContent = "";
+
+    renderCode();
+
+}
+
+
+/* ===================================
+   ЗАПУСК
+=================================== */
+
+renderQuiz();
+renderOrder();
+renderCode();
+
+</script>
+
+</body>
+</html>
