@@ -21,7 +21,7 @@ body {
         radial-gradient(circle at 10% 5%, #15345a 0, transparent 35%),
         radial-gradient(circle at 90% 90%, #281b52 0, transparent 35%),
         #071426;
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
 .container {
@@ -29,8 +29,6 @@ body {
     margin: auto;
     padding: 25px 20px 40px;
 }
-
-/* Шапка */
 
 header {
     text-align: center;
@@ -57,13 +55,11 @@ h1 {
 }
 
 .subtitle {
-    max-width: 680px;
+    max-width: 700px;
     margin: auto;
     color: #aabbd3;
     font-size: 16px;
 }
-
-/* Кнопка повернення */
 
 .back {
     display: inline-flex;
@@ -84,10 +80,8 @@ h1 {
     border-color: #6598d5;
 }
 
-/* Розділи */
-
 .section {
-    margin-top: 28px;
+    margin-top: 25px;
     padding: 25px;
     border: 1px solid #29466c;
     border-radius: 16px;
@@ -95,7 +89,7 @@ h1 {
 }
 
 .section h2 {
-    margin: 0 0 18px;
+    margin: 0 0 17px;
     font-size: 23px;
 }
 
@@ -110,11 +104,9 @@ p {
     margin: 10px 0;
 }
 
-/* Визначення */
-
 .definition {
     margin: 18px 0;
-    padding: 18px 20px;
+    padding: 17px 20px;
     border-left: 4px solid #4b91f1;
     border-radius: 10px;
     background: rgba(37, 99, 235, 0.13);
@@ -124,7 +116,7 @@ p {
     display: block;
     margin-bottom: 7px;
     color: #7db5ff;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -133,8 +125,6 @@ p {
 .definition strong {
     color: #ffffff;
 }
-
-/* Приклад */
 
 .example {
     margin-top: 18px;
@@ -167,8 +157,6 @@ p {
     color: #a7f3c0;
 }
 
-/* Код */
-
 pre {
     overflow-x: auto;
     padding: 17px;
@@ -184,7 +172,15 @@ code {
     font-family: Consolas, monospace;
 }
 
-/* Інтерактивні завдання */
+.note {
+    margin: 15px 0;
+    padding: 13px 16px;
+    border-radius: 9px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fcd78b;
+    font-size: 14px;
+}
 
 .question {
     margin: 20px 0;
@@ -253,8 +249,6 @@ code {
     color: #fca5a5;
 }
 
-/* Впорядкування */
-
 .order-list {
     display: grid;
     gap: 10px;
@@ -275,6 +269,7 @@ code {
 .order-text {
     flex: 1;
     color: #e4efff;
+    overflow-wrap: anywhere;
 }
 
 .order-buttons {
@@ -298,8 +293,6 @@ code {
     cursor: default;
 }
 
-/* Кнопки */
-
 .action-button {
     display: inline-flex;
     justify-content: center;
@@ -320,11 +313,6 @@ code {
     filter: brightness(1.15);
 }
 
-.action-button:disabled {
-    opacity: 0.5;
-    cursor: default;
-}
-
 .score {
     margin-top: 15px;
     padding: 13px 16px;
@@ -332,8 +320,6 @@ code {
     background: rgba(37, 99, 235, 0.13);
     color: #b9d7ff;
 }
-
-/* Підвал */
 
 footer {
     margin-top: 45px;
@@ -372,9 +358,7 @@ footer {
 
 <div class="container">
 
-    <a class="back" href="index.html">
-        ← На головну
-    </a>
+    <a class="back" href="index.html">← На головну</a>
 
     <header>
         <div class="logo">🧩</div>
@@ -382,66 +366,369 @@ footer {
         <h1>Від умови до програми</h1>
 
         <div class="subtitle">
-            Навчимося аналізувати задачі, знаходити спосіб їх розв'язання,
-            будувати алгоритми та створювати прості програми.
+            Пригадаємо основи програмування, розберемося,
+            як працює програма, і навчимося поступово
+            переходити від умови задачі до її розв'язання.
         </div>
     </header>
 
 
-    <!-- ТЕОРІЯ -->
+    <!-- 1. ПОВТОРЕННЯ ОСНОВ -->
 
     <section class="section">
 
-        <h2>1. Як розв'язати задачу?</h2>
+        <h2>1. Пригадуємо основи</h2>
 
         <p>
-            Коли ми отримуємо задачу, не потрібно відразу писати програму.
-            Спочатку варто уважно прочитати умову та зрозуміти,
-            що саме потрібно зробити.
+            Перш ніж писати програму, пригадаємо кілька понять,
+            з якими ви вже знайомилися раніше.
         </p>
 
         <div class="definition">
-            <span class="definition-title">Запам'ятай</span>
-            <strong>Задача</strong> — це ситуація або проблема,
-            для якої потрібно знайти розв'язання.
+            <span class="definition-title">Визначення</span>
+            <strong>Інформатика</strong> — це наука про інформацію,
+            способи її отримання, зберігання, опрацювання та передавання
+            за допомогою комп'ютерів та інших пристроїв.
         </div>
 
-        <h3>З чого почати?</h3>
+        <div class="definition">
+            <span class="definition-title">Визначення</span>
+            <strong>Алгоритм</strong> — це скінченна послідовність
+            чітких команд, виконання яких приводить до розв'язання задачі.
+        </div>
 
-        <ol class="steps">
-            <li>Прочитати умову задачі.</li>
-            <li>Визначити, які дані нам відомі.</li>
-            <li>З'ясувати, що потрібно знайти.</li>
-            <li>Подумати, як отримати відповідь.</li>
-            <li>Скласти алгоритм і програму.</li>
-        </ol>
+        <p>
+            Алгоритми трапляються не лише в програмуванні.
+            Наприклад, інструкція з користування пристроєм,
+            рецепт страви або порядок дій під час входу до електронної пошти —
+            це приклади алгоритмів.
+        </p>
+
+        <div class="example">
+            <div class="example-title">Приклад: алгоритм приготування чаю</div>
+
+            <ol class="steps">
+                <li>Налити воду в чайник.</li>
+                <li>Закип'ятити воду.</li>
+                <li>Покласти чай у чашку.</li>
+                <li>Залити чай гарячою водою.</li>
+                <li>Дочекатися, поки чай завариться.</li>
+            </ol>
+        </div>
 
         <div class="definition">
-            <span class="definition-title">Запам'ятай</span>
-            <strong>Вхідні дані</strong> — це інформація,
-            яку ми отримуємо для розв'язання задачі.
-            <br><br>
-            <strong>Результат (вихідні дані)</strong> — це відповідь,
-            яку потрібно отримати після виконання задачі.
+            <span class="definition-title">Визначення</span>
+            <strong>Виконавець алгоритму</strong> — це людина,
+            комп'ютер або інший пристрій, який виконує команди алгоритму.
+        </div>
+
+        <div class="definition">
+            <span class="definition-title">Визначення</span>
+            <strong>Команда</strong> — це вказівка виконавцю виконати
+            певну дію.
         </div>
 
     </section>
 
 
-    <!-- ПРИКЛАД -->
+    <!-- 2. МАТЕМАТИЧНІ ДІЇ -->
 
     <section class="section">
 
-        <h2>2. Розглянемо приклад</h2>
+        <h2>2. Пригадуємо математичні дії</h2>
 
         <p>
-            У магазині купили 3 кг яблук. Один кілограм коштує 35 грн.
-            Скільки потрібно заплатити?
+            Комп'ютер може виконувати обчислення.
+            У Python для цього використовують спеціальні знаки —
+            оператори.
         </p>
 
         <div class="example">
 
-            <div class="example-title">Аналізуємо умову</div>
+            <div class="example-title">Основні арифметичні оператори Python</div>
+
+            <ul class="steps">
+                <li><strong>+</strong> — додавання.</li>
+                <li><strong>-</strong> — віднімання.</li>
+                <li><strong>*</strong> — множення.</li>
+                <li><strong>/</strong> — ділення.</li>
+                <li><strong>//</strong> — цілочисельне ділення.</li>
+                <li><strong>%</strong> — остача від ділення.</li>
+                <li><strong>**</strong> — піднесення до степеня.</li>
+            </ul>
+
+        </div>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Оператор</strong> — це спеціальний знак або символ,
+            який указує комп'ютеру, яку дію потрібно виконати.
+        </div>
+
+        <h3>Приклади обчислень</h3>
+
+        <pre><code>print(8 + 4)    # 12
+print(8 - 4)    # 4
+print(8 * 4)    # 32
+print(8 / 4)    # 2.0
+print(9 // 2)   # 4
+print(9 % 2)    # 1
+print(2 ** 3)   # 8</code></pre>
+
+        <div class="note">
+            Зверніть увагу: у Python для множення використовується
+            символ *, а не знак ×. Для ділення використовується /.
+        </div>
+
+        <h3>Порядок виконання дій</h3>
+
+        <p>
+            Як і в математиці, спочатку виконуються дії в дужках,
+            потім множення та ділення, а після цього додавання і віднімання.
+        </p>
+
+        <pre><code>result = 5 + 3 * 2
+print(result)</code></pre>
+
+        <p>Результат буде 11, оскільки спочатку виконується множення.</p>
+
+    </section>
+
+
+    <!-- 3. ЗМІННІ -->
+
+    <section class="section">
+
+        <h2>3. Що таке змінна?</h2>
+
+        <p>
+            У програмі часто потрібно зберігати числа, слова
+            та інші значення. Для цього використовують змінні.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Визначення</span>
+            <strong>Змінна</strong> — це іменована ділянка пам'яті,
+            у якій зберігається певне значення.
+        </div>
+
+        <p>
+            Змінній можна надати ім'я та записати в неї значення.
+            Для цього використовують знак присвоювання <strong>=</strong>.
+        </p>
+
+        <pre><code>age = 14
+name = "Олена"
+price = 25.5</code></pre>
+
+        <p>
+            У цьому прикладі створено три змінні:
+            <strong>age</strong>, <strong>name</strong> та <strong>price</strong>.
+        </p>
+
+        <div class="example">
+            <div class="example-title">Приклад використання змінних</div>
+
+            <pre><code>a = 10
+b = 5
+
+c = a + b
+
+print(c)</code></pre>
+
+            <div class="result">
+                Результат виконання програми: 15
+            </div>
+        </div>
+
+        <div class="note">
+            Важливо: знак = у програмуванні означає присвоювання значення,
+            а не перевірку рівності двох чисел.
+        </div>
+
+    </section>
+
+
+    <!-- 4. ТИПИ ДАНИХ -->
+
+    <section class="section">
+
+        <h2>4. Якими бувають дані?</h2>
+
+        <p>
+            Комп'ютер працює з різними видами даних.
+            У Python кожне значення має свій тип.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Визначення</span>
+            <strong>Тип даних</strong> — це характеристика значення,
+            яка визначає, які дані зберігаються та які операції
+            з ними можна виконувати.
+        </div>
+
+        <div class="example">
+            <div class="example-title">Основні типи даних Python</div>
+
+            <ul class="steps">
+                <li><strong>int</strong> — цілі числа: 5, 12, -8.</li>
+                <li><strong>float</strong> — дійсні числа: 3.14, 2.5, -0.7.</li>
+                <li><strong>str</strong> — текст: "Привіт", "Python".</li>
+                <li><strong>bool</strong> — логічні значення: True або False.</li>
+            </ul>
+        </div>
+
+        <h3>Приклад</h3>
+
+        <pre><code>age = 14
+height = 1.65
+name = "Андрій"
+is_student = True
+
+print(age)
+print(height)
+print(name)
+print(is_student)</code></pre>
+
+        <p>
+            Зверніть увагу: текст записують у лапках,
+            а числа — без лапок.
+        </p>
+
+    </section>
+
+
+    <!-- 5. ВВЕДЕННЯ ТА ВИВЕДЕННЯ -->
+
+    <section class="section">
+
+        <h2>5. Введення та виведення даних</h2>
+
+        <p>
+            Програма може отримувати інформацію від користувача
+            та показувати результат своєї роботи.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Введення даних</strong> — це передавання інформації
+            програмі від користувача або іншого джерела.
+        </div>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Виведення даних</strong> — це показ результатів
+            роботи програми користувачеві.
+        </div>
+
+        <h3>Команда input()</h3>
+
+        <p>
+            Для введення даних у Python використовують команду
+            <strong>input()</strong>.
+        </p>
+
+        <pre><code>name = input("Як тебе звати? ")
+
+print("Привіт,", name)</code></pre>
+
+        <h3>Команда print()</h3>
+
+        <p>
+            Для виведення тексту, чисел та результатів обчислень
+            використовують команду <strong>print()</strong>.
+        </p>
+
+        <pre><code>print("Вітаю!")
+print(10 + 5)</code></pre>
+
+        <div class="note">
+            Команда input() за замовчуванням отримує введене значення
+            як текст. Якщо потрібно виконувати обчислення з числами,
+            текст потрібно перетворити на числовий тип.
+        </div>
+
+    </section>
+
+
+    <!-- 6. ПЕРЕТВОРЕННЯ ТИПІВ -->
+
+    <section class="section">
+
+        <h2>6. Як перетворити текст на число?</h2>
+
+        <p>
+            Коли користувач вводить число за допомогою input(),
+            Python сприймає його як текст. Тому перед обчисленнями
+            часто потрібно перетворити введене значення.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Перетворення типів</strong> — це зміна типу даних
+            з одного на інший.
+        </div>
+
+        <div class="example">
+            <div class="example-title">Два способи перетворення</div>
+
+            <p><strong>int()</strong> — перетворює значення на ціле число.</p>
+
+            <pre><code>age = int(input("Введіть вік: "))</code></pre>
+
+            <p><strong>float()</strong> — перетворює значення на дійсне число.</p>
+
+            <pre><code>price = float(input("Введіть ціну: "))</code></pre>
+        </div>
+
+        <h3>Приклад програми</h3>
+
+        <pre><code>a = int(input("Введіть перше число: "))
+b = int(input("Введіть друге число: "))
+
+s = a + b
+
+print("Сума:", s)</code></pre>
+
+        <p>
+            Якщо ввести 7 та 5, програма виведе 12.
+        </p>
+
+    </section>
+
+
+    <!-- 7. АНАЛІЗ ЗАДАЧІ -->
+
+    <section class="section">
+
+        <h2>7. Від умови до розв'язання</h2>
+
+        <p>
+            Тепер пригадаємо, як правильно підходити до розв'язування задач.
+            Не потрібно відразу писати програму. Спочатку розберімося
+            з умовою.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Визначення</span>
+            <strong>Вхідні дані</strong> — це інформація,
+            яку ми отримуємо для розв'язання задачі.
+        </div>
+
+        <div class="definition">
+            <span class="definition-title">Визначення</span>
+            <strong>Вихідні дані</strong> — це результат,
+            який потрібно отримати після виконання задачі.
+        </div>
+
+        <div class="example">
+
+            <div class="example-title">Розглянемо задачу</div>
+
+            <p>
+                У магазині купили 3 кг яблук. Один кілограм коштує 35 грн.
+                Скільки потрібно заплатити?
+            </p>
 
             <p><strong>Відомо:</strong></p>
 
@@ -452,136 +739,84 @@ footer {
 
             <p><strong>Потрібно знайти:</strong> загальну вартість.</p>
 
-            <p><strong>Спосіб розв'язання:</strong></p>
+            <p><strong>Математична дія:</strong></p>
 
-            <p>
-                Загальна вартість = кількість × ціна.
-            </p>
+            <p>3 × 35 = 105</p>
 
             <div class="result">
-                3 × 35 = 105 грн
-                <br>
-                <strong>Відповідь: 105 грн.</strong>
+                Відповідь: потрібно заплатити 105 грн.
             </div>
 
         </div>
 
-    </section>
+        <h3>Записуємо розв'язання мовою Python</h3>
 
+        <pre><code>weight = 3
+price = 35
 
-    <!-- АЛГОРИТМ -->
-
-    <section class="section">
-
-        <h2>3. Що таке алгоритм?</h2>
-
-        <p>
-            Щоб отримати правильний результат, потрібно виконувати
-            дії в певному порядку. Наприклад, під час приготування
-            бутерброда ми спочатку беремо хліб, потім додаємо начинку,
-            а вже після цього подаємо його до столу.
-        </p>
-
-        <div class="definition">
-            <span class="definition-title">Запам'ятай</span>
-            <strong>Алгоритм</strong> — це скінченна послідовність
-            чітких команд, виконання яких приводить до розв'язання задачі.
-        </div>
-
-        <h3>Властивості алгоритму</h3>
-
-        <ul class="steps">
-            <li><strong>Зрозумілість:</strong> команди мають бути зрозумілими виконавцю.</li>
-            <li><strong>Послідовність:</strong> команди виконуються у визначеному порядку.</li>
-            <li><strong>Скінченність:</strong> алгоритм повинен завершуватися.</li>
-            <li><strong>Результативність:</strong> виконання алгоритму має приводити до результату.</li>
-        </ul>
-
-    </section>
-
-
-    <!-- PYTHON -->
-
-    <section class="section">
-
-        <h2>4. Від алгоритму до програми Python</h2>
-
-        <p>
-            Комп'ютер може виконувати алгоритми, записані мовою програмування.
-            Для цього використовують команди, які він розуміє.
-        </p>
-
-        <div class="definition">
-            <span class="definition-title">Запам'ятай</span>
-            <strong>Програма</strong> — це алгоритм,
-            записаний мовою програмування.
-        </div>
-
-        <h3>Основні команди Python</h3>
-
-        <div class="example">
-
-            <p><strong>1. input()</strong> — введення даних.</p>
-
-            <pre><code>name = input("Як тебе звати? ")</code></pre>
-
-            <p><strong>2. print()</strong> — виведення інформації.</p>
-
-            <pre><code>print("Привіт!")</code></pre>
-
-            <p><strong>3. Обчислення</strong> — виконання математичних дій.</p>
-
-            <pre><code>a = 10
-b = 5
-c = a + b
-
-print(c)</code></pre>
-
-        </div>
-
-        <div class="definition">
-            <span class="definition-title">Запам'ятай</span>
-            <strong>Змінна</strong> — це іменована ділянка пам'яті,
-            у якій зберігається певне значення.
-        </div>
-
-        <h3>Приклад програми</h3>
-
-        <p>
-            Програма запитує ціну та кількість товару,
-            обчислює загальну вартість і виводить результат.
-        </p>
-
-        <pre><code>price = int(input("Введіть ціну: "))
-count = int(input("Введіть кількість: "))
-
-total = price * count
+total = weight * price
 
 print("До сплати:", total, "грн")</code></pre>
 
         <p>
-            У цій програмі користувач вводить два числа,
-            комп'ютер множить їх і показує відповідь.
+            Програма зберігає відомі значення у змінних,
+            обчислює вартість і виводить результат.
         </p>
 
     </section>
 
 
-    <!-- ТЕСТ -->
+    <!-- 8. ПОСЛІДОВНІСТЬ ДІЙ -->
 
     <section class="section">
 
-        <h2>5. Перевір свої знання</h2>
+        <h2>8. Як побудувати алгоритм?</h2>
+
+        <p>
+            Під час розв'язування задач важливо правильно визначити
+            послідовність дій.
+        </p>
+
+        <div class="definition">
+            <span class="definition-title">Запам'ятай</span>
+            <strong>Послідовний алгоритм</strong> — це алгоритм,
+            у якому команди виконуються одна за одною в установленому порядку.
+        </div>
+
+        <div class="example">
+            <div class="example-title">Приклад: обчислення площі прямокутника</div>
+
+            <ol class="steps">
+                <li>Отримати довжину прямокутника.</li>
+                <li>Отримати ширину прямокутника.</li>
+                <li>Помножити довжину на ширину.</li>
+                <li>Вивести площу.</li>
+            </ol>
+        </div>
+
+        <p>
+            Саме таку послідовність потрібно буде використати
+            під час написання програми.
+        </p>
+
+    </section>
+
+
+    <!-- 9. ІНТЕРАКТИВНИЙ ТЕСТ -->
+
+    <section class="section">
+
+        <h2>9. Перевір, що ти пригадав</h2>
 
         <p>
             Обери правильну відповідь. Після кожного запитання
-            ти одразу побачиш результат.
+            з'явиться пояснення.
         </p>
 
         <div id="quiz"></div>
 
         <div class="score" id="quizScore">
-            Правильних відповідей: 0 із 5
+            Правильних відповідей: 0 із 8
         </div>
 
         <button class="action-button" onclick="restartQuiz()">
@@ -591,11 +826,11 @@ print("До сплати:", total, "грн")</code></pre>
     </section>
 
 
-    <!-- ПОСЛІДОВНІСТЬ -->
+    <!-- 10. ВПОРЯДКУВАННЯ -->
 
     <section class="section">
 
-        <h2>6. Побудуй алгоритм</h2>
+        <h2>10. Побудуй алгоритм</h2>
 
         <p>
             Розташуй команди у правильному порядку.
@@ -623,11 +858,11 @@ print("До сплати:", total, "грн")</code></pre>
     </section>
 
 
-    <!-- СКЛАДАННЯ ПРОГРАМИ -->
+    <!-- 11. СКЛАДАННЯ ПРОГРАМИ -->
 
     <section class="section">
 
-        <h2>7. Склади програму</h2>
+        <h2>11. Склади програму</h2>
 
         <p>
             Частини програми Python переплуталися.
@@ -650,6 +885,31 @@ print("До сплати:", total, "грн")</code></pre>
     </section>
 
 
+    <!-- ПІДСУМОК -->
+
+    <section class="section">
+
+        <h2>12. Що ми пригадали?</h2>
+
+        <ul class="steps">
+            <li>Що таке алгоритм, команда та виконавець.</li>
+            <li>Як виконувати арифметичні дії в Python.</li>
+            <li>Що таке змінна та типи даних.</li>
+            <li>Для чого використовують input() і print().</li>
+            <li>Як перетворювати текст на число.</li>
+            <li>Як аналізувати умову задачі.</li>
+            <li>Як побудувати послідовність дій.</li>
+            <li>Як записати простий алгоритм мовою Python.</li>
+        </ul>
+
+        <div class="result">
+            Тепер можна переходити до практичного розв'язування задач
+            та поступово створювати власні програми!
+        </div>
+
+    </section>
+
+
     <footer>
         Кабінет інформатики · Ліцей імені Олександра Цинкаловського · 2026
     </footer>
@@ -665,54 +925,84 @@ print("До сплати:", total, "грн")</code></pre>
 
 const questions = [
     {
-        question: "Що називають вхідними даними?",
+        question: "Що називають алгоритмом?",
         answers: [
-            "Інформацію, яку отримуємо для розв'язання задачі",
-            "Відповідь програми",
-            "Назву програми"
+            "Послідовність команд для розв'язання задачі",
+            "Будь-який текст на екрані",
+            "Назву комп'ютерної програми"
         ],
         correct: 0,
-        explanation: "Вхідні дані — це інформація, з якою ми працюємо."
+        explanation: "Алгоритм — це послідовність чітких команд, які приводять до результату."
     },
     {
-        question: "Що потрібно зробити перед написанням програми?",
+        question: "Який знак у Python використовують для множення?",
         answers: [
-            "Відразу запускати Python",
-            "Проаналізувати умову задачі",
-            "Видалити всі змінні"
+            "×",
+            "*",
+            "x"
         ],
         correct: 1,
-        explanation: "Спочатку потрібно зрозуміти умову та визначити, що відомо і що потрібно знайти."
-    },
-    {
-        question: "Що таке алгоритм?",
-        answers: [
-            "Будь-який текст",
-            "Назва комп'ютера",
-            "Послідовність команд для розв'язання задачі"
-        ],
-        correct: 2,
-        explanation: "Алгоритм складається з команд, які виконуються для отримання результату."
-    },
-    {
-        question: "Для чого використовують команду print()?",
-        answers: [
-            "Для виведення інформації",
-            "Для введення даних",
-            "Для завершення комп'ютера"
-        ],
-        correct: 0,
-        explanation: "Команда print() виводить інформацію на екран."
+        explanation: "Для множення в Python використовують зірочку *."
     },
     {
         question: "Що таке змінна?",
         answers: [
-            "Команда для друку",
-            "Іменована ділянка пам'яті для зберігання значення",
-            "Помилка в програмі"
+            "Команда для виведення тексту",
+            "Помилка в програмі",
+            "Іменоване місце для зберігання значення"
+        ],
+        correct: 2,
+        explanation: "Змінна має ім'я та зберігає певне значення."
+    },
+    {
+        question: "Який тип даних використовують для цілих чисел?",
+        answers: [
+            "int",
+            "str",
+            "float"
+        ],
+        correct: 0,
+        explanation: "Тип int використовують для цілих чисел."
+    },
+    {
+        question: "Для чого використовують команду print()?",
+        answers: [
+            "Для введення даних",
+            "Для виведення інформації",
+            "Для створення змінної"
         ],
         correct: 1,
-        explanation: "Змінна має ім'я та зберігає певне значення."
+        explanation: "Команда print() показує інформацію на екрані."
+    },
+    {
+        question: "Що робить команда input()?",
+        answers: [
+            "Виводить результат",
+            "Виконує множення",
+            "Отримує дані від користувача"
+        ],
+        correct: 2,
+        explanation: "Команда input() дає змогу користувачеві ввести дані."
+    },
+    {
+        question: "Що потрібно використати, щоб перетворити введений текст на ціле число?",
+        answers: [
+            "int()",
+            "print()",
+            "str()"
+        ],
+        correct: 0,
+        explanation: "Функція int() перетворює значення на ціле число."
+    },
+    {
+        question: "Що потрібно зробити перед написанням програми?",
+        answers: [
+            "Відразу запускати код",
+            "Проаналізувати умову задачі",
+            "Видалити всі змінні"
+        ],
+        correct: 1,
+        explanation: "Спочатку потрібно зрозуміти умову, визначити відомі дані та шуканий результат."
     }
 ];
 
@@ -756,23 +1046,31 @@ function renderQuiz() {
                 const allButtons = options.querySelectorAll("button");
 
                 allButtons.forEach((item, i) => {
+
                     item.disabled = true;
 
                     if (i === q.correct) {
                         item.classList.add("correct");
                     }
+
                 });
 
                 if (answerIndex === q.correct) {
 
                     quizScore++;
-                    feedback.textContent = "Правильно! " + q.explanation;
+
+                    feedback.textContent =
+                        "Правильно! " + q.explanation;
+
                     feedback.className = "feedback good";
 
                 } else {
 
                     button.classList.add("wrong");
-                    feedback.textContent = "Не зовсім правильно. " + q.explanation;
+
+                    feedback.textContent =
+                        "Не зовсім правильно. " + q.explanation;
+
                     feedback.className = "feedback bad";
 
                 }
@@ -798,8 +1096,9 @@ function renderQuiz() {
 function updateQuizScore() {
 
     document.getElementById("quizScore").textContent =
-        "Правильних відповідей: " + quizScore + " із 5. " +
-        "Виконано запитань: " + answeredQuestions + " із 5.";
+        "Правильних відповідей: " + quizScore +
+        " із 8. Виконано запитань: " +
+        answeredQuestions + " із 8.";
 
 }
 
@@ -853,14 +1152,12 @@ function renderOrder() {
         up.textContent = "↑";
         up.title = "Перемістити вгору";
         up.disabled = index === 0;
-
         up.onclick = () => moveOrder(index, -1);
 
         const down = document.createElement("button");
         down.textContent = "↓";
         down.title = "Перемістити вниз";
         down.disabled = index === orderItems.length - 1;
-
         down.onclick = () => moveOrder(index, 1);
 
         buttons.appendChild(up);
@@ -910,7 +1207,7 @@ function checkOrder() {
     } else {
 
         feedback.textContent =
-            "Порядок поки неправильний. Подумай, яка дія має бути першою.";
+            "Порядок поки неправильний. Подумай, які дії потрібно виконати спочатку.";
 
         feedback.className = "feedback bad";
 
@@ -1030,7 +1327,7 @@ function checkCode() {
     } else {
 
         feedback.textContent =
-            "Є помилка в послідовності. Згадай: спочатку вводимо дані, потім виконуємо обчислення, а наприкінці виводимо результат.";
+            "Є помилка в послідовності. Спочатку вводимо дані, потім виконуємо обчислення, а наприкінці виводимо результат.";
 
         feedback.className = "feedback bad";
 
@@ -1055,7 +1352,7 @@ function resetCode() {
 
 
 /* ===================================
-   ЗАПУСК
+   ЗАПУСК ІНТЕРАКТИВІВ
 =================================== */
 
 renderQuiz();
