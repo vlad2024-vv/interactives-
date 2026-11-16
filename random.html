@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Випадкові величини в Python | Кабінет інформатики</title>
+
+<style>
+:root {
+    --bg: #071426;
+    --panel: #10243d;
+    --panel2: #142d49;
+    --text: #eaf2ff;
+    --muted: #a8bad1;
+    --accent: #60a5fa;
+    --green: #4ade80;
+    --yellow: #facc15;
+    --red: #fb7185;
+    --border: rgba(148, 185, 225, .17);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 5%, rgba(37, 99, 235, .17), transparent 30%),
+        radial-gradient(circle at 90% 30%, rgba(14, 165, 233, .10), transparent 28%),
+        var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+}
+
+header {
+    padding: 45px 20px 35px;
+    text-align: center;
+    background: linear-gradient(135deg, #102b4b, #0b1b31);
+    border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+    font-size: clamp(27px, 5vw, 42px);
+    margin: 10px 0;
+    line-height: 1.2;
+}
+
+header p {
+    color: var(--muted);
+    max-width: 760px;
+    margin: 12px auto;
+    font-size: 17px;
+}
+
+.home-link {
+    display: inline-block;
+    color: #bfdbfe;
+    text-decoration: none;
+    border: 1px solid rgba(147, 197, 253, .35);
+    padding: 9px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: .2s;
+}
+
+.home-link:hover {
+    background: rgba(96, 165, 250, .15);
+    transform: translateY(-2px);
+}
+
+nav {
+    max-width: 1100px;
+    margin: 22px auto 0;
+    padding: 0 15px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+nav a {
+    color: #dbeafe;
+    text-decoration: none;
+    background: rgba(255,255,255,.06);
+    border: 1px solid var(--border);
+    padding: 7px 12px;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    background: rgba(96,165,250,.2);
+}
+
+main {
+    max-width: 1050px;
+    margin: auto;
+    padding: 25px 18px 60px;
+}
+
+section {
+    margin: 28px 0;
+    padding: 26px;
+    background: rgba(16, 36, 61, .91);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.13);
+}
+
+h2 {
+    font-size: 25px;
+    color: #93c5fd;
+    margin: 0 0 17px;
+}
+
+h3 {
+    color: #bfdbfe;
+    font-size: 19px;
+    margin: 22px 0 9px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.definition {
+    background: rgba(96,165,250,.10);
+    border-left: 4px solid var(--accent);
+    padding: 14px 17px;
+    border-radius: 8px;
+    margin: 17px 0;
+}
+
+.warning {
+    background: rgba(250,204,21,.09);
+    border-left: 4px solid var(--yellow);
+    padding: 13px 16px;
+    border-radius: 8px;
+    margin: 17px 0;
+}
+
+.success {
+    background: rgba(74,222,128,.09);
+    border-left: 4px solid var(--green);
+    padding: 13px 16px;
+    border-radius: 8px;
+    margin: 17px 0;
+}
+
+code {
+    font-family: Consolas, monospace;
+    color: #bfdbfe;
+}
+
+pre {
+    background: #06111f;
+    border: 1px solid rgba(148,185,225,.18);
+    padding: 17px;
+    border-radius: 11px;
+    overflow-x: auto;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #dbeafe;
+    white-space: pre;
+}
+
+pre code {
+    color: inherit;
+}
+
+.highlight {
+    color: #facc15;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.mini-card {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.mini-card strong {
+    color: #93c5fd;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    padding: 10px 16px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .2s;
+    margin: 5px 4px 5px 0;
+}
+
+button:hover {
+    background: #3b82f6;
+    transform: translateY(-1px);
+}
+
+button.secondary {
+    background: #334b68;
+}
+
+button.secondary:hover {
+    background: #45617f;
+}
+
+.result {
+    margin-top: 13px;
+    padding: 13px;
+    background: #07182b;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    min-height: 48px;
+    color: #bfdbfe;
+}
+
+.demo-box {
+    background: rgba(6,17,31,.65);
+    border: 1px solid var(--border);
+    padding: 18px;
+    border-radius: 12px;
+    margin: 18px 0;
+}
+
+.big-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--green);
+    display: block;
+    margin: 8px 0;
+}
+
+.task {
+    border: 1px solid var(--border);
+    background: rgba(20,45,73,.65);
+    padding: 17px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.task-number {
+    color: var(--yellow);
+    font-weight: bold;
+}
+
+.answer {
+    display: none;
+    margin-top: 12px;
+    padding: 13px;
+    border-radius: 9px;
+    background: rgba(74,222,128,.08);
+    border-left: 3px solid var(--green);
+}
+
+.answer.show {
+    display: block;
+}
+
+.quiz-question {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.quiz-question label {
+    display: block;
+    padding: 7px 10px;
+    margin: 5px 0;
+    border-radius: 7px;
+    cursor: pointer;
+    color: #dbeafe;
+}
+
+.quiz-question label:hover {
+    background: rgba(96,165,250,.1);
+}
+
+.quiz-question input {
+    margin-right: 8px;
+    accent-color: #60a5fa;
+}
+
+#quiz-result {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+}
+
+@media(max-width:600px) {
+    section {
+        padding: 19px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    pre {
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="home-link" href="index.html">← На головну сторінку</a>
+    <div style="font-size:42px">🎲</div>
+    <h1>Випадкові величини в Python</h1>
+    <p>Модуль random, випадковий вибір і використання розгалужень у програмах</p>
+
+    <nav>
+        <a href="#intro">Вступ</a>
+        <a href="#import">Модуль random</a>
+        <a href="#randint">randint()</a>
+        <a href="#choice">choice()</a>
+        <a href="#if">Розгалуження</a>
+        <a href="#practice">Практика</a>
+        <a href="#quiz">Перевірка знань</a>
+    </nav>
+</header>
+
+<main>
+
+<section id="intro">
+    <h2>1. Що таке випадкові величини?</h2>
+
+    <p>
+        Уявіть комп'ютерну гру. На початку кожного раунду програма
+        випадково визначає кількість балів, обирає суперника або
+        вирішує, яка подія відбудеться.
+    </p>
+
+    <p>
+        Або інша ситуація: ви створюєте програму для жеребкування.
+        Вона повинна випадково обрати одного учасника зі списку.
+    </p>
+
+    <div class="definition">
+        <strong>Випадкове значення</strong> — це значення, яке програма
+        отримує за допомогою спеціального алгоритму випадкового вибору.
+        Наперед ми не знаємо, яке саме значення буде отримано під час
+        наступного запуску.
+    </div>
+
+    <div class="grid">
+        <div class="mini-card">
+            <strong>🎲 Ігри</strong>
+            <p>Кидання кубика, випадкові бали, поява перешкод.</p>
+        </div>
+        <div class="mini-card">
+            <strong>🎯 Жеребкування</strong>
+            <p>Вибір переможця або учасника.</p>
+        </div>
+        <div class="mini-card">
+            <strong>🧠 Навчання</strong>
+            <p>Створення випадкових математичних завдань.</p>
+        </div>
+        <div class="mini-card">
+            <strong>🌦️ Моделювання</strong>
+            <p>Імітація різних подій і ситуацій.</p>
+        </div>
+    </div>
+
+    <div class="warning">
+        Важливо: комп'ютер не «вгадує» числа. Модуль random використовує
+        алгоритми генерації псевдовипадкових значень. Для наших навчальних
+        програм цього цілком достатньо.
+    </div>
+</section>
+
+<section id="import">
+    <h2>2. Підключаємо модуль random</h2>
+
+    <p>
+        У Python є готові модулі — набори команд, які розширюють
+        можливості мови програмування.
+    </p>
+
+    <p>
+        Для роботи з випадковими значеннями використовують модуль
+        <code>random</code>.
+    </p>
+
+    <pre><code>import random</code></pre>
+
+    <div class="definition">
+        <strong>import random</strong> — команда, яка підключає модуль
+        random до нашої програми. Після цього ми можемо використовувати
+        його команди.
+    </div>
+
+    <p>Наприклад:</p>
+
+    <pre><code>import random
+
+number = random.randint(1, 10)
+
+print(number)</code></pre>
+
+    <p>
+        Програма створює змінну <code>number</code> і записує в неї
+        випадкове ціле число від 1 до 10.
+    </p>
+
+    <div class="warning">
+        Зверніть увагу: якщо ви використовуєте команду
+        <code>random.randint()</code>, перед нею потрібно написати
+        <code>import random</code>.
+    </div>
+</section>
+
+<section id="randint">
+    <h2>3. Команда random.randint()</h2>
+
+    <p>
+        Найчастіше для отримання випадкового цілого числа використовують
+        команду <code>random.randint()</code>.
+    </p>
+
+    <pre><code>random.randint(a, b)</code></pre>
+
+    <div class="definition">
+        <strong>random.randint(a, b)</strong> повертає випадкове ціле
+        число від <code>a</code> до <code>b</code> включно.
+    </div>
+
+    <h3>Розглянемо приклади</h3>
+
+    <pre><code>import random
+
+number = random.randint(1, 6)
+print(number)</code></pre>
+
+    <p>
+        Програма імітує кидання звичайного грального кубика.
+        Можливі результати: 1, 2, 3, 4, 5 або 6.
+    </p>
+
+    <pre><code>import random
+
+temperature = random.randint(-5, 10)
+print(temperature)</code></pre>
+
+    <p>
+        Тут програма отримує випадкову температуру від -5 до 10 градусів.
+        Від'ємні числа також можна використовувати.
+    </p>
+
+    <div class="warning">
+        <strong>Важливо запам'ятати!</strong><br>
+        У команді randint обидві межі включаються в діапазон.
+        Наприклад, <code>random.randint(1, 5)</code> може повернути
+        і число 1, і число 5.
+    </div>
+
+    <h3>Спробуйте самостійно</h3>
+    <div class="demo-box">
+        <p>Натисніть кнопку, щоб побачити результат роботи команди
+        <code>random.randint(1, 6)</code>.</p>
+        <button onclick="rollDice()">Кинути кубик 🎲</button>
+        <div class="result" id="dice-result">Тут з'явиться результат.</div>
+    </div>
+
+    <h3>Змінимо діапазон</h3>
+    <div class="demo-box">
+        <p>Випадкове число від 10 до 100:</p>
+        <button onclick="randomRange()">Отримати число</button>
+        <span class="big-number" id="range-result">?</span>
+        <p class="muted">Демонстрація принципу роботи randint().</p>
+    </div>
+
+    <h3>Приклад: випадкові бали</h3>
+
+    <pre><code>import random
+
+points = random.randint(1, 12)
+
+print("Ви отримали", points, "балів")</code></pre>
+
+    <p>
+        Під час кожного запуску програма може показати іншу кількість
+        балів від 1 до 12.
+    </p>
+</section>
+
+<section id="choice">
+    <h2>4. Команда random.choice()</h2>
+
+    <p>
+        Не завжди потрібно отримувати число. Іноді програма повинна
+        випадково обрати один елемент із кількох запропонованих.
+    </p>
+
+    <pre><code>random.choice(послідовність)</code></pre>
+
+    <div class="definition">
+        <strong>random.choice()</strong> випадково обирає один елемент
+        із заданої послідовності, наприклад зі списку або рядка.
+    </div>
+
+    <h3>Приклад 1. Випадковий вибір тварини</h3>
+
+    <pre><code>import random
+
+animals = ["кіт", "пес", "папуга", "хом'як"]
+
+animal = random.choice(animals)
+
+print("Сьогодні обрано:", animal)</code></pre>
+
+    <p>
+        Спочатку створюється список тварин. Потім команда
+        <code>random.choice(animals)</code> обирає одну з них.
+    </p>
+
+    <h3>Приклад 2. Випадковий вибір із рядка</h3>
+
+    <pre><code>import random
+
+letter = random.choice("ПРОГРАМУВАННЯ")
+
+print(letter)</code></pre>
+
+    <p>
+        У цьому випадку програма випадково обирає один символ із рядка.
+    </p>
+
+    <h3>Спробуйте самостійно</h3>
+
+    <div class="demo-box">
+        <p>Програма випадково обирає одну з чотирьох тварин.</p>
+        <button onclick="chooseAnimal()">Обрати тварину 🐾</button>
+        <div class="result" id="animal-result">Кого обере програма?</div>
+    </div>
+
+    <div class="demo-box">
+        <p>Уявімо, що програма визначає, чим зайнятися після уроків.</p>
+        <button onclick="chooseActivity()">Що робити сьогодні?</button>
+        <div class="result" id="activity-result">Натисніть кнопку.</div>
+    </div>
+
+    <div class="warning">
+        <strong>Не плутайте команди:</strong><br>
+        <code>random.randint(1, 10)</code> — створює випадкове ціле число.<br>
+        <code>random.choice(spysok)</code> — обирає випадковий елемент
+        із послідовності.
+    </div>
+</section>
+
+<section id="if">
+    <h2>5. Поєднуємо random і розгалуження</h2>
+
+    <p>
+        А тепер найцікавіше. Випадкове значення можна використати
+        для прийняття рішення в програмі.
+    </p>
+
+    <p>
+        Пригадаємо: розгалуження дає змогу програмі виконувати різні
+        команди залежно від умови.
+    </p>
+
+    <pre><code>if умова:
+    команда
+elif інша_умова:
+    команда
+else:
+    команда</code></pre>
+
+    <h3>Приклад 1. Велике чи мале число?</h3>
+
+    <pre><code>import random
+
+number = random.randint(1, 10)
+
+print("Випало число:", number)
+
+if number > 5:
+    print("Це велике число")
+elif number < 5:
+    print("Це мале число")
+else:
+    print("Випало число 5")</code></pre>
+
+    <p>Як працює ця програма?</p>
+
+    <ol>
+        <li>Програма отримує випадкове число від 1 до 10.</li>
+        <li>Перевіряє, чи більше воно за 5.</li>
+        <li>Якщо ні — перевіряє, чи менше воно за 5.</li>
+        <li>Якщо обидві умови хибні, виконується блок else.</li>
+    </ol>
+
+    <h3>Приклад 2. Випадковий результат змагання</h3>
+
+    <pre><code>import random
+
+points = random.randint(0, 100)
+
+print("Результат учасника:", points)
+
+if points >= 90:
+    print("Відмінний результат!")
+elif points >= 60:
+    print("Хороший результат!")
+else:
+    print("Потрібно потренуватися.")</code></pre>
+
+    <div class="definition">
+        Тут важливо зрозуміти: випадкове число саме по собі нічого
+        не вирішує. Програма отримує його, а потім за допомогою
+        розгалуження визначає, які команди виконати.
+    </div>
+
+    <h3>Інтерактивна демонстрація</h3>
+
+    <div class="demo-box">
+        <p>
+            Програма випадково визначає кількість балів від 0 до 100,
+            а потім оцінює результат.
+        </p>
+        <button onclick="competition()">Провести змагання</button>
+        <div class="result" id="competition-result">
+            Очікуємо на результат...
+        </div>
+    </div>
+
+    <h3>Приклад 3. Випадкове число — парне чи непарне?</h3>
+
+    <pre><code>import random
+
+number = random.randint(1, 20)
+
+print("Отримали число:", number)
+
+if number % 2 == 0:
+    print("Число парне")
+else:
+    print("Число непарне")</code></pre>
+
+    <p>
+        Оператор <code>%</code> знаходить остачу від ділення.
+        Якщо остача від ділення на 2 дорівнює нулю, число парне.
+    </p>
+</section>
+
+<section id="practice">
+    <h2>6. Практичні завдання</h2>
+
+    <p>
+        Спробуйте самостійно розібратися з умовами та передбачити,
+        що робитиме програма.
+    </p>
+
+    <div class="task">
+        <div class="task-number">Завдання 1. Випадковий кубик</div>
+        <p>
+            Створіть програму, яка імітує кидання кубика.
+            Отримайте випадкове число від 1 до 6.
+            Якщо випало 6 — виведіть повідомлення «Вітаємо! Максимальний результат!».
+            В інших випадках виведіть «Спробуйте ще раз».
+        </p>
+        <button class="secondary" onclick="toggleAnswer('answer1')">Показати приклад розв'язку</button>
+        <div class="answer" id="answer1">
+            <pre><code>import random
+
+number = random.randint(1, 6)
+
+print("Випало:", number)
+
+if number == 6:
+    print("Вітаємо! Максимальний результат!")
+else:
+    print("Спробуйте ще раз")</code></pre>
+        </div>
+    </div>
+
+    <div class="task">
+        <div class="task-number">Завдання 2. Вибір подарунка</div>
+        <p>
+            Створіть список із чотирьох подарунків.
+            За допомогою <code>random.choice()</code> випадково оберіть
+            один подарунок і виведіть його на екран.
+        </p>
+        <button class="secondary" onclick="toggleAnswer('answer2')">Показати приклад розв'язку</button>
+        <div class="answer" id="answer2">
+            <pre><code>import random
+
+gifts = ["книга", "навушники", "м'яч", "настільна гра"]
+
+gift = random.choice(gifts)
+
+print("Ваш подарунок:", gift)</code></pre>
+        </div>
+    </div>
+
+    <div class="task">
+        <div class="task-number">Завдання 3. Перевірка числа</div>
+        <p>
+            Програма отримує випадкове число від 1 до 30.
+            Якщо число менше 10 — виведіть «Мале число».
+            Якщо число від 10 до 20 включно — «Середнє число».
+            Якщо число більше 20 — «Велике число».
+        </p>
+        <button class="secondary" onclick="toggleAnswer('answer3')">Показати приклад розв'язку</button>
+        <div class="answer" id="answer3">
+            <pre><code>import random
+
+number = random.randint(1, 30)
+
+print("Число:", number)
+
+if number < 10:
+    print("Мале число")
+elif number <= 20:
+    print("Середнє число")
+else:
+    print("Велике число")</code></pre>
+        </div>
+    </div>
+
+    <div class="task">
+        <div class="task-number">Завдання 4. Мінігра «Вгадай число»</div>
+        <p>
+            Програма випадково обирає число від 1 до 5.
+            Користувач вводить своє число.
+            Якщо числа однакові — виведіть «Ви вгадали!».
+            Інакше — «Не вгадали. Спробуйте ще раз».
+        </p>
+        <button class="secondary" onclick="toggleAnswer('answer4')">Показати приклад розв'язку</button>
+        <div class="answer" id="answer4">
+            <pre><code>import random
+
+secret = random.randint(1, 5)
+
+user_number = int(input("Введіть число від 1 до 5: "))
+
+print("Загадане число:", secret)
+
+if user_number == secret:
+    print("Ви вгадали!")
+else:
+    print("Не вгадали. Спробуйте ще раз")</code></pre>
+        </div>
+    </div>
+
+    <div class="task">
+        <div class="task-number">Завдання 5. Випадкова погода</div>
+        <p>
+            Створіть програму, яка випадково обирає температуру
+            від -10 до 30 градусів.
+            Якщо температура нижча за 0 — виведіть «Мороз».
+            Якщо від 0 до 20 включно — «Прохолодно».
+            Якщо вища за 20 — «Тепло».
+        </p>
+        <button class="secondary" onclick="toggleAnswer('answer5')">Показати приклад розв'язку</button>
+        <div class="answer" id="answer5">
+            <pre><code>import random
+
+temperature = random.randint(-10, 30)
+
+print("Температура:", temperature)
+
+if temperature < 0:
+    print("Мороз")
+elif temperature <= 20:
+    print("Прохолодно")
+else:
+    print("Тепло")</code></pre>
+        </div>
+    </div>
+</section>
+
+<section id="quiz">
+    <h2>7. Перевірте, що запам'ятали</h2>
+
+    <p class="muted">
+        Оберіть одну правильну відповідь у кожному запитанні.
+    </p>
+
+    <div class="quiz-question">
+        <strong>1. Яка команда підключає модуль random?</strong>
+        <label><input type="radio" name="q1" value="0"> include random</label>
+        <label><input type="radio" name="q1" value="1"> import random</label>
+        <label><input type="radio" name="q1" value="0"> random import</label>
+    </div>
+
+    <div class="quiz-question">
+        <strong>2. Що повертає random.randint(1, 10)?</strong>
+        <label><input type="radio" name="q2" value="0"> Лише числа від 1 до 9</label>
+        <label><input type="radio" name="q2" value="1"> Ціле число від 1 до 10 включно</label>
+        <label><input type="radio" name="q2" value="0"> Будь-яке десяткове число</label>
+    </div>
+
+    <div class="quiz-question">
+        <strong>3. Для чого використовують random.choice()?</strong>
+        <label><input type="radio" name="q3" value="0"> Для створення списку</label>
+        <label><input type="radio" name="q3" value="1"> Для випадкового вибору одного елемента</label>
+        <label><input type="radio" name="q3" value="0"> Для перевірки умови</label>
+    </div>
+
+    <div class="quiz-question">
+        <strong>4. Який результат може повернути random.randint(5, 5)?</strong>
+        <label><input type="radio" name="q4" value="1"> Лише число 5</label>
+        <label><input type="radio" name="q4" value="0"> Числа від 1 до 5</label>
+        <label><input type="radio" name="q4" value="0"> Помилку</label>
+    </div>
+
+    <div class="quiz-question">
+        <strong>5. Що робить цей код?</strong>
+        <pre><code>import random
+number = random.randint(1, 10)
+
+if number > 5:
+    print("Так")
+else:
+    print("Ні")</code></pre>
+        <label><input type="radio" name="q5" value="0"> Завжди виводить «Так»</label>
+        <label><input type="radio" name="q5" value="1"> Виводить «Так» або «Ні» залежно від числа</label>
+        <label><input type="radio" name="q5" value="0"> Завжди виводить «Ні»</label>
+    </div>
+
+    <div class="quiz-question">
+        <strong>6. Що обере random.choice(["А", "Б", "В"])?</strong>
+        <label><input type="radio" name="q6" value="0"> Усі три елементи</label>
+        <label><input type="radio" name="q6" value="1"> Один випадковий елемент</label>
+        <label><input type="radio" name="q6" value="0"> Завжди перший елемент</label>
+    </div>
+
+    <button onclick="checkQuiz()">Перевірити відповіді</button>
+    <button class="secondary" onclick="resetQuiz()">Скинути</button>
+
+    <div id="quiz-result" class="result">
+        Тут з'явиться ваш результат.
+    </div>
+</section>
+
+<section>
+    <h2>8. Підсумуємо</h2>
+
+    <div class="grid">
+        <div class="mini-card">
+            <strong>import random</strong>
+            <p>Підключає модуль випадкових величин.</p>
+        </div>
+        <div class="mini-card">
+            <strong>random.randint(a, b)</strong>
+            <p>Повертає випадкове ціле число від a до b включно.</p>
+        </div>
+        <div class="mini-card">
+            <strong>random.choice()</strong>
+            <p>Випадково обирає один елемент із послідовності.</p>
+        </div>
+        <div class="mini-card">
+            <strong>random + if</strong>
+            <p>Дає змогу створювати програми, які приймають рішення залежно від випадкового значення.</p>
+        </div>
+    </div>
+
+    <div class="success">
+        <strong>Головна думка уроку:</strong>
+        випадкові значення роблять програми різноманітнішими,
+        а розгалуження дають змогу програмі реагувати на отримані значення.
+        Саме так створюють прості ігри, симуляції та навчальні програми.
+    </div>
+</section>
+
+</main>
+
+<footer>
+    Кабінет інформатики · Ліцей імені Олександра Цинкаловського<br>
+    © 2026
+</footer>
+
+<script>
+function rollDice() {
+    let number = Math.floor(Math.random() * 6) + 1;
+    document.getElementById("dice-result").innerHTML =
+        "🎲 Випало число: <strong>" + number + "</strong>";
+}
+
+function randomRange() {
+    let number = Math.floor(Math.random() * 91) + 10;
+    document.getElementById("range-result").textContent = number;
+}
+
+function chooseAnimal() {
+    let animals = ["🐱 Кіт", "🐶 Пес", "🦜 Папуга", "🐹 Хом'як"];
+    let animal = animals[Math.floor(Math.random() * animals.length)];
+    document.getElementById("animal-result").textContent =
+        "Програма обрала: " + animal;
+}
+
+function chooseActivity() {
+    let activities = [
+        "📖 Почитати цікаву книгу",
+        "🎮 Пограти в гру",
+        "🚴 Покататися на велосипеді",
+        "🎬 Подивитися фільм"
+    ];
+    let activity = activities[Math.floor(Math.random() * activities.length)];
+    document.getElementById("activity-result").textContent = activity;
+}
+
+function competition() {
+    let points = Math.floor(Math.random() * 101);
+    let message = "";
+
+    if (points >= 90) {
+        message = "Відмінний результат!";
+    } else if (points >= 60) {
+        message = "Хороший результат!";
+    } else {
+        message = "Потрібно потренуватися.";
+    }
+
+    document.getElementById("competition-result").innerHTML =
+        "Учасник отримав <strong>" + points +
+        " балів.</strong><br>" + message;
+}
+
+function toggleAnswer(id) {
+    document.getElementById(id).classList.toggle("show");
+}
+
+function checkQuiz() {
+    let total = 6;
+    let score = 0;
+    let answered = 0;
+
+    for (let i = 1; i <= total; i++) {
+        let selected = document.querySelector('input[name="q' + i + '"]:checked');
+
+        if (selected) {
+            answered++;
+            if (selected.value === "1") {
+                score++;
+            }
+        }
+    }
+
+    let result = document.getElementById("quiz-result");
+
+    if (answered < total) {
+        result.innerHTML =
+            "Ви відповіли на " + answered + " із " + total +
+            " запитань. Дайте відповідь на всі запитання.";
+        return;
+    }
+
+    let message = "";
+
+    if (score === 6) {
+        message = "Чудово! Ви добре засвоїли матеріал.";
+    } else if (score >= 4) {
+        message = "Непогано! Але деякі моменти варто повторити.";
+    } else {
+        message = "Раджу ще раз переглянути пояснення та приклади.";
+    }
+
+    result.innerHTML =
+        "Ваш результат: " + score + " із " + total + ".<br>" + message;
+}
+
+function resetQuiz() {
+    document.querySelectorAll('#quiz input[type="radio"]').forEach(function(item) {
+        item.checked = false;
+    });
+
+    document.getElementById("quiz-result").textContent =
+        "Тут з'явиться ваш результат.";
+}
+</script>
+
+</body>
+</html>
