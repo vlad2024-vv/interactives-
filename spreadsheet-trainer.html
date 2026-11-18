@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Тренажер — Табличний процесор</title>
+<style>
+:root{
+  --bg:#071426;--panel:#10243e;--panel2:#142c49;--panel3:#0a1b30;
+  --text:#edf4ff;--muted:#a9bdd5;--accent:#45a6ff;--green:#38d9a9;
+  --red:#ff7777;--yellow:#ffd166;--border:rgba(255,255,255,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:
+radial-gradient(circle at 10% 5%,#12345b 0,transparent 30%),
+radial-gradient(circle at 90% 30%,#102b4b 0,transparent 28%),var(--bg);
+color:var(--text);line-height:1.55}
+button,input,select{font:inherit}
+button{border:0;border-radius:10px;padding:11px 17px;font-weight:bold;cursor:pointer;background:var(--accent);color:#06172a;transition:.2s}
+button:hover{background:#76c0ff;transform:translateY(-1px)}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+button.secondary{background:#294563;color:#fff}
+button.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+.container{max-width:1180px;margin:auto;padding:22px 16px 45px}
+header{text-align:center;padding:30px 18px;background:linear-gradient(135deg,#123c69,#10243e);border:1px solid var(--border);border-radius:22px;margin-bottom:20px;box-shadow:0 15px 45px #0004}
+.tag{display:inline-block;color:#a8d7ff;background:#45a6ff22;border:1px solid #45a6ff55;border-radius:30px;padding:5px 14px;font-size:13px}
+h1{font-size:clamp(27px,5vw,42px);line-height:1.2;margin:12px 0}
+header p{color:#c3d7ed;margin:8px auto 0;max-width:720px}
+.panel{background:rgba(16,36,62,.94);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:18px}
+h2{color:#8ecaff;margin:0 0 14px;font-size:24px}
+h3{color:#b5dcff;margin:20px 0 9px;font-size:18px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.hidden{display:none!important}
+.registration{max-width:650px;margin:22px auto}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field label{display:block;font-size:14px;color:#c3d7ed;margin-bottom:6px}
+.field input,.field select,.answer-input,.answer-select{width:100%;padding:12px;background:#071a30;border:1px solid #ffffff26;border-radius:9px;color:var(--text);outline:none}
+.field input:focus,.field select:focus,.answer-input:focus,.answer-select:focus{border-color:var(--accent)}
+.field select option,.answer-select option{background:#10243e}
+.full{grid-column:1/-1}
+.note{background:#45a6ff14;border-left:4px solid var(--accent);padding:12px 15px;border-radius:8px;margin:15px 0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.stat{background:var(--panel2);border:1px solid var(--border);padding:10px 15px;border-radius:12px;min-width:110px}
+.stat b{display:block;font-size:21px;color:#8ecaff}
+.progress-wrap{height:9px;background:#071a30;border-radius:20px;overflow:hidden;margin:10px 0 18px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#45a6ff,#38d9a9);transition:width .3s}
+.layout{display:grid;grid-template-columns:270px 1fr;gap:18px;align-items:start}
+.sidebar{position:sticky;top:12px}
+.mission-list{display:grid;gap:8px}
+.mission-btn{width:100%;text-align:left;background:#142c49;color:var(--text);border:1px solid var(--border);padding:12px;border-radius:10px}
+.mission-btn.active{border-color:var(--accent);background:#1b4168}
+.mission-btn.done{border-color:#38d9a966}
+.mission-btn .sub{display:block;color:var(--muted);font-size:12px;font-weight:normal;margin-top:3px}
+.mission-title{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pill{font-size:12px;padding:4px 9px;border-radius:20px;background:#45a6ff22;color:#9bd2ff;white-space:nowrap}
+.task{background:#0a1b30;border:1px solid #45a6ff33;border-radius:13px;padding:17px;margin:15px 0}
+.sheet{overflow-x:auto;border:1px solid #6b829b;border-radius:9px;margin:12px 0;background:#f5f8fc;color:#17283b}
+.sheet table{border-collapse:collapse;width:100%;min-width:440px;font-size:14px}
+.sheet th,.sheet td{border:1px solid #c6d1df;padding:9px 12px;text-align:center}
+.sheet th{background:#dce8f5;color:#19334e;font-weight:bold}
+.sheet td:first-child{background:#e9f0f8;font-weight:bold;color:#244461}
+.sheet .selected{outline:3px solid #45a6ff;outline-offset:-3px;background:#e6f4ff}
+.sheet .headcell{background:#cbddef}
+.answer-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.answer-block label{display:block;font-size:14px;color:#c3d7ed;margin-bottom:6px}
+.feedback{display:none;padding:12px 14px;border-radius:9px;margin-top:13px}
+.feedback.good{display:block;background:#38d9a91a;border:1px solid #38d9a955;color:#70f0c6}
+.feedback.bad{display:block;background:#ff77771a;border:1px solid #ff777755;color:#ffaaaa}
+.hint{display:none;background:#ffd16612;border-left:4px solid var(--yellow);padding:12px 14px;border-radius:8px;margin-top:12px;color:#ffe3a0}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.footer-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:20px}
+.summary{text-align:center;padding:28px 18px}
+.summary-score{font-size:clamp(40px,8vw,64px);font-weight:bold;color:#8ecaff;margin:8px}
+.status{padding:12px;border-radius:9px;margin-top:14px;background:#45a6ff14;color:#b9dcff}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static}.mission-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.container{padding:12px 10px 30px}.panel{padding:17px 14px}.form-grid,.answer-row{grid-template-columns:1fr}.full{grid-column:auto}.mission-list{grid-template-columns:1fr 1fr}.stat{min-width:90px}.stat b{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="tag">Інформатика · 10 клас</div>
+  <h1>Тренажер: Табличний процесор</h1>
+  <p>Пригадаймо, як працюють електронні таблиці. Виконуй місії, перевіряй себе та набирай бали!</p>
+</header>
+
+<section id="registration" class="panel registration">
+  <h2>Починаємо тренування</h2>
+  <p class="muted">Перед початком вкажи свої дані. Результат буде збережено в навчальному журналі.</p>
+  <div class="form-grid">
+    <div class="field">
+      <label for="surname">Прізвище</label>
+      <input id="surname" maxlength="50" autocomplete="family-name" placeholder="Введіть прізвище">
+    </div>
+    <div class="field">
+      <label for="firstname">Ім’я</label>
+      <input id="firstname" maxlength="50" autocomplete="given-name" placeholder="Введіть ім’я">
+    </div>
+    <div class="field full">
+      <label for="className">Клас</label>
+      <select id="className">
+        <option value="">Оберіть клас</option>
+        <option>8-А</option><option>8-Б</option><option>9-А</option>
+        <option>10-А/П</option><option>10-П/П</option>
+      </select>
+    </div>
+  </div>
+  <div class="note"><strong>Пам’ятай:</strong> це тренування, а не контрольна робота. Можна користуватися підказками та виправляти відповіді.</div>
+  <button id="startBtn" onclick="startTraining()">Розпочати тренування</button>
+  <div id="registrationError" class="feedback bad"></div>
+</section>
+
+<section id="training" class="hidden">
+  <div class="topbar">
+    <div>
+      <div class="muted small" id="studentLabel"></div>
+      <div class="progress-wrap"><div class="progress" id="progressBar"></div></div>
+      <div class="muted small" id="progressText">Виконано 0 із 6 місій</div>
+    </div>
+    <div style="display:flex;gap:9px;flex-wrap:wrap">
+      <div class="stat"><span class="muted small">Бали</span><b id="score">0 / 60</b></div>
+      <div class="stat"><span class="muted small">Місії</span><b id="doneCount">0 / 6</b></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="panel sidebar">
+      <h3 style="margin-top:0">Твої місії</h3>
+      <div id="missionList" class="mission-list"></div>
+      <p class="muted small" style="margin-bottom:0">Кожна виконана місія приносить 10 балів.</p>
+    </aside>
+
+    <main class="panel">
+      <div class="mission-title">
+        <div>
+          <div class="muted small" id="missionNumber">Місія 1 із 6</div>
+          <h2 id="missionHeading">Орієнтуємося в таблиці</h2>
+        </div>
+        <span class="pill">10 балів</span>
+      </div>
+      <p id="missionIntro"></p>
+      <div id="missionContent"></div>
+      <div class="actions">
+        <button onclick="checkMission()">Перевірити</button>
+        <button class="secondary" onclick="showHint()">Підказка</button>
+      </div>
+      <div id="hintBox" class="hint"></div>
+      <div id="missionFeedback" class="feedback"></div>
+      <div class="footer-actions">
+        <button class="ghost" id="prevBtn" onclick="changeMission(-1)">← Попередня</button>
+        <button id="nextBtn" onclick="changeMission(1)" disabled>Наступна місія →</button>
+      </div>
+    </main>
+  </div>
+</section>
+
+<section id="finish" class="panel summary hidden">
+  <div class="tag">Тренування завершено</div>
+  <h2 style="margin-top:15px">Чудова робота!</h2>
+  <p class="muted">Ти пройшов усі місії тренажера «Табличний процесор».</p>
+  <div class="summary-score" id="finalScore">0 / 60</div>
+  <p id="finalPercent"></p>
+  <div id="saveStatus" class="status">Надсилаємо результат до навчального журналу…</div>
+  <button class="secondary" onclick="location.reload()">Пройти тренажер ще раз</button>
+</section>
+
+<footer class="muted small" style="text-align:center;padding:24px 8px">
+  Кабінет інформатики · Ліцей імені Олександра Цинкаловського
+</footer>
+</div>
+
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwI6jESt5PyQp5Zei4ZNFGjiAYC7RwUcW9n4uYUGMHRh9xOCrKluwsAbO2ewjlqXw0P/exec";
+const EXERCISE_NAME = "Тренажер: Табличний процесор";
+const TOTAL_MISSIONS = 6;
+const MAX_POINTS = 60;
+
+const missions = [
+{
+ title:"Орієнтуємося в таблиці",
+ intro:"Електронна таблиця складається з рядків, стовпців і клітинок. Адреса клітинки утворюється з назви стовпця та номера рядка.",
+ hint:"Спочатку вказують літеру стовпця, потім номер рядка. Наприклад, B3 — стовпець B, рядок 3.",
+ content:`
+ <div class="task"><strong>Розглянь фрагмент електронної таблиці.</strong>
+ <div class="sheet"><table><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+ <tr><td>1</td><td>Товар</td><td>Ціна</td><td>Кількість</td><td>Сума</td></tr>
+ <tr><td>2</td><td>Зошит</td><td>25</td><td>4</td><td>100</td></tr>
+ <tr><td>3</td><td>Ручка</td><td>15</td><td>2</td><td>30</td></tr>
+ <tr><td>4</td><td>Папка</td><td>40</td><td>1</td><td>40</td></tr></table></div></div>
+ <div class="answer-row">
+ <div class="answer-block"><label for="m0a">1. У якій клітинці записано число 15?</label><input class="answer-input" id="m0a" placeholder="Наприклад, A1"></div>
+ <div class="answer-block"><label for="m0b">2. Який діапазон містить усі ціни?</label><input class="answer-input" id="m0b" placeholder="Наприклад, A1:A5"></div>
+ </div>
+ <div class="answer-block"><label for="m0c">3. Скільки стовпців у фрагменті з даними (без стовпця з номерами рядків)?</label><select class="answer-select" id="m0c"><option value="">Оберіть відповідь</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>`,
+ check:()=>norm(val("m0a"))==="b3" && norm(val("m0b"))==="b2:b4" && val("m0c")==="4"
+},
+{
+ title:"Типи даних",
+ intro:"У клітинках можуть зберігатися текст, числа, дати та інші дані. Важливо розуміти, якого типу значення вводимо.",
+ hint:"Назва товару — текст; кількість і ціна — числа; календарна дата — дата. Формат відображення не завжди змінює тип даних.",
+ content:`
+ <div class="task"><strong>Уяви, що заповнюєш таблицю замовлень.</strong>
+ <div class="sheet"><table><tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+ <tr><td>1</td><td>Товар</td><td>Кількість</td><td>Дата замовлення</td></tr>
+ <tr><td>2</td><td>Навушники</td><td>3</td><td>18.11.2026</td></tr></table></div></div>
+ <div class="answer-block"><label for="m1a">1. Який тип даних у клітинці A2?</label><select class="answer-select" id="m1a"><option value="">Оберіть</option><option value="text">Текст</option><option value="number">Число</option><option value="date">Дата</option></select></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m1b">2. Який тип даних у клітинці B2?</label><select class="answer-select" id="m1b"><option value="">Оберіть</option><option value="text">Текст</option><option value="number">Число</option><option value="date">Дата</option></select></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m1c">3. Який тип даних у клітинці C2?</label><select class="answer-select" id="m1c"><option value="">Оберіть</option><option value="text">Текст</option><option value="number">Число</option><option value="date">Дата</option></select></div>`,
+ check:()=>val("m1a")==="text" && val("m1b")==="number" && val("m1c")==="date"
+},
+{
+ title:"Формули та адреси клітинок",
+ intro:"Формули в електронних таблицях починаються зі знака =. У формулах можна використовувати числа, арифметичні дії та адреси клітинок.",
+ hint:"Щоб помножити значення з B2 на значення з C2, використай формулу =B2*C2. Знак множення в таблицях — зірочка *.",
+ content:`
+ <div class="task"><strong>Потрібно обчислити вартість кожного товару.</strong>
+ <div class="sheet"><table><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+ <tr><td>1</td><td>Товар</td><td>Ціна</td><td>Кількість</td><td>Вартість</td></tr>
+ <tr><td>2</td><td>Флешка</td><td>180</td><td>2</td><td>?</td></tr>
+ <tr><td>3</td><td>Миша</td><td>250</td><td>1</td><td>?</td></tr></table></div></div>
+ <div class="answer-block"><label for="m2a">1. Яку формулу потрібно записати в D2?</label><input class="answer-input" id="m2a" placeholder="Почніть зі знака ="></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m2b">2. Який результат отримаємо в D2?</label><input class="answer-input" id="m2b" inputmode="numeric" placeholder="Число"></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m2c">3. Який знак використовується для ділення?</label><select class="answer-select" id="m2c"><option value="">Оберіть</option><option value=":">:</option><option value="/">/</option><option value="\\">\\</option></select></div>`,
+ check:()=>norm(val("m2a"))==="=b2*c2" && Number(val("m2b"))===360 && val("m2c")==="/"
+},
+{
+ title:"Знайомимося з функціями",
+ intro:"Функції допомагають швидко виконувати обчислення. Наприклад, SUM знаходить суму, AVERAGE — середнє значення, MAX і MIN — найбільше та найменше значення.",
+ hint:"Функція SUM для діапазону B2:B5 записується як =SUM(B2:B5). У формулах назва функції супроводжується дужками.",
+ content:`
+ <div class="task"><strong>У таблиці записано оцінки за чотири завдання.</strong>
+ <div class="sheet"><table><tr><th></th><th>A</th><th>B</th></tr>
+ <tr><td>1</td><td>Завдання</td><td>Бали</td></tr>
+ <tr><td>2</td><td>№ 1</td><td>8</td></tr><tr><td>3</td><td>№ 2</td><td>10</td></tr>
+ <tr><td>4</td><td>№ 3</td><td>6</td></tr><tr><td>5</td><td>№ 4</td><td>8</td></tr></table></div></div>
+ <div class="answer-block"><label for="m3a">1. Яка функція обчислить суму балів у діапазоні B2:B5?</label><select class="answer-select" id="m3a"><option value="">Оберіть</option><option>AVERAGE</option><option>SUM</option><option>MAX</option><option>MIN</option></select></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m3b">2. Який результат поверне функція SUM для B2:B5?</label><input class="answer-input" id="m3b" inputmode="numeric" placeholder="Число"></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m3c">3. Яка функція знайде середній бал?</label><select class="answer-select" id="m3c"><option value="">Оберіть</option><option>SUM</option><option>AVERAGE</option><option>MAX</option><option>MIN</option></select></div>`,
+ check:()=>val("m3a")==="SUM" && Number(val("m3b"))===32 && val("m3c")==="AVERAGE"
+},
+{
+ title:"Сортування та фільтрування",
+ intro:"Сортування змінює порядок розташування рядків за вибраною ознакою. Фільтрування дає змогу тимчасово показати лише записи, які відповідають певній умові.",
+ hint:"Якщо потрібно побачити лише учнів із результатом від 9 балів, застосовують фільтр за умовою «більше або дорівнює 9».",
+ content:`
+ <div class="task"><strong>Є таблиця учасників шкільного турніру.</strong>
+ <div class="sheet"><table><tr><th></th><th>A</th><th>B</th></tr>
+ <tr><td>1</td><td>Учасник</td><td>Бали</td></tr>
+ <tr><td>2</td><td>Андрій</td><td>7</td></tr><tr><td>3</td><td>Олена</td><td>10</td></tr>
+ <tr><td>4</td><td>Марія</td><td>8</td></tr><tr><td>5</td><td>Іван</td><td>9</td></tr></table></div></div>
+ <div class="answer-block"><label for="m4a">1. Що потрібно застосувати, щоб розташувати учасників від найбільшої кількості балів до найменшої?</label><select class="answer-select" id="m4a"><option value="">Оберіть</option><option value="sort">Сортування за спаданням</option><option value="filter">Фільтрування</option><option value="chart">Побудову діаграми</option></select></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m4b">2. Скільки учасників матимуть 9 або більше балів після застосування відповідного фільтра?</label><input class="answer-input" id="m4b" inputmode="numeric" placeholder="Кількість"></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m4c">3. Чи видаляються інші рядки під час фільтрування?</label><select class="answer-select" id="m4c"><option value="">Оберіть</option><option value="yes">Так, видаляються</option><option value="no">Ні, тимчасово приховуються</option></select></div>`,
+ check:()=>val("m4a")==="sort" && Number(val("m4b"))===2 && val("m4c")==="no"
+},
+{
+ title:"Аналізуємо дані та діаграми",
+ intro:"Електронні таблиці допомагають не лише зберігати дані, а й аналізувати їх. Діаграми наочно показують співвідношення та зміни.",
+ hint:"Для порівняння кількості проданих товарів зручно використати стовпчасту діаграму. Загальна сума продажів — це сума значень у стовпці.",
+ content:`
+ <div class="task"><strong>Магазин підрахував продажі за день.</strong>
+ <div class="sheet"><table><tr><th></th><th>A</th><th>B</th></tr>
+ <tr><td>1</td><td>Товар</td><td>Продано, шт.</td></tr>
+ <tr><td>2</td><td>Зошити</td><td>12</td></tr><tr><td>3</td><td>Ручки</td><td>20</td></tr>
+ <tr><td>4</td><td>Олівці</td><td>8</td></tr></table></div></div>
+ <div class="answer-block"><label for="m5a">1. Скільки всього одиниць товару продано?</label><input class="answer-input" id="m5a" inputmode="numeric" placeholder="Число"></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m5b">2. Який товар продавався найкраще?</label><select class="answer-select" id="m5b"><option value="">Оберіть</option><option>Зошити</option><option>Ручки</option><option>Олівці</option></select></div>
+ <div class="answer-block" style="margin-top:12px"><label for="m5c">3. Який тип діаграми найкраще підійде для порівняння кількості проданих товарів?</label><select class="answer-select" id="m5c"><option value="">Оберіть</option><option value="column">Стовпчаста</option><option value="pie">Кругова</option><option value="line">Лінійна</option></select></div>`,
+ check:()=>Number(val("m5a"))===40 && val("m5b")==="Ручки" && val("m5c")==="column"
+}
+];
+
+let currentMission=0;
+let completed=new Set();
+let student=null;
+let startedAt=null;
+let submitted=false;
+
+function val(id){const el=document.getElementById(id);return el?el.value.trim():""}
+function norm(s){return String(s||"").toLowerCase().replace(/\s+/g,"").replace(/,/g,".")}
+function startTraining(){
+ const surname=val("surname"),firstname=val("firstname"),className=val("className");
+ const err=document.getElementById("registrationError");
+ if(!surname||!firstname||!className){err.className="feedback bad";err.textContent="Заповніть прізвище, ім’я та оберіть клас.";return}
+ student={surname,firstname,className};
+ startedAt=Date.now();
+ document.getElementById("studentLabel").textContent=`${surname} ${firstname} · ${className}`;
+ document.getElementById("registration").classList.add("hidden");
+ document.getElementById("training").classList.remove("hidden");
+ renderMissionList();loadMission(0);
+}
+function renderMissionList(){
+ const box=document.getElementById("missionList");box.innerHTML="";
+ missions.forEach((m,i)=>{
+  const b=document.createElement("button");
+  b.className="mission-btn"+(i===currentMission?" active":"")+(completed.has(i)?" done":"");
+  b.innerHTML=`${completed.has(i)?"✓":"○"} ${i+1}. ${m.title}<span class="sub">${completed.has(i)?"Виконано · 10 балів":"10 балів"}</span>`;
+  b.onclick=()=>loadMission(i);box.appendChild(b);
+ });
+}
+function loadMission(i){
+ currentMission=i;
+ const m=missions[i];
+ document.getElementById("missionNumber").textContent=`Місія ${i+1} із ${TOTAL_MISSIONS}`;
+ document.getElementById("missionHeading").textContent=m.title;
+ document.getElementById("missionIntro").textContent=m.intro;
+ document.getElementById("missionContent").innerHTML=m.content;
+ document.getElementById("hintBox").style.display="none";
+ document.getElementById("hintBox").textContent=m.hint;
+ const fb=document.getElementById("missionFeedback");fb.className="feedback";fb.textContent="";
+ document.getElementById("prevBtn").disabled=i===0;
+ document.getElementById("nextBtn").disabled=!completed.has(i)||i===TOTAL_MISSIONS-1;
+ document.getElementById("nextBtn").textContent=i===TOTAL_MISSIONS-1?"Завершити →":"Наступна місія →";
+ renderMissionList();updateStats();
+}
+function showHint(){document.getElementById("hintBox").style.display="block"}
+function checkMission(){
+ const fb=document.getElementById("missionFeedback");
+ if(missions[currentMission].check()){
+  if(!completed.has(currentMission))completed.add(currentMission);
+  fb.className="feedback good";
+  fb.textContent="Чудово! Усі відповіді правильні. Місію виконано — +10 балів.";
+  document.getElementById("nextBtn").disabled=false;
+  renderMissionList();updateStats();
+  if(completed.size===TOTAL_MISSIONS){setTimeout(finishTraining,650)}
+ }else{
+  fb.className="feedback bad";
+  fb.textContent="Є помилки або не всі відповіді заповнені. Переглянь завдання, скористайся підказкою та спробуй ще раз.";
+ }
+}
+function changeMission(direction){
+ const next=currentMission+direction;
+ if(next<0||next>=TOTAL_MISSIONS)return;
+ if(direction>0&&!completed.has(currentMission))return;
+ if(direction>0&&currentMission===TOTAL_MISSIONS-1){finishTraining();return}
+ loadMission(next);
+}
+function updateStats(){
+ const points=completed.size*10;
+ document.getElementById("score").textContent=`${points} / ${MAX_POINTS}`;
+ document.getElementById("doneCount").textContent=`${completed.size} / ${TOTAL_MISSIONS}`;
+ document.getElementById("progressBar").style.width=(completed.size/TOTAL_MISSIONS*100)+"%";
+ document.getElementById("progressText").textContent=`Виконано ${completed.size} із ${TOTAL_MISSIONS} місій`;
+}
+function finishTraining(){
+ if(completed.size!==TOTAL_MISSIONS||submitted)return;
+ submitted=true;
+ const points=completed.size*10;
+ const percent=Math.round(points/MAX_POINTS*100);
+ const duration=Math.max(1,Math.round((Date.now()-startedAt)/1000));
+ document.getElementById("training").classList.add("hidden");
+ document.getElementById("finish").classList.remove("hidden");
+ document.getElementById("finalScore").textContent=`${points} / ${MAX_POINTS}`;
+ document.getElementById("finalPercent").textContent=`Результат: ${percent}%. Час виконання: ${duration} с.`;
+ document.getElementById("finish").scrollIntoView({behavior:"smooth"});
+ sendResult({surname:student.surname,name:student.firstname,className:student.className,
+  exercise:EXERCISE_NAME,completedMissions:completed.size,totalMissions:TOTAL_MISSIONS,
+  points,maxPoints:MAX_POINTS,percent,duration});
+}
+function sendResult(data){
+ const status=document.getElementById("saveStatus");
+ const form=new URLSearchParams();
+ form.append("data",JSON.stringify(data));
+ fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",body:form})
+  .then(()=>{status.textContent="Запит на збереження результату надіслано. Дякуємо за роботу!"})
+  .catch(()=>{status.textContent="Не вдалося надіслати результат автоматично. Повідом учителя."});
+}
+</script>
+</body>
+</html>
