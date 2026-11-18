@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -7,1090 +6,288 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="description" content="Інтерактивний тренажер Python для повторення алгоритмів та основ програмування.">
 <title>Python Lab — Місія: алгоритм</title>
-
 <style>
-:root {
-    --bg: #07111f;
-    --panel: #101e30;
-    --panel2: #15263b;
-    --border: #263b54;
-    --text: #e8f0fa;
-    --muted: #9aadc3;
-    --green: #55d68b;
-    --blue: #55aaff;
-    --orange: #ffbd69;
-    --red: #ff7777;
-    --purple: #b69cff;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    background:
-        radial-gradient(circle at 15% 10%, #12365b 0, transparent 30%),
-        radial-gradient(circle at 90% 85%, #18284c 0, transparent 28%),
-        var(--bg);
-    color: var(--text);
-    font-family: "Segoe UI", Arial, sans-serif;
-    min-height: 100vh;
-}
-
-header {
-    padding: 22px 5%;
-    border-bottom: 1px solid var(--border);
-    background: rgba(7,17,31,.85);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
-
-.python-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 13px;
-    display: grid;
-    place-items: center;
-    font-size: 25px;
-    background: linear-gradient(135deg,#3776ab,#ffd343);
-    color: #102033;
-    font-weight: 900;
-}
-
-.logo h1 {
-    margin: 0;
-    font-size: 23px;
-}
-
-.logo p {
-    margin: 4px 0 0;
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.home-link {
-    text-decoration: none;
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 10px 16px;
-    border-radius: 9px;
-    transition: .2s;
-}
-
-.home-link:hover {
-    background: var(--panel2);
-    border-color: var(--blue);
-}
-
-.container {
-    max-width: 1450px;
-    margin: auto;
-    padding: 28px 4%;
-}
-
-.intro {
-    margin-bottom: 25px;
-}
-
-.intro h2 {
-    font-size: clamp(25px, 4vw, 36px);
-    margin: 0 0 10px;
-}
-
-.intro p {
-    color: var(--muted);
-    line-height: 1.6;
-    max-width: 850px;
-    margin: 0;
-}
-
-.progress-area {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 17px 20px;
-    margin-bottom: 22px;
-}
-
-.progress-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-}
-
-.progress-top strong {
-    color: var(--green);
-}
-
-.progress-track {
-    height: 9px;
-    background: #26364a;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg,#3889d6,#55d68b);
-    transition: width .3s;
-}
-
-.workspace {
-    display: grid;
-    grid-template-columns: 270px minmax(0,1fr);
-    gap: 20px;
-    align-items: start;
-}
-
-.sidebar, .main-panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-}
-
-.sidebar-title {
-    padding: 18px;
-    border-bottom: 1px solid var(--border);
-    font-weight: 700;
-}
-
-.mission-list {
-    padding: 10px;
-}
-
-.mission {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-align: left;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    background: transparent;
-    color: var(--text);
-    padding: 13px 11px;
-    cursor: pointer;
-    margin-bottom: 5px;
-    transition: .2s;
-}
-
-.mission:hover {
-    background: var(--panel2);
-}
-
-.mission.active {
-    background: #183452;
-    border-color: #3679b7;
-}
-
-.mission.done .mission-number {
-    background: #1d6949;
-    color: #a9ffd0;
-}
-
-.mission-number {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    border-radius: 9px;
-    background: #263b54;
-    color: #b9d9fa;
-    font-weight: 700;
-}
-
-.mission-name {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.mission-status {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    margin-top: 4px;
-}
-
-.sidebar-note {
-    margin: 10px;
-    padding: 13px;
-    border-radius: 10px;
-    background: #122a3c;
-    color: #b8d5ed;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-.main-panel {
-    min-width: 0;
-}
-
-.task-header {
-    padding: 21px 23px;
-    border-bottom: 1px solid var(--border);
-}
-
-.task-label {
-    color: var(--green);
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-}
-
-.task-header h2 {
-    margin: 7px 0;
-    font-size: 25px;
-}
-
-.task-header p {
-    color: var(--muted);
-    line-height: 1.6;
-    margin: 0;
-}
-
-.task-content {
-    padding: 22px;
-}
-
-.instruction {
-    padding: 15px 17px;
-    background: #14283e;
-    border-left: 4px solid var(--blue);
-    border-radius: 8px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.instruction strong {
-    color: #8ecaff;
-}
-
-.editor-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    background: #0b1725;
-    padding: 12px 15px;
-    border: 1px solid #263b54;
-    border-bottom: 0;
-    border-radius: 10px 10px 0 0;
-    color: #b9cce0;
-    font-size: 13px;
-}
-
-.editor-dots {
-    display: flex;
-    gap: 6px;
-}
-
-.editor-dots span {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #ff7777;
-}
-
-.editor-dots span:nth-child(2) {
-    background: #ffbd69;
-}
-
-.editor-dots span:nth-child(3) {
-    background: #55d68b;
-}
-
-textarea {
-    display: block;
-    width: 100%;
-    min-height: 250px;
-    resize: vertical;
-    border: 1px solid #263b54;
-    border-radius: 0 0 10px 10px;
-    background: #08121e;
-    color: #d8eaff;
-    padding: 19px;
-    font-family: Consolas, "Courier New", monospace;
-    font-size: 15px;
-    line-height: 1.7;
-    outline: none;
-    tab-size: 4;
-}
-
-textarea:focus {
-    border-color: var(--blue);
-}
-
-.editor-help {
-    color: var(--muted);
-    font-size: 12px;
-    margin: 9px 0 17px;
-    line-height: 1.5;
-}
-
-.actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 16px 0 20px;
-}
-
-button.action {
-    border: 0;
-    padding: 12px 19px;
-    border-radius: 9px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: .2s;
-}
-
-button.action:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-}
-
-.run-btn {
-    background: var(--green);
-    color: #082218;
-}
-
-.hint-btn {
-    background: #244667;
-    color: #d8ecff;
-}
-
-.reset-btn {
-    background: #29384b;
-    color: #d6e0ec;
-}
-
-.console {
-    border: 1px solid #263b54;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #07111b;
-}
-
-.console-head {
-    padding: 11px 15px;
-    background: #132235;
-    color: #b8cce1;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.console-body {
-    padding: 17px;
-    min-height: 95px;
-    color: #a9f2c4;
-    font-family: Consolas, monospace;
-    font-size: 14px;
-    line-height: 1.7;
-    white-space: pre-wrap;
-}
-
-.feedback {
-    display: none;
-    margin-top: 17px;
-    padding: 15px;
-    border-radius: 9px;
-    line-height: 1.6;
-}
-
-.feedback.success {
-    display: block;
-    background: #123b2c;
-    border: 1px solid #27784f;
-    color: #b5f5d0;
-}
-
-.feedback.error {
-    display: block;
-    background: #3c2228;
-    border: 1px solid #82404b;
-    color: #ffc2c8;
-}
-
-.hint {
-    display: none;
-    margin-top: 15px;
-    background: #332d1e;
-    border: 1px solid #75603a;
-    color: #ffe0a7;
-    padding: 15px;
-    border-radius: 9px;
-    line-height: 1.6;
-}
-
-.bottom-info {
-    display: grid;
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.info-card {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    padding: 16px;
-}
-
-.info-card h3 {
-    margin: 0 0 9px;
-    font-size: 15px;
-}
-
-.info-card p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-code {
-    color: #ffd58b;
-    font-family: Consolas, monospace;
-}
-
-footer {
-    text-align: center;
-    padding: 25px 15px;
-    color: #71869d;
-    font-size: 12px;
-}
-
-@media(max-width:850px) {
-    .workspace {
-        grid-template-columns: 1fr;
-    }
-
-    .mission-list {
-        display: grid;
-        grid-template-columns: repeat(2,minmax(0,1fr));
-    }
-}
-
-@media(max-width:520px) {
-    header {
-        padding: 15px 4%;
-    }
-
-    .logo h1 {
-        font-size: 19px;
-    }
-
-    .container {
-        padding: 20px 3%;
-    }
-
-    .task-content {
-        padding: 15px;
-    }
-
-    .mission-list {
-        grid-template-columns: 1fr;
-    }
-
-    .bottom-info {
-        grid-template-columns: 1fr;
-    }
-
-    textarea {
-        font-size: 13px;
-        min-height: 220px;
-    }
-}
-
-.registration-card {
-    max-width: 680px;
-    margin: 8px auto 30px;
-    padding: 28px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    box-shadow: 0 18px 45px rgba(0,0,0,.22);
-}
-.registration-card h2 {
-    margin: 0 0 9px;
-    font-size: 25px;
-}
-.registration-card > p {
-    color: var(--muted);
-    line-height: 1.6;
-    margin: 0 0 22px;
-}
-.registration-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-}
-.registration-field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-.registration-field label {
-    color: #c9d9eb;
-    font-size: 13px;
-    font-weight: 700;
-}
-.registration-field input,
-.registration-field select {
-    width: 100%;
-    min-height: 46px;
-    padding: 11px 13px;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    outline: none;
-    background: #08121e;
-    color: var(--text);
-    font: inherit;
-}
-.registration-field input:focus,
-.registration-field select:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(85,170,255,.12);
-}
-.registration-submit {
-    width: 100%;
-    margin-top: 20px;
-    min-height: 48px;
-    border: 0;
-    border-radius: 9px;
-    background: linear-gradient(135deg,#3889d6,#2675b9);
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: .2s;
-}
-.registration-submit:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-}
-.registration-note {
-    margin-top: 13px;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.5;
-}
-body:not(.started) .intro,
-body:not(.started) .progress-area,
-body:not(.started) .workspace {
-    display: none;
-}
-body.started #registrationCard {
-    display: none;
-}
-@media(max-width:520px) {
-    .registration-card {
-        padding: 20px 16px;
-    }
-    .registration-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
+:root{--bg:#07111f;--panel:#101e30;--panel2:#15263b;--border:#263b54;--text:#e8f0fa;--muted:#9aadc3;--green:#55d68b;--blue:#55aaff;--orange:#ffbd69;--red:#ff7777;--purple:#b69cff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 15% 10%,#12365b 0,transparent 30%),radial-gradient(circle at 90% 85%,#18284c 0,transparent 28%),var(--bg);color:var(--text);font-family:"Segoe UI",Arial,sans-serif;min-height:100vh}
+header{padding:22px 5%;border-bottom:1px solid var(--border);background:rgba(7,17,31,.85);display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:13px}
+.python-icon{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:25px;background:linear-gradient(135deg,#3776ab,#ffd343);color:#102033;font-weight:900}
+.logo h1{margin:0;font-size:23px}.logo p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.home-link{text-decoration:none;color:var(--text);border:1px solid var(--border);padding:10px 16px;border-radius:9px;transition:.2s}.home-link:hover{background:var(--panel2);border-color:var(--blue)}
+.container{max-width:1450px;margin:auto;padding:28px 4%}.intro{margin-bottom:25px}.intro h2{font-size:clamp(25px,4vw,36px);margin:0 0 10px}.intro p{color:var(--muted);line-height:1.6;max-width:850px;margin:0}
+.progress-area{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:17px 20px;margin-bottom:22px}
+.progress-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.progress-top strong{color:var(--green)}
+.progress-track{height:9px;background:#26364a;border-radius:20px;overflow:hidden}.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#3889d6,#55d68b);transition:width .3s}
+.workspace{display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;align-items:start}
+.sidebar,.main-panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.sidebar-title{padding:18px;border-bottom:1px solid var(--border);font-weight:700}.mission-list{padding:10px}
+.mission{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--text);padding:13px 11px;cursor:pointer;margin-bottom:5px;transition:.2s}
+.mission:hover{background:var(--panel2)}.mission.active{background:#183452;border-color:#3679b7}.mission.done .mission-number{background:#1d6949;color:#a9ffd0}
+.mission-number{width:32px;height:32px;flex-shrink:0;display:grid;place-items:center;border-radius:9px;background:#263b54;color:#b9d9fa;font-weight:700}
+.mission-name{font-size:14px;font-weight:600}.mission-status{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.sidebar-note{margin:10px;padding:13px;border-radius:10px;background:#122a3c;color:#b8d5ed;font-size:12px;line-height:1.5}
+.main-panel{min-width:0}.task-header{padding:21px 23px;border-bottom:1px solid var(--border)}
+.task-label{color:var(--green);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:1.2px}
+.task-header h2{margin:7px 0;font-size:25px}.task-header p{color:var(--muted);line-height:1.6;margin:0}
+.task-content{padding:22px}.instruction{padding:15px 17px;background:#14283e;border-left:4px solid var(--blue);border-radius:8px;line-height:1.6;margin-bottom:20px}
+.instruction strong{color:#8ecaff}.editor-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#0b1725;padding:12px 15px;border:1px solid #263b54;border-bottom:0;border-radius:10px 10px 0 0;color:#b9cce0;font-size:13px}
+.editor-dots{display:flex;gap:6px}.editor-dots span{width:9px;height:9px;border-radius:50%;background:#ff7777}.editor-dots span:nth-child(2){background:#ffbd69}.editor-dots span:nth-child(3){background:#55d68b}
+textarea{display:block;width:100%;min-height:250px;resize:vertical;border:1px solid #263b54;border-radius:0 0 10px 10px;background:#08121e;color:#d8eaff;padding:19px;font-family:Consolas,"Courier New",monospace;font-size:15px;line-height:1.7;outline:none;tab-size:4}
+textarea:focus{border-color:var(--blue)}.editor-help{color:var(--muted);font-size:12px;margin:9px 0 17px;line-height:1.5}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 20px}button.action{border:0;padding:12px 19px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+button.action:hover{transform:translateY(-2px);filter:brightness(1.1)}.run-btn{background:var(--green);color:#082218}.hint-btn{background:#244667;color:#d8ecff}.reset-btn{background:#29384b;color:#d6e0ec}
+.console{border:1px solid #263b54;border-radius:10px;overflow:hidden;background:#07111b}.console-head{padding:11px 15px;background:#132235;color:#b8cce1;font-size:13px;font-weight:700}
+.console-body{padding:17px;min-height:95px;color:#a9f2c4;font-family:Consolas,monospace;font-size:14px;line-height:1.7;white-space:pre-wrap}
+.feedback{display:none;margin-top:17px;padding:15px;border-radius:9px;line-height:1.6}.feedback.success{display:block;background:#123b2c;border:1px solid #27784f;color:#b5f5d0}.feedback.error{display:block;background:#3c2228;border:1px solid #82404b;color:#ffc2c8}
+.hint{display:none;margin-top:15px;background:#332d1e;border:1px solid #75603a;color:#ffe0a7;padding:15px;border-radius:9px;line-height:1.6}
+.bottom-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:20px}.info-card{background:var(--panel2);border:1px solid var(--border);border-radius:11px;padding:16px}
+.info-card h3{margin:0 0 9px;font-size:15px}.info-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+code{color:#ffd58b;font-family:Consolas,monospace}footer{text-align:center;padding:25px 15px;color:#71869d;font-size:12px}
+@media(max-width:850px){.workspace{grid-template-columns:1fr}.mission-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){header{padding:15px 4%}.logo h1{font-size:19px}.container{padding:20px 3%}.task-content{padding:15px}.mission-list{grid-template-columns:1fr}.bottom-info{grid-template-columns:1fr}textarea{font-size:13px;min-height:220px}}
+.registration-card{max-width:680px;margin:8px auto 30px;padding:28px;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 18px 45px rgba(0,0,0,.22)}
+.registration-card h2{margin:0 0 9px;font-size:25px}.registration-card>p{color:var(--muted);line-height:1.6;margin:0 0 22px}
+.registration-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.registration-field{display:flex;flex-direction:column;gap:7px}
+.registration-field label{color:#c9d9eb;font-size:13px;font-weight:700}
+.registration-field input,.registration-field select{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--border);border-radius:9px;outline:none;background:#08121e;color:var(--text);font:inherit}
+.registration-field input:focus,.registration-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(85,170,255,.12)}
+.registration-submit{width:100%;margin-top:20px;min-height:48px;border:0;border-radius:9px;background:linear-gradient(135deg,#3889d6,#2675b9);color:white;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+.registration-submit:hover{transform:translateY(-2px);filter:brightness(1.1)}.registration-note{margin-top:13px;color:var(--muted);font-size:12px;line-height:1.5}
+body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .workspace{display:none}body.started #registrationCard{display:none}
+@media(max-width:520px){.registration-card{padding:20px 16px}.registration-grid{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
-
 <header>
-    <div class="logo">
-        <div class="python-icon">Py</div>
-        <div>
-            <h1>Python Lab</h1>
-            <p>Місія: алгоритм · 8 клас</p>
-        </div>
-    </div>
-
+    <div class="logo"><div class="python-icon">Py</div><div><h1>Python Lab</h1><p>Місія: алгоритм · 8 клас</p></div></div>
     <a class="home-link" href="index.html">← На головну</a>
 </header>
-
 <div class="container">
     <section class="registration-card" id="registrationCard">
         <h2>Початок роботи</h2>
-        <p>
-            Перед виконанням місій вкажи свої дані. Після завершення
-            Python Lab результат буде автоматично збережено в журналі вчителя.
-        </p>
-
+        <p>Перед виконанням місій вкажи свої дані. Після завершення Python Lab результат буде автоматично збережено в журналі вчителя.</p>
         <form id="studentForm" onsubmit="startLab(event)">
             <div class="registration-grid">
-                <div class="registration-field">
-                    <label for="studentSurname">Прізвище</label>
-                    <input id="studentSurname" name="surname" type="text"
-                        maxlength="60" autocomplete="family-name" required>
-                </div>
-
-                <div class="registration-field">
-                    <label for="studentFirstName">Ім’я</label>
-                    <input id="studentFirstName" name="firstName" type="text"
-                        maxlength="60" autocomplete="given-name" required>
-                </div>
-
-                <div class="registration-field">
-                    <label for="studentClass">Клас</label>
-                    <select id="studentClass" name="studentClass" required>
-                        <option value="">Оберіть клас</option>
-                        <option value="8-А">8-А</option>
-                        <option value="8-Б">8-Б</option>
-                        <option value="9-А">9-А</option>
-                        <option value="10-А/П">10-А/П</option>
-                        <option value="10-П/П">10-П/П</option>
-                    </select>
-                </div>
+                <div class="registration-field"><label for="studentSurname">Прізвище</label><input id="studentSurname" name="surname" type="text" maxlength="60" autocomplete="family-name" required></div>
+                <div class="registration-field"><label for="studentFirstName">Ім’я</label><input id="studentFirstName" name="firstName" type="text" maxlength="60" autocomplete="given-name" required></div>
+                <div class="registration-field"><label for="studentClass">Клас</label><select id="studentClass" name="studentClass" required><option value="">Оберіть клас</option><option value="8-А">8-А</option><option value="8-Б">8-Б</option><option value="9-А">9-А</option><option value="10-А/П">10-А/П</option><option value="10-П/П">10-П/П</option></select></div>
             </div>
-
-            <button class="registration-submit" type="submit">
-                Почати виконання місій →
-            </button>
-            <div class="registration-note">
-                Дані потрібні лише для того, щоб учитель міг побачити результат виконання вправи.
-            </div>
+            <button class="registration-submit" type="submit">Почати виконання місій →</button>
+            <div class="registration-note">Дані потрібні лише для того, щоб учитель міг побачити результат виконання вправи.</div>
         </form>
     </section>
-
-
-    <section class="intro">
-        <h2>Вітаємо в Python Lab!</h2>
-        <p>
-            Час пригадати основи програмування. Виконуй місії,
-            працюй із кодом, знаходь помилки та перевіряй свої знання.
-            Кожна успішно виконана місія наближає тебе до фінішу!
-        </p>
-    </section>
-
-    <section class="progress-area">
-        <div class="progress-top">
-            <span>Твій прогрес</span>
-            <strong id="progressText">0 із 5 місій · 0 балів</strong>
-        </div>
-        <div class="progress-track">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-    </section>
-
+    <section class="intro"><h2>Вітаємо в Python Lab!</h2><p>Час пригадати основи програмування. Виконуй місії, працюй із кодом, знаходь помилки та перевіряй свої знання. Кожна успішно виконана місія наближає тебе до фінішу!</p></section>
+    <section class="progress-area"><div class="progress-top"><span>Твій прогрес</span><strong id="progressText">0 із 5 місій · 0 балів</strong></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
     <div class="workspace">
-
-        <aside class="sidebar">
-            <div class="sidebar-title">Місії</div>
-            <div class="mission-list" id="missionList"></div>
-
-            <div class="sidebar-note">
-                <strong>Пам'ятай!</strong><br>
-                Python виконує команди послідовно — одну за одною,
-                якщо інший порядок не задано самим алгоритмом.
-            </div>
-        </aside>
-
+        <aside class="sidebar"><div class="sidebar-title">Місії</div><div class="mission-list" id="missionList"></div><div class="sidebar-note"><strong>Пам'ятай!</strong><br>Python виконує команди послідовно — одну за одною, якщо інший порядок не задано самим алгоритмом.</div></aside>
         <main class="main-panel">
-
-            <div class="task-header">
-                <div class="task-label" id="taskLabel">Місія 1</div>
-                <h2 id="taskTitle">Перша програма</h2>
-                <p id="taskDescription"></p>
-            </div>
-
+            <div class="task-header"><div class="task-label" id="taskLabel">Місія 1</div><h2 id="taskTitle">Перша програма</h2><p id="taskDescription"></p></div>
             <div class="task-content">
-
                 <div class="instruction" id="taskInstruction"></div>
-
-                <div class="editor-title">
-                    <div class="editor-dots">
-                        <span></span><span></span><span></span>
-                    </div>
-                    <span>main.py</span>
-                    <span>Python</span>
-                </div>
-
-                <textarea id="codeEditor" spellcheck="false"
-                    autocapitalize="off" autocomplete="off"
-                    autocorrect="off"></textarea>
-
-                <div class="editor-help">
-                    Пиши код у редакторі. Звертай увагу на дужки,
-                    лапки, назви змінних і порядок команд.
-                </div>
-
+                <div class="editor-title"><div class="editor-dots"><span></span><span></span><span></span></div><span>main.py</span><span>Python</span></div>
+                <textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+                <div class="editor-help">Пиши код у редакторі. Звертай увагу на дужки, лапки, назви змінних і порядок команд.</div>
                 <div class="actions">
-                    <button class="action run-btn" onclick="checkCode()">
-                        ▶ Перевірити код
-                    </button>
-
-                    <button class="action hint-btn" onclick="showHint()">
-                        💡 Підказка
-                    </button>
-
-                    <button class="action reset-btn" onclick="resetCode()">
-                        ↻ Відновити код
-                    </button>
+                    <button class="action run-btn" onclick="checkCode()">▶ Перевірити код</button>
+                    <button class="action hint-btn" onclick="showHint()">💡 Підказка</button>
+                    <button class="action reset-btn" onclick="resetCode()">↻ Відновити код</button>
                 </div>
-
-                <div class="console">
-                    <div class="console-head">▸ Консоль</div>
-                    <div class="console-body" id="consoleOutput">
-                        Очікування запуску програми...
-                    </div>
-                </div>
-
-                <div class="feedback" id="feedback"></div>
-                <div class="hint" id="hintBox"></div>
-
+                <div class="console"><div class="console-head">▸ Консоль</div><div class="console-body" id="consoleOutput">Очікування запуску програми...</div></div>
+                <div class="feedback" id="feedback"></div><div class="hint" id="hintBox"></div>
                 <div class="bottom-info">
-                    <div class="info-card">
-                        <h3>⌨ Корисні команди</h3>
-                        <p>
-                            <code>print()</code> — виведення даних.<br>
-                            <code>input()</code> — введення даних.<br>
-                            <code>int()</code> — перетворення на ціле число.<br>
-                            <code>float()</code> — перетворення на дійсне число.
-                        </p>
-                    </div>
-
-                    <div class="info-card">
-                        <h3>🐍 Як працювати?</h3>
-                        <p>
-                            Прочитай умову, відредагуй програму,
-                            перевір її та проаналізуй повідомлення
-                            системи. За успішне виконання отримуєш бали.
-                        </p>
-                    </div>
+                    <div class="info-card"><h3>⌨ Корисні команди</h3><p><code>print()</code> — виведення даних.<br><code>input()</code> — введення даних.<br><code>int()</code> — перетворення на ціле число.<br><code>float()</code> — перетворення на дійсне число.</p></div>
+                    <div class="info-card"><h3>🐍 Як працювати?</h3><p>Прочитай умову, відредагуй програму, перевір її та проаналізуй повідомлення системи. За успішне виконання отримуєш бали.</p></div>
                 </div>
-
             </div>
         </main>
-
     </div>
 </div>
-
-<footer>
-    Кабінет інформатики · Python Lab · Навчальний тренажер
-</footer>
-
+<footer>Кабінет інформатики · Python Lab · Навчальний тренажер</footer>
 <script>
 const RESULTS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwI6jESt5PyQp5Zei4ZNFGjiAYC7RwUcW9n4uYUGMHRh9xOCrKluwsAbO2ewjlqXw0P/exec";
+let student=null,startedAt=null,resultSent=false,sendingResult=false,completionShown=false;
 
-let student = null;
-let startedAt = null;
-let resultSent = false;
-let sendingResult = false;
-let completionShown = false;
-
-function startLab(event) {
+function startLab(event){
     event.preventDefault();
-
-    const form = document.getElementById("studentForm");
-    if (!form.reportValidity()) return;
-
-    student = {
-        surname: document.getElementById("studentSurname").value.trim(),
-        firstName: document.getElementById("studentFirstName").value.trim(),
-        studentClass: document.getElementById("studentClass").value
+    const form=document.getElementById("studentForm");
+    if(!form.reportValidity())return;
+    student={
+        surname:document.getElementById("studentSurname").value.trim(),
+        firstName:document.getElementById("studentFirstName").value.trim(),
+        studentClass:document.getElementById("studentClass").value
     };
-
-    if (!student.surname || !student.firstName || !student.studentClass) {
-        alert("Заповни, будь ласка, усі поля.");
-        return;
-    }
-
-    startedAt = Date.now();
+    if(!student.surname||!student.firstName||!student.studentClass){alert("Заповни, будь ласка, усі поля.");return;}
+    startedAt=Date.now();
     document.body.classList.add("started");
     loadMission(0);
 }
 
-function submitResult() {
-    if (!student || !startedAt || resultSent || sendingResult) return;
-
-    sendingResult = true;
-
-    const duration = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
-    const payload = {
-        surname: student.surname,
-        firstName: student.firstName,
-        studentClass: student.studentClass,
-        exercise: "Python Lab — Місія: алгоритм (8 клас)",
-        completed: completed.size,
-        total: missions.length,
-        points: points,
-        maxPoints: 50,
-        duration: duration
+function submitResult(){
+    if(!student||!startedAt||resultSent||sendingResult)return;
+    sendingResult=true;
+    const duration=Math.max(0,Math.round((Date.now()-startedAt)/1000));
+    const payload={
+        surname:student.surname,firstName:student.firstName,studentClass:student.studentClass,
+        exercise:"Python Lab — Місія: алгоритм (8 клас)",
+        completed:completed.size,total:missions.length,points:points,maxPoints:50,duration:duration
     };
-
-    const formData = new URLSearchParams();
-    formData.append("data", JSON.stringify(payload));
-
-    fetch(RESULTS_WEB_APP_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-    })
-    .then(() => {
-        resultSent = true;
-        sendingResult = false;
-        feedback.textContent += " Результат відправлено до журналу вчителя.";
-    })
-    .catch(() => {
-        sendingResult = false;
-        feedback.textContent += " Не вдалося відправити результат. Перевір підключення до інтернету та натисни «Перевірити код» ще раз.";
-    });
+    const formData=new URLSearchParams();
+    formData.append("data",JSON.stringify(payload));
+    fetch(RESULTS_WEB_APP_URL,{method:"POST",mode:"no-cors",body:formData})
+    .then(()=>{resultSent=true;sendingResult=false;feedback.textContent+=" Результат надіслано. Перевірка фактичного запису виконується в журналі вчителя.";})
+    .catch(()=>{sendingResult=false;feedback.textContent+=" Не вдалося надіслати результат. Перевір підключення до інтернету.";});
 }
 
-const missions = [
+const missions=[
 {
-    title: "Привіт, Python!",
-    description: "Почнемо з найпростішої програми. Пригадаємо, як виводити повідомлення на екран.",
-    instruction: "<strong>Завдання.</strong> Доповни програму так, щоб вона вивела два рядки: «Привіт, світе!» та «Я вивчаю Python!». Для виведення використай команду print().",
-    code: "# Моя перша програма\n\nprint(\"Привіт, світе!\")\n# Додай ще одну команду print()",
-    hint: "Щоб вивести другий рядок, додай ще одну команду print() з текстом у лапках.",
-    check: function(code) {
-        const c = normalize(code);
-        const a = /print\s*\(\s*["']Привіт,\s*світе!?["']\s*\)/i.test(c);
-        const b = /print\s*\(\s*["']Я\s+вивчаю\s+Python!?["']\s*\)/i.test(c);
-        return {
-            ok: a && b,
-            output: "Привіт, світе!\nЯ вивчаю Python!",
-            success: "Чудово! Ти правильно використав команду print(). Програма виводить два повідомлення."
-        };
+    title:"Привіт, Python!",
+    description:"Почнемо з найпростішої програми. Пригадаємо, як виводити повідомлення на екран.",
+    instruction:"<strong>Завдання.</strong> Доповни програму так, щоб вона вивела два рядки: «Привіт, світе!» та «Я вивчаю Python!». Для виведення використай команду <code>print()</code>.",
+    code:"# Моя перша програма\n\nprint(\"Привіт, світе!\")\n# Додай ще одну команду print()",
+    hint:"Додай другу команду print(\"Я вивчаю Python!\").",
+    check:function(code){
+        const c=normalize(code);
+        const a=/\bprint\s*\(\s*["']Привіт,\s*світе!?["']\s*\)/i.test(c);
+        const b=/\bprint\s*\(\s*["']Я\s+вивчаю\s+Python!?["']\s*\)/i.test(c);
+        return{ok:a&&b,output:"Привіт, світе!\nЯ вивчаю Python!",success:"Чудово! Ти правильно використав команду print(). Програма виводить два повідомлення."};
     }
 },
 {
-    title: "Змінні та обчислення",
-    description: "Змінні дають змогу зберігати дані та використовувати їх у програмі.",
-    instruction: "<strong>Завдання.</strong> Створи дві змінні: a = 12 та b = 8. Обчисли їхню суму у змінній suma та виведи результат на екран.",
-    code: "# Задаємо значення змінних\na = 12\nb = 8\n\n# Обчисли суму\n\n# Виведи результат",
-    hint: "Запиши suma = a + b. Потім використай print(suma).",
-    check: function(code) {
-        const c = normalize(code);
-        const a = /(?:^|\n)\s*a\s*=\s*12\b/.test(c);
-        const b = /(?:^|\n)\s*b\s*=\s*8\b/.test(c);
-        const s = /(?:^|\n)\s*suma\s*=\s*a\s*\+\s*b\b/.test(c);
-        const p = /print\s*\(\s*suma\s*\)/.test(c);
-        return {
-            ok: a && b && s && p,
-            output: "20",
-            success: "Правильно! Ти створив змінні, виконав додавання та вивів результат."
-        };
+    title:"Змінні та обчислення",
+    description:"Змінні дають змогу зберігати дані та використовувати їх у програмі.",
+    instruction:"<strong>Завдання.</strong> У програмі вже задано змінні <code>a = 12</code> та <code>b = 8</code>. Створи змінну <code>suma</code>, обчисли в ній суму змінних <code>a</code> і <code>b</code>, а потім виведи значення змінної <code>suma</code> командою <code>print()</code>.",
+    code:"# Задаємо значення змінних\na = 12\nb = 8\n\n# Обчисли суму у змінній suma\n\n# Виведи значення suma",
+    hint:"Запиши саме так: suma = a + b. Наступним рядком — print(suma).",
+    check:function(code){
+        const c=normalize(code);
+        const a=/(?:^|\n)\s*a\s*=\s*12\s*(?:\n|$)/.test(c);
+        const b=/(?:^|\n)\s*b\s*=\s*8\s*(?:\n|$)/.test(c);
+        const s=/(?:^|\n)\s*suma\s*=\s*a\s*\+\s*b\s*(?:\n|$)/.test(c);
+        const p=/\bprint\s*\(\s*suma\s*\)/.test(c);
+        return{ok:a&&b&&s&&p,output:"20",success:"Правильно! Ти використав задані змінні a і b, обчислив суму у змінній suma та вивів її."};
     }
 },
 {
-    title: "Введення даних",
-    description: "Пригадаємо, як програма отримує дані від користувача.",
-    instruction: "<strong>Завдання.</strong> Створи програму, яка зчитує ціле число з клавіатури та виводить його подвоєне значення. Використай input(), int() та арифметичну операцію множення.",
-    code: "# Введення числа\nchislo = int(input())\n\n# Обчислення результату\n\n# Виведення результату",
-    hint: "Створи змінну rezultat та присвой їй значення chislo * 2. Після цього виведи rezultat.",
-    check: function(code) {
-        const c = normalize(code);
-        const input = /chislo\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const result = /rezultat\s*=\s*chislo\s*\*\s*2\b/.test(c);
-        const print = /print\s*\(\s*rezultat\s*\)/.test(c);
-        return {
-            ok: input && result && print,
-            output: "Наприклад, якщо введено 7:\n14",
-            success: "Відмінно! Програма отримує ціле число, обчислює його подвоєне значення та виводить результат."
-        };
+    title:"Введення даних",
+    description:"Пригадаємо, як програма отримує дані від користувача.",
+    instruction:"<strong>Завдання.</strong> Створи програму, яка зчитує ціле число з клавіатури у змінну <code>chislo</code>, обчислює його подвоєне значення у змінній <code>rezultat</code> та виводить значення <code>rezultat</code>. Використай <code>input()</code>, <code>int()</code> і множення на 2.",
+    code:"# Введення числа\nchislo = int(input())\n\n# Обчислення результату у змінній rezultat\n\n# Виведення rezultat",
+    hint:"Створи змінну rezultat та присвой їй значення chislo * 2. Після цього виведи rezultat.",
+    check:function(code){
+        const c=normalize(code);
+        const input=/(?:^|\n)\s*chislo\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const result=/(?:^|\n)\s*rezultat\s*=\s*chislo\s*\*\s*2\b/.test(c);
+        const p=/\bprint\s*\(\s*rezultat\s*\)/.test(c);
+        return{ok:input&&result&&p,output:"Наприклад, якщо введено 7:\n14",success:"Відмінно! Програма отримує ціле число, обчислює його подвоєне значення у змінній rezultat та виводить результат."};
     }
 },
 {
-    title: "Площа прямокутника",
-    description: "Застосуємо введення даних, змінні та арифметичні операції для розв'язування практичної задачі.",
-    instruction: "<strong>Завдання.</strong> Напиши програму для обчислення площі прямокутника. Програма має зчитати довжину a та ширину b (цілі числа), обчислити площу s і вивести результат. Формула: S = a · b.",
-    code: "# Введення сторін прямокутника\na = int(input())\nb = int(input())\n\n# Обчислення площі\n\n# Виведення результату",
-    hint: "Створи змінну s = a * b. Для виведення використай print(s).",
-    check: function(code) {
-        const c = normalize(code);
-        const a = /a\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const b = /b\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const s = /s\s*=\s*a\s*\*\s*b\b/.test(c);
-        const p = /print\s*\(\s*s\s*\)/.test(c);
-        return {
-            ok: a && b && s && p,
-            output: "Наприклад, якщо введено:\n5\n3\n\nРезультат:\n15",
-            success: "Правильно! Ти використав формулу площі прямокутника та побудував лінійний алгоритм."
-        };
+    title:"Площа прямокутника",
+    description:"Застосуємо введення даних, змінні та арифметичні операції для розв'язування практичної задачі.",
+    instruction:"<strong>Завдання.</strong> Напиши програму для обчислення площі прямокутника. Зчитай довжину прямокутника у змінну <code>a</code> та ширину у змінну <code>b</code> (обидва значення — цілі числа). Обчисли площу саме у змінній <code>s</code> за формулою <code>s = a * b</code> та виведи значення змінної <code>s</code> командою <code>print(s)</code>.",
+    code:"# Введення довжини та ширини\na = int(input())\nb = int(input())\n\n# Обчислення площі у змінній s\n\n# Виведення значення s",
+    hint:"Після введення двох сторін запиши s = a * b. Для виведення використай print(s).",
+    check:function(code){
+        const c=normalize(code);
+        const a=/(?:^|\n)\s*a\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const b=/(?:^|\n)\s*b\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const s=/(?:^|\n)\s*s\s*=\s*a\s*\*\s*b\b/.test(c);
+        const p=/\bprint\s*\(\s*s\s*\)/.test(c);
+        return{ok:a&&b&&s&&p,output:"Наприклад, якщо введено:\n5\n3\n\nРезультат:\n15",success:"Правильно! Ти використав формулу площі прямокутника та побудував лінійний алгоритм."};
     }
 },
 {
-    title: "Фінальна місія: покупка",
-    description: "Об'єднаємо всі знання в одній програмі. Це завдання потребує самостійного складання алгоритму.",
-    instruction: "<strong>Завдання.</strong> Покупець придбав 3 однакові зошити. Програма має зчитати ціну одного зошита (дійсне число), обчислити загальну вартість покупки та вивести результат. Використай змінні, input(), float(), множення та print().",
-    code: "# Ціна одного зошита\ncena = float(input())\n\n# Кількість зошитів\nkilkist = 3\n\n# Обчисли загальну вартість\n\n# Виведи результат",
-    hint: "Створи змінну suma = cena * kilkist. Потім виведи suma за допомогою print().",
-    check: function(code) {
-        const c = normalize(code);
-        const price = /cena\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const count = /kilkist\s*=\s*3\b/.test(c);
-        const sum = /suma\s*=\s*cena\s*\*\s*kilkist\b/.test(c);
-        const print = /print\s*\(\s*suma\s*\)/.test(c);
-        return {
-            ok: price && count && sum && print,
-            output: "Наприклад, якщо ціна одного зошита 12.5:\n37.5",
-            success: "Вітаємо! Ти виконав фінальну місію. Твоя програма використовує введення даних, змінні, множення та виведення результату."
-        };
+    title:"Фінальна місія: покупка",
+    description:"Об'єднаємо всі знання в одній програмі. Це завдання потребує самостійного складання алгоритму.",
+    instruction:"<strong>Завдання.</strong> Покупець придбав 3 однакові зошити. Ціну одного зошита зчитай у змінну <code>cena</code> (дійсне число). Кількість зошитів збережи у змінній <code>kilkist</code> зі значенням 3. Обчисли загальну вартість у змінній <code>suma</code> за формулою <code>suma = cena * kilkist</code> і виведи значення <code>suma</code>.",
+    code:"# Ціна одного зошита\ncena = float(input())\n\n# Кількість зошитів\nkilkist = 3\n\n# Обчисли загальну вартість у змінній suma\n\n# Виведи значення suma",
+    hint:"Створи змінну suma = cena * kilkist. Потім виведи suma за допомогою print().",
+    check:function(code){
+        const c=normalize(code);
+        const price=/(?:^|\n)\s*cena\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const count=/(?:^|\n)\s*kilkist\s*=\s*3\b/.test(c);
+        const sum=/(?:^|\n)\s*suma\s*=\s*cena\s*\*\s*kilkist\b/.test(c);
+        const p=/\bprint\s*\(\s*suma\s*\)/.test(c);
+        return{ok:price&&count&&sum&&p,output:"Наприклад, якщо ціна одного зошита 12.5:\n37.5",success:"Вітаємо! Ти виконав фінальну місію. Твоя програма використовує введення даних, змінні, множення та виведення результату."};
     }
 }
 ];
 
-let currentMission = 0;
-let completed = new Set();
-let points = 0;
+let currentMission=0;
+let completed=new Set();
+let points=0;
+const editor=document.getElementById("codeEditor");
+const consoleOutput=document.getElementById("consoleOutput");
+const feedback=document.getElementById("feedback");
+const hintBox=document.getElementById("hintBox");
 
-const editor = document.getElementById("codeEditor");
-const consoleOutput = document.getElementById("consoleOutput");
-const feedback = document.getElementById("feedback");
-const hintBox = document.getElementById("hintBox");
-
-function normalize(code) {
-    return code
-        .split("\n")
-        .filter(line => !line.trim().startsWith("#"))
-        .join("\n")
-        .replace(/\r/g, "");
+function normalize(code){
+    return code.split("\n").filter(line=>!line.trim().startsWith("#")).join("\n").replace(/\r/g,"");
 }
-
-function renderMissionList() {
-    const list = document.getElementById("missionList");
-    list.innerHTML = "";
-
-    missions.forEach((mission, index) => {
-        const button = document.createElement("button");
-        button.className = "mission";
-        if (index === currentMission) button.classList.add("active");
-        if (completed.has(index)) button.classList.add("done");
-
-        button.innerHTML = `
-            <span class="mission-number">${completed.has(index) ? "✓" : index + 1}</span>
-            <span>
-                <span class="mission-name">${mission.title}</span>
-                <span class="mission-status">${completed.has(index) ? "Виконано" : "Ще не виконано"}</span>
-            </span>
-        `;
-
-        button.addEventListener("click", () => loadMission(index));
+function renderMissionList(){
+    const list=document.getElementById("missionList");
+    list.innerHTML="";
+    missions.forEach((mission,index)=>{
+        const button=document.createElement("button");
+        button.className="mission";
+        if(index===currentMission)button.classList.add("active");
+        if(completed.has(index))button.classList.add("done");
+        button.innerHTML=`<span class="mission-number">${completed.has(index)?"✓":index+1}</span><span><span class="mission-name">${mission.title}</span><span class="mission-status">${completed.has(index)?"Виконано":"Ще не виконано"}</span></span>`;
+        button.addEventListener("click",()=>loadMission(index));
         list.appendChild(button);
     });
 }
-
-function loadMission(index) {
-    currentMission = index;
-    const mission = missions[index];
-
-    document.getElementById("taskLabel").textContent =
-        "Місія " + (index + 1) + " із " + missions.length;
-
-    document.getElementById("taskTitle").textContent = mission.title;
-    document.getElementById("taskDescription").textContent = mission.description;
-    document.getElementById("taskInstruction").innerHTML = mission.instruction;
-
-    editor.value = mission.code;
-
-    consoleOutput.textContent = "Очікування запуску програми...";
-    feedback.className = "feedback";
-    feedback.textContent = "";
-    hintBox.style.display = "none";
-
-    renderMissionList();
-    updateProgress();
+function loadMission(index){
+    currentMission=index;
+    const mission=missions[index];
+    document.getElementById("taskLabel").textContent="Місія "+(index+1)+" із "+missions.length;
+    document.getElementById("taskTitle").textContent=mission.title;
+    document.getElementById("taskDescription").textContent=mission.description;
+    document.getElementById("taskInstruction").innerHTML=mission.instruction;
+    editor.value=mission.code;
+    consoleOutput.textContent="Очікування запуску програми...";
+    feedback.className="feedback";feedback.textContent="";
+    hintBox.style.display="none";
+    renderMissionList();updateProgress();
 }
-
-function updateProgress() {
-    const count = completed.size;
-    document.getElementById("progressText").textContent =
-        count + " із " + missions.length + " місій · " + points + " балів";
-
-    document.getElementById("progressFill").style.width =
-        (count / missions.length * 100) + "%";
+function updateProgress(){
+    const count=completed.size;
+    document.getElementById("progressText").textContent=count+" із "+missions.length+" місій · "+points+" балів";
+    document.getElementById("progressFill").style.width=(count/missions.length*100)+"%";
 }
-
-function checkCode() {
-    const mission = missions[currentMission];
-    const result = mission.check(editor.value);
-
-    if (result.ok) {
-        consoleOutput.textContent = result.output;
-        feedback.className = "feedback success";
-        feedback.textContent = "✓ " + result.success;
-
-        if (!completed.has(currentMission)) {
-            completed.add(currentMission);
-            points += 10;
-        }
-
-        renderMissionList();
-        updateProgress();
-
-        if (completed.size === missions.length) {
-            if (!completionShown) {
-                completionShown = true;
-                setTimeout(() => {
-                    alert("Вітаємо! Ти пройшов усі місії Python Lab та набрав " + points + " балів із 50!");
-                    submitResult();
-                }, 250);
-            } else if (!resultSent && !sendingResult) {
-                submitResult();
-            }
-        } else if (currentMission < missions.length - 1) {
-            feedback.textContent += " Можеш переходити до наступної місії.";
-        }
-    } else {
-        consoleOutput.textContent = "Перевір програму та спробуй ще раз.";
-        feedback.className = "feedback error";
-        feedback.textContent =
-            "✗ Завдання ще не виконано. Перевір назви змінних, команди та порядок дій. За потреби скористайся підказкою.";
+function checkCode(){
+    const mission=missions[currentMission];
+    const result=mission.check(editor.value);
+    if(result.ok){
+        consoleOutput.textContent=result.output;
+        feedback.className="feedback success";
+        feedback.textContent="✓ "+result.success;
+        if(!completed.has(currentMission)){completed.add(currentMission);points+=10;}
+        renderMissionList();updateProgress();
+        if(completed.size===missions.length){
+            if(!completionShown){
+                completionShown=true;
+                setTimeout(()=>{alert("Вітаємо! Ти пройшов усі місії Python Lab та набрав "+points+" балів із 50!");submitResult();},250);
+            }else if(!resultSent&&!sendingResult){submitResult();}
+        }else if(currentMission<missions.length-1){feedback.textContent+=" Можеш переходити до наступної місії.";}
+    }else{
+        consoleOutput.textContent="Перевір програму та спробуй ще раз.";
+        feedback.className="feedback error";
+        feedback.textContent="✗ Завдання ще не виконано. Перевір назви змінних, команди та порядок дій. За потреби скористайся підказкою.";
     }
 }
-
-function showHint() {
-    hintBox.textContent = "💡 " + missions[currentMission].hint;
-    hintBox.style.display = "block";
-}
-
-function resetCode() {
-    editor.value = missions[currentMission].code;
-    consoleOutput.textContent = "Код відновлено. Можеш продовжувати роботу.";
-    feedback.className = "feedback";
-    feedback.textContent = "";
-    hintBox.style.display = "none";
-}
-
-editor.addEventListener("keydown", function(event) {
-    if (event.key === "Tab") {
+function showHint(){hintBox.textContent="💡 "+missions[currentMission].hint;hintBox.style.display="block";}
+function resetCode(){editor.value=missions[currentMission].code;consoleOutput.textContent="Код відновлено. Можеш продовжувати роботу.";feedback.className="feedback";feedback.textContent="";hintBox.style.display="none";}
+editor.addEventListener("keydown",function(event){
+    if(event.key==="Tab"){
         event.preventDefault();
-
-        const start = this.selectionStart;
-        const end = this.selectionEnd;
-
-        this.value =
-            this.value.substring(0, start) +
-            "    " +
-            this.value.substring(end);
-
-        this.selectionStart = this.selectionEnd = start + 4;
+        const start=this.selectionStart,end=this.selectionEnd;
+        this.value=this.value.substring(0,start)+"    "+this.value.substring(end);
+        this.selectionStart=this.selectionEnd=start+4;
     }
 });
-
 loadMission(0);
 </script>
-
 </body>
 </html>
