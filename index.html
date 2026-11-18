@@ -12,6 +12,7 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     min-height: 100vh;
@@ -29,12 +30,13 @@ body {
     padding: 30px 20px;
 }
 
-/* Шапка */
+/* ШАПКА */
 
 header {
     text-align: center;
     padding: 55px 15px 45px;
 }
+
 .logo {
     width: 76px;
     height: 76px;
@@ -53,6 +55,7 @@ h1 {
     font-size: clamp(28px, 5vw, 42px);
     letter-spacing: -1px;
 }
+
 .subtitle {
     max-width: 650px;
     margin: 0 auto;
@@ -61,20 +64,34 @@ h1 {
     line-height: 1.7;
 }
 
-/* Заголовок розділу */
+/* РОЗДІЛИ */
 
-.section-title {
-    margin: 20px 0 22px;
-    font-size: 21px;
+.section {
+    margin-top: 42px;
 }
 
-/* Картки */
+.section:first-child {
+    margin-top: 0;
+}
+
+.section-title {
+    margin: 0 0 22px;
+    padding-left: 13px;
+    border-left: 4px solid #5285c7;
+    font-size: 21px;
+    line-height: 1.4;
+}
+
+/* СІТКА КАРТОК */
 
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 20px;
 }
+
+/* КАРТКИ */
+
 .card {
     position: relative;
     overflow: hidden;
@@ -85,14 +102,30 @@ h1 {
     border: 1px solid #29466c;
     border-radius: 16px;
     background: rgba(17, 35, 61, 0.88);
-    transition: 0.25s;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
 }
 
+/* ЕФЕКТ СВІТІННЯ ПРИ НАВЕДЕННІ */
+
 .card:hover {
-    transform: translateY(-5px);
-    border-color: #5285c7;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    transform: translateY(-7px);
+    border-color: #60a5fa;
+    background: rgba(20, 42, 73, 0.96);
+
+    box-shadow:
+        0 0 12px rgba(59, 130, 246, 0.35),
+        0 0 28px rgba(59, 130, 246, 0.22),
+        0 0 45px rgba(124, 58, 237, 0.13),
+        0 15px 35px rgba(0, 0, 0, 0.3);
 }
+
+/* ІКОНКИ */
+
 .card-icon {
     width: 58px;
     height: 58px;
@@ -103,11 +136,24 @@ h1 {
     border-radius: 14px;
     font-size: 29px;
     background: linear-gradient(135deg, #174a82, #392d75);
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
 }
+
+.card:hover .card-icon {
+    transform: scale(1.05);
+    box-shadow:
+        0 0 12px rgba(59, 130, 246, 0.35),
+        0 0 22px rgba(124, 58, 237, 0.2);
+}
+
+/* ТЕКСТ КАРТОК */
 
 .card h3 {
     margin: 0 0 12px;
     font-size: 21px;
+    line-height: 1.35;
 }
 
 .card p {
@@ -116,6 +162,9 @@ h1 {
     font-size: 14px;
     line-height: 1.6;
 }
+
+/* КНОПКИ */
+
 .card a {
     display: inline-flex;
     align-items: center;
@@ -129,16 +178,29 @@ h1 {
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
-    transition: 0.2s;
+    transition:
+        filter 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 .card a:hover {
     filter: brightness(1.15);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.35);
 }
 
-/* Інформаційний блок */
+.card a span {
+    transition: transform 0.2s ease;
+}
+
+.card a:hover span {
+    transform: translateX(4px);
+}
+
+/* ІНФОРМАЦІЙНИЙ БЛОК */
+
 .info {
-    margin-top: 35px;
+    margin-top: 45px;
     padding: 22px 25px;
     border: 1px solid #29466c;
     border-radius: 14px;
@@ -157,7 +219,7 @@ h1 {
     line-height: 1.7;
 }
 
-/* Підвал */
+/* ПІДВАЛ */
 
 footer {
     margin-top: 55px;
@@ -167,6 +229,9 @@ footer {
     text-align: center;
     font-size: 13px;
 }
+
+/* МОБІЛЬНІ ПРИСТРОЇ */
+
 @media (max-width: 600px) {
     .container {
         padding: 15px;
@@ -176,12 +241,32 @@ footer {
         padding: 40px 5px 35px;
     }
 
+    .section {
+        margin-top: 35px;
+    }
+
     .card {
         min-height: 240px;
     }
 
     .info {
         padding: 18px;
+    }
+}
+
+/* ЗМЕНШЕННЯ АНІМАЦІЇ ЗА НАЛАШТУВАННЯМИ ПРИСТРОЮ */
+
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .card-icon,
+    .card a,
+    .card a span {
+        transition: none;
+    }
+
+    .card:hover,
+    .card:hover .card-icon {
+        transform: none;
     }
 }
 </style>
@@ -195,6 +280,7 @@ footer {
         <div class="logo">✦</div>
 
         <h1>Інтерактивні матеріали</h1>
+
         <div class="subtitle">
             Навчальні інструменти для практичної роботи,
             експериментів та інтерактивного навчання.
@@ -205,176 +291,199 @@ footer {
 
         <!-- НАВЧАЛЬНІ ІНСТРУМЕНТИ -->
 
-        <h2 class="section-title">Навчальні інструменти</h2>
+        <section class="section">
 
-        <div class="cards">
+            <h2 class="section-title">Навчальні інструменти</h2>
 
-            <article class="card">
+            <div class="cards">
 
-                <div class="card-icon">🐍</div>
+                <article class="card">
 
-                <h3>Python Online</h3>
-                <p>
-                    Онлайн-середовище для написання,
-                    редагування та запуску програм мовою Python.
-                    Працюйте з кодом без встановлення додаткових програм.
-                </p>
+                    <div class="card-icon">🐍</div>
 
-                <a href="python.html">
-                    Відкрити редактор
-                    <span>→</span>
-                </a>
+                    <h3>Python Online</h3>
 
-            </article>
+                    <p>
+                        Онлайн-середовище для написання,
+                        редагування та запуску програм мовою Python.
+                        Працюйте з кодом без встановлення додаткових програм.
+                    </p>
 
-        </div>
+                    <a href="python.html">
+                        Відкрити редактор
+                        <span>→</span>
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
 
 
         <!-- 8–9 КЛАСИ НУШ -->
 
-        <h2 class="section-title">8–9 класи НУШ</h2>
-        <div class="cards">
+        <section class="section">
 
-            <article class="card">
+            <h2 class="section-title">8–9 класи НУШ</h2>
 
-                <div class="card-icon">🧩</div>
+            <div class="cards">
 
-                <h3>Повторення алгоритми та виконавці. Середовище програмування Python</h3>
+                <article class="card">
 
-                <p>
-                    Навчальний тренажер для повторення основ
-                    програмування, аналізу умов задач,
-                    побудови алгоритмів та складання програм мовою Python.
-                </p>
-                <a href="math-8.html">
-                    Відкрити сторінку з матеріалами
-                    <span>→</span>
-                </a>
+                    <div class="card-icon">🧩</div>
 
-            </article>
+                    <h3>Повторення: алгоритми та виконавці. Python</h3>
 
-            <!-- НОВИЙ ІНТЕРАКТИВНИЙ ТРЕНАЖЕР PYTHON LAB -->
+                    <p>
+                        Навчальний тренажер для повторення основ
+                        програмування, аналізу умов задач,
+                        побудови алгоритмів та складання програм мовою Python.
+                    </p>
 
-            <article class="card">
+                    <a href="math-8.html">
+                        Відкрити матеріали
+                        <span>→</span>
+                    </a>
 
-                <div class="card-icon">🐍</div>
-
-                <h3>Python Lab — Місія: алгоритм</h3>
-
-                <p>
-                    Інтерактивний тренажер у стилі середовища
-                    програмування Python. Практичні місії,
-                    робота з кодом, змінними, введенням і
-                    виведенням даних та арифметичними операціями.
-                </p>
-
-                <a href="python-lab-8.html">
-                    Відкрити тренажер
-                    <span>→</span>
-                </a>
-
-            </article>
-
-        </div>
+                </article>
 
 
-        <!-- 10 ПІЛОТНІ КЛАСИ -->
+                <article class="card">
 
-        <h2 class="section-title">10 пілотні класи інформатика(Стандарт)</h2>
+                    <div class="card-icon">🐍</div>
 
-        <div class="cards">
+                    <h3>Python Lab — Місія: алгоритм</h3>
 
-            <article class="card">
+                    <p>
+                        Інтерактивний тренажер у стилі середовища
+                        програмування Python. Практичні місії,
+                        робота зі змінними, введенням і виведенням
+                        даних та арифметичними операціями.
+                    </p>
 
-                <div class="card-icon">🎓</div>
+                    <a href="python-lab-8.html">
+                        Відкрити тренажер
+                        <span>→</span>
+                    </a>
 
-                <h3>Навчальні теми 10 класу</h3>
-                <p>
-                    Теоретичні матеріали, приклади,
-                    інтерактивні вправи та завдання
-                    відповідно до навчальної програми.
-                </p>
+                </article>
 
-                <a href="pilot-10.html">
-                    Переглянути теми
-                    <span>→</span>
-                </a>
+            </div>
 
-            </article>
-
-
-            <!-- НОВИЙ ІНТЕРАКТИВНИЙ ТРЕНАЖЕР -->
-
-            <article class="card">
-
-                <div class="card-icon">🧩</div>
-                <h3>Від умови до програми</h3>
-
-                <p>
-                    Інтерактивний тренажер для розвитку навичок
-                    аналізу задач, вибору математичних виразів,
-                    побудови алгоритмів та складання програм Python.
-                </p>
-
-                <a href="math.html">
-                    Відкрити тренажер
-                    <span>→</span>
-                </a>
-
-            </article>
-
-        </div>
+        </section>
 
 
-        <!-- ПРОГРАМУВАННЯ PYTHON -->
-        <h2 class="section-title">Програмування на Python</h2>
+        <!-- 10 КЛАС -->
 
-        <div class="cards">
+        <section class="section">
 
-            <article class="card">
+            <h2 class="section-title">
+                10 клас · Пілотні класи (рівень стандарту)
+            </h2>
 
-                <div class="card-icon">🔁</div>
+            <div class="cards">
 
-                <h3>Цикл for з параметром</h3>
+                <article class="card">
 
-                <p>
-                    Пояснення, візуалізація range(), покрокове
-                    виконання циклу, готові приклади, вправи
-                    «що виведе програма» та практичні завдання
-                    з автоматичною перевіркою.
-                </p>
-                <a href="cykly-for.html">
-                    Відкрити матеріал
-                    <span>→</span>
-                </a>
+                    <div class="card-icon">🎓</div>
 
-            </article>
+                    <h3>Навчальні теми 10 класу</h3>
 
-            <!-- НОВИЙ МАТЕРІАЛ: RANDOM -->
+                    <p>
+                        Теоретичні матеріали, приклади,
+                        інтерактивні вправи та практичні завдання
+                        відповідно до навчальної програми.
+                    </p>
 
-            <article class="card">
+                    <a href="pilot-10.html">
+                        Переглянути теми
+                        <span>→</span>
+                    </a>
 
-                <div class="card-icon">🎲</div>
+                </article>
 
-                <h3>Випадкові величини в Python</h3>
-                <p>
-                    Знайомство з модулем random, командами
-                    randint() і choice(), створення випадкових
-                    значень та їх використання в розгалуженнях.
-                    Приклади, інтерактивні вправи й практичні завдання.
-                </p>
 
-                <a href="random.html">
-                    Відкрити матеріал
-                    <span>→</span>
-                </a>
+                <article class="card">
 
-            </article>
+                    <div class="card-icon">🧩</div>
 
-        </div>
+                    <h3>Від умови до програми</h3>
+
+                    <p>
+                        Інтерактивний тренажер для розвитку навичок
+                        аналізу задач, вибору математичних виразів,
+                        побудови алгоритмів та складання програм Python.
+                    </p>
+
+                    <a href="math.html">
+                        Відкрити тренажер
+                        <span>→</span>
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ОКРЕМІ ТЕМИ PYTHON -->
+
+        <section class="section">
+
+            <h2 class="section-title">Програмування на Python</h2>
+
+            <div class="cards">
+
+                <article class="card">
+
+                    <div class="card-icon">🔁</div>
+
+                    <h3>Цикл for з параметром</h3>
+
+                    <p>
+                        Пояснення та візуалізація range(),
+                        покрокове виконання циклу, готові приклади,
+                        вправи «Що виведе програма?» та практичні
+                        завдання з автоматичною перевіркою.
+                    </p>
+
+                    <a href="cykly-for.html">
+                        Відкрити матеріал
+                        <span>→</span>
+                    </a>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">🎲</div>
+
+                    <h3>Випадкові величини в Python</h3>
+
+                    <p>
+                        Знайомство з модулем random, командами
+                        randint() і choice(), створення випадкових
+                        значень та їх використання в розгалуженнях.
+                        Приклади, інтерактивні вправи й практичні завдання.
+                    </p>
+
+                    <a href="random.html">
+                        Відкрити матеріал
+                        <span>→</span>
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
 
 
         <!-- ПРО ПЛАТФОРМУ -->
+
         <section class="info">
 
             <h2>Про платформу</h2>
