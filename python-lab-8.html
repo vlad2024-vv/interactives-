@@ -519,6 +519,97 @@ footer {
         min-height: 220px;
     }
 }
+
+.registration-card {
+    max-width: 680px;
+    margin: 8px auto 30px;
+    padding: 28px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.22);
+}
+.registration-card h2 {
+    margin: 0 0 9px;
+    font-size: 25px;
+}
+.registration-card > p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 22px;
+}
+.registration-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+.registration-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.registration-field label {
+    color: #c9d9eb;
+    font-size: 13px;
+    font-weight: 700;
+}
+.registration-field input,
+.registration-field select {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    outline: none;
+    background: #08121e;
+    color: var(--text);
+    font: inherit;
+}
+.registration-field input:focus,
+.registration-field select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(85,170,255,.12);
+}
+.registration-submit {
+    width: 100%;
+    margin-top: 20px;
+    min-height: 48px;
+    border: 0;
+    border-radius: 9px;
+    background: linear-gradient(135deg,#3889d6,#2675b9);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+.registration-submit:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+.registration-note {
+    margin-top: 13px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+body:not(.started) .intro,
+body:not(.started) .progress-area,
+body:not(.started) .workspace {
+    display: none;
+}
+body.started #registrationCard {
+    display: none;
+}
+@media(max-width:520px) {
+    .registration-card {
+        padding: 20px 16px;
+    }
+    .registration-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 </style>
 </head>
 
@@ -537,6 +628,49 @@ footer {
 </header>
 
 <div class="container">
+    <section class="registration-card" id="registrationCard">
+        <h2>Початок роботи</h2>
+        <p>
+            Перед виконанням місій вкажи свої дані. Після завершення
+            Python Lab результат буде автоматично збережено в журналі вчителя.
+        </p>
+
+        <form id="studentForm" onsubmit="startLab(event)">
+            <div class="registration-grid">
+                <div class="registration-field">
+                    <label for="studentSurname">Прізвище</label>
+                    <input id="studentSurname" name="surname" type="text"
+                        maxlength="60" autocomplete="family-name" required>
+                </div>
+
+                <div class="registration-field">
+                    <label for="studentFirstName">Ім’я</label>
+                    <input id="studentFirstName" name="firstName" type="text"
+                        maxlength="60" autocomplete="given-name" required>
+                </div>
+
+                <div class="registration-field">
+                    <label for="studentClass">Клас</label>
+                    <select id="studentClass" name="studentClass" required>
+                        <option value="">Оберіть клас</option>
+                        <option value="8-А">8-А</option>
+                        <option value="8-Б">8-Б</option>
+                        <option value="9-А">9-А</option>
+                        <option value="10-А/П">10-А/П</option>
+                        <option value="10-П/П">10-П/П</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="registration-submit" type="submit">
+                Почати виконання місій →
+            </button>
+            <div class="registration-note">
+                Дані потрібні лише для того, щоб учитель міг побачити результат виконання вправи.
+            </div>
+        </form>
+    </section>
+
 
     <section class="intro">
         <h2>Вітаємо в Python Lab!</h2>
@@ -655,6 +789,73 @@ footer {
 </footer>
 
 <script>
+const RESULTS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwI6jESt5PyQp5Zei4ZNFGjiAYC7RwUcW9n4uYUGMHRh9xOCrKluwsAbO2ewjlqXw0P/exec";
+
+let student = null;
+let startedAt = null;
+let resultSent = false;
+let sendingResult = false;
+let completionShown = false;
+
+function startLab(event) {
+    event.preventDefault();
+
+    const form = document.getElementById("studentForm");
+    if (!form.reportValidity()) return;
+
+    student = {
+        surname: document.getElementById("studentSurname").value.trim(),
+        firstName: document.getElementById("studentFirstName").value.trim(),
+        studentClass: document.getElementById("studentClass").value
+    };
+
+    if (!student.surname || !student.firstName || !student.studentClass) {
+        alert("Заповни, будь ласка, усі поля.");
+        return;
+    }
+
+    startedAt = Date.now();
+    document.body.classList.add("started");
+    loadMission(0);
+}
+
+function submitResult() {
+    if (!student || !startedAt || resultSent || sendingResult) return;
+
+    sendingResult = true;
+
+    const duration = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
+    const payload = {
+        surname: student.surname,
+        firstName: student.firstName,
+        studentClass: student.studentClass,
+        exercise: "Python Lab — Місія: алгоритм (8 клас)",
+        completed: completed.size,
+        total: missions.length,
+        points: points,
+        maxPoints: 50,
+        duration: duration
+    };
+
+    const formData = new URLSearchParams();
+    formData.append("data", JSON.stringify(payload));
+
+    fetch(RESULTS_WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+    })
+    .then(() => {
+        resultSent = true;
+        sendingResult = false;
+        feedback.textContent += " Результат відправлено до журналу вчителя.";
+    })
+    .catch(() => {
+        sendingResult = false;
+        feedback.textContent += " Не вдалося відправити результат. Перевір підключення до інтернету та натисни «Перевірити код» ще раз.";
+    });
+}
+
 const missions = [
 {
     title: "Привіт, Python!",
@@ -839,9 +1040,15 @@ function checkCode() {
         updateProgress();
 
         if (completed.size === missions.length) {
-            setTimeout(() => {
-                alert("Вітаємо! Ти пройшов усі місії Python Lab та набрав " + points + " балів із 50!");
-            }, 250);
+            if (!completionShown) {
+                completionShown = true;
+                setTimeout(() => {
+                    alert("Вітаємо! Ти пройшов усі місії Python Lab та набрав " + points + " балів із 50!");
+                    submitResult();
+                }, 250);
+            } else if (!resultSent && !sendingResult) {
+                submitResult();
+            }
         } else if (currentMission < missions.length - 1) {
             feedback.textContent += " Можеш переходити до наступної місії.";
         }
