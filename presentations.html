@@ -1,779 +1,476 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="description" content="Інтерактивний матеріал для 10 класу. Редактор презентацій, кнопки дій і тригери.">
-<title>Редактор презентацій — Інтерактивний матеріал</title>
-
+<meta name="description" content="Інтерактивний тренажер з редактора презентацій для учнів 10 класу.">
+<title>Тренажер: Редактор презентацій</title>
 <style>
-:root {
-    --bg: #071426;
-    --bg2: #0d2038;
-    --card: #102945;
-    --card2: #153452;
-    --blue: #38bdf8;
-    --blue2: #0284c7;
-    --text: #e8f2ff;
-    --muted: #a9bdd3;
-    --green: #34d399;
-    --red: #fb7185;
-    --border: rgba(125, 180, 230, .2);
+:root{
+  --bg:#071426;--panel:#10233d;--panel2:#142c49;--line:#294666;
+  --text:#edf5ff;--muted:#a9bdd5;--accent:#54b7ff;--accent2:#8b7cff;
+  --good:#38d996;--bad:#ff7185;--warn:#ffd166;--shadow:0 18px 45px #0005;
 }
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    color: var(--text);
-    background:
-        radial-gradient(circle at 10% 5%, rgba(14, 116, 190, .18), transparent 30%),
-        radial-gradient(circle at 90% 20%, rgba(56, 189, 248, .10), transparent 28%),
-        var(--bg);
-    line-height: 1.6;
-}
-
-.container {
-    width: min(1100px, 94%);
-    margin: auto;
-}
-
-header {
-    padding: 35px 0 25px;
-    text-align: center;
-}
-
-header h1 {
-    color: var(--blue);
-    font-size: clamp(27px, 4vw, 40px);
-    margin: 15px 0 10px;
-}
-
-header p {
-    color: var(--muted);
-    max-width: 750px;
-    margin: auto;
-}
-
-.home-btn {
-    display: inline-block;
-    color: var(--blue);
-    text-decoration: none;
-    border: 1px solid var(--border);
-    padding: 9px 17px;
-    border-radius: 10px;
-    transition: .2s;
-}
-
-.home-btn:hover {
-    background: var(--card2);
-    border-color: var(--blue);
-}
-
-.section {
-    background: rgba(16, 41, 69, .88);
-    border: 1px solid var(--border);
-    border-radius: 17px;
-    padding: 24px;
-    margin: 22px 0;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, .15);
-}
-
-.section h2 {
-    color: var(--blue);
-    margin-top: 0;
-    font-size: 23px;
-}
-
-.section h3 {
-    color: #7dd3fc;
-    margin-bottom: 7px;
-}
-
-.section p {
-    margin: 8px 0;
-}
-
-.definition {
-    background: rgba(2, 132, 199, .13);
-    border-left: 4px solid var(--blue);
-    padding: 13px 16px;
-    border-radius: 8px;
-    margin: 14px 0;
-}
-
-.key {
-    color: #7dd3fc;
-    font-weight: bold;
-}
-
-.example {
-    background: rgba(255, 255, 255, .045);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 17px;
-    margin: 12px 0;
-}
-
-.example strong {
-    color: #bae6fd;
-}
-
-ul {
-    padding-left: 23px;
-}
-
-li {
-    margin: 6px 0;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid var(--border);
-    margin: 22px 0;
-}
-
-.practice-intro {
-    color: var(--muted);
-    margin-top: -5px;
-}
-
-.progress-wrap {
-    background: #071426;
-    border-radius: 20px;
-    height: 12px;
-    overflow: hidden;
-    margin: 17px 0 8px;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #0284c7, #38bdf8);
-    transition: width .3s;
-}
-
-.progress-info {
-    color: var(--muted);
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.task {
-    background: rgba(7, 20, 38, .55);
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 19px;
-    margin: 17px 0;
-}
-
-.task h3 {
-    color: var(--text);
-    margin: 0 0 10px;
-    font-size: 18px;
-}
-
-.task-number {
-    color: var(--blue);
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.question {
-    margin: 8px 0 14px;
-}
-
-.option {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 11px 12px;
-    margin: 8px 0;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.option:hover {
-    background: rgba(56, 189, 248, .08);
-    border-color: var(--blue);
-}
-
-.option input {
-    margin-top: 5px;
-    accent-color: var(--blue);
-    flex-shrink: 0;
-}
-
-.option.selected {
-    border-color: var(--blue);
-    background: rgba(56, 189, 248, .10);
-}
-
-.option.correct {
-    border-color: var(--green);
-    background: rgba(52, 211, 153, .10);
-}
-
-.option.wrong {
-    border-color: var(--red);
-    background: rgba(251, 113, 133, .09);
-}
-
-.check-btn, .reset-btn {
-    border: 0;
-    border-radius: 9px;
-    padding: 10px 18px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.check-btn {
-    background: var(--blue2);
-    color: white;
-}
-
-.check-btn:hover {
-    background: #0369a1;
-}
-
-.check-btn:disabled {
-    opacity: .55;
-    cursor: default;
-}
-
-.feedback {
-    display: none;
-    padding: 12px 14px;
-    border-radius: 9px;
-    margin-top: 12px;
-    font-size: 14px;
-}
-
-.feedback.good {
-    display: block;
-    color: #a7f3d0;
-    background: rgba(52, 211, 153, .12);
-    border: 1px solid rgba(52, 211, 153, .35);
-}
-
-.feedback.bad {
-    display: block;
-    color: #fecdd3;
-    background: rgba(251, 113, 133, .10);
-    border: 1px solid rgba(251, 113, 133, .35);
-}
-
-.result {
-    display: none;
-    text-align: center;
-    padding: 25px;
-    background: rgba(2, 132, 199, .12);
-    border: 1px solid rgba(56, 189, 248, .35);
-    border-radius: 15px;
-    margin: 25px 0;
-}
-
-.result h2 {
-    color: var(--blue);
-}
-
-.score {
-    font-size: 38px;
-    font-weight: bold;
-    color: var(--green);
-    margin: 8px 0;
-}
-
-.reset-btn {
-    background: #164e63;
-    color: white;
-    margin-top: 12px;
-}
-
-.reset-btn:hover {
-    background: #0e7490;
-}
-
-footer {
-    text-align: center;
-    color: #829bb5;
-    font-size: 13px;
-    padding: 25px 10px 35px;
-}
-
-@media (max-width: 600px) {
-    .section {
-        padding: 17px;
-    }
-
-    .task {
-        padding: 14px;
-    }
-
-    header {
-        padding-top: 25px;
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 10% 0%,#12345a 0,transparent 30%),radial-gradient(circle at 90% 20%,#24245a 0,transparent 28%),var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px max(20px,calc((100% - 1250px)/2));border-bottom:1px solid #ffffff18;background:#071426cc;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
+.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:22px;box-shadow:0 8px 24px #398cff55}
+.top-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#183452;color:var(--text);padding:10px 15px;border-radius:11px;font-weight:700;transition:.2s}
+.btn:hover{transform:translateY(-1px);border-color:var(--accent)}
+.btn.primary{background:linear-gradient(135deg,#168bd5,#635de5);border:0}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+main{max-width:1250px;margin:30px auto;padding:0 20px 50px}
+.hero{margin-bottom:24px}
+.eyebrow{color:#78c9ff;text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:800}
+h1{font-size:clamp(27px,4vw,42px);margin:9px 0}
+.subtitle{color:var(--muted);line-height:1.6;max-width:760px}
+.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:linear-gradient(160deg,#122944f2,#0d1e34f5);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.sidebar{padding:20px;position:sticky;top:92px}
+.side-title{font-size:14px;font-weight:800;margin-bottom:14px}
+.progress-track{height:9px;background:#071426;border-radius:20px;overflow:hidden;margin:10px 0 8px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
+.progress-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
+.mission-list{display:grid;gap:8px;margin-top:20px}
+.mission-link{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid transparent;border-radius:12px;color:var(--muted);background:#ffffff05;text-align:left;width:100%}
+.mission-link:hover{background:#ffffff0b}
+.mission-link.active{background:#1d4770;border-color:#438cc5;color:white}
+.mission-link.done{color:#a5f3d0}
+.mission-num{width:27px;height:27px;border-radius:9px;background:#203b5a;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}
+.mission-link.done .mission-num{background:#17634e;color:#b8ffe1}
+.side-stats{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:18px;padding-top:16px;color:var(--muted);font-size:13px}
+.content{padding:clamp(20px,4vw,34px);min-height:530px}
+.mission-kicker{color:#78c9ff;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+h2{font-size:clamp(23px,3vw,31px);margin:8px 0 12px}
+.description{color:var(--muted);line-height:1.65;margin-bottom:22px}
+.task-box{background:#091a2e;border:1px solid #294666;border-radius:16px;padding:20px;margin:18px 0}
+.task-title{font-weight:800;margin-bottom:12px}
+.question{font-size:17px;line-height:1.55;margin:0 0 16px}
+.options{display:grid;gap:10px}
+.option{display:flex;gap:11px;align-items:flex-start;padding:13px;border:1px solid #294666;border-radius:12px;background:#102640;cursor:pointer;line-height:1.45}
+.option:hover{border-color:#5baee8;background:#153354}
+.option input{margin-top:3px;accent-color:#55baff}
+.option.selected{border-color:var(--accent);background:#163a5c}
+.feedback{display:none;margin-top:15px;padding:13px 15px;border-radius:12px;line-height:1.5}
+.feedback.show{display:block}
+.feedback.good{background:#103d35;border:1px solid #237b64;color:#baffdf}
+.feedback.bad{background:#451f31;border:1px solid #98445b;color:#ffd4dd}
+.hint{margin-top:14px}
+.hint summary{color:#9ccfff;cursor:pointer;font-weight:700}
+.hint p{color:var(--muted);line-height:1.5;margin-bottom:0}
+.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:22px}
+.control-right{display:flex;gap:10px;flex-wrap:wrap}
+.note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:16px}
+.registration{max-width:620px;margin:30px auto;padding:30px}
+.registration h2{margin-top:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:13px;color:var(--muted);font-weight:700}
+.field input,.field select{width:100%;padding:13px 14px;border-radius:11px;border:1px solid var(--line);background:#091a2e;color:var(--text);outline:none}
+.field input:focus,.field select:focus{border-color:var(--accent)}
+.registration .btn{width:100%;margin-top:18px;padding:13px}
+.error{color:#ff9cab;font-size:13px;min-height:18px;margin-top:8px}
+.hidden{display:none!important}
+.summary{text-align:center;padding:35px 20px}
+.score-circle{width:150px;height:150px;border-radius:50%;border:8px solid #27547a;margin:20px auto;display:grid;place-items:center;background:radial-gradient(circle,#1c456c,#0b1c31)}
+.score-circle strong{font-size:38px}
+.summary p{color:var(--muted);line-height:1.6}
+.student-chip{display:inline-flex;gap:8px;align-items:center;background:#173552;border:1px solid var(--line);border-radius:30px;padding:8px 13px;color:#cde7ff;font-size:13px;margin-top:10px}
+footer{text-align:center;color:#7790ab;font-size:12px;padding:25px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{position:static}.mission-list{grid-template-columns:repeat(2,minmax(0,1fr))}.content{min-height:0}}
+@media(max-width:520px){.topbar{padding:12px 15px}.brand span:last-child{font-size:13px}.top-actions .btn{padding:9px 10px;font-size:12px}main{padding:0 12px 30px}.mission-list{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.content{padding:20px 15px}}
 </style>
 </head>
-
 <body>
-
-<div class="container">
-
-<header>
-    <a class="home-btn" href="index.html">← На головну сторінку</a>
-    <h1>Редактор презентацій</h1>
-    <p>Повторюємо основні можливості редактора презентацій, вчимося працювати з кнопками дій та налаштовувати тригери.</p>
+<header class="topbar">
+  <div class="brand"><div class="logo">▣</div><span>Кабінет інформатики</span></div>
+  <div class="top-actions">
+    <button class="btn" onclick="location.href='index.html'">← На сторінку інтерактивів</button>
+  </div>
 </header>
 
-<section class="section">
-    <h2>1. Робота зі слайдами</h2>
+<main>
+  <section class="hero">
+    <div class="eyebrow">10 клас · Практика та повторення</div>
+    <h1>Тренажер: Редактор презентацій</h1>
+    <div class="subtitle">Пройдіть 10 навчальних місій, перевірте свої знання та потренуйтеся працювати з об’єктами, кнопками дій, гіперпосиланнями й тригерами.</div>
+  </section>
 
-    <div class="definition">
-        <strong>Презентація</strong> — це набір слайдів, призначених для подання інформації за допомогою тексту, зображень, графічних об'єктів та інших елементів.
+  <section id="registration" class="panel registration">
+    <div class="eyebrow">Перед початком</div>
+    <h2>Представтеся, будь ласка</h2>
+    <p class="description">Результат проходження буде передано до спільного навчального журналу.</p>
+    <form id="registrationForm">
+      <div class="form-grid">
+        <div class="field"><label for="surname">Прізвище</label><input id="surname" autocomplete="family-name" required maxlength="50"></div>
+        <div class="field"><label for="firstName">Ім’я</label><input id="firstName" autocomplete="given-name" required maxlength="50"></div>
+        <div class="field full"><label for="studentClass">Клас</label>
+          <select id="studentClass" required>
+            <option value="">Оберіть клас</option>
+            <option>8-А</option><option>8-Б</option><option>9-А</option>
+            <option>10-А/П</option><option>10-П/П</option>
+            <option>10-У</option><option>10-А</option><option>10-Х</option>
+          </select>
+        </div>
+      </div>
+      <div id="registrationError" class="error"></div>
+      <button class="btn primary" type="submit">Розпочати тренажер</button>
+    </form>
+    <p class="note">Після початку можна переходити між місіями, користуватися підказками та зберігати поточний результат.</p>
+  </section>
+
+  <section id="workspace" class="layout hidden">
+    <aside class="panel sidebar">
+      <div class="side-title">ПРОГРЕС МІСІЙ</div>
+      <div class="progress-meta"><span id="progressText">Виконано 0 із 10</span><strong id="progressPercent">0%</strong></div>
+      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+      <nav id="missionList" class="mission-list"></nav>
+      <div class="side-stats"><span>Набрано балів</span><strong id="pointsText">0 / 100</strong></div>
+      <div class="student-chip" id="studentChip"></div>
+    </aside>
+    <section class="panel content" id="missionContent"></section>
+  </section>
+
+  <section id="finalSummary" class="panel summary hidden">
+    <div class="eyebrow">Місії завершено</div>
+    <h2>Вітаємо! Ви пройшли тренажер</h2>
+    <div class="score-circle"><div><strong id="finalPoints">0</strong><div style="color:#b7cde3">зі 100 балів</div></div></div>
+    <h3 id="finalMessage"></h3>
+    <p id="finalDetails"></p>
+    <div class="student-chip" id="finalStudent"></div>
+    <div class="controls" style="justify-content:center">
+      <button class="btn primary" onclick="restartLab()">Пройти ще раз</button>
+      <button class="btn" onclick="manualSave()">Зберегти результат</button>
     </div>
-
-    <h3>Основні поняття</h3>
-    <ul>
-        <li><span class="key">Слайд</span> — окрема сторінка презентації.</li>
-        <li><span class="key">Макет слайда</span> — визначене розташування областей для тексту та інших об'єктів.</li>
-        <li><span class="key">Тема оформлення</span> — набір узгоджених кольорів, шрифтів та ефектів.</li>
-        <li><span class="key">Об'єкти слайда</span> — текстові поля, зображення, фігури, відео та інші елементи.</li>
-    </ul>
-
-    <div class="example">
-        <strong>Приклад.</strong> Для титульного слайда доречно використати макет із назвою презентації та підзаголовком. Для слайда з фотографіями — макет, який передбачає розміщення зображень.
-    </div>
-</section>
-
-<section class="section">
-    <h2>2. Оформлення презентації</h2>
-
-    <p>Якісна презентація має бути зрозумілою, охайною та зручною для сприйняття.</p>
-
-    <ul>
-        <li>Використовуйте читабельний шрифт достатнього розміру.</li>
-        <li>Не перевантажуйте слайд великими обсягами тексту.</li>
-        <li>Добирайте кольори, які добре контрастують.</li>
-        <li>Розміщуйте зображення так, щоб вони доповнювали зміст.</li>
-        <li>Дотримуйтеся єдиного стилю оформлення.</li>
-    </ul>
-
-    <div class="definition">
-        <strong>Важливо!</strong> Оформлення має допомагати зрозуміти інформацію, а не відволікати від неї.
-    </div>
-</section>
-
-<section class="section">
-    <h2>3. Кнопки дій</h2>
-
-    <div class="definition">
-        <strong>Кнопки дій</strong> — це спеціальні графічні об'єкти презентації, які дають змогу виконувати певні дії під час показу слайдів.
-    </div>
-
-    <p>У редакторі презентацій можна використати готові кнопки дій або створити власну кнопку з фігури.</p>
-
-    <h3>Які дії можна призначити кнопці?</h3>
-    <ul>
-        <li>Перехід до певного слайда.</li>
-        <li>Перехід до першого або останнього слайда.</li>
-        <li>Перехід до попереднього або наступного слайда.</li>
-        <li>Відкриття вебсторінки за посиланням.</li>
-        <li>Запуск іншої програми або відкриття файлу.</li>
-        <li>Відтворення звукового супроводу.</li>
-    </ul>
-
-    <h3>Налаштування кнопки дії в PowerPoint</h3>
-    <div class="example">
-        <strong>Послідовність роботи:</strong>
-        <ol>
-            <li>Відкрити вкладку «Вставлення».</li>
-            <li>Обрати «Фігури».</li>
-            <li>У групі «Кнопки дій» вибрати потрібну кнопку.</li>
-            <li>Намалювати кнопку на слайді.</li>
-            <li>У вікні «Настроювання дії» вибрати потрібну дію.</li>
-            <li>Підтвердити налаштування.</li>
-        </ol>
-    </div>
-
-    <div class="definition">
-        <strong>Зверніть увагу!</strong> Дію кнопки можна налаштувати на клацання мишею або наведення вказівника миші.
-    </div>
-</section>
-
-<section class="section">
-    <h2>4. Гіперпосилання</h2>
-
-    <p><span class="key">Гіперпосилання</span> — це зв'язок, за допомогою якого можна перейти до іншого слайда, файлу, вебсторінки або іншого ресурсу.</p>
-
-    <div class="example">
-        <strong>Приклад використання.</strong> На слайді зі змістом розміщують назви розділів. Клацнувши назву, користувач переходить до відповідного слайда.
-    </div>
-
-    <p>Гіперпосилання можна призначити тексту, зображенню або фігурі.</p>
-    <p>Кнопка дії також може містити гіперпосилання, але має додаткові готові налаштування дій.</p>
-</section>
-
-<section class="section">
-    <h2>5. Тригери та анімація</h2>
-
-    <div class="definition">
-        <strong>Тригер</strong> — це умова запуску анімаційного ефекту після клацання певного об'єкта на слайді.
-    </div>
-
-    <p>Завдяки тригерам можна створювати інтерактивні слайди, у яких вміст з'являється лише після вибору відповідного об'єкта.</p>
-
-    <h3>Як працює тригер?</h3>
-    <div class="example">
-        На слайді розміщено три кнопки: «Питання 1», «Питання 2» та «Питання 3». Під кожною кнопкою приховано відповідь. Після натискання певної кнопки з'являється лише відповідна відповідь.
-    </div>
-
-    <h3>Налаштування тригера в PowerPoint</h3>
-    <ol>
-        <li>Вибрати об'єкт, який має з'явитися або змінитися.</li>
-        <li>Додати до нього анімаційний ефект.</li>
-        <li>Відкрити область анімації.</li>
-        <li>Обрати параметри тригера.</li>
-        <li>Вказати «За клацанням» і вибрати потрібний об'єкт.</li>
-    </ol>
-
-    <div class="definition">
-        <strong>Головне правило:</strong> тригер визначає, клацання якого об'єкта запускає певний анімаційний ефект.
-    </div>
-</section>
-
-<section class="section">
-    <h2>6. Кнопки дій і тригери — у чому різниця?</h2>
-
-    <div class="example">
-        <p><strong>Кнопка дії:</strong> після натискання може перейти на інший слайд або відкрити вебсторінку.</p>
-        <p><strong>Тригер:</strong> після натискання запускає анімаційний ефект для визначеного об'єкта на слайді.</p>
-    </div>
-
-    <p>Обидва інструменти допомагають створювати інтерактивні презентації, але використовуються для різних завдань.</p>
-</section>
-
-<section class="section" id="practice">
-    <h2>Практична частина</h2>
-    <p class="practice-intro">Виконайте 10 завдань. Після кожної відповіді натисніть «Перевірити». За правильну відповідь нараховується 1 бал.</p>
-
-    <div class="progress-wrap">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-    <div class="progress-info">
-        <span id="progressText">Виконано: 0 із 10</span>
-        <span id="scoreText">Балів: 0</span>
-    </div>
-
-    <div id="tasks"></div>
-
-    <div class="result" id="result">
-        <h2>Результат виконання</h2>
-        <div class="score" id="finalScore">0 / 10</div>
-        <p id="resultMessage"></p>
-        <button class="reset-btn" onclick="resetTasks()">Пройти ще раз</button>
-    </div>
-</section>
-
-<footer>
-    Інтерактивні матеріали з інформатики · 10 клас
-</footer>
-
-</div>
+    <p class="note">Запит на збереження результату надіслано. Перевірити запис можна у спільному журналі.</p>
+  </section>
+</main>
+<footer>Ліцей імені Олександра Цинкаловського · Навчальний інтерактив</footer>
 
 <script>
-const questions = [
+"use strict";
+
+const RESULTS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwI6jESt5PyQp5Zei4ZNFGjiAYC7RwUcW9n4uYUGMHRh9xOCrKluwsAbO2ewjlqXw0P/exec";
+const EXERCISE_NAME = "Тренажер: Редактор презентацій (10 клас)";
+const MAX_POINTS = 100;
+
+const missions = [
 {
-    title: "Призначення макетів",
-    question: "Для чого використовують макети слайдів?",
-    options: [
-        "Для автоматичного створення анімації",
-        "Для визначення розташування областей із вмістом на слайді",
-        "Для перевірки орфографії",
-        "Для запуску презентації"
-    ],
-    correct: 1,
-    explanation: "Макет визначає розташування областей для заголовків, тексту та інших об'єктів."
+ title:"Елементи редактора презентацій",
+ desc:"Згадайте, де розміщені основні інструменти та для чого вони потрібні.",
+ question:"Потрібно змінити шрифт, вирівнювання та колір тексту на слайді. Де найдоречніше шукати ці інструменти?",
+ options:["У групах інструментів для роботи зі шрифтом і абзацом на стрічці","Лише в режимі показу слайдів","У списку файлів операційної системи","У панелі нотаток доповідача"],
+ answer:0,
+ explanation:"Інструменти форматування тексту зазвичай розміщені на вкладці Основне або в контекстних засобах роботи з текстом.",
+ hint:"Згадайте, де ви змінюєте розмір, накреслення та вирівнювання тексту."
 },
 {
-    title: "Оформлення слайда",
-    question: "Який варіант оформлення найкраще підходить для навчальної презентації?",
-    options: [
-        "Дрібний текст і багато різних кольорів",
-        "Різні шрифти на кожному слайді",
-        "Читабельний текст, контрастні кольори та єдиний стиль",
-        "Максимальна кількість анімацій"
-    ],
-    correct: 2,
-    explanation: "Єдиний стиль, читабельний текст і достатній контраст допомагають краще сприймати інформацію."
+ title:"Структура презентації та макети",
+ desc:"Макет визначає розташування заповнювачів на слайді й допомагає зберігати єдиний стиль.",
+ question:"Для нового слайда потрібні заголовок і два блоки вмісту поруч. Яке рішення найкраще?",
+ options:["Створити порожній слайд і розмістити все навмання","Вибрати макет із заголовком і двома об'єктами вмісту","Збільшити масштаб перегляду","Увімкнути режим показу"],
+ answer:1,
+ explanation:"Готовий макет із двома областями вмісту задає логічне розташування елементів і спрощує оформлення.",
+ hint:"Макет — це заздалегідь визначена схема розміщення елементів слайда."
 },
 {
-    title: "Об'єкти слайда",
-    question: "Які з наведених елементів можуть бути об'єктами слайда?",
-    options: [
-        "Тільки текст",
-        "Тільки зображення",
-        "Текст, зображення, фігури, відео та інші елементи",
-        "Тільки заголовок і фон"
-    ],
-    correct: 2,
-    explanation: "Слайд може містити різні об'єкти: текстові поля, зображення, фігури, відео, аудіо та інші елементи."
+ title:"Оформлення слайда",
+ desc:"Оформлення має допомагати сприймати зміст, а не відволікати від нього.",
+ question:"На слайді багато тексту. Яка зміна найкраще покращить його читабельність?",
+ options:["Зробити весь текст різнокольоровим і додати кілька тіней","Використати читабельний шрифт, достатній розмір і чіткий контраст","Розмістити текст по діагоналі","Застосувати різний шрифт у кожному реченні"],
+ answer:1,
+ explanation:"Читабельний шрифт, достатній розмір і контраст між текстом та тлом полегшують сприйняття.",
+ hint:"Подумайте, чи зможе людина прочитати текст із останньої парти."
 },
 {
-    title: "Призначення кнопок дій",
-    question: "Для чого використовують кнопки дій у презентації?",
-    options: [
-        "Лише для зміни кольору слайда",
-        "Для виконання певних дій під час показу презентації",
-        "Для автоматичного виправлення тексту",
-        "Для зміни розміру всіх зображень"
-    ],
-    correct: 1,
-    explanation: "Кнопки дій дають змогу виконувати команди, наприклад переходити до слайдів або відкривати вебсторінки."
+ title:"Робота з об'єктами",
+ desc:"Текстові блоки, зображення та фігури можна переміщувати, змінювати й упорядковувати.",
+ question:"Зображення перекриває заголовок. Потрібно залишити зображення на слайді, але розмістити його позаду тексту. Що слід використати?",
+ options:["Команди порядку розташування: На задній план / Перемістити назад","Команду Перевірка правопису","Зміну орієнтації сторінки","Режим сортувальника слайдів"],
+ answer:0,
+ explanation:"Команди порядку розташування змінюють, який об'єкт відображається перед іншим.",
+ hint:"Шукайте команди впорядкування або розташування об'єктів."
 },
 {
-    title: "Вибір дії",
-    question: "Потрібно створити кнопку, яка повертатиме користувача до першого слайда. Яку дію слід призначити?",
-    options: [
-        "Завершити показ",
-        "Відкрити вебсторінку",
-        "Перейти до першого слайда",
-        "Відтворити звук"
-    ],
-    correct: 2,
-    explanation: "Для такої кнопки потрібно вибрати дію переходу до першого слайда презентації."
+ title:"Кнопки дій: призначення",
+ desc:"Кнопка дії — це фігура або об'єкт, якому призначено певну дію під час показу презентації.",
+ question:"Ви створюєте інтерактивний слайд із кнопкою «На початок». Яке призначення має така кнопка?",
+ options:["Змінювати колір усіх слайдів","Виконувати призначену дію, наприклад відкривати перший слайд","Автоматично виправляти текст","Зберігати презентацію у форматі зображення"],
+ answer:1,
+ explanation:"Кнопкам дій призначають команди: перехід до слайда, запуск програми, відкриття документа або вебсторінки тощо.",
+ hint:"Назва кнопки підказує, яку дію має виконати презентація після натискання."
 },
 {
-    title: "Налаштування кнопки",
-    question: "Де в PowerPoint можна налаштувати дію для спеціальної кнопки?",
-    options: [
-        "У вікні «Настроювання дії»",
-        "У вікні «Перевірка правопису»",
-        "У параметрах друку",
-        "У налаштуваннях сторінки браузера"
-    ],
-    correct: 0,
-    explanation: "Після вставлення кнопки дії відкривається вікно «Настроювання дії», де можна вибрати потрібну команду."
+ title:"Налаштування кнопки дії",
+ desc:"Важливо не лише намалювати кнопку, а й правильно призначити їй дію.",
+ question:"Кнопка «Перевірити відповідь» має відкривати слайд із поясненням. Яке налаштування потрібно виконати?",
+ options:["У параметрах дії вибрати перехід до потрібного слайда та вказати його","Змінити колір заливки кнопки","Задати кнопці анімацію обертання","Перейменувати файл презентації"],
+ answer:0,
+ explanation:"У параметрах дії для кнопки потрібно вибрати потрібний тип дії та вказати цільовий слайд.",
+ hint:"Шукайте діалогове вікно Параметри дії або Налаштування дії."
 },
 {
-    title: "Гіперпосилання",
-    question: "Що можна зробити за допомогою гіперпосилання в презентації?",
-    options: [
-        "Лише змінити колір тексту",
-        "Перейти до іншого слайда або відкрити вебсторінку",
-        "Автоматично видалити всі зображення",
-        "Змінити розмір усіх слайдів"
-    ],
-    correct: 1,
-    explanation: "Гіперпосилання створює зв'язок з іншим слайдом, файлом, вебсторінкою або ресурсом."
+ title:"Гіперпосилання",
+ desc:"Гіперпосилання може вести на вебсторінку, файл, адресу електронної пошти або інше місце в презентації.",
+ question:"У презентації є текст «Детальніше на сайті». Потрібно, щоб натискання відкривало вебсторінку. Що слід зробити?",
+ options:["Призначити тексту гіперпосилання на потрібну вебадресу","Додати до тексту тінь","Перетворити текст на зображення","Змінити макет слайда"],
+ answer:0,
+ explanation:"Для відкриття вебсторінки тексту або об'єкту призначають гіперпосилання з потрібною URL-адресою.",
+ hint:"Гіперпосилання пов'язує об'єкт із вебадресою або іншим місцем."
 },
 {
-    title: "Призначення тригера",
-    question: "Що відбувається після спрацювання тригера?",
-    options: [
-        "Автоматично змінюється тема всієї презентації",
-        "Запускається визначений анімаційний ефект після клацання заданого об'єкта",
-        "Презентація обов'язково закривається",
-        "Видаляється поточний слайд"
-    ],
-    correct: 1,
-    explanation: "Тригер запускає призначений анімаційний ефект після клацання конкретного об'єкта."
+ title:"Тригери: призначення",
+ desc:"Тригер дає змогу запускати анімаційний ефект після клацання певного об'єкта.",
+ question:"На слайді є запитання та три фігури-відповіді. Потрібно, щоб пояснення з'являлося лише після клацання конкретної відповіді. Що використати?",
+ options:["Тригер для анімаційного ефекту","Зміну теми презентації","Масштабування слайда","Нотатки доповідача"],
+ answer:0,
+ explanation:"Тригер пов'язує запуск анімаційного ефекту з клацанням визначеного об'єкта.",
+ hint:"Тригер — це об'єкт, клацання якого запускає анімацію."
 },
 {
-    title: "Налаштування тригера",
-    question: "До якого об'єкта потрібно прив'язати тригер, якщо відповідь має з'являтися після натискання кнопки «Показати відповідь»?",
-    options: [
-        "До фону слайда",
-        "До будь-якого іншого слайда",
-        "До кнопки «Показати відповідь»",
-        "До назви презентації у вікні програми"
-    ],
-    correct: 2,
-    explanation: "Тригер потрібно налаштувати так, щоб анімація відповіді запускалася клацанням саме цієї кнопки."
-},
-{
-    title: "Практична ситуація",
-    question: "На слайді є три кнопки з назвами запитань і три приховані відповіді. Потрібно, щоб кожна кнопка відкривала лише свою відповідь. Як це правильно організувати?",
-    options: [
-        "Призначити всім відповідям один спільний тригер",
-        "Для кожної відповіді налаштувати окрему анімацію та тригер від відповідної кнопки",
-        "Використати лише зміну фону слайда",
-        "Зробити всі відповіді постійно видимими"
-    ],
-    correct: 1,
-    explanation: "Кожній відповіді потрібно призначити власний анімаційний ефект і прив'язати його до відповідної кнопки."
+ title:"Налаштування тригера",
+ desc:"Під час налаштування потрібно вказати, який саме об'єкт запускатиме ефект.",
+ question:"Анімація пояснення вже створена. Потрібно, щоб вона запускалася після клацання фігури «Варіант Б». Яку дію виконати?",
+ options:["У параметрах тригера вибрати запуск ефекту після клацання об'єкта «Варіант Б»","Перемістити фігуру «Варіант Б» на інший слайд","Зробити фігуру прозорою","Видалити анімаційний ефект"],
+ answer:0,
+ explanation:"У параметрах ефекту потрібно налаштувати тригер і вибрати конкретний об'єкт, клацання якого запускатиме анімацію.",
+ hint:"У списку тригерів потрібно вказати саме об'єкт-відповідь, а не сам ефект."
 }
 ];
 
-let score = 0;
-let completed = 0;
-let answered = [];
+let student = null;
+let currentMission = 0;
+let completed = new Set();
+let points = 0;
+let startedAt = 0;
+let attemptId = "";
+let saveQueue = Promise.resolve();
+let answers = {};
 
-function renderTasks() {
-    const container = document.getElementById("tasks");
-    container.innerHTML = "";
+const $ = id => document.getElementById(id);
 
-    questions.forEach((q, index) => {
-        const task = document.createElement("div");
-        task.className = "task";
-        task.id = "task" + index;
+function createAttemptId(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "attempt-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+}
 
-        let optionsHTML = "";
+function createPayload(status){
+  return {
+    surname: student.surname,
+    firstName: student.firstName,
+    studentClass: student.studentClass,
+    exercise: EXERCISE_NAME,
+    completed: completed.size,
+    total: missions.length,
+    points: points,
+    maxPoints: MAX_POINTS,
+    duration: Math.max(0, Math.floor((Date.now() - startedAt) / 1000)),
+    attemptId: attemptId,
+    status: status
+  };
+}
 
-        q.options.forEach((option, optionIndex) => {
-            optionsHTML += `
-                <label class="option" id="option-${index}-${optionIndex}">
-                    <input type="radio" name="question-${index}" value="${optionIndex}">
-                    <span>${option}</span>
-                </label>
-            `;
-        });
+function sendRequest(payload){
+  const body = new URLSearchParams();
+  body.append("data", JSON.stringify(payload));
+  return fetch(RESULTS_WEB_APP_URL, {
+    method:"POST",
+    mode:"no-cors",
+    body:body
+  }).then(() => {
+    console.info("Запит на збереження результату надіслано.");
+  }).catch(error => {
+    console.error("Не вдалося надіслати запит на збереження:", error);
+  });
+}
 
-        task.innerHTML = `
-            <div class="task-number">ЗАВДАННЯ ${index + 1} ІЗ 10</div>
-            <h3>${q.title}</h3>
-            <div class="question">${q.question}</div>
-            <div>${optionsHTML}</div>
-            <button class="check-btn" id="check-${index}" onclick="checkAnswer(${index})">
-                Перевірити
-            </button>
-            <div class="feedback" id="feedback-${index}"></div>
-        `;
+function sendProgress(status){
+  if (!student || !attemptId) return;
+  const payload = createPayload(status);
+  saveQueue = saveQueue.then(() => sendRequest(payload)).catch(error => {
+    console.error("Помилка черги збереження:", error);
+  });
+  return saveQueue;
+}
 
-        container.appendChild(task);
+function startLab(event){
+  event.preventDefault();
+  const surname = $("surname").value.trim();
+  const firstName = $("firstName").value.trim();
+  const studentClass = $("studentClass").value;
+  if (!surname || !firstName || !studentClass){
+    $("registrationError").textContent = "Заповніть усі поля.";
+    return;
+  }
+  student = {surname, firstName, studentClass};
+  startedAt = Date.now();
+  attemptId = createAttemptId();
+  $("registration").classList.add("hidden");
+  $("workspace").classList.remove("hidden");
+  $("studentChip").textContent = surname + " " + firstName + " · " + studentClass;
+  renderMissionList();
+  renderMission();
+  sendProgress("У процесі");
+}
+
+$("registrationForm").addEventListener("submit", startLab);
+
+function renderMissionList(){
+  $("missionList").innerHTML = missions.map((mission,index) => {
+    const active = index === currentMission ? " active" : "";
+    const done = completed.has(index) ? " done" : "";
+    return `<button class="mission-link${active}${done}" onclick="openMission(${index})">
+      <span class="mission-num">${completed.has(index) ? "✓" : index+1}</span>
+      <span>${mission.title}</span>
+    </button>`;
+  }).join("");
+  updateProgress();
+}
+
+function updateProgress(){
+  const count = completed.size;
+  const percent = Math.round(count / missions.length * 100);
+  $("progressText").textContent = `Виконано ${count} із ${missions.length}`;
+  $("progressPercent").textContent = percent + "%";
+  $("progressFill").style.width = percent + "%";
+  $("pointsText").textContent = points + " / " + MAX_POINTS;
+}
+
+function openMission(index){
+  if (index < 0 || index >= missions.length) return;
+  currentMission = index;
+  renderMissionList();
+  renderMission();
+}
+
+function renderMission(){
+  const m = missions[currentMission];
+  const alreadyDone = completed.has(currentMission);
+  const chosen = answers[currentMission];
+  $("missionContent").innerHTML = `
+    <div class="mission-kicker">Місія ${currentMission+1} із ${missions.length}</div>
+    <h2>${m.title}</h2>
+    <div class="description">${m.desc}</div>
+    <div class="task-box">
+      <div class="task-title">Ваше завдання</div>
+      <p class="question">${m.question}</p>
+      <div class="options">
+        ${m.options.map((option,index)=>`
+          <label class="option ${chosen===index?'selected':''}">
+            <input type="radio" name="answer" value="${index}" ${chosen===index?'checked':''} ${alreadyDone?'disabled':''}>
+            <span>${option}</span>
+          </label>`).join("")}
+      </div>
+      <div id="feedback" class="feedback"></div>
+      <details class="hint"><summary>Потрібна підказка?</summary><p>${m.hint}</p></details>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="openMission(${currentMission-1})" ${currentMission===0?'disabled':''}>← Попередня</button>
+      <div class="control-right">
+        <button class="btn" onclick="manualSave()">Зберегти прогрес</button>
+        ${alreadyDone
+          ? `<button class="btn primary" onclick="nextMission()">${currentMission===missions.length-1?'До підсумку':'Наступна місія →'}</button>`
+          : `<button class="btn primary" onclick="checkAnswer()">Перевірити відповідь</button>`}
+      </div>
+    </div>
+    <div class="note">За кожну правильно виконану місію нараховується 10 балів. Після перевірки можна перейти до наступної місії.</div>
+  `;
+  document.querySelectorAll('input[name="answer"]').forEach(input=>{
+    input.addEventListener("change",()=>{
+      answers[currentMission] = Number(input.value);
+      document.querySelectorAll(".option").forEach(el=>el.classList.remove("selected"));
+      input.closest(".option").classList.add("selected");
     });
-
-    updateProgress();
+  });
+  if (alreadyDone) showFeedback(true, "Цю місію вже виконано. " + m.explanation);
 }
 
-function checkAnswer(index) {
-    if (answered[index]) return;
+function showFeedback(isGood, message){
+  const box = $("feedback");
+  box.className = "feedback show " + (isGood ? "good" : "bad");
+  box.textContent = message;
+}
 
-    const selected = document.querySelector(
-        `input[name="question-${index}"]:checked`
-    );
-
-    const feedback = document.getElementById("feedback-" + index);
-    const button = document.getElementById("check-" + index);
-
-    if (!selected) {
-        feedback.className = "feedback bad";
-        feedback.textContent = "Спочатку оберіть одну відповідь.";
-        return;
+function checkAnswer(){
+  const selected = answers[currentMission];
+  if (selected === undefined){
+    showFeedback(false,"Спочатку оберіть один варіант відповіді.");
+    return;
+  }
+  const m = missions[currentMission];
+  if (selected === m.answer){
+    if (!completed.has(currentMission)){
+      completed.add(currentMission);
+      points += 10;
     }
-
-    const selectedValue = Number(selected.value);
-    const question = questions[index];
-    const isCorrect = selectedValue === question.correct;
-
-    answered[index] = true;
-    completed++;
-
-    if (isCorrect) {
-        score++;
-        feedback.className = "feedback good";
-        feedback.innerHTML = "✓ Правильно! " + question.explanation;
-    } else {
-        feedback.className = "feedback bad";
-        feedback.innerHTML =
-            "✗ Неправильно. Правильна відповідь: <strong>" +
-            question.options[question.correct] +
-            ".</strong> " + question.explanation;
-    }
-
-    question.options.forEach((option, optionIndex) => {
-        const label = document.getElementById(
-            `option-${index}-${optionIndex}`
-        );
-
-        const radio = label.querySelector("input");
-        radio.disabled = true;
-
-        if (optionIndex === question.correct) {
-            label.classList.add("correct");
-        } else if (optionIndex === selectedValue) {
-            label.classList.add("wrong");
-        }
-    });
-
-    button.disabled = true;
-
-    updateProgress();
-
-    if (completed === questions.length) {
-        showResult();
-    }
+    showFeedback(true,"Правильно! " + m.explanation);
+    renderMissionList();
+    const controls = $("missionContent").querySelector(".control-right");
+    controls.innerHTML = `
+      <button class="btn" onclick="manualSave()">Зберегти прогрес</button>
+      <button class="btn primary" onclick="nextMission()">${currentMission===missions.length-1?'До підсумку':'Наступна місія →'}</button>`;
+    document.querySelectorAll('input[name="answer"]').forEach(input=>input.disabled=true);
+    document.querySelectorAll(".option").forEach(el=>el.classList.remove("selected"));
+    const selectedInput = document.querySelector(`input[name="answer"][value="${selected}"]`);
+    if(selectedInput) selectedInput.closest(".option").classList.add("selected");
+    sendProgress(completed.size === missions.length ? "Завершено" : "У процесі");
+  }else{
+    showFeedback(false,"Поки що неправильна відповідь. Спробуйте ще раз або скористайтеся підказкою.");
+  }
 }
 
-function updateProgress() {
-    document.getElementById("progressBar").style.width =
-        (completed / questions.length * 100) + "%";
-
-    document.getElementById("progressText").textContent =
-        "Виконано: " + completed + " із " + questions.length;
-
-    document.getElementById("scoreText").textContent =
-        "Балів: " + score;
+function nextMission(){
+  if (currentMission < missions.length-1){
+    currentMission++;
+    renderMissionList();
+    renderMission();
+  }else{
+    showSummary();
+  }
 }
 
-function showResult() {
-    const result = document.getElementById("result");
-    result.style.display = "block";
-
-    document.getElementById("finalScore").textContent =
-        score + " / " + questions.length;
-
-    let message = "";
-
-    if (score === 10) {
-        message = "Чудово! Ви чудово орієнтуєтеся в роботі з презентаціями.";
-    } else if (score >= 8) {
-        message = "Дуже добре! Ви добре засвоїли матеріал.";
-    } else if (score >= 6) {
-        message = "Непогано! Перегляньте пояснення до завдань, у яких були помилки.";
-    } else {
-        message = "Варто ще раз повторити матеріал і спробувати виконати завдання знову.";
-    }
-
-    document.getElementById("resultMessage").textContent = message;
-
-    result.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
+function showSummary(){
+  $("workspace").classList.add("hidden");
+  $("finalSummary").classList.remove("hidden");
+  $("finalPoints").textContent = points;
+  $("finalStudent").textContent = student.surname + " " + student.firstName + " · " + student.studentClass;
+  const percent = points / MAX_POINTS * 100;
+  $("finalMessage").textContent = percent === 100 ? "Чудова робота!" : percent >= 70 ? "Гарний результат!" : percent >= 50 ? "Непогано, є основа для повторення." : "Варто ще раз повторити матеріал.";
+  $("finalDetails").textContent = `Виконано місій: ${completed.size} із ${missions.length}. Правильних відповідей: ${completed.size}. Час роботи: ${formatDuration(Math.floor((Date.now()-startedAt)/1000))}.`;
+  sendProgress("Завершено");
 }
 
-function resetTasks() {
-    score = 0;
-    completed = 0;
-    answered = [];
-
-    document.getElementById("result").style.display = "none";
-
-    renderTasks();
-
-    document.getElementById("practice").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
+function formatDuration(seconds){
+  const minutes = Math.floor(seconds/60);
+  const rest = seconds%60;
+  return minutes + " хв " + rest + " с";
 }
 
-renderTasks();
+function manualSave(){
+  if (!student) return;
+  sendProgress(completed.size === missions.length ? "Завершено" : "У процесі");
+  alert("Запит на збереження прогресу надіслано. Перевірити запис можна у спільному журналі.");
+}
+
+function restartLab(){
+  completed = new Set();
+  points = 0;
+  answers = {};
+  currentMission = 0;
+  startedAt = Date.now();
+  attemptId = createAttemptId();
+  $("finalSummary").classList.add("hidden");
+  $("workspace").classList.remove("hidden");
+  renderMissionList();
+  renderMission();
+  sendProgress("У процесі");
+}
 </script>
-
 </body>
 </html>
