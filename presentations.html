@@ -56,6 +56,14 @@ h2{font-size:clamp(23px,3vw,31px);margin:8px 0 12px}
 .option:hover{border-color:#5baee8;background:#153354}
 .option input{margin-top:3px;accent-color:#55baff}
 .option.selected{border-color:var(--accent);background:#163a5c}
+
+.practical-grid{display:grid;gap:15px}
+.practical-step{padding:15px;border:1px solid #294666;border-radius:12px;background:#102640}
+.practical-step strong{display:block;margin-bottom:9px}
+.practical-step label{display:block;color:var(--muted);font-size:13px;margin-bottom:7px}
+.practical-step select{width:100%;padding:12px;border-radius:9px;border:1px solid #3a5c7e;background:#091a2e;color:var(--text)}
+.practical-step select:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+
 .feedback{display:none;margin-top:15px;padding:13px 15px;border-radius:12px;line-height:1.5}
 .feedback.show{display:block}
 .feedback.good{background:#103d35;border:1px solid #237b64;color:#baffdf}
@@ -242,6 +250,15 @@ const missions = [
  explanation:"У параметрах ефекту потрібно налаштувати тригер і вибрати конкретний об'єкт, клацання якого запускатиме анімацію.",
  hint:"У списку тригерів потрібно вказати саме об'єкт-відповідь, а не сам ефект."
 }
+,
+{
+ type:"practical",
+ title:"Практична місія: налаштуй інтерактивний слайд",
+ desc:"Тепер не потрібно вибирати готову відповідь. Ви самостійно налаштуєте три елементи інтерактивної презентації.",
+ question:"Уявіть, що створюєте навчальний слайд із трьома відповідями. Налаштуйте кнопку дії, гіперпосилання та тригер так, щоб вони виконували потрібні завдання.",
+ hint:"Для кнопки дії задається команда та її ціль. Гіперпосилання пов'язує об'єкт із вебадресою. Для тригера обирають об'єкт, клацання якого запускає ефект."
+}
+
 ];
 
 let student = null;
@@ -353,6 +370,78 @@ function renderMission(){
   const m = missions[currentMission];
   const alreadyDone = completed.has(currentMission);
   const chosen = answers[currentMission];
+
+  if (m.type === "practical") {
+    $("missionContent").innerHTML = `
+      <div class="mission-kicker">Місія ${currentMission+1} із ${missions.length} · Практична робота</div>
+      <h2>${m.title}</h2>
+      <div class="description">${m.desc}</div>
+      <div class="task-box">
+        <div class="task-title">Ситуація</div>
+        <p class="question">${m.question}</p>
+        <div class="practical-grid">
+          <div class="practical-step">
+            <strong>1. Кнопка дії «Перевірити»</strong>
+            <label for="actionType">Яку дію потрібно призначити кнопці?</label>
+            <select id="actionType" ${alreadyDone?'disabled':''}>
+              <option value="">Оберіть дію</option>
+              <option value="slide">Перейти до потрібного слайда</option>
+              <option value="animation">Запустити анімацію поточного об'єкта</option>
+              <option value="sound">Відтворити звуковий супровід</option>
+            </select>
+            <label for="actionTarget" style="margin-top:10px">До якого слайда має вести кнопка?</label>
+            <select id="actionTarget" ${alreadyDone?'disabled':''}>
+              <option value="">Оберіть ціль</option>
+              <option value="slide5">Слайд 5 — пояснення відповіді</option>
+              <option value="slide1">Слайд 1 — титульний</option>
+              <option value="slide3">Слайд 3 — запитання</option>
+            </select>
+          </div>
+          <div class="practical-step">
+            <strong>2. Гіперпосилання «Джерело»</strong>
+            <label for="linkTarget">Що потрібно вказати для відкриття зовнішнього сайту?</label>
+            <select id="linkTarget" ${alreadyDone?'disabled':''}>
+              <option value="">Оберіть призначення</option>
+              <option value="url">Вебадресу потрібного сайту (URL)</option>
+              <option value="local">Номер слайда в цій презентації</option>
+              <option value="font">Назву та розмір шрифту</option>
+            </select>
+          </div>
+          <div class="practical-step">
+            <strong>3. Тригер для пояснення</strong>
+            <label for="triggerObject">Клацання якого об'єкта має запускати появу пояснення?</label>
+            <select id="triggerObject" ${alreadyDone?'disabled':''}>
+              <option value="">Оберіть об'єкт</option>
+              <option value="answerB">Фігура «Варіант Б»</option>
+              <option value="title">Заголовок слайда</option>
+              <option value="background">Тло слайда</option>
+            </select>
+          </div>
+        </div>
+        <div id="feedback" class="feedback"></div>
+        <details class="hint"><summary>Потрібна підказка?</summary><p>${m.hint}</p></details>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="openMission(${currentMission-1})">← Попередня</button>
+        <div class="control-right">
+          <button class="btn" onclick="manualSave()">Зберегти прогрес</button>
+          ${alreadyDone
+            ? `<button class="btn primary" onclick="showSummary()">До підсумку</button>`
+            : `<button class="btn primary" onclick="checkPractical()">Перевірити налаштування</button>`}
+        </div>
+      </div>
+      <div class="note">У цій місії потрібно налаштувати всі три елементи. За повністю правильне виконання нараховується 10 балів.</div>
+    `;
+    if (alreadyDone) {
+      $("actionType").value = "slide";
+      $("actionTarget").value = "slide5";
+      $("linkTarget").value = "url";
+      $("triggerObject").value = "answerB";
+      showFeedback(true, "Практичну місію вже виконано. Усі три налаштування правильні.");
+    }
+    return;
+  }
+
   $("missionContent").innerHTML = `
     <div class="mission-kicker">Місія ${currentMission+1} із ${missions.length}</div>
     <h2>${m.title}</h2>
@@ -423,6 +512,50 @@ function checkAnswer(){
   }else{
     showFeedback(false,"Поки що неправильна відповідь. Спробуйте ще раз або скористайтеся підказкою.");
   }
+}
+
+
+function checkPractical(){
+  const actionType = $("actionType").value;
+  const actionTarget = $("actionTarget").value;
+  const linkTarget = $("linkTarget").value;
+  const triggerObject = $("triggerObject").value;
+
+  if (!actionType || !actionTarget || !linkTarget || !triggerObject) {
+    showFeedback(false, "Заповніть усі налаштування, перш ніж перевіряти практичну роботу.");
+    return;
+  }
+
+  const correct =
+    actionType === "slide" &&
+    actionTarget === "slide5" &&
+    linkTarget === "url" &&
+    triggerObject === "answerB";
+
+  if (!correct) {
+    const hints = [];
+    if (actionType !== "slide" || actionTarget !== "slide5") {
+      hints.push("Перевірте тип дії кнопки та слайд, на який вона має вести.");
+    }
+    if (linkTarget !== "url") {
+      hints.push("Для зовнішнього сайту потрібна саме його вебадреса.");
+    }
+    if (triggerObject !== "answerB") {
+      hints.push("Тригером має бути об'єкт, натискання якого повинно запускати появу пояснення.");
+    }
+    showFeedback(false, hints.join(" "));
+    return;
+  }
+
+  completed.add(currentMission);
+  points += 10;
+  showFeedback(true, "Чудово! Ви правильно налаштували кнопку дії, гіперпосилання та тригер. Це вже практична робота з параметрами інтерактивного слайда.");
+  ["actionType","actionTarget","linkTarget","triggerObject"].forEach(id => $(id).disabled = true);
+  renderMissionList();
+  $("missionContent").querySelector(".control-right").innerHTML = `
+    <button class="btn" onclick="manualSave()">Зберегти прогрес</button>
+    <button class="btn primary" onclick="showSummary()">До підсумку</button>`;
+  sendProgress("Завершено");
 }
 
 function nextMission(){
