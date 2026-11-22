@@ -35,12 +35,13 @@ header{padding:22px 5%;border-bottom:1px solid var(--border);background:rgba(7,1
 .task-content{padding:22px}.instruction{padding:15px 17px;background:#14283e;border-left:4px solid var(--blue);border-radius:8px;line-height:1.6;margin-bottom:20px}
 .instruction strong{color:#8ecaff}.editor-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#0b1725;padding:12px 15px;border:1px solid #263b54;border-bottom:0;border-radius:10px 10px 0 0;color:#b9cce0;font-size:13px}
 .editor-dots{display:flex;gap:6px}.editor-dots span{width:9px;height:9px;border-radius:50%;background:#ff7777}.editor-dots span:nth-child(2){background:#ffbd69}.editor-dots span:nth-child(3){background:#55d68b}
-textarea{display:block;width:100%;min-height:270px;resize:vertical;border:1px solid #263b54;border-radius:0 0 10px 10px;background:#08121e;color:#d8eaff;padding:19px;font-family:Consolas,"Courier New",monospace;font-size:15px;line-height:1.7;outline:none;tab-size:4}
+textarea{display:block;width:100%;min-height:270px;resize:vertical;border:1px solid #263b54;border-radius:0 0 10px 10px;background:#08121e;color:#d8eaff;padding:19px;font-family:Consolas,"Courier New",monospace;font-size:15px;line-height:1.7;outline:none;tab-size:4;white-space:pre;overflow:auto}
 textarea:focus{border-color:var(--blue)}.editor-help{color:var(--muted);font-size:12px;margin:9px 0 17px;line-height:1.5}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 20px}button.action{border:0;padding:12px 19px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
-button.action:hover{transform:translateY(-2px);filter:brightness(1.1)}.run-btn{background:var(--green);color:#082218}.hint-btn{background:#244667;color:#d8ecff}.reset-btn{background:#29384b;color:#d6e0ec}
+button.action:hover{transform:translateY(-2px);filter:brightness(1.1)}button.action:disabled{opacity:.55;cursor:wait;transform:none}
+.run-btn{background:var(--green);color:#082218}.hint-btn{background:#244667;color:#d8ecff}.reset-btn{background:#29384b;color:#d6e0ec}
 .console{border:1px solid #263b54;border-radius:10px;overflow:hidden;background:#07111b}.console-head{padding:11px 15px;background:#132235;color:#b8cce1;font-size:13px;font-weight:700}
-.console-body{padding:17px;min-height:95px;color:#a9f2c4;font-family:Consolas,monospace;font-size:14px;line-height:1.7;white-space:pre-wrap}
+.console-body{padding:17px;min-height:95px;color:#a9f2c4;font-family:Consolas,monospace;font-size:14px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
 .feedback{display:none;margin-top:17px;padding:15px;border-radius:9px;line-height:1.6}.feedback.success{display:block;background:#123b2c;border:1px solid #27784f;color:#b5f5d0}.feedback.error{display:block;background:#3c2228;border:1px solid #82404b;color:#ffc2c8}
 .hint{display:none;margin-top:15px;background:#332d1e;border:1px solid #75603a;color:#ffe0a7;padding:15px;border-radius:9px;line-height:1.6}
 .bottom-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:20px}.info-card{background:var(--panel2);border:1px solid var(--border);border-radius:11px;padding:16px}
@@ -61,6 +62,7 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
 .save-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
 .save-button{border:1px solid #397bb5;border-radius:9px;padding:10px 16px;background:#183b5b;color:#e1f1ff;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
 .save-button:hover{background:#24547e}.save-button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.save-message{font-size:12px;color:var(--muted);line-height:1.5}
 </style>
 </head>
 
@@ -118,7 +120,7 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
 
     <section class="intro">
         <h2>Python: розгалуження</h2>
-        <p>Пригадай, як програма обирає подальші дії залежно від умови. Виконуй місії, дописуй код самостійно та перевіряй, чи правильно побудовані розгалуження. У кожній місії можна скористатися підказкою.</p>
+        <p>Пригадай, як програма обирає подальші дії залежно від умови. Виконуй місії, дописуй код самостійно та перевіряй роботу програми. У кожній місії можна скористатися підказкою.</p>
     </section>
 
     <section class="progress-area">
@@ -164,18 +166,18 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
                     <span>Python</span>
                 </div>
 
-                <textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+                <textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Редактор Python-коду"></textarea>
 
-                <div class="editor-help">Допиши програму самостійно. Звертай увагу на назви змінних, двокрапки, відступи, оператори порівняння та порядок умов.</div>
+                <div class="editor-help">Пиши звичайний Python-код. Після натискання Enter редактор автоматично збереже відступ поточного рядка. Клавіша Tab додає чотири пробіли.</div>
 
                 <div class="actions">
-                    <button class="action run-btn" onclick="checkCode()">▶ Перевірити код</button>
+                    <button class="action run-btn" id="checkButton" onclick="checkCode()">▶ Перевірити код</button>
                     <button class="action hint-btn" onclick="showHint()">💡 Підказка</button>
                     <button class="action reset-btn" onclick="resetCode()">↻ Відновити шаблон</button>
                 </div>
 
                 <div class="console">
-                    <div class="console-head">▸ Результат перевірки</div>
+                    <div class="console-head">▸ Результат виконання</div>
                     <div class="console-body" id="consoleOutput">Очікування перевірки коду...</div>
                 </div>
 
@@ -194,8 +196,8 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
                     </div>
 
                     <div class="info-card">
-                        <h3>🐍 Як працювати?</h3>
-                        <p>Прочитай умову, доповни програму та натисни «Перевірити код». Система перевіряє наявність необхідних конструкцій і фрагментів коду, але не запускає програму в Python. За успішну перевірку місії отримуєш 10 балів.</p>
+                        <h3>🐍 Як працює перевірка?</h3>
+                        <p>Твоя програма справді запускається в браузері на Python. Система перевіряє її роботу на кількох наборах даних. За успішне виконання всіх тестів місії отримуєш 10 балів.</p>
                     </div>
                 </div>
             </div>
@@ -204,6 +206,9 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
 </div>
 
 <footer>Кабінет інформатики · Python Lab · Навчальний тренажер</footer>
+
+<!-- Python у браузері -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
 
 <script>
 /* =====================================================
@@ -370,33 +375,6 @@ function manualSave() {
 
 
 /* =====================================================
-   ДОПОМІЖНІ ФУНКЦІЇ ПЕРЕВІРКИ
-===================================================== */
-
-// Прибираємо коментарі, щоб вони не впливали на перевірку.
-function cleanCode(code) {
-    return code
-        .replace(/\r/g, "")
-        .split("\n")
-        .filter(function(line) {
-            return !line.trim().startsWith("#");
-        })
-        .join("\n");
-}
-
-// Перевіряємо, чи є потрібний рядок коду.
-function hasLine(code, pattern) {
-    return pattern.test(code);
-}
-
-// Перевіряємо повну послідовність команд.
-// Це текстова перевірка, а не запуск Python.
-function hasStructure(code, pattern) {
-    return pattern.test(code);
-}
-
-
-/* =====================================================
    МІСІЇ: 5 ЗАВДАНЬ ПО 10 БАЛІВ
 ===================================================== */
 
@@ -413,7 +391,7 @@ const missions = [
         "Виведи повідомлення <strong>«Вище нуля»</strong>, якщо температура більша за 0; " +
         "<strong>«Нижче нуля»</strong>, якщо менша за 0; " +
         "<strong>«Нуль»</strong>, якщо дорівнює 0. " +
-        "Для цього використай <code>if</code>, <code>elif</code> та <code>else</code>.",
+        "Використай <code>if</code>, <code>elif</code> та <code>else</code>.",
 
     code:
         "# Введення температури\n" +
@@ -426,26 +404,14 @@ const missions = [
         "Випадок, який залишився, опиши в останній гілці. " +
         "Не забудь про двокрапки та відступи.",
 
-    check: function(code) {
-        const c = cleanCode(code);
+    tests: [
+        {input: ["-4"], expected: "Нижче нуля"},
+        {input: ["0"], expected: "Нуль"},
+        {input: ["7"], expected: "Вище нуля"}
+    ],
 
-        const input = hasLine(
-            c,
-            /^[ \t]*temperature\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
-        );
-
-        const structure = hasStructure(
-            c,
-            /^[ \t]*if\s+temperature\s*>\s*0\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Вище нуля["']\s*\)\s*\r?\n[ \t]*elif\s+temperature\s*<\s*0\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Нижче нуля["']\s*\)\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Нуль["']\s*\)\s*$/m
-        );
-
-        return {
-            ok: input && structure,
-            output: "Зразок результату для введення -4:\nНижче нуля",
-            success:
-                "Правильно! Ти самостійно побудував повне розгалуження для трьох можливих випадків."
-        };
-    }
+    success:
+        "Правильно! Ти перевірив програму для від'ємного, нульового та додатного значень."
 },
 
 {
@@ -459,7 +425,7 @@ const missions = [
         "Якщо перше число більше — виведи значення <code>a</code>. " +
         "Якщо друге число більше — виведи значення <code>b</code>. " +
         "Якщо числа однакові — виведи повідомлення <strong>«Числа рівні»</strong>. " +
-        "Використай повне розгалуження <code>if</code>, <code>elif</code>, <code>else</code>.",
+        "Використай <code>if</code>, <code>elif</code> та <code>else</code>.",
 
     code:
         "# Введення першого числа\n" +
@@ -473,167 +439,112 @@ const missions = [
         "Якщо жодна з двох умов не виконується, числа однакові. " +
         "У кожній гілці потрібно вивести відповідний результат.",
 
-    check: function(code) {
-        const c = cleanCode(code);
+    tests: [
+        {input: ["12", "8"], expected: "12"},
+        {input: ["4", "15"], expected: "15"},
+        {input: ["5", "5"], expected: "Числа рівні"}
+    ],
 
-        const inputs =
-            hasLine(c, /^[ \t]*a\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m) &&
-            hasLine(c, /^[ \t]*b\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m);
-
-        const structure = hasStructure(
-            c,
-            /^[ \t]*if\s+a\s*>\s*b\s*:\s*\r?\n[ \t]+print\s*\(\s*a\s*\)\s*\r?\n[ \t]*elif\s+b\s*>\s*a\s*:\s*\r?\n[ \t]+print\s*\(\s*b\s*\)\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Числа рівні["']\s*\)\s*$/m
-        );
-
-        return {
-            ok: inputs && structure,
-            output: "Зразок результату для введення 12 та 8:\n12",
-            success:
-                "Чудово! Ти правильно порівняв два числа та передбачив випадок їх рівності."
-        };
-    }
+    success:
+        "Чудово! Ти правильно порівняв числа в усіх трьох випадках."
 },
 
 {
-    title: "Знижка на покупку",
+    title: "Погода",
 
     description:
-        "Застосуй if та else для обчислення вартості покупки з урахуванням знижки.",
+        "Навчися використовувати просте розгалуження з двома можливими результатами.",
 
     instruction:
-        "<strong>Завдання.</strong> Магазин надає знижку 10%, якщо сума покупки становить 1000 грн або більше. " +
-        "Зчитай суму покупки у змінну <code>suma</code> (дійсне число). " +
-        "Якщо сума не менша за 1000, обчисли знижку у змінній <code>znizhka</code> як 10% від суми. " +
-        "Інакше знижка дорівнює 0. " +
-        "Після розгалуження обчисли суму до сплати у змінній <code>do_splaty</code> " +
-        "та виведи її за допомогою <code>print()</code>.",
+        "<strong>Завдання.</strong> Зчитай ціле число у змінну <code>temperature</code>. " +
+        "Якщо температура більша за 20 градусів, виведи повідомлення <strong>«Тепло»</strong>. " +
+        "В усіх інших випадках виведи <strong>«Прохолодно»</strong>. " +
+        "Використай <code>if</code> та <code>else</code>.",
 
     code:
-        "# Введення суми покупки\n" +
-        "suma = float(input())\n\n" +
-        "# Визнач розмір знижки за допомогою розгалуження\n\n" +
-        "# Обчисли суму до сплати та виведи її\n",
+        "# Введення температури\n" +
+        "temperature = int(input())\n\n" +
+        "# Перевір температуру та виведи повідомлення\n",
 
     hint:
-        "Спочатку перевір, чи сума покупки не менша за 1000. " +
-        "Якщо умова виконується, знижка становить 10% від суми. " +
-        "В іншому випадку знижка дорівнює нулю. " +
-        "Після розгалуження відніми знижку від початкової суми та виведи результат.",
+        "Тут потрібно лише два варіанти. " +
+        "Перевір, чи температура більша за 20. " +
+        "Якщо так — один результат, інакше — інший.",
 
-    check: function(code) {
-        const c = cleanCode(code);
+    tests: [
+        {input: ["25"], expected: "Тепло"},
+        {input: ["20"], expected: "Прохолодно"},
+        {input: ["8"], expected: "Прохолодно"}
+    ],
 
-        const input = hasLine(
-            c,
-            /^[ \t]*suma\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
-        );
-
-        const structure = hasStructure(
-            c,
-            /^[ \t]*if\s+suma\s*>=\s*1000\s*:\s*\r?\n[ \t]+znizhka\s*=\s*suma\s*\*\s*0?\.1\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+znizhka\s*=\s*0(?:\.0)?\s*\r?\n[ \t]*\r?\n?[ \t]*do_splaty\s*=\s*suma\s*-\s*znizhka\s*\r?\n[ \t]*print\s*\(\s*do_splaty\s*\)\s*$/m
-        );
-
-        return {
-            ok: input && structure,
-            output: "Зразок результату для введення 1200:\n1080.0",
-            success:
-                "Правильно! Ти застосував знижку лише тоді, коли виконується задана умова, а після розгалуження обчислив суму до сплати."
-        };
-    }
+    success:
+        "Правильно! Програма визначає результат залежно від температури."
 },
 
 {
-    title: "Рівень результату",
+    title: "Оцінка",
 
     description:
-        "Потренуємо кілька послідовних умов у конструкції if — elif — else.",
+        "Закріпи використання if та else на простому прикладі.",
 
     instruction:
-        "<strong>Завдання.</strong> Зчитай кількість набраних балів у змінну <code>score</code>. " +
-        "Визнач рівень результату: 90 і більше — <strong>«Високий»</strong>; " +
-        "від 75 до 89 — <strong>«Достатній»</strong>; " +
-        "від 50 до 74 — <strong>«Середній»</strong>; " +
-        "менше 50 — <strong>«Початковий»</strong>. " +
-        "Використай <code>if</code>, кілька <code>elif</code> та <code>else</code>.",
+        "<strong>Завдання.</strong> Зчитай кількість балів у змінну <code>score</code>. " +
+        "Якщо балів 10 або більше, виведи <strong>«Молодець!»</strong>. " +
+        "Якщо балів менше 10, виведи <strong>«Потрібно попрацювати»</strong>. " +
+        "Використай <code>if</code> та <code>else</code>.",
 
     code:
         "# Введення кількості балів\n" +
         "score = int(input())\n\n" +
-        "# Визнач рівень результату за допомогою розгалуження\n",
+        "# Перевір кількість балів та виведи повідомлення\n",
 
     hint:
-        "Перевіряй межі від більшої до меншої: спочатку найвищий поріг, потім наступний і ще один. " +
-        "Для останнього випадку використай else. " +
-        "У кожній гілці потрібно вивести відповідний текстовий результат.",
+        "Порівняй кількість балів із числом 10. " +
+        "Не забудь, що 10 балів також належать до першого випадку.",
 
-    check: function(code) {
-        const c = cleanCode(code);
+    tests: [
+        {input: ["12"], expected: "Молодець!"},
+        {input: ["10"], expected: "Молодець!"},
+        {input: ["7"], expected: "Потрібно попрацювати"}
+    ],
 
-        const input = hasLine(
-            c,
-            /^[ \t]*score\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
-        );
-
-        const structure = hasStructure(
-            c,
-            /^[ \t]*if\s+score\s*>=\s*90\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Високий["']\s*\)\s*\r?\n[ \t]*elif\s+score\s*>=\s*75\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Достатній["']\s*\)\s*\r?\n[ \t]*elif\s+score\s*>=\s*50\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Середній["']\s*\)\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Початковий["']\s*\)\s*$/m
-        );
-
-        return {
-            ok: input && structure,
-            output: "Зразок результату для введення 82:\nДостатній",
-            success:
-                "Відмінно! Ти правильно розташував умови від найбільшого порога до найменшого."
-        };
-    }
+    success:
+        "Чудово! Ти правильно використав умову та врахував граничне значення."
 },
 
 {
-    title: "Вартість поїздки",
+    title: "Світлофор",
 
     description:
-        "Фінальна місія: самостійно застосуй розгалуження для розрахунку вартості поїздки.",
+        "Остання місія: використай кілька варіантів у розгалуженні.",
 
     instruction:
-        "<strong>Завдання.</strong> Сервіс таксі встановив тариф: поїздка на відстань до 3 км включно коштує 80 грн. " +
-        "Якщо відстань більша за 3 км, кожен додатковий кілометр коштує 15 грн. " +
-        "Зчитай відстань у змінну <code>vidstan</code> (дійсне число). " +
-        "Якщо вона не більша за 3, змінна <code>vartist</code> дорівнює 80. " +
-        "Інакше обчисли її за формулою <code>80 + (vidstan - 3) * 15</code>. " +
-        "Після розгалуження виведи значення <code>vartist</code>.",
+        "<strong>Завдання.</strong> Зчитай ціле число у змінну <code>color</code>. " +
+        "Виведи відповідний колір світлофора: число 1 — <strong>«Червоний»</strong>, " +
+        "число 2 — <strong>«Жовтий»</strong>, число 3 — <strong>«Зелений»</strong>. " +
+        "Якщо введено будь-яке інше число, виведи <strong>«Невідомий колір»</strong>. " +
+        "Використай <code>if</code>, <code>elif</code> та <code>else</code>.",
 
     code:
-        "# Введення відстані\n" +
-        "vidstan = float(input())\n\n" +
-        "# Визнач вартість поїздки за допомогою розгалуження\n\n" +
-        "# Виведи значення vartist\n",
+        "# Введення номера кольору\n" +
+        "color = int(input())\n\n" +
+        "# Визнач колір світлофора\n",
 
     hint:
-        "Спочатку перевір, чи відстань не перевищує 3 км. " +
-        "Якщо так, вартість дорівнює 80 грн. " +
-        "В іншому випадку обчисли оплату за кілометри понад 3. " +
-        "Після розгалуження виведи значення змінної вартості.",
+        "Передбач чотири випадки. " +
+        "Перші три перевіряються окремими умовами. " +
+        "Для всіх інших значень використай останню гілку.",
 
-    check: function(code) {
-        const c = cleanCode(code);
+    tests: [
+        {input: ["1"], expected: "Червоний"},
+        {input: ["2"], expected: "Жовтий"},
+        {input: ["3"], expected: "Зелений"},
+        {input: ["4"], expected: "Невідомий колір"},
+        {input: ["0"], expected: "Невідомий колір"}
+    ],
 
-        const input = hasLine(
-            c,
-            /^[ \t]*vidstan\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
-        );
-
-        const structure = hasStructure(
-            c,
-            /^[ \t]*if\s+vidstan\s*<=\s*3\s*:\s*\r?\n[ \t]+vartist\s*=\s*80(?:\.0)?\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+vartist\s*=\s*80\s*\+\s*\(\s*vidstan\s*-\s*3\s*\)\s*\*\s*15\s*\r?\n[ \t]*\r?\n?[ \t]*print\s*\(\s*vartist\s*\)\s*$/m
-        );
-
-        return {
-            ok: input && structure,
-            output: "Зразок результату для введення 5:\n110.0",
-            success:
-                "Вітаємо! Ти виконав усі місії та правильно використав розгалуження для розрахунку вартості поїздки."
-        };
-    }
+    success:
+        "Вітаємо! Ти правильно виконав усі місії та закріпив використання розгалужень."
 }
 ];
 
@@ -651,6 +562,158 @@ const editor = document.getElementById("codeEditor");
 const consoleOutput = document.getElementById("consoleOutput");
 const feedback = document.getElementById("feedback");
 const hintBox = document.getElementById("hintBox");
+const checkButton = document.getElementById("checkButton");
+
+
+/* =====================================================
+   ЗАВАНТАЖЕННЯ PYODIDE
+===================================================== */
+
+let pyodideInstance = null;
+let pyodideLoading = null;
+
+async function getPyodide() {
+    if (pyodideInstance) {
+        return pyodideInstance;
+    }
+
+    if (pyodideLoading) {
+        return pyodideLoading;
+    }
+
+    pyodideLoading = (async function() {
+        if (typeof loadPyodide !== "function") {
+            throw new Error(
+                "Не вдалося завантажити Python. Перевір підключення до Інтернету та онови сторінку."
+            );
+        }
+
+        const instance = await loadPyodide();
+        pyodideInstance = instance;
+        return instance;
+    })();
+
+    try {
+        return await pyodideLoading;
+    } catch (error) {
+        pyodideLoading = null;
+        throw error;
+    }
+}
+
+
+/* =====================================================
+   СПРАВЖНЄ ВИКОНАННЯ PYTHON-КОДУ
+===================================================== */
+
+async function runPythonTests(sourceCode, tests) {
+    const pyodide = await getPyodide();
+
+    pyodide.globals.set("__student_source", sourceCode);
+    pyodide.globals.set("__test_cases_json", JSON.stringify(tests));
+
+    const pythonRunner = `
+import builtins
+import contextlib
+import io
+import json
+import traceback
+
+source = __student_source
+test_cases = json.loads(__test_cases_json)
+results = []
+
+for test in test_cases:
+    output_buffer = io.StringIO()
+    input_values = iter([str(value) for value in test["input"]])
+
+    def student_input(prompt=""):
+        return next(input_values)
+
+    safe_builtins = dict(vars(builtins))
+    safe_builtins["input"] = student_input
+
+    student_namespace = {
+        "__builtins__": safe_builtins,
+        "__name__": "__main__"
+    }
+
+    try:
+        with contextlib.redirect_stdout(output_buffer):
+            exec(
+                compile(source, "<student_code>", "exec"),
+                student_namespace
+            )
+
+        results.append({
+            "ok": True,
+            "output": output_buffer.getvalue().strip()
+        })
+
+    except Exception as error:
+        results.append({
+            "ok": False,
+            "error": type(error).__name__ + ": " + str(error),
+            "output": output_buffer.getvalue().strip()
+        })
+
+json.dumps(results, ensure_ascii=False)
+`;
+
+    const rawResult = await pyodide.runPythonAsync(pythonRunner);
+    return JSON.parse(rawResult);
+}
+
+
+/* =====================================================
+   ПОРІВНЯННЯ РЕЗУЛЬТАТІВ
+===================================================== */
+
+function normalizeOutput(value) {
+    return String(value)
+        .replace(/\r\n/g, "\n")
+        .trim();
+}
+
+function compareTestResults(mission, results) {
+    const details = [];
+    let allCorrect = true;
+
+    mission.tests.forEach(function(test, index) {
+        const result = results[index];
+        const expected = normalizeOutput(test.expected);
+
+        if (!result || !result.ok) {
+            allCorrect = false;
+
+            details.push(
+                "Тест " + (index + 1) + " — помилка виконання:\n" +
+                (result && result.error ? result.error : "Невідома помилка")
+            );
+
+            return;
+        }
+
+        const actual = normalizeOutput(result.output);
+
+        if (actual === expected) {
+            details.push("Тест " + (index + 1) + " — правильно ✓");
+        } else {
+            allCorrect = false;
+
+            details.push(
+                "Тест " + (index + 1) + " — неправильно ✗\n" +
+                "Отримано: " + (actual === "" ? "(нічого не виведено)" : actual) + "\n" +
+                "Очікувалося: " + expected
+            );
+        }
+    });
+
+    return {
+        ok: allCorrect,
+        details: details
+    };
+}
 
 
 /* =====================================================
@@ -708,7 +771,7 @@ function loadMission(index) {
     editor.value = mission.code;
 
     consoleOutput.textContent =
-        "Очікування перевірки написаного коду...";
+        "Очікування запуску Python-коду...";
 
     feedback.className = "feedback";
     feedback.textContent = "";
@@ -739,62 +802,90 @@ function updateProgress() {
    ПЕРЕВІРКА КОДУ
 ===================================================== */
 
-function checkCode() {
+async function checkCode() {
     const mission = missions[currentMission];
+    const sourceCode = editor.value;
 
-    const result = mission.check(editor.value);
+    if (!sourceCode.trim()) {
+        consoleOutput.textContent = "Редактор порожній. Спочатку напиши програму.";
+        feedback.className = "feedback error";
+        feedback.textContent = "✗ Додай код і спробуй ще раз.";
+        return;
+    }
 
-    if (result.ok) {
-        consoleOutput.textContent =
-            result.output + "\n\nПримітка: це зразок результату, а не запуск твоєї програми.";
+    checkButton.disabled = true;
+    checkButton.textContent = "⏳ Запуск Python...";
+    consoleOutput.textContent = "Завантаження Python та виконання тестів...";
+    feedback.className = "feedback";
+    feedback.textContent = "";
 
-        feedback.className = "feedback success";
-        feedback.textContent = "✓ " + result.success;
+    try {
+        const results = await runPythonTests(sourceCode, mission.tests);
+        const comparison = compareTestResults(mission, results);
 
-        if (!completed.has(currentMission)) {
-            completed.add(currentMission);
-            points += 10;
+        consoleOutput.textContent = comparison.details.join("\n\n");
 
-            renderMissionList();
-            updateProgress();
+        if (comparison.ok) {
+            feedback.className = "feedback success";
+            feedback.textContent = "✓ " + mission.success;
 
-            if (completed.size === missions.length) {
-                attemptFinished = true;
+            if (!completed.has(currentMission)) {
+                completed.add(currentMission);
+                points += 10;
 
-                if (!completionShown) {
-                    completionShown = true;
+                renderMissionList();
+                updateProgress();
 
-                    feedback.textContent +=
-                        " Загальний результат: " + points +
-                        " із " + MAX_POINTS + " балів.";
+                if (completed.size === missions.length) {
+                    attemptFinished = true;
 
-                    alert(
-                        "Вітаємо! Ти пройшов усі місії Python Lab та набрав " +
-                        points + " балів із " + MAX_POINTS + "!"
-                    );
+                    if (!completionShown) {
+                        completionShown = true;
 
-                    sendProgress("Завершено");
+                        feedback.textContent +=
+                            " Загальний результат: " + points +
+                            " із " + MAX_POINTS + " балів.";
+
+                        alert(
+                            "Вітаємо! Ти пройшов усі місії Python Lab та набрав " +
+                            points + " балів із " + MAX_POINTS + "!"
+                        );
+
+                        sendProgress("Завершено");
+                    }
+                } else {
+                    sendProgress("У процесі");
+
+                    if (currentMission < missions.length - 1) {
+                        feedback.textContent +=
+                            " Можеш переходити до наступної місії.";
+                    }
                 }
             } else {
-                sendProgress("У процесі");
-
-                if (currentMission < missions.length - 1) {
-                    feedback.textContent +=
-                        " Можеш переходити до наступної місії.";
-                }
+                feedback.textContent += " Цю місію вже зараховано.";
             }
+
         } else {
-            feedback.textContent += " Цю місію вже зараховано.";
+            feedback.className = "feedback error";
+            feedback.textContent =
+                "✗ Не всі тести пройдено. Переглянь результати вище, виправ програму та спробуй ще раз.";
         }
 
-    } else {
+    } catch (error) {
+        console.error("Помилка запуску Python:", error);
+
         consoleOutput.textContent =
-            "Не всі необхідні елементи коду знайдено. Перевір програму та спробуй ще раз.";
+            error && error.message
+                ? error.message
+                : "Не вдалося запустити Python.";
 
         feedback.className = "feedback error";
-
         feedback.textContent =
-            "✗ Завдання ще не виконано. Перевір назви змінних, умови, порядок команд, двокрапки та відступи. За потреби скористайся підказкою.";
+            "✗ Не вдалося запустити Python. Перевір підключення до Інтернету та спробуй оновити сторінку.";
+
+    } finally {
+        checkButton.disabled = false;
+        checkButton.textContent = "▶ Перевірити код";
     }
 }
 
@@ -825,7 +916,7 @@ function resetCode() {
 
 
 /* =====================================================
-   ВСТАВЛЕННЯ ВІДСТУПУ КЛАВІШЕЮ TAB
+   РЕДАКТОР: TAB ТА АВТОМАТИЧНІ ВІДСТУПИ
 ===================================================== */
 
 editor.addEventListener("keydown", function(event) {
@@ -841,6 +932,37 @@ editor.addEventListener("keydown", function(event) {
             this.value.substring(end);
 
         this.selectionStart = this.selectionEnd = start + 4;
+        return;
+    }
+
+    if (event.key === "Enter") {
+        event.preventDefault();
+
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        const textBeforeCursor = this.value.substring(0, start);
+        const currentLine = textBeforeCursor.split("\n").pop();
+
+        const currentIndent = (currentLine.match(/^[ \t]*/) || [""])[0];
+        const trimmedLine = currentLine.trimEnd();
+
+        let newIndent = currentIndent;
+
+        // Якщо попередній рядок закінчується двокрапкою,
+        // додаємо ще один рівень відступу.
+        if (trimmedLine.endsWith(":")) {
+            newIndent += "    ";
+        }
+
+        const insertion = "\n" + newIndent;
+
+        this.value =
+            this.value.substring(0, start) +
+            insertion +
+            this.value.substring(end);
+
+        const newPosition = start + insertion.length;
+        this.selectionStart = this.selectionEnd = newPosition;
     }
 });
 
