@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Інтерактивний тренажер Python для повторення розгалужень.">
+<title>Python Lab — Розгалуження · 10 клас</title>
+
+<style>
+:root{--bg:#07111f;--panel:#101e30;--panel2:#15263b;--border:#263b54;--text:#e8f0fa;--muted:#9aadc3;--green:#55d68b;--blue:#55aaff;--orange:#ffbd69;--red:#ff7777;--purple:#b69cff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 15% 10%,#12365b 0,transparent 30%),radial-gradient(circle at 90% 85%,#18284c 0,transparent 28%),var(--bg);color:var(--text);font-family:"Segoe UI",Arial,sans-serif;min-height:100vh}
+header{padding:22px 5%;border-bottom:1px solid var(--border);background:rgba(7,17,31,.85);display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:13px}
+.python-icon{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:25px;background:linear-gradient(135deg,#3776ab,#ffd343);color:#102033;font-weight:900}
+.logo h1{margin:0;font-size:23px}.logo p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.home-link{text-decoration:none;color:var(--text);border:1px solid var(--border);padding:10px 16px;border-radius:9px;transition:.2s}.home-link:hover{background:var(--panel2);border-color:var(--blue)}
+.container{max-width:1450px;margin:auto;padding:28px 4%}.intro{margin-bottom:25px}.intro h2{font-size:clamp(25px,4vw,36px);margin:0 0 10px}.intro p{color:var(--muted);line-height:1.6;max-width:850px;margin:0}
+.progress-area{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:17px 20px;margin-bottom:22px}
+.progress-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.progress-top strong{color:var(--green)}
+.progress-track{height:9px;background:#26364a;border-radius:20px;overflow:hidden}.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#3889d6,#55d68b);transition:width .3s}
+.workspace{display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;align-items:start}
+.sidebar,.main-panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.sidebar-title{padding:18px;border-bottom:1px solid var(--border);font-weight:700}.mission-list{padding:10px}
+.mission{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--text);padding:13px 11px;cursor:pointer;margin-bottom:5px;transition:.2s}
+.mission:hover{background:var(--panel2)}.mission.active{background:#183452;border-color:#3679b7}.mission.done .mission-number{background:#1d6949;color:#a9ffd0}
+.mission-number{width:32px;height:32px;flex-shrink:0;display:grid;place-items:center;border-radius:9px;background:#263b54;color:#b9d9fa;font-weight:700}
+.mission-name{font-size:14px;font-weight:600}.mission-status{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.sidebar-note{margin:10px;padding:13px;border-radius:10px;background:#122a3c;color:#b8d5ed;font-size:12px;line-height:1.5}
+.main-panel{min-width:0}.task-header{padding:21px 23px;border-bottom:1px solid var(--border)}
+.task-label{color:var(--green);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:1.2px}
+.task-header h2{margin:7px 0;font-size:25px}.task-header p{color:var(--muted);line-height:1.6;margin:0}
+.task-content{padding:22px}.instruction{padding:15px 17px;background:#14283e;border-left:4px solid var(--blue);border-radius:8px;line-height:1.6;margin-bottom:20px}
+.instruction strong{color:#8ecaff}.editor-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#0b1725;padding:12px 15px;border:1px solid #263b54;border-bottom:0;border-radius:10px 10px 0 0;color:#b9cce0;font-size:13px}
+.editor-dots{display:flex;gap:6px}.editor-dots span{width:9px;height:9px;border-radius:50%;background:#ff7777}.editor-dots span:nth-child(2){background:#ffbd69}.editor-dots span:nth-child(3){background:#55d68b}
+textarea{display:block;width:100%;min-height:270px;resize:vertical;border:1px solid #263b54;border-radius:0 0 10px 10px;background:#08121e;color:#d8eaff;padding:19px;font-family:Consolas,"Courier New",monospace;font-size:15px;line-height:1.7;outline:none;tab-size:4}
+textarea:focus{border-color:var(--blue)}.editor-help{color:var(--muted);font-size:12px;margin:9px 0 17px;line-height:1.5}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 20px}button.action{border:0;padding:12px 19px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+button.action:hover{transform:translateY(-2px);filter:brightness(1.1)}.run-btn{background:var(--green);color:#082218}.hint-btn{background:#244667;color:#d8ecff}.reset-btn{background:#29384b;color:#d6e0ec}
+.console{border:1px solid #263b54;border-radius:10px;overflow:hidden;background:#07111b}.console-head{padding:11px 15px;background:#132235;color:#b8cce1;font-size:13px;font-weight:700}
+.console-body{padding:17px;min-height:95px;color:#a9f2c4;font-family:Consolas,monospace;font-size:14px;line-height:1.7;white-space:pre-wrap}
+.feedback{display:none;margin-top:17px;padding:15px;border-radius:9px;line-height:1.6}.feedback.success{display:block;background:#123b2c;border:1px solid #27784f;color:#b5f5d0}.feedback.error{display:block;background:#3c2228;border:1px solid #82404b;color:#ffc2c8}
+.hint{display:none;margin-top:15px;background:#332d1e;border:1px solid #75603a;color:#ffe0a7;padding:15px;border-radius:9px;line-height:1.6}
+.bottom-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:20px}.info-card{background:var(--panel2);border:1px solid var(--border);border-radius:11px;padding:16px}
+.info-card h3{margin:0 0 9px;font-size:15px}.info-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+code{color:#ffd58b;font-family:Consolas,monospace}footer{text-align:center;padding:25px 15px;color:#71869d;font-size:12px}
+@media(max-width:850px){.workspace{grid-template-columns:1fr}.mission-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){header{padding:15px 4%}.logo h1{font-size:19px}.container{padding:20px 3%}.task-content{padding:15px}.mission-list{grid-template-columns:1fr}.bottom-info{grid-template-columns:1fr}textarea{font-size:13px;min-height:240px}}
+.registration-card{max-width:680px;margin:8px auto 30px;padding:28px;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 18px 45px rgba(0,0,0,.22)}
+.registration-card h2{margin:0 0 9px;font-size:25px}.registration-card>p{color:var(--muted);line-height:1.6;margin:0 0 22px}
+.registration-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.registration-field{display:flex;flex-direction:column;gap:7px}
+.registration-field label{color:#c9d9eb;font-size:13px;font-weight:700}
+.registration-field input,.registration-field select{width:100%;min-height:46px;padding:11px 13px;border:1px solid var(--border);border-radius:9px;outline:none;background:#08121e;color:var(--text);font:inherit}
+.registration-field input:focus,.registration-field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(85,170,255,.12)}
+.registration-submit{width:100%;margin-top:20px;min-height:48px;border:0;border-radius:9px;background:linear-gradient(135deg,#3889d6,#2675b9);color:white;font-size:15px;font-weight:700;cursor:pointer;transition:.2s}
+.registration-submit:hover{transform:translateY(-2px);filter:brightness(1.1)}.registration-note{margin-top:13px;color:var(--muted);font-size:12px;line-height:1.5}
+body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .workspace{display:none}body.started #registrationCard{display:none}
+@media(max-width:520px){.registration-card{padding:20px 16px}.registration-grid{grid-template-columns:1fr}}
+.save-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
+.save-button{border:1px solid #397bb5;border-radius:9px;padding:10px 16px;background:#183b5b;color:#e1f1ff;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
+.save-button:hover{background:#24547e}.save-button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.save-message{font-size:12px;color:var(--muted);line-height:1.5;flex:1;min-width:180px}
+</style>
+</head>
+
+<body>
+<header>
+    <div class="logo">
+        <div class="python-icon">Py</div>
+        <div>
+            <h1>Python Lab</h1>
+            <p>Місія: розгалуження · 10 клас</p>
+        </div>
+    </div>
+    <a class="home-link" href="index.html">← На головну</a>
+</header>
+
+<div class="container">
+    <section class="registration-card" id="registrationCard">
+        <h2>Початок роботи</h2>
+        <p>Перед виконанням місій вкажи свої дані. Прогрес надсилатиметься до журналу вчителя.</p>
+        <form id="studentForm" onsubmit="startLab(event)">
+            <div class="registration-grid">
+                <div class="registration-field">
+                    <label for="studentSurname">Прізвище</label>
+                    <input id="studentSurname" name="surname" type="text" maxlength="60" autocomplete="family-name" required>
+                </div>
+                <div class="registration-field">
+                    <label for="studentFirstName">Ім’я</label>
+                    <input id="studentFirstName" name="firstName" type="text" maxlength="60" autocomplete="given-name" required>
+                </div>
+                <div class="registration-field">
+                    <label for="studentClass">Клас</label>
+                    <select id="studentClass" name="studentClass" required>
+                        <option value="">Оберіть клас</option>
+                        <option value="8-А">8-А</option>
+                        <option value="8-Б">8-Б</option>
+                        <option value="9-А">9-А</option>
+                        <option value="10-А/П">10-А/П</option>
+                        <option value="10-П/П">10-П/П</option>
+                        <option value="10-У">10-У</option>
+                        <option value="10-А">10-А</option>
+                        <option value="10-Х">10-Х</option>
+                    </select>
+                </div>
+            </div>
+            <button class="registration-submit" type="submit">Почати виконання місій →</button>
+            <div class="registration-note">Дані потрібні лише для того, щоб учитель міг побачити результат виконання вправи.</div>
+        </form>
+    </section>
+
+    <section class="intro">
+        <h2>Python: розгалуження</h2>
+        <p>Пригадай, як програма обирає подальші дії залежно від умови. Виконуй місії, працюй із кодом, перевіряй умови та знаходь правильні рішення. У кожній місії можна скористатися підказкою.</p>
+    </section>
+
+    <section class="progress-area">
+        <div class="progress-top">
+            <span>Твій прогрес</span>
+            <strong id="progressText">0 із 5 місій · 0 балів</strong>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="save-controls">
+            <span class="save-message" id="saveMessage">Після початку роботи прогрес надсилатиметься автоматично.</span>
+            <button type="button" class="save-button" id="saveButton" onclick="manualSave()" disabled>💾 Зберегти результат</button>
+        </div>
+    </section>
+
+    <div class="workspace">
+        <aside class="sidebar">
+            <div class="sidebar-title">Місії</div>
+            <div class="mission-list" id="missionList"></div>
+            <div class="sidebar-note">
+                <strong>Пам’ятай!</strong><br>
+                У розгалужених алгоритмах використовують <code>if</code>, <code>elif</code> та <code>else</code>. Після умови ставлять двокрапку, а команди всередині гілки записують з відступом.
+            </div>
+        </aside>
+
+        <main class="main-panel">
+            <div class="task-header">
+                <div class="task-label" id="taskLabel">Місія 1</div>
+                <h2 id="taskTitle">Температура повітря</h2>
+                <p id="taskDescription"></p>
+            </div>
+            <div class="task-content">
+                <div class="instruction" id="taskInstruction"></div>
+                <div class="editor-title">
+                    <div class="editor-dots"><span></span><span></span><span></span></div>
+                    <span>main.py</span><span>Python</span>
+                </div>
+                <textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+                <div class="editor-help">Пиши код у редакторі. Звертай увагу на двокрапки, відступи, оператори порівняння та порядок умов.</div>
+                <div class="actions">
+                    <button class="action run-btn" onclick="checkCode()">▶ Перевірити код</button>
+                    <button class="action hint-btn" onclick="showHint()">💡 Підказка</button>
+                    <button class="action reset-btn" onclick="resetCode()">↻ Відновити код</button>
+                </div>
+                <div class="console">
+                    <div class="console-head">▸ Результат перевірки</div>
+                    <div class="console-body" id="consoleOutput">Очікування перевірки програми...</div>
+                </div>
+                <div class="feedback" id="feedback"></div>
+                <div class="hint" id="hintBox"></div>
+                <div class="bottom-info">
+                    <div class="info-card">
+                        <h3>⌨ Корисні конструкції</h3>
+                        <p>
+                            <code>if умова:</code> — перевірка умови.<br>
+                            <code>elif умова:</code> — додаткова умова.<br>
+                            <code>else:</code> — інакше.<br>
+                            <code>and</code>, <code>or</code>, <code>not</code> — логічні оператори.
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3>🐍 Як працювати?</h3>
+                        <p>Прочитай умову, доповни програму, натисни «Перевірити код». Система перевірить наявність потрібних команд і логіку розгалуження. За успішне виконання місії отримуєш 10 балів.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<footer>Кабінет інформатики · Python Lab · Навчальний тренажер</footer>
+
+<script>
+/* =====================================================
+   НАЛАШТУВАННЯ СПІЛЬНОГО ЖУРНАЛУ
+===================================================== */
+const RESULTS_WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbwI6jESt5PyQp5Zei4ZNFGjiAYC7RwUcW9n4uYUGMHRh9xOCrKluwsAbO2ewjlqXw0P/exec";
+
+const EXERCISE_NAME = "Python Lab — Розгалуження (10 клас)";
+const MAX_POINTS = 50;
+
+let student = null;
+let startedAt = null;
+let attemptId = null;
+let attemptFinished = false;
+let sendingResult = false;
+let saveQueue = Promise.resolve();
+
+/* =====================================================
+   РЕЄСТРАЦІЯ УЧНЯ
+===================================================== */
+function startLab(event) {
+    event.preventDefault();
+    const form = document.getElementById("studentForm");
+    if (!form.reportValidity()) return;
+
+    student = {
+        surname: document.getElementById("studentSurname").value.trim(),
+        firstName: document.getElementById("studentFirstName").value.trim(),
+        studentClass: document.getElementById("studentClass").value
+    };
+
+    if (!student.surname || !student.firstName || !student.studentClass) {
+        alert("Заповни, будь ласка, усі поля.");
+        return;
+    }
+
+    startedAt = Date.now();
+    attemptId = createAttemptId();
+    attemptFinished = false;
+    document.body.classList.add("started");
+    document.getElementById("saveButton").disabled = false;
+    loadMission(0);
+    updateProgress();
+    document.getElementById("saveMessage").textContent =
+        "Тренування розпочато. Надсилаємо початковий запис до журналу.";
+    sendProgress("У процесі");
+}
+
+/* =====================================================
+   ID СПРОБИ ТА ДАНІ ДЛЯ ЖУРНАЛУ
+===================================================== */
+function createAttemptId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+    }
+    return "branching-" + Date.now() + "-" + Math.random().toString(36).substring(2, 12);
+}
+
+function createPayload(status) {
+    return {
+        surname: student.surname,
+        firstName: student.firstName,
+        studentClass: student.studentClass,
+        exercise: EXERCISE_NAME,
+        completed: completed.size,
+        total: missions.length,
+        points: points,
+        maxPoints: MAX_POINTS,
+        duration: Math.max(0, Math.floor((Date.now() - startedAt) / 1000)),
+        attemptId: attemptId,
+        status: status
+    };
+}
+
+/* =====================================================
+   ПОСЛІДОВНЕ НАДСИЛАННЯ РЕЗУЛЬТАТІВ
+===================================================== */
+function sendProgress(status) {
+    if (!student || !startedAt || !attemptId) return Promise.resolve();
+    const payload = createPayload(status);
+
+    saveQueue = saveQueue
+        .catch(function() {})
+        .then(function() {
+            return sendRequest(payload);
+        });
+
+    return saveQueue;
+}
+
+function sendRequest(payload) {
+    const message = document.getElementById("saveMessage");
+    const button = document.getElementById("saveButton");
+
+    sendingResult = true;
+    button.disabled = true;
+    button.textContent = "Надсилання...";
+    message.textContent = "Надсилаємо запит до журналу...";
+
+    const formData = new URLSearchParams();
+    formData.append("data", JSON.stringify(payload));
+
+    return fetch(RESULTS_WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+    })
+    .then(function() {
+        message.textContent =
+            "Запит на збереження надіслано. Перевірити запис можна в журналі.";
+    })
+    .catch(function(error) {
+        console.error("Помилка надсилання результату:", error);
+        message.textContent =
+            "Не вдалося надіслати запит. Перевір підключення до Інтернету та спробуй зберегти ще раз.";
+    })
+    .finally(function() {
+        sendingResult = false;
+        button.disabled = false;
+        button.textContent = "💾 Зберегти результат";
+    });
+}
+
+function manualSave() {
+    if (!student || !attemptId) return;
+    const status = attemptFinished ? "Завершено" : "У процесі";
+    document.getElementById("saveMessage").textContent =
+        "Формуємо запит на збереження поточного прогресу...";
+    sendProgress(status);
+}
+
+/* =====================================================
+   МІСІЇ: 5 ЗАВДАНЬ ПО 10 БАЛІВ
+===================================================== */
+const missions = [
+{
+    title: "Температура повітря",
+    description: "Пригадаємо повне розгалуження: три можливі результати залежно від значення.",
+    instruction: "<strong>Завдання.</strong> Зчитай ціле число у змінну <code>temperature</code>. Виведи повідомлення: «Вище нуля», якщо температура більша за 0; «Нижче нуля», якщо менша за 0; «Нуль», якщо дорівнює 0. Використай <code>if</code>, <code>elif</code> та <code>else</code>.",
+    code: "# Введення температури\ntemperature = int(input())\n\nif temperature > 0:\n    print(\"Вище нуля\")\nelif temperature < 0:\n    print(\"Нижче нуля\")\nelse:\n    print(\"Нуль\")",
+    hint: "Спочатку перевір temperature > 0. Далі за допомогою elif перевір temperature < 0. У гілці else опиши випадок, коли температура дорівнює нулю.",
+    check: function(code) {
+        const c = cleanCode(code);
+        const input = /(?:^|\n)\s*temperature\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const positive = /if\s+temperature\s*>\s*0\s*:/.test(c);
+        const negative = /elif\s+temperature\s*<\s*0\s*:/.test(c);
+        const otherwise = /else\s*:/.test(c);
+        const messages = /print\s*\(\s*["']Вище нуля["']\s*\)/.test(c) &&
+                         /print\s*\(\s*["']Нижче нуля["']\s*\)/.test(c) &&
+                         /print\s*\(\s*["']Нуль["']\s*\)/.test(c);
+        return {
+            ok: input && positive && negative && otherwise && messages,
+            output: "Приклад для введення -4:\nНижче нуля",
+            success: "Правильно! Програма розрізняє три випадки за допомогою if, elif та else."
+        };
+    }
+},
+{
+    title: "Порівняння двох чисел",
+    description: "Використаємо розгалуження, щоб визначити співвідношення між двома значеннями.",
+    instruction: "<strong>Завдання.</strong> Зчитай два цілі числа у змінні <code>a</code> та <code>b</code>. Якщо перше число більше — виведи його. Якщо друге більше — виведи друге. Якщо числа однакові — виведи повідомлення «Числа рівні». Використай повне розгалуження.",
+    code: "a = int(input())\nb = int(input())\n\nif a > b:\n    print(a)\nelif b > a:\n    print(b)\nelse:\n    print(\"Числа рівні\")",
+    hint: "Порівняй a та b двома умовами: a > b і b > a. Якщо жодна з них не виконується, числа рівні.",
+    check: function(code) {
+        const c = cleanCode(code);
+        const inputs = /(?:^|\n)\s*a\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c) &&
+                       /(?:^|\n)\s*b\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const first = /if\s+a\s*>\s*b\s*:/.test(c);
+        const second = /elif\s+b\s*>\s*a\s*:/.test(c);
+        const otherwise = /else\s*:/.test(c);
+        const outputs = /print\s*\(\s*a\s*\)/.test(c) &&
+                        /print\s*\(\s*b\s*\)/.test(c) &&
+                        /print\s*\(\s*["']Числа рівні["']\s*\)/.test(c);
+        return {
+            ok: inputs && first && second && otherwise && outputs,
+            output: "Приклад для введення 12 та 8:\n12",
+            success: "Чудово! Ти правильно порівняв два числа та передбачив випадок їх рівності."
+        };
+    }
+},
+{
+    title: "Знижка на покупку",
+    description: "Застосуємо if та else для обчислення вартості покупки з урахуванням умови.",
+    instruction: "<strong>Завдання.</strong> Магазин надає знижку 10%, якщо сума покупки становить 1000 грн або більше. Зчитай суму покупки у змінну <code>suma</code> (дійсне число). Якщо сума не менша за 1000, обчисли знижку у змінній <code>znizhka</code> як 10% від суми. Інакше знижка дорівнює 0. Обчисли суму до сплати у змінній <code>do_splaty</code> та виведи її.",
+    code: "suma = float(input())\n\nif suma >= 1000:\n    znizhka = suma * 0.1\nelse:\n    znizhka = 0\n\ndo_splaty = suma - znizhka\nprint(do_splaty)",
+    hint: "Умова: suma >= 1000. У першій гілці znizhka = suma * 0.1, у гілці else — znizhka = 0. Після розгалуження відніми знижку від суми.",
+    check: function(code) {
+        const c = cleanCode(code);
+        const input = /(?:^|\n)\s*suma\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const condition = /if\s+suma\s*>=\s*1000\s*:/.test(c);
+        const discount = /znizhka\s*=\s*suma\s*\*\s*0?\.1\b/.test(c);
+        const zero = /else\s*:\s*\n\s*znizhka\s*=\s*0(?:\.0)?\b/.test(c);
+        const total = /(?:^|\n)\s*do_splaty\s*=\s*suma\s*-\s*znizhka\b/.test(c);
+        const output = /print\s*\(\s*do_splaty\s*\)/.test(c);
+        return {
+            ok: input && condition && discount && zero && total && output,
+            output: "Приклад для введення 1200:\n1080.0",
+            success: "Правильно! Ти застосував знижку лише тоді, коли виконується задана умова."
+        };
+    }
+},
+{
+    title: "Рівень результату",
+    description: "Потренуємо кілька послідовних умов у конструкції if — elif — else.",
+    instruction: "<strong>Завдання.</strong> Зчитай кількість набраних балів у змінну <code>score</code>. Визнач рівень результату: 90 і більше — «Високий»; від 75 до 89 — «Достатній»; від 50 до 74 — «Середній»; менше 50 — «Початковий». Використай <code>if</code>, кілька <code>elif</code> та <code>else</code>.",
+    code: "score = int(input())\n\nif score >= 90:\n    print(\"Високий\")\nelif score >= 75:\n    print(\"Достатній\")\nelif score >= 50:\n    print(\"Середній\")\nelse:\n    print(\"Початковий\")",
+    hint: "Перевіряй межі від більшої до меншої: спочатку 90, потім 75, потім 50. Усі значення, що залишилися, потраплять до else.",
+    check: function(code) {
+        const c = cleanCode(code);
+        const input = /(?:^|\n)\s*score\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const c90 = /if\s+score\s*>=\s*90\s*:/.test(c);
+        const c75 = /elif\s+score\s*>=\s*75\s*:/.test(c);
+        const c50 = /elif\s+score\s*>=\s*50\s*:/.test(c);
+        const otherwise = /else\s*:/.test(c);
+        const outputs = /print\s*\(\s*["']Високий["']\s*\)/.test(c) &&
+                        /print\s*\(\s*["']Достатній["']\s*\)/.test(c) &&
+                        /print\s*\(\s*["']Середній["']\s*\)/.test(c) &&
+                        /print\s*\(\s*["']Початковий["']\s*\)/.test(c);
+        return {
+            ok: input && c90 && c75 && c50 && otherwise && outputs,
+            output: "Приклад для введення 82:\nДостатній",
+            success: "Відмінно! Ти правильно розташував умови від найбільшого порога до найменшого."
+        };
+    }
+},
+{
+    title: "Вартість поїздки",
+    description: "Фінальна місія: самостійно застосуй розгалуження для розрахунку вартості поїздки.",
+    instruction: "<strong>Завдання.</strong> Сервіс таксі встановив тариф: поїздка на відстань до 3 км включно коштує 80 грн. Якщо відстань більша за 3 км, кожен додатковий кілометр коштує 15 грн. Зчитай відстань у змінну <code>vidstan</code> (дійсне число). Якщо вона не більша за 3, вартість <code>vartist</code> дорівнює 80. Інакше обчисли її за формулою <code>80 + (vidstan - 3) * 15</code>. Виведи вартість.",
+    code: "vidstan = float(input())\n\nif vidstan <= 3:\n    vartist = 80\nelse:\n    vartist = 80 + (vidstan - 3) * 15\n\nprint(vartist)",
+    hint: "Перевір vidstan <= 3. Якщо умова істинна, присвой vartist значення 80. Інакше додай до 80 оплату за кілометри понад 3.",
+    check: function(code) {
+        const c = cleanCode(code);
+        const input = /(?:^|\n)\s*vidstan\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
+        const condition = /if\s+vidstan\s*<=\s*3\s*:/.test(c);
+        const base = /vartist\s*=\s*80(?:\.0)?\b/.test(c);
+        const otherwise = /else\s*:/.test(c);
+        const formula = /vartist\s*=\s*80\s*\+\s*\(\s*vidstan\s*-\s*3\s*\)\s*\*\s*15/.test(c);
+        const output = /print\s*\(\s*vartist\s*\)/.test(c);
+        return {
+            ok: input && condition && base && otherwise && formula && output,
+            output: "Приклад для введення 5:\n110",
+            success: "Вітаємо! Ти виконав усі місії та правильно використав розгалуження для розрахунку вартості поїздки."
+        };
+    }
+}
+];
+
+/* =====================================================
+   СТАН ТРЕНАЖЕРА
+===================================================== */
+let currentMission = 0;
+let completed = new Set();
+let points = 0;
+let completionShown = false;
+
+const editor = document.getElementById("codeEditor");
+const consoleOutput = document.getElementById("consoleOutput");
+const feedback = document.getElementById("feedback");
+const hintBox = document.getElementById("hintBox");
+
+/* =====================================================
+   ОЧИЩЕННЯ КОМЕНТАРІВ ДЛЯ ПЕРЕВІРКИ
+===================================================== */
+function cleanCode(code) {
+    return code
+        .split("\n")
+        .filter(function(line) {
+            return !line.trim().startsWith("#");
+        })
+        .join("\n")
+        .replace(/\r/g, "");
+}
+
+/* =====================================================
+   СПИСОК МІСІЙ
+===================================================== */
+function renderMissionList() {
+    const list = document.getElementById("missionList");
+    list.innerHTML = "";
+
+    missions.forEach(function(mission, index) {
+        const button = document.createElement("button");
+        button.className = "mission";
+
+        if (index === currentMission) button.classList.add("active");
+        if (completed.has(index)) button.classList.add("done");
+
+        button.innerHTML =
+            `<span class="mission-number">${completed.has(index) ? "✓" : index + 1}</span>
+             <span>
+                <span class="mission-name">${mission.title}</span>
+                <span class="mission-status">${completed.has(index) ? "Виконано" : "Ще не виконано"}</span>
+             </span>`;
+
+        button.addEventListener("click", function() {
+            loadMission(index);
+        });
+        list.appendChild(button);
+    });
+}
+
+/* =====================================================
+   ВІДКРИТТЯ МІСІЇ
+===================================================== */
+function loadMission(index) {
+    currentMission = index;
+    const mission = missions[index];
+
+    document.getElementById("taskLabel").textContent =
+        "Місія " + (index + 1) + " із " + missions.length;
+    document.getElementById("taskTitle").textContent = mission.title;
+    document.getElementById("taskDescription").textContent = mission.description;
+    document.getElementById("taskInstruction").innerHTML = mission.instruction;
+
+    editor.value = mission.code;
+    consoleOutput.textContent = "Очікування перевірки програми...";
+    feedback.className = "feedback";
+    feedback.textContent = "";
+    hintBox.style.display = "none";
+
+    renderMissionList();
+    updateProgress();
+}
+
+/* =====================================================
+   ОНОВЛЕННЯ ПРОГРЕСУ
+===================================================== */
+function updateProgress() {
+    const count = completed.size;
+    document.getElementById("progressText").textContent =
+        count + " із " + missions.length + " місій · " + points + " балів";
+    document.getElementById("progressFill").style.width =
+        (count / missions.length * 100) + "%";
+}
+
+/* =====================================================
+   ПЕРЕВІРКА КОДУ
+===================================================== */
+function checkCode() {
+    const mission = missions[currentMission];
+    const result = mission.check(editor.value);
+
+    if (result.ok) {
+        consoleOutput.textContent = result.output;
+        feedback.className = "feedback success";
+        feedback.textContent = "✓ " + result.success;
+
+        if (!completed.has(currentMission)) {
+            completed.add(currentMission);
+            points += 10;
+            renderMissionList();
+            updateProgress();
+
+            if (completed.size === missions.length) {
+                attemptFinished = true;
+
+                if (!completionShown) {
+                    completionShown = true;
+                    feedback.textContent += " Загальний результат: " + points + " із " + MAX_POINTS + " балів.";
+                    alert("Вітаємо! Ти пройшов усі місії Python Lab та набрав " + points + " балів із " + MAX_POINTS + "!");
+                    sendProgress("Завершено");
+                }
+            } else {
+                sendProgress("У процесі");
+                if (currentMission < missions.length - 1) {
+                    feedback.textContent += " Можеш переходити до наступної місії.";
+                }
+            }
+        } else {
+            feedback.textContent += " Цю місію вже зараховано.";
+        }
+    } else {
+        consoleOutput.textContent = "Перевір програму та спробуй ще раз.";
+        feedback.className = "feedback error";
+        feedback.textContent =
+            "✗ Завдання ще не виконано. Перевір назви змінних, умови, двокрапки та відступи. За потреби скористайся підказкою.";
+    }
+}
+
+/* =====================================================
+   ПІДКАЗКА ТА ВІДНОВЛЕННЯ КОДУ
+===================================================== */
+function showHint() {
+    hintBox.textContent = "💡 " + missions[currentMission].hint;
+    hintBox.style.display = "block";
+}
+
+function resetCode() {
+    editor.value = missions[currentMission].code;
+    consoleOutput.textContent = "Початковий код відновлено. Можеш продовжувати роботу.";
+    feedback.className = "feedback";
+    feedback.textContent = "";
+    hintBox.style.display = "none";
+}
+
+/* =====================================================
+   ВСТАВЛЕННЯ ВІДСТУПУ КЛАВІШЕЮ TAB
+===================================================== */
+editor.addEventListener("keydown", function(event) {
+    if (event.key === "Tab") {
+        event.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 4;
+    }
+});
+
+/* =====================================================
+   ПОЧАТКОВЕ ВІДОБРАЖЕННЯ
+===================================================== */
+loadMission(0);
+updateProgress();
+</script>
+</body>
+</html>
