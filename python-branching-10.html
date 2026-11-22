@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -60,7 +61,6 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
 .save-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px}
 .save-button{border:1px solid #397bb5;border-radius:9px;padding:10px 16px;background:#183b5b;color:#e1f1ff;font-size:13px;font-weight:700;cursor:pointer;transition:.2s}
 .save-button:hover{background:#24547e}.save-button:disabled{opacity:.55;cursor:not-allowed;transform:none}
-.save-message{font-size:12px;color:var(--muted);line-height:1.5;flex:1;min-width:180px}
 </style>
 </head>
 
@@ -80,16 +80,19 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
     <section class="registration-card" id="registrationCard">
         <h2>Початок роботи</h2>
         <p>Перед виконанням місій вкажи свої дані. Прогрес надсилатиметься до журналу вчителя.</p>
+
         <form id="studentForm" onsubmit="startLab(event)">
             <div class="registration-grid">
                 <div class="registration-field">
                     <label for="studentSurname">Прізвище</label>
                     <input id="studentSurname" name="surname" type="text" maxlength="60" autocomplete="family-name" required>
                 </div>
+
                 <div class="registration-field">
                     <label for="studentFirstName">Ім’я</label>
                     <input id="studentFirstName" name="firstName" type="text" maxlength="60" autocomplete="given-name" required>
                 </div>
+
                 <div class="registration-field">
                     <label for="studentClass">Клас</label>
                     <select id="studentClass" name="studentClass" required>
@@ -101,12 +104,13 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
                         <option value="10-П/П">10-П/П</option>
                         <option value="10-Т/П">10-Т/П</option>
                         <option value="10-К">10-К</option>
-                        <option value="10-У">10-У</option>
                         <option value="10-А">10-А</option>
                         <option value="10-Х">10-Х</option>
+                        <option value="10-У">10-У</option>
                     </select>
                 </div>
             </div>
+
             <button class="registration-submit" type="submit">Почати виконання місій →</button>
             <div class="registration-note">Дані потрібні лише для того, щоб учитель міг побачити результат виконання вправи.</div>
         </form>
@@ -114,7 +118,7 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
 
     <section class="intro">
         <h2>Python: розгалуження</h2>
-        <p>Пригадай, як програма обирає подальші дії залежно від умови. Виконуй місії, працюй із кодом, перевіряй умови та знаходь правильні рішення. У кожній місії можна скористатися підказкою.</p>
+        <p>Пригадай, як програма обирає подальші дії залежно від умови. Виконуй місії, дописуй код самостійно та перевіряй, чи правильно побудовані розгалуження. У кожній місії можна скористатися підказкою.</p>
     </section>
 
     <section class="progress-area">
@@ -122,7 +126,11 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
             <span>Твій прогрес</span>
             <strong id="progressText">0 із 5 місій · 0 балів</strong>
         </div>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
         <div class="save-controls">
             <span class="save-message" id="saveMessage">Після початку роботи прогрес надсилатиметься автоматично.</span>
             <button type="button" class="save-button" id="saveButton" onclick="manualSave()" disabled>💾 Зберегти результат</button>
@@ -133,6 +141,7 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
         <aside class="sidebar">
             <div class="sidebar-title">Місії</div>
             <div class="mission-list" id="missionList"></div>
+
             <div class="sidebar-note">
                 <strong>Пам’ятай!</strong><br>
                 У розгалужених алгоритмах використовують <code>if</code>, <code>elif</code> та <code>else</code>. Після умови ставлять двокрапку, а команди всередині гілки записують з відступом.
@@ -145,25 +154,34 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
                 <h2 id="taskTitle">Температура повітря</h2>
                 <p id="taskDescription"></p>
             </div>
+
             <div class="task-content">
                 <div class="instruction" id="taskInstruction"></div>
+
                 <div class="editor-title">
                     <div class="editor-dots"><span></span><span></span><span></span></div>
-                    <span>main.py</span><span>Python</span>
+                    <span>main.py</span>
+                    <span>Python</span>
                 </div>
+
                 <textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
-                <div class="editor-help">Пиши код у редакторі. Звертай увагу на двокрапки, відступи, оператори порівняння та порядок умов.</div>
+
+                <div class="editor-help">Допиши програму самостійно. Звертай увагу на назви змінних, двокрапки, відступи, оператори порівняння та порядок умов.</div>
+
                 <div class="actions">
                     <button class="action run-btn" onclick="checkCode()">▶ Перевірити код</button>
                     <button class="action hint-btn" onclick="showHint()">💡 Підказка</button>
-                    <button class="action reset-btn" onclick="resetCode()">↻ Відновити код</button>
+                    <button class="action reset-btn" onclick="resetCode()">↻ Відновити шаблон</button>
                 </div>
+
                 <div class="console">
                     <div class="console-head">▸ Результат перевірки</div>
-                    <div class="console-body" id="consoleOutput">Очікування перевірки програми...</div>
+                    <div class="console-body" id="consoleOutput">Очікування перевірки коду...</div>
                 </div>
+
                 <div class="feedback" id="feedback"></div>
                 <div class="hint" id="hintBox"></div>
+
                 <div class="bottom-info">
                     <div class="info-card">
                         <h3>⌨ Корисні конструкції</h3>
@@ -174,9 +192,10 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
                             <code>and</code>, <code>or</code>, <code>not</code> — логічні оператори.
                         </p>
                     </div>
+
                     <div class="info-card">
                         <h3>🐍 Як працювати?</h3>
-                        <p>Прочитай умову, доповни програму, натисни «Перевірити код». Система перевірить наявність потрібних команд і логіку розгалуження. За успішне виконання місії отримуєш 10 балів.</p>
+                        <p>Прочитай умову, доповни програму та натисни «Перевірити код». Система перевіряє наявність необхідних конструкцій і фрагментів коду, але не запускає програму в Python. За успішну перевірку місії отримуєш 10 балів.</p>
                     </div>
                 </div>
             </div>
@@ -190,6 +209,7 @@ body:not(.started) .intro,body:not(.started) .progress-area,body:not(.started) .
 /* =====================================================
    НАЛАШТУВАННЯ СПІЛЬНОГО ЖУРНАЛУ
 ===================================================== */
+
 const RESULTS_WEB_APP_URL =
     "https://script.google.com/macros/s/AKfycbwI6jESt5PyQp5Zei4ZNFGjiAYC7RwUcW9n4uYUGMHRh9xOCrKluwsAbO2ewjlqXw0P/exec";
 
@@ -203,11 +223,14 @@ let attemptFinished = false;
 let sendingResult = false;
 let saveQueue = Promise.resolve();
 
+
 /* =====================================================
    РЕЄСТРАЦІЯ УЧНЯ
 ===================================================== */
+
 function startLab(event) {
     event.preventDefault();
+
     const form = document.getElementById("studentForm");
     if (!form.reportValidity()) return;
 
@@ -225,24 +248,37 @@ function startLab(event) {
     startedAt = Date.now();
     attemptId = createAttemptId();
     attemptFinished = false;
+
     document.body.classList.add("started");
     document.getElementById("saveButton").disabled = false;
+
     loadMission(0);
     updateProgress();
+
     document.getElementById("saveMessage").textContent =
         "Тренування розпочато. Надсилаємо початковий запис до журналу.";
+
     sendProgress("У процесі");
 }
 
+
 /* =====================================================
-   ID СПРОБИ ТА ДАНІ ДЛЯ ЖУРНАЛУ
+   ID СПРОБИ
 ===================================================== */
+
 function createAttemptId() {
     if (window.crypto && typeof window.crypto.randomUUID === "function") {
         return window.crypto.randomUUID();
     }
-    return "branching-" + Date.now() + "-" + Math.random().toString(36).substring(2, 12);
+
+    return "branching-" + Date.now() + "-" +
+        Math.random().toString(36).substring(2, 12);
 }
+
+
+/* =====================================================
+   ДАНІ ДЛЯ ЖУРНАЛУ
+===================================================== */
 
 function createPayload(status) {
     return {
@@ -260,11 +296,16 @@ function createPayload(status) {
     };
 }
 
+
 /* =====================================================
    ПОСЛІДОВНЕ НАДСИЛАННЯ РЕЗУЛЬТАТІВ
 ===================================================== */
+
 function sendProgress(status) {
-    if (!student || !startedAt || !attemptId) return Promise.resolve();
+    if (!student || !startedAt || !attemptId) {
+        return Promise.resolve();
+    }
+
     const payload = createPayload(status);
 
     saveQueue = saveQueue
@@ -275,6 +316,7 @@ function sendProgress(status) {
 
     return saveQueue;
 }
+
 
 function sendRequest(payload) {
     const message = document.getElementById("saveMessage");
@@ -299,6 +341,7 @@ function sendRequest(payload) {
     })
     .catch(function(error) {
         console.error("Помилка надсилання результату:", error);
+
         message.textContent =
             "Не вдалося надіслати запит. Перевір підключення до Інтернету та спробуй зберегти ще раз.";
     })
@@ -309,134 +352,296 @@ function sendRequest(payload) {
     });
 }
 
+
+/* =====================================================
+   РУЧНЕ ЗБЕРЕЖЕННЯ
+===================================================== */
+
 function manualSave() {
     if (!student || !attemptId) return;
+
     const status = attemptFinished ? "Завершено" : "У процесі";
+
     document.getElementById("saveMessage").textContent =
         "Формуємо запит на збереження поточного прогресу...";
+
     sendProgress(status);
 }
+
+
+/* =====================================================
+   ДОПОМІЖНІ ФУНКЦІЇ ПЕРЕВІРКИ
+===================================================== */
+
+// Прибираємо коментарі, щоб вони не впливали на перевірку.
+function cleanCode(code) {
+    return code
+        .replace(/\r/g, "")
+        .split("\n")
+        .filter(function(line) {
+            return !line.trim().startsWith("#");
+        })
+        .join("\n");
+}
+
+// Перевіряємо, чи є потрібний рядок коду.
+function hasLine(code, pattern) {
+    return pattern.test(code);
+}
+
+// Перевіряємо повну послідовність команд.
+// Це текстова перевірка, а не запуск Python.
+function hasStructure(code, pattern) {
+    return pattern.test(code);
+}
+
 
 /* =====================================================
    МІСІЇ: 5 ЗАВДАНЬ ПО 10 БАЛІВ
 ===================================================== */
+
 const missions = [
+
 {
     title: "Температура повітря",
-    description: "Пригадаємо повне розгалуження: три можливі результати залежно від значення.",
-    instruction: "<strong>Завдання.</strong> Зчитай ціле число у змінну <code>temperature</code>. Виведи повідомлення: «Вище нуля», якщо температура більша за 0; «Нижче нуля», якщо менша за 0; «Нуль», якщо дорівнює 0. Використай <code>if</code>, <code>elif</code> та <code>else</code>.",
-    code: "# Введення температури\ntemperature = int(input())\n\nif temperature > 0:\n    print(\"Вище нуля\")\nelif temperature < 0:\n    print(\"Нижче нуля\")\nelse:\n    print(\"Нуль\")",
-    hint: "Спочатку перевір temperature > 0. Далі за допомогою elif перевір temperature < 0. У гілці else опиши випадок, коли температура дорівнює нулю.",
+
+    description:
+        "Пригадай повне розгалуження: три можливі результати залежно від значення.",
+
+    instruction:
+        "<strong>Завдання.</strong> Зчитай ціле число у змінну <code>temperature</code>. " +
+        "Виведи повідомлення <strong>«Вище нуля»</strong>, якщо температура більша за 0; " +
+        "<strong>«Нижче нуля»</strong>, якщо менша за 0; " +
+        "<strong>«Нуль»</strong>, якщо дорівнює 0. " +
+        "Для цього використай <code>if</code>, <code>elif</code> та <code>else</code>.",
+
+    code:
+        "# Введення температури\n" +
+        "temperature = int(input())\n\n" +
+        "# Напиши розгалуження для трьох випадків\n",
+
+    hint:
+        "Потрібно передбачити три випадки: додатне число, від'ємне число та нуль. " +
+        "Спочатку перевір першу умову, потім додаткову. " +
+        "Випадок, який залишився, опиши в останній гілці. " +
+        "Не забудь про двокрапки та відступи.",
+
     check: function(code) {
         const c = cleanCode(code);
-        const input = /(?:^|\n)\s*temperature\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const positive = /if\s+temperature\s*>\s*0\s*:/.test(c);
-        const negative = /elif\s+temperature\s*<\s*0\s*:/.test(c);
-        const otherwise = /else\s*:/.test(c);
-        const messages = /print\s*\(\s*["']Вище нуля["']\s*\)/.test(c) &&
-                         /print\s*\(\s*["']Нижче нуля["']\s*\)/.test(c) &&
-                         /print\s*\(\s*["']Нуль["']\s*\)/.test(c);
+
+        const input = hasLine(
+            c,
+            /^[ \t]*temperature\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
+        );
+
+        const structure = hasStructure(
+            c,
+            /^[ \t]*if\s+temperature\s*>\s*0\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Вище нуля["']\s*\)\s*\r?\n[ \t]*elif\s+temperature\s*<\s*0\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Нижче нуля["']\s*\)\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Нуль["']\s*\)\s*$/m
+        );
+
         return {
-            ok: input && positive && negative && otherwise && messages,
-            output: "Приклад для введення -4:\nНижче нуля",
-            success: "Правильно! Програма розрізняє три випадки за допомогою if, elif та else."
+            ok: input && structure,
+            output: "Зразок результату для введення -4:\nНижче нуля",
+            success:
+                "Правильно! Ти самостійно побудував повне розгалуження для трьох можливих випадків."
         };
     }
 },
+
 {
     title: "Порівняння двох чисел",
-    description: "Використаємо розгалуження, щоб визначити співвідношення між двома значеннями.",
-    instruction: "<strong>Завдання.</strong> Зчитай два цілі числа у змінні <code>a</code> та <code>b</code>. Якщо перше число більше — виведи його. Якщо друге більше — виведи друге. Якщо числа однакові — виведи повідомлення «Числа рівні». Використай повне розгалуження.",
-    code: "a = int(input())\nb = int(input())\n\nif a > b:\n    print(a)\nelif b > a:\n    print(b)\nelse:\n    print(\"Числа рівні\")",
-    hint: "Порівняй a та b двома умовами: a > b і b > a. Якщо жодна з них не виконується, числа рівні.",
+
+    description:
+        "Використай розгалуження, щоб визначити співвідношення між двома числами.",
+
+    instruction:
+        "<strong>Завдання.</strong> Зчитай два цілі числа у змінні <code>a</code> та <code>b</code>. " +
+        "Якщо перше число більше — виведи значення <code>a</code>. " +
+        "Якщо друге число більше — виведи значення <code>b</code>. " +
+        "Якщо числа однакові — виведи повідомлення <strong>«Числа рівні»</strong>. " +
+        "Використай повне розгалуження <code>if</code>, <code>elif</code>, <code>else</code>.",
+
+    code:
+        "# Введення першого числа\n" +
+        "a = int(input())\n\n" +
+        "# Введення другого числа\n" +
+        "b = int(input())\n\n" +
+        "# Порівняй числа та виведи потрібний результат\n",
+
+    hint:
+        "Порівняй перше число з другим. Потім перевір протилежний випадок. " +
+        "Якщо жодна з двох умов не виконується, числа однакові. " +
+        "У кожній гілці потрібно вивести відповідний результат.",
+
     check: function(code) {
         const c = cleanCode(code);
-        const inputs = /(?:^|\n)\s*a\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c) &&
-                       /(?:^|\n)\s*b\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const first = /if\s+a\s*>\s*b\s*:/.test(c);
-        const second = /elif\s+b\s*>\s*a\s*:/.test(c);
-        const otherwise = /else\s*:/.test(c);
-        const outputs = /print\s*\(\s*a\s*\)/.test(c) &&
-                        /print\s*\(\s*b\s*\)/.test(c) &&
-                        /print\s*\(\s*["']Числа рівні["']\s*\)/.test(c);
+
+        const inputs =
+            hasLine(c, /^[ \t]*a\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m) &&
+            hasLine(c, /^[ \t]*b\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m);
+
+        const structure = hasStructure(
+            c,
+            /^[ \t]*if\s+a\s*>\s*b\s*:\s*\r?\n[ \t]+print\s*\(\s*a\s*\)\s*\r?\n[ \t]*elif\s+b\s*>\s*a\s*:\s*\r?\n[ \t]+print\s*\(\s*b\s*\)\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Числа рівні["']\s*\)\s*$/m
+        );
+
         return {
-            ok: inputs && first && second && otherwise && outputs,
-            output: "Приклад для введення 12 та 8:\n12",
-            success: "Чудово! Ти правильно порівняв два числа та передбачив випадок їх рівності."
+            ok: inputs && structure,
+            output: "Зразок результату для введення 12 та 8:\n12",
+            success:
+                "Чудово! Ти правильно порівняв два числа та передбачив випадок їх рівності."
         };
     }
 },
+
 {
     title: "Знижка на покупку",
-    description: "Застосуємо if та else для обчислення вартості покупки з урахуванням умови.",
-    instruction: "<strong>Завдання.</strong> Магазин надає знижку 10%, якщо сума покупки становить 1000 грн або більше. Зчитай суму покупки у змінну <code>suma</code> (дійсне число). Якщо сума не менша за 1000, обчисли знижку у змінній <code>znizhka</code> як 10% від суми. Інакше знижка дорівнює 0. Обчисли суму до сплати у змінній <code>do_splaty</code> та виведи її.",
-    code: "suma = float(input())\n\nif suma >= 1000:\n    znizhka = suma * 0.1\nelse:\n    znizhka = 0\n\ndo_splaty = suma - znizhka\nprint(do_splaty)",
-    hint: "Умова: suma >= 1000. У першій гілці znizhka = suma * 0.1, у гілці else — znizhka = 0. Після розгалуження відніми знижку від суми.",
+
+    description:
+        "Застосуй if та else для обчислення вартості покупки з урахуванням знижки.",
+
+    instruction:
+        "<strong>Завдання.</strong> Магазин надає знижку 10%, якщо сума покупки становить 1000 грн або більше. " +
+        "Зчитай суму покупки у змінну <code>suma</code> (дійсне число). " +
+        "Якщо сума не менша за 1000, обчисли знижку у змінній <code>znizhka</code> як 10% від суми. " +
+        "Інакше знижка дорівнює 0. " +
+        "Після розгалуження обчисли суму до сплати у змінній <code>do_splaty</code> " +
+        "та виведи її за допомогою <code>print()</code>.",
+
+    code:
+        "# Введення суми покупки\n" +
+        "suma = float(input())\n\n" +
+        "# Визнач розмір знижки за допомогою розгалуження\n\n" +
+        "# Обчисли суму до сплати та виведи її\n",
+
+    hint:
+        "Спочатку перевір, чи сума покупки не менша за 1000. " +
+        "Якщо умова виконується, знижка становить 10% від суми. " +
+        "В іншому випадку знижка дорівнює нулю. " +
+        "Після розгалуження відніми знижку від початкової суми та виведи результат.",
+
     check: function(code) {
         const c = cleanCode(code);
-        const input = /(?:^|\n)\s*suma\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const condition = /if\s+suma\s*>=\s*1000\s*:/.test(c);
-        const discount = /znizhka\s*=\s*suma\s*\*\s*0?\.1\b/.test(c);
-        const zero = /else\s*:\s*\n\s*znizhka\s*=\s*0(?:\.0)?\b/.test(c);
-        const total = /(?:^|\n)\s*do_splaty\s*=\s*suma\s*-\s*znizhka\b/.test(c);
-        const output = /print\s*\(\s*do_splaty\s*\)/.test(c);
+
+        const input = hasLine(
+            c,
+            /^[ \t]*suma\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
+        );
+
+        const structure = hasStructure(
+            c,
+            /^[ \t]*if\s+suma\s*>=\s*1000\s*:\s*\r?\n[ \t]+znizhka\s*=\s*suma\s*\*\s*0?\.1\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+znizhka\s*=\s*0(?:\.0)?\s*\r?\n[ \t]*\r?\n?[ \t]*do_splaty\s*=\s*suma\s*-\s*znizhka\s*\r?\n[ \t]*print\s*\(\s*do_splaty\s*\)\s*$/m
+        );
+
         return {
-            ok: input && condition && discount && zero && total && output,
-            output: "Приклад для введення 1200:\n1080.0",
-            success: "Правильно! Ти застосував знижку лише тоді, коли виконується задана умова."
+            ok: input && structure,
+            output: "Зразок результату для введення 1200:\n1080.0",
+            success:
+                "Правильно! Ти застосував знижку лише тоді, коли виконується задана умова, а після розгалуження обчислив суму до сплати."
         };
     }
 },
+
 {
     title: "Рівень результату",
-    description: "Потренуємо кілька послідовних умов у конструкції if — elif — else.",
-    instruction: "<strong>Завдання.</strong> Зчитай кількість набраних балів у змінну <code>score</code>. Визнач рівень результату: 90 і більше — «Високий»; від 75 до 89 — «Достатній»; від 50 до 74 — «Середній»; менше 50 — «Початковий». Використай <code>if</code>, кілька <code>elif</code> та <code>else</code>.",
-    code: "score = int(input())\n\nif score >= 90:\n    print(\"Високий\")\nelif score >= 75:\n    print(\"Достатній\")\nelif score >= 50:\n    print(\"Середній\")\nelse:\n    print(\"Початковий\")",
-    hint: "Перевіряй межі від більшої до меншої: спочатку 90, потім 75, потім 50. Усі значення, що залишилися, потраплять до else.",
+
+    description:
+        "Потренуємо кілька послідовних умов у конструкції if — elif — else.",
+
+    instruction:
+        "<strong>Завдання.</strong> Зчитай кількість набраних балів у змінну <code>score</code>. " +
+        "Визнач рівень результату: 90 і більше — <strong>«Високий»</strong>; " +
+        "від 75 до 89 — <strong>«Достатній»</strong>; " +
+        "від 50 до 74 — <strong>«Середній»</strong>; " +
+        "менше 50 — <strong>«Початковий»</strong>. " +
+        "Використай <code>if</code>, кілька <code>elif</code> та <code>else</code>.",
+
+    code:
+        "# Введення кількості балів\n" +
+        "score = int(input())\n\n" +
+        "# Визнач рівень результату за допомогою розгалуження\n",
+
+    hint:
+        "Перевіряй межі від більшої до меншої: спочатку найвищий поріг, потім наступний і ще один. " +
+        "Для останнього випадку використай else. " +
+        "У кожній гілці потрібно вивести відповідний текстовий результат.",
+
     check: function(code) {
         const c = cleanCode(code);
-        const input = /(?:^|\n)\s*score\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const c90 = /if\s+score\s*>=\s*90\s*:/.test(c);
-        const c75 = /elif\s+score\s*>=\s*75\s*:/.test(c);
-        const c50 = /elif\s+score\s*>=\s*50\s*:/.test(c);
-        const otherwise = /else\s*:/.test(c);
-        const outputs = /print\s*\(\s*["']Високий["']\s*\)/.test(c) &&
-                        /print\s*\(\s*["']Достатній["']\s*\)/.test(c) &&
-                        /print\s*\(\s*["']Середній["']\s*\)/.test(c) &&
-                        /print\s*\(\s*["']Початковий["']\s*\)/.test(c);
+
+        const input = hasLine(
+            c,
+            /^[ \t]*score\s*=\s*int\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
+        );
+
+        const structure = hasStructure(
+            c,
+            /^[ \t]*if\s+score\s*>=\s*90\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Високий["']\s*\)\s*\r?\n[ \t]*elif\s+score\s*>=\s*75\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Достатній["']\s*\)\s*\r?\n[ \t]*elif\s+score\s*>=\s*50\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Середній["']\s*\)\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+print\s*\(\s*["']Початковий["']\s*\)\s*$/m
+        );
+
         return {
-            ok: input && c90 && c75 && c50 && otherwise && outputs,
-            output: "Приклад для введення 82:\nДостатній",
-            success: "Відмінно! Ти правильно розташував умови від найбільшого порога до найменшого."
+            ok: input && structure,
+            output: "Зразок результату для введення 82:\nДостатній",
+            success:
+                "Відмінно! Ти правильно розташував умови від найбільшого порога до найменшого."
         };
     }
 },
+
 {
     title: "Вартість поїздки",
-    description: "Фінальна місія: самостійно застосуй розгалуження для розрахунку вартості поїздки.",
-    instruction: "<strong>Завдання.</strong> Сервіс таксі встановив тариф: поїздка на відстань до 3 км включно коштує 80 грн. Якщо відстань більша за 3 км, кожен додатковий кілометр коштує 15 грн. Зчитай відстань у змінну <code>vidstan</code> (дійсне число). Якщо вона не більша за 3, вартість <code>vartist</code> дорівнює 80. Інакше обчисли її за формулою <code>80 + (vidstan - 3) * 15</code>. Виведи вартість.",
-    code: "vidstan = float(input())\n\nif vidstan <= 3:\n    vartist = 80\nelse:\n    vartist = 80 + (vidstan - 3) * 15\n\nprint(vartist)",
-    hint: "Перевір vidstan <= 3. Якщо умова істинна, присвой vartist значення 80. Інакше додай до 80 оплату за кілометри понад 3.",
+
+    description:
+        "Фінальна місія: самостійно застосуй розгалуження для розрахунку вартості поїздки.",
+
+    instruction:
+        "<strong>Завдання.</strong> Сервіс таксі встановив тариф: поїздка на відстань до 3 км включно коштує 80 грн. " +
+        "Якщо відстань більша за 3 км, кожен додатковий кілометр коштує 15 грн. " +
+        "Зчитай відстань у змінну <code>vidstan</code> (дійсне число). " +
+        "Якщо вона не більша за 3, змінна <code>vartist</code> дорівнює 80. " +
+        "Інакше обчисли її за формулою <code>80 + (vidstan - 3) * 15</code>. " +
+        "Після розгалуження виведи значення <code>vartist</code>.",
+
+    code:
+        "# Введення відстані\n" +
+        "vidstan = float(input())\n\n" +
+        "# Визнач вартість поїздки за допомогою розгалуження\n\n" +
+        "# Виведи значення vartist\n",
+
+    hint:
+        "Спочатку перевір, чи відстань не перевищує 3 км. " +
+        "Якщо так, вартість дорівнює 80 грн. " +
+        "В іншому випадку обчисли оплату за кілометри понад 3. " +
+        "Після розгалуження виведи значення змінної вартості.",
+
     check: function(code) {
         const c = cleanCode(code);
-        const input = /(?:^|\n)\s*vidstan\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)/.test(c);
-        const condition = /if\s+vidstan\s*<=\s*3\s*:/.test(c);
-        const base = /vartist\s*=\s*80(?:\.0)?\b/.test(c);
-        const otherwise = /else\s*:/.test(c);
-        const formula = /vartist\s*=\s*80\s*\+\s*\(\s*vidstan\s*-\s*3\s*\)\s*\*\s*15/.test(c);
-        const output = /print\s*\(\s*vartist\s*\)/.test(c);
+
+        const input = hasLine(
+            c,
+            /^[ \t]*vidstan\s*=\s*float\s*\(\s*input\s*\(\s*\)\s*\)\s*$/m
+        );
+
+        const structure = hasStructure(
+            c,
+            /^[ \t]*if\s+vidstan\s*<=\s*3\s*:\s*\r?\n[ \t]+vartist\s*=\s*80(?:\.0)?\s*\r?\n[ \t]*else\s*:\s*\r?\n[ \t]+vartist\s*=\s*80\s*\+\s*\(\s*vidstan\s*-\s*3\s*\)\s*\*\s*15\s*\r?\n[ \t]*\r?\n?[ \t]*print\s*\(\s*vartist\s*\)\s*$/m
+        );
+
         return {
-            ok: input && condition && base && otherwise && formula && output,
-            output: "Приклад для введення 5:\n110",
-            success: "Вітаємо! Ти виконав усі місії та правильно використав розгалуження для розрахунку вартості поїздки."
+            ok: input && structure,
+            output: "Зразок результату для введення 5:\n110.0",
+            success:
+                "Вітаємо! Ти виконав усі місії та правильно використав розгалуження для розрахунку вартості поїздки."
         };
     }
 }
 ];
 
+
 /* =====================================================
    СТАН ТРЕНАЖЕРА
 ===================================================== */
+
 let currentMission = 0;
 let completed = new Set();
 let points = 0;
@@ -447,22 +652,11 @@ const consoleOutput = document.getElementById("consoleOutput");
 const feedback = document.getElementById("feedback");
 const hintBox = document.getElementById("hintBox");
 
-/* =====================================================
-   ОЧИЩЕННЯ КОМЕНТАРІВ ДЛЯ ПЕРЕВІРКИ
-===================================================== */
-function cleanCode(code) {
-    return code
-        .split("\n")
-        .filter(function(line) {
-            return !line.trim().startsWith("#");
-        })
-        .join("\n")
-        .replace(/\r/g, "");
-}
 
 /* =====================================================
    СПИСОК МІСІЙ
 ===================================================== */
+
 function renderMissionList() {
     const list = document.getElementById("missionList");
     list.innerHTML = "";
@@ -471,8 +665,13 @@ function renderMissionList() {
         const button = document.createElement("button");
         button.className = "mission";
 
-        if (index === currentMission) button.classList.add("active");
-        if (completed.has(index)) button.classList.add("done");
+        if (index === currentMission) {
+            button.classList.add("active");
+        }
+
+        if (completed.has(index)) {
+            button.classList.add("done");
+        }
 
         button.innerHTML =
             `<span class="mission-number">${completed.has(index) ? "✓" : index + 1}</span>
@@ -484,59 +683,78 @@ function renderMissionList() {
         button.addEventListener("click", function() {
             loadMission(index);
         });
+
         list.appendChild(button);
     });
 }
 
+
 /* =====================================================
    ВІДКРИТТЯ МІСІЇ
 ===================================================== */
+
 function loadMission(index) {
     currentMission = index;
+
     const mission = missions[index];
 
     document.getElementById("taskLabel").textContent =
         "Місія " + (index + 1) + " із " + missions.length;
+
     document.getElementById("taskTitle").textContent = mission.title;
     document.getElementById("taskDescription").textContent = mission.description;
     document.getElementById("taskInstruction").innerHTML = mission.instruction;
 
     editor.value = mission.code;
-    consoleOutput.textContent = "Очікування перевірки програми...";
+
+    consoleOutput.textContent =
+        "Очікування перевірки написаного коду...";
+
     feedback.className = "feedback";
     feedback.textContent = "";
+
     hintBox.style.display = "none";
 
     renderMissionList();
     updateProgress();
 }
 
+
 /* =====================================================
    ОНОВЛЕННЯ ПРОГРЕСУ
 ===================================================== */
+
 function updateProgress() {
     const count = completed.size;
+
     document.getElementById("progressText").textContent =
         count + " із " + missions.length + " місій · " + points + " балів";
+
     document.getElementById("progressFill").style.width =
         (count / missions.length * 100) + "%";
 }
 
+
 /* =====================================================
    ПЕРЕВІРКА КОДУ
 ===================================================== */
+
 function checkCode() {
     const mission = missions[currentMission];
+
     const result = mission.check(editor.value);
 
     if (result.ok) {
-        consoleOutput.textContent = result.output;
+        consoleOutput.textContent =
+            result.output + "\n\nПримітка: це зразок результату, а не запуск твоєї програми.";
+
         feedback.className = "feedback success";
         feedback.textContent = "✓ " + result.success;
 
         if (!completed.has(currentMission)) {
             completed.add(currentMission);
             points += 10;
+
             renderMissionList();
             updateProgress();
 
@@ -545,61 +763,95 @@ function checkCode() {
 
                 if (!completionShown) {
                     completionShown = true;
-                    feedback.textContent += " Загальний результат: " + points + " із " + MAX_POINTS + " балів.";
-                    alert("Вітаємо! Ти пройшов усі місії Python Lab та набрав " + points + " балів із " + MAX_POINTS + "!");
+
+                    feedback.textContent +=
+                        " Загальний результат: " + points +
+                        " із " + MAX_POINTS + " балів.";
+
+                    alert(
+                        "Вітаємо! Ти пройшов усі місії Python Lab та набрав " +
+                        points + " балів із " + MAX_POINTS + "!"
+                    );
+
                     sendProgress("Завершено");
                 }
             } else {
                 sendProgress("У процесі");
+
                 if (currentMission < missions.length - 1) {
-                    feedback.textContent += " Можеш переходити до наступної місії.";
+                    feedback.textContent +=
+                        " Можеш переходити до наступної місії.";
                 }
             }
         } else {
             feedback.textContent += " Цю місію вже зараховано.";
         }
+
     } else {
-        consoleOutput.textContent = "Перевір програму та спробуй ще раз.";
+        consoleOutput.textContent =
+            "Не всі необхідні елементи коду знайдено. Перевір програму та спробуй ще раз.";
+
         feedback.className = "feedback error";
+
         feedback.textContent =
-            "✗ Завдання ще не виконано. Перевір назви змінних, умови, двокрапки та відступи. За потреби скористайся підказкою.";
+            "✗ Завдання ще не виконано. Перевір назви змінних, умови, порядок команд, двокрапки та відступи. За потреби скористайся підказкою.";
     }
 }
 
+
 /* =====================================================
-   ПІДКАЗКА ТА ВІДНОВЛЕННЯ КОДУ
+   ПІДКАЗКА ТА ВІДНОВЛЕННЯ ШАБЛОНУ
 ===================================================== */
+
 function showHint() {
-    hintBox.textContent = "💡 " + missions[currentMission].hint;
+    hintBox.textContent =
+        "💡 " + missions[currentMission].hint;
+
     hintBox.style.display = "block";
 }
 
+
 function resetCode() {
     editor.value = missions[currentMission].code;
-    consoleOutput.textContent = "Початковий код відновлено. Можеш продовжувати роботу.";
+
+    consoleOutput.textContent =
+        "Початковий шаблон відновлено. Можеш продовжувати роботу.";
+
     feedback.className = "feedback";
     feedback.textContent = "";
+
     hintBox.style.display = "none";
 }
+
 
 /* =====================================================
    ВСТАВЛЕННЯ ВІДСТУПУ КЛАВІШЕЮ TAB
 ===================================================== */
+
 editor.addEventListener("keydown", function(event) {
     if (event.key === "Tab") {
         event.preventDefault();
+
         const start = this.selectionStart;
         const end = this.selectionEnd;
-        this.value = this.value.substring(0, start) + "    " + this.value.substring(end);
+
+        this.value =
+            this.value.substring(0, start) +
+            "    " +
+            this.value.substring(end);
+
         this.selectionStart = this.selectionEnd = start + 4;
     }
 });
 
+
 /* =====================================================
    ПОЧАТКОВЕ ВІДОБРАЖЕННЯ
 ===================================================== */
+
 loadMission(0);
 updateProgress();
+
 </script>
 </body>
 </html>
