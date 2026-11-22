@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -121,9 +122,16 @@ footer{text-align:center;color:#7790ab;font-size:12px;padding:25px}
         <div class="field full"><label for="studentClass">Клас</label>
           <select id="studentClass" required>
             <option value="">Оберіть клас</option>
-            <option>8-А</option><option>8-Б</option><option>9-А</option>
-            <option>10-А/П</option><option>10-П/П</option>
-            <option>10-У</option><option>10-А</option><option>10-Х</option>
+            <option value="8-А">8-А</option>
+            <option value="8-Б">8-Б</option>
+            <option value="9-А">9-А</option>
+            <option value="10-А/П">10-А/П</option>
+            <option value="10-П/П">10-П/П</option>
+            <option value="10-Т/П">10-Т/П</option>
+            <option value="10-К">10-К</option>
+            <option value="10-А">10-А</option>
+            <option value="10-Х">10-Х</option>
+            <option value="10-У">10-У</option>
           </select>
         </div>
       </div>
@@ -506,7 +514,7 @@ function checkAnswer(){
       <button class="btn primary" onclick="nextMission()">${currentMission===missions.length-1?'До підсумку':'Наступна місія →'}</button>`;
     document.querySelectorAll('input[name="answer"]').forEach(input=>input.disabled=true);
     document.querySelectorAll(".option").forEach(el=>el.classList.remove("selected"));
-    const selectedInput = document.querySelector(`input[name="answer"][value="${selected}"]`);
+    const selectedInput = document.querySelector(\`input[name="answer"][value="\${selected}"]\`);
     if(selectedInput) selectedInput.closest(".option").classList.add("selected");
     sendProgress(completed.size === missions.length ? "Завершено" : "У процесі");
   }else{
@@ -552,9 +560,9 @@ function checkPractical(){
   showFeedback(true, "Чудово! Ви правильно налаштували кнопку дії, гіперпосилання та тригер. Це вже практична робота з параметрами інтерактивного слайда.");
   ["actionType","actionTarget","linkTarget","triggerObject"].forEach(id => $(id).disabled = true);
   renderMissionList();
-  $("missionContent").querySelector(".control-right").innerHTML = `
+  $("missionContent").querySelector(".control-right").innerHTML = \`
     <button class="btn" onclick="manualSave()">Зберегти прогрес</button>
-    <button class="btn primary" onclick="showSummary()">До підсумку</button>`;
+    <button class="btn primary" onclick="showSummary()">До підсумку</button>\`;
   sendProgress("Завершено");
 }
 
@@ -575,7 +583,7 @@ function showSummary(){
   $("finalStudent").textContent = student.surname + " " + student.firstName + " · " + student.studentClass;
   const percent = points / MAX_POINTS * 100;
   $("finalMessage").textContent = percent === 100 ? "Чудова робота!" : percent >= 70 ? "Гарний результат!" : percent >= 50 ? "Непогано, є основа для повторення." : "Варто ще раз повторити матеріал.";
-  $("finalDetails").textContent = `Виконано місій: ${completed.size} із ${missions.length}. Правильних відповідей: ${completed.size}. Час роботи: ${formatDuration(Math.floor((Date.now()-startedAt)/1000))}.`;
+  $("finalDetails").textContent = \`Виконано місій: \${completed.size} із \${missions.length}. Правильних відповідей: \${completed.size}. Час роботи: \${formatDuration(Math.floor((Date.now()-startedAt)/1000))}.\`;
   sendProgress("Завершено");
 }
 
