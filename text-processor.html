@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -249,12 +250,12 @@ footer {
     <div class="field">
         <label for="className">Клас</label>
         <select id="className">
-            <option value="">Обери клас</option>
-            <option>10-А/П</option>
-            <option>10-П/П</option>
-            <option>9-А</option>
-            <option>8-А</option>
-            <option>8-Б</option>
+        <option value="">Обери клас</option>
+        <option>10-А/П</option>
+        <option>10-П/П</option>
+        <option>9-А</option>
+        <option>8-А</option>
+        <option>8-Б</option>
         </select>
     </div>
 
@@ -514,7 +515,21 @@ const missionsData = [
 let student = {};
 let missionResults = Array(TOTAL_MISSIONS).fill(null);
 let currentScore = 0;
+
+let attemptId = "";
+let startedAt = null;
+let attemptFinished = false;
+let saveQueue = Promise.resolve();
 let isSending = false;
+
+function createAttemptId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+    }
+
+    return "attempt-" + Date.now() + "-" +
+        Math.random().toString(36).substring(2, 12);
+}
 
 function startTraining() {
     const surname = document.getElementById("surname").value.trim();
@@ -533,11 +548,18 @@ function startTraining() {
         className
     };
 
+    attemptId = createAttemptId();
+    startedAt = Date.now();
+    attemptFinished = false;
+    saveQueue = Promise.resolve();
+
     document.getElementById("registration").classList.add("hidden");
     document.getElementById("training").classList.remove("hidden");
 
     renderMissions();
     updateProgress();
+
+    sendProgress("У процесі");
 
     window.scrollTo({top: 0, behavior: "smooth"});
 }
@@ -659,6 +681,18 @@ function checkMission(missionIndex) {
     }
 
     updateProgress();
+
+    // Зберігаємо прогрес лише після успішного виконання місії.
+    if (correct === 3 && !unanswered) {
+        const completed = missionResults.filter(value => value === true).length;
+
+        if (completed === TOTAL_MISSIONS) {
+            attemptFinished = true;
+            sendProgress("Завершено");
+        } else {
+            sendProgress("У процесі");
+        }
+    }
 }
 
 function updateProgress() {
@@ -685,10 +719,91 @@ function updateProgress() {
     }
 }
 
+function createPayload(status) {
+    const completed = missionResults.filter(value => value === true).length;
+
+    return {
+        surname: student.surname,
+        firstName: student.firstname,
+        studentClass: student.className,
+        exercise: "Тренажер текстового процесора",
+        completed: completed,
+        total: TOTAL_MISSIONS,
+        points: currentScore,
+        maxPoints: MAX_POINTS,
+        duration: startedAt
+            ? Math.max(0, Math.floor((Date.now() - startedAt) / 1000))
+            : 0,
+        attemptId: attemptId,
+        status: status
+    };
+}
+
+function sendProgress(status) {
+    if (!attemptId || !student.surname) {
+        return Promise.resolve();
+    }
+
+    const payload = createPayload(status);
+
+    // Послідовна черга не дозволяє старому запиту
+    // перезаписати новіший результат.
+    saveQueue = saveQueue
+        .catch(function() {})
+        .then(function() {
+            return sendRequest(payload);
+        });
+
+    return saveQueue;
+}
+
+function sendRequest(payload) {
+    const sendStatus = document.getElementById("sendStatus");
+    const sendButton = document.getElementById("sendButton");
+
+    const body = new URLSearchParams();
+    body.append("data", JSON.stringify(payload));
+
+    return fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: body
+    }).then(function() {
+        // no-cors не дозволяє прочитати відповідь сервера.
+        // Тому повідомляємо лише про відправлення запиту.
+        if (payload.status === "Завершено") {
+            sendStatus.textContent =
+                "Запит на збереження завершеного результату надіслано. Перевір запис у журналі.";
+        } else {
+            sendStatus.textContent =
+                `Прогрес збереження надіслано: ${payload.completed} із ${TOTAL_MISSIONS} місій.`;
+        }
+
+        sendStatus.className = "feedback success";
+
+        if (payload.status === "Завершено") {
+            sendButton.textContent = "Надіслати повторно";
+            sendButton.disabled = false;
+        }
+
+    }).catch(function(error) {
+        console.error("Помилка надсилання:", error);
+
+        sendStatus.textContent =
+            "Не вдалося надіслати запит. Перевір з'єднання та спробуй ще раз.";
+
+        sendStatus.className = "feedback error";
+
+        sendButton.disabled = false;
+    });
+}
+
 async function sendResults() {
     if (isSending) return;
 
-    if (missionResults.filter(value => value === true).length !== TOTAL_MISSIONS) {
+    const completed = missionResults.filter(value => value === true).length;
+
+    if (completed !== TOTAL_MISSIONS) {
         return;
     }
 
@@ -701,44 +816,11 @@ async function sendResults() {
     sendStatus.textContent = "Надсилаємо результат...";
     sendStatus.className = "feedback";
 
-    const payload = {
-        exercise: "Тренажер текстового процесора",
-        surname: student.surname,
-        firstname: student.firstname,
-        name: `${student.surname} ${student.firstname}`,
-        className: student.className,
-        class: student.className,
-        score: currentScore,
-        points: currentScore,
-        maxPoints: MAX_POINTS,
-        totalMissions: TOTAL_MISSIONS,
-        completedMissions: TOTAL_MISSIONS,
-        result: `${currentScore}/${MAX_POINTS}`,
-        date: new Date().toISOString()
-    };
-
     try {
-        await fetch(SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        sendStatus.textContent =
-            "Запит на надсилання результату відправлено.";
-        sendStatus.className = "feedback success";
-
-        sendButton.textContent = "Результат надіслано";
-    } catch (error) {
-        sendStatus.textContent =
-            "Не вдалося надіслати результат. Спробуй ще раз.";
-        sendStatus.className = "feedback error";
-
-        sendButton.disabled = false;
+        await sendProgress("Завершено");
+    } finally {
         isSending = false;
+        sendButton.disabled = false;
     }
 }
 </script>
