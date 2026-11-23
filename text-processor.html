@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Тренажер текстового процесора</title>
+<style>
+:root{--bg:#080e20;--panel:rgba(19,29,57,.88);--border:rgba(137,160,255,.17);--text:#eef2ff;--muted:#aab6d4;--blue:#638cff;--green:#45d6a0;--red:#ff7185}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:"Segoe UI",Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% 12%,rgba(67,100,220,.19),transparent 28%),radial-gradient(circle at 88% 35%,rgba(133,75,220,.16),transparent 30%),linear-gradient(135deg,#080e20,#101832 55%,#0a1025)}
+button,input,select{font:inherit}button{cursor:pointer}.page{width:min(1050px,calc(100% - 32px));margin:auto;padding:30px 0 55px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.back{display:inline-flex;align-items:center;gap:8px;color:#c5d1ff;text-decoration:none;font-size:14px;padding:10px 15px;border:1px solid var(--border);border-radius:12px;background:rgba(20,32,65,.6)}.tag{color:#aebeff;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.hero{text-align:center;padding:22px 10px 30px}.hero-icon{width:76px;height:76px;display:grid;place-items:center;margin:0 auto 18px;border-radius:23px;font-size:37px;background:linear-gradient(135deg,#426fe0,#885ce0);box-shadow:0 12px 35px rgba(83,105,230,.28)}h1{margin:0 0 12px;font-size:clamp(27px,5vw,39px);letter-spacing:-.7px}.hero p{max-width:680px;margin:auto;color:var(--muted);line-height:1.65}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:21px;padding:26px;box-shadow:0 18px 55px rgba(0,0,0,.2);backdrop-filter:blur(12px)}.panel h2{margin:0 0 9px;font-size:22px}.description{color:var(--muted);line-height:1.6;margin:0 0 22px;font-size:14px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:8px}.field.full{grid-column:1/-1}label{color:#dce4ff;font-size:14px;font-weight:600}
+input,select{width:100%;padding:13px 14px;color:white;background:rgba(7,14,34,.8);border:1px solid rgba(142,164,255,.23);border-radius:11px;outline:none}input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(99,140,255,.13)}select option{background:#111b38}
+.primary,.secondary{border:0;border-radius:12px;padding:13px 20px;font-weight:700;transition:.2s}.primary{color:white;background:linear-gradient(110deg,#4778ed,#8861e8);box-shadow:0 7px 22px rgba(85,108,230,.22)}.primary:hover{transform:translateY(-2px)}.primary:disabled,.secondary:disabled{opacity:.55;cursor:not-allowed;transform:none}.secondary{color:#dce5ff;background:rgba(91,117,190,.17);border:1px solid rgba(132,158,255,.25)}.start-button{width:100%;margin-top:22px}.hidden{display:none!important}
+.dashboard{margin-bottom:22px}.dashboard-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.student-info{color:var(--muted);font-size:14px;line-height:1.6}.student-info strong{color:white}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}.stat{padding:15px;border-radius:13px;background:rgba(7,14,34,.55);border:1px solid rgba(137,160,255,.12)}.stat-label{color:var(--muted);font-size:12px;margin-bottom:7px}.stat-value{font-size:23px;font-weight:800}.progress-track{height:9px;border-radius:20px;overflow:hidden;margin-top:18px;background:rgba(255,255,255,.09)}.progress-fill{width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#4c85ff,#ad7aff);transition:width .35s}.save-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}.save-message{color:var(--muted);font-size:12px;line-height:1.5}
+.mission{margin-top:17px;padding:24px;border-radius:18px;background:var(--panel);border:1px solid var(--border);transition:.2s}.mission.completed{border-color:rgba(69,214,160,.45)}.mission-head{display:flex;align-items:flex-start;gap:15px;margin-bottom:17px}.mission-number{flex:0 0 43px;width:43px;height:43px;display:grid;place-items:center;border-radius:13px;font-weight:800;font-size:17px;background:linear-gradient(135deg,#426fe0,#805bd4)}.mission h3{margin:0 0 5px;font-size:18px}.mission-subtitle{color:var(--muted);font-size:13px}.mission-text{color:#dce4ff;line-height:1.65;font-size:14px;margin:0 0 18px}.task-box{padding:16px;border-radius:13px;background:rgba(5,12,30,.55);border:1px solid rgba(137,160,255,.13);margin-bottom:16px}.task-box p{margin:0 0 10px;color:#cbd7ff;font-size:14px;line-height:1.6}.task-box p:last-child{margin:0}.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.answer-field{display:flex;flex-direction:column;gap:7px}.answer-field label{font-size:13px;color:#bdc9e9}.check-button{margin-top:17px}.feedback{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;display:none}.feedback.success{display:block;color:#a6f4d3;background:rgba(39,173,125,.13);border:1px solid rgba(69,214,160,.25)}.feedback.error{display:block;color:#ffb2bf;background:rgba(220,73,100,.12);border:1px solid rgba(255,113,133,.22)}.mission-status{margin-left:auto;color:var(--muted);font-size:12px;white-space:nowrap}.mission-status.done{color:var(--green)}
+.finish{text-align:center;margin-top:22px;padding:28px;border:1px solid rgba(69,214,160,.3);background:rgba(23,75,69,.2);border-radius:18px}.finish-icon{font-size:42px;margin-bottom:10px}.finish h2{margin:0 0 10px}.finish p{color:var(--muted);line-height:1.6}.footer{text-align:center;margin-top:32px;color:#7785aa;font-size:12px}
+@media(max-width:650px){.page{width:min(100% - 20px,1050px);padding-top:18px}.panel,.mission{padding:19px}.form-grid,.answer-grid{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:11px}.stat-value{font-size:19px}.dashboard-top,.save-row{align-items:flex-start}.mission-head{gap:10px}.mission-status{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="top"><a class="back" href="https://vlad2024-vv.github.io/interactives-/pilot-10.html">← До матеріалів 10 класу</a><span class="tag">Практичний тренажер</span></div>
+<header class="hero"><div class="hero-icon">📝</div><h1>Тренажер текстового процесора</h1><p>Перевір свої знання та навички роботи з текстовими документами. Виконай десять практичних місій і отримай до 100 балів.</p></header>
+
+<section class="panel" id="registration">
+<h2>👋 Почнемо роботу</h2><p class="description">Вкажи свої дані перед початком тренування. Результати виконання завдань будуть передані до журналу.</p>
+<form id="studentForm"><div class="form-grid">
+<div class="field"><label for="surname">Прізвище</label><input id="surname" type="text" autocomplete="family-name" placeholder="Введи прізвище" required></div>
+<div class="field"><label for="firstName">Ім’я</label><input id="firstName" type="text" autocomplete="given-name" placeholder="Введи ім’я" required></div>
+<div class="field full"><label for="studentClass">Клас</label><select id="studentClass" required>
+<option value="">Обери свій клас</option><option>8-А</option><option>8-Б</option><option>9-А</option><option>10-А/П</option><option>10-П/П</option><option>10-Т/П</option><option>10-К</option><option>10-А</option><option>10-Х</option><option>10-У</option>
+</select></div></div><button class="primary start-button" type="submit">Розпочати тренування →</button></form>
+</section>
+
+<section id="training" class="hidden">
+<div class="panel dashboard"><div class="dashboard-top"><div class="student-info" id="studentInfo"></div><span class="tag">Твій прогрес</span></div>
+<div class="stats"><div class="stat"><div class="stat-label">Виконано місій</div><div class="stat-value" id="completedCount">0 / 10</div></div><div class="stat"><div class="stat-label">Набрано балів</div><div class="stat-value" id="pointsCount">0 / 100</div></div><div class="stat"><div class="stat-label">Прогрес</div><div class="stat-value" id="percentCount">0%</div></div></div>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="save-row"><span class="save-message" id="saveMessage">Прогрес надсилатиметься до журналу автоматично.</span><button type="button" class="secondary" id="saveButton">💾 Зберегти результат</button></div></div>
+<div id="missions"></div>
+<section class="finish hidden" id="finish"><div class="finish-icon">🏆</div><h2>Тренування завершено!</h2><p id="finishText"></p><p>Дякуємо за виконання завдань!</p></section>
+</section>
+<footer class="footer">Ліцей імені Олександра Цинкаловського<br>© 2026 Кабінет інформатики</footer>
+</div>
+
+<script>
+const WEB_APP_URL="https://script.google.com/macros/s/AKfycbwI6jESt5PyQp5Zei4ZNFGjiAYC7RwUcW9n4uYUGMHRh9xOCrKluwsAbO2ewjlqXw0P/exec";
+const TOTAL_MISSIONS=10,MAX_POINTS=100;
+let student={surname:"",firstName:"",studentClass:""},attemptId="",startedAt=null,completedMissions=new Set(),points=0,attemptFinished=false,saveQueue=Promise.resolve();
+
+/* Кожне поле має перелік правильних відповідей. */
+const missions=[
+{title:"Інтерфейс текстового процесора",sub:"Знайомимося з робочим середовищем",desc:"Текстовий процесор має різні елементи інтерфейсу, які допомагають створювати та редагувати документи.",task:["Установи відповідність між елементом інтерфейсу та його призначенням.","1. Де вводять і редагують текст?","2. Що допомагає встановлювати відступи?","3. Де можна побачити номер сторінки документа?"],fields:[
+["Де вводять текст?","select",["робоча область","рядок стану","лінійка"],["робоча область"]],
+["Що допомагає встановлювати відступи?","select",["робоча область","рядок стану","лінійка"],["лінійка"]],
+["Де можна побачити номер сторінки?","select",["робоча область","рядок стану","лінійка"],["рядок стану"]]]},
+{title:"Створення та збереження документа",sub:"Працюємо з файлами",desc:"Документ потрібно вміти створювати, відкривати та зберігати у потрібному місці.",task:["Обери клавіатурне скорочення для кожної дії.","1. Зберегти поточний документ.","2. Відкрити наявний документ.","3. Створити новий документ."],fields:[
+["Зберегти документ","select",["Ctrl + S","Ctrl + O","Ctrl + N"],["ctrl+s"]],
+["Відкрити документ","select",["Ctrl + S","Ctrl + O","Ctrl + N"],["ctrl+o"]],
+["Створити новий документ","select",["Ctrl + S","Ctrl + O","Ctrl + N"],["ctrl+n"]]]},
+{title:"Редагування тексту",sub:"Копіюємо, переміщуємо та скасовуємо дії",desc:"Під час редагування тексту часто потрібно копіювати або переміщувати фрагменти, а також скасовувати помилкові дії.",task:["Запиши клавіатурні скорочення для виконання дій.","1. Копіювати виділений фрагмент.","2. Вирізати фрагмент для подальшого переміщення.","3. Вставити скопійований або вирізаний фрагмент.","4. Скасувати останню дію."],fields:[
+["Копіювати","text",[],["ctrl+c"]],["Вирізати","text",[],["ctrl+x"]],["Вставити","text",[],["ctrl+v"]],["Скасувати дію","text",[],["ctrl+z"]]]},
+{title:"Форматування символів",sub:"Змінюємо вигляд тексту",desc:"Форматування символів змінює зовнішній вигляд виділеного тексту: шрифт, розмір, накреслення та колір.",task:["1. Яке скорочення робить текст напівжирним?","2. Яке скорочення робить текст курсивним?","3. Яке скорочення підкреслює текст?","4. Який параметр визначає висоту символів?"],fields:[
+["Напівжирний текст","text",[],["ctrl+b"]],["Курсив","text",[],["ctrl+i"]],["Підкреслення","text",[],["ctrl+u"]],
+["Висота символів","select",["Розмір шрифту","Колір шрифту","Гарнітура шрифту"],["розмір шрифту"]]]},
+{title:"Форматування абзаців",sub:"Вирівнюємо текст і встановлюємо відступи",desc:"Для зручного читання документа важливо правильно оформлювати абзаци та розташовувати текст на сторінці.",task:["1. Яке вирівнювання розташовує текст одночасно біля лівого та правого країв?","2. Як називається відступ на початку абзацу?","3. Яке вирівнювання часто використовують для заголовка?"],fields:[
+["Вирівнювання за обома краями","select",["За шириною","За центром","За лівим краєм"],["за шириною"]],
+["Відступ на початку абзацу","text",[],["абзацний відступ","відступ першого рядка","перший рядок"]],
+["Вирівнювання заголовка","select",["За центром","За шириною","За правим краєм"],["за центром"]]]},
+{title:"Марковані та нумеровані списки",sub:"Упорядковуємо інформацію",desc:"Списки допомагають подавати перелік предметів, дій або послідовність кроків у зручному вигляді.",task:["1. Який список використовує крапки або інші маркери перед пунктами?","2. Який список автоматично нумерує пункти?","3. Який список краще використати для інструкції з послідовними діями?"],fields:[
+["Список із маркерами","select",["Маркований","Нумерований"],["маркований"]],
+["Список із числами","select",["Маркований","Нумерований"],["нумерований"]],
+["Список для послідовних кроків","select",["Маркований","Нумерований"],["нумерований"]]]},
+{title:"Параметри сторінки",sub:"Готуємо документ до друку",desc:"Параметри сторінки визначають її розмір, орієнтацію та поля документа.",task:["1. Який формат паперу найчастіше використовують для звичайних документів?","2. Як називається розташування сторінки, коли її ширина більша за висоту?","3. Як називається вільний простір між краєм сторінки та текстом?"],fields:[
+["Формат паперу","select",["A4","A3","A5"],["a4"]],
+["Ширина сторінки більша за висоту","select",["Альбомна","Книжкова"],["альбомна"]],
+["Вільний простір навколо тексту","text",[],["поля","поля сторінки"]]]},
+{title:"Таблиці в текстовому документі",sub:"Структуруємо дані",desc:"Таблиці дають змогу розміщувати інформацію в рядках і стовпцях без використання електронної таблиці.",task:["Потрібно створити таблицю розкладу з трьома стовпцями: «День», «Предмет», «Кабінет».","1. Скільки стовпців потрібно створити?","2. Як називається горизонтальна частина таблиці?","3. Як називається вертикальна частина таблиці?"],fields:[
+["Кількість стовпців","text",[],["3"]],
+["Горизонтальна частина","text",[],["рядок","рядки"]],
+["Вертикальна частина","text",[],["стовпець","стовпчик","стовпці","стовпчики"]]]},
+{title:"Зображення в документі",sub:"Додаємо та розміщуємо ілюстрації",desc:"Зображення роблять документ наочнішим. Після вставлення можна змінювати його розмір і спосіб взаємодії з текстом.",task:["1. Яку дію потрібно виконати, щоб додати фотографію з комп’ютера до документа?","2. Як називається параметр, який визначає розташування тексту відносно зображення?","3. Який спосіб обтікання розміщує текст навколо зображення з боків?"],fields:[
+["Дія для додавання фото","select",["Вставити зображення","Перевірити правопис","Створити список"],["вставити зображення"]],
+["Параметр розташування тексту","text",[],["обтікання текстом","обтікання","спосіб обтікання"]],
+["Текст огинає зображення з боків","select",["Квадратне","У тексті","Перед текстом"],["квадратне"]]]},
+{title:"Гіперпосилання та зміст документа",sub:"Створюємо зручну навігацію",desc:"Гіперпосилання допомагають переходити на вебсторінки або до інших місць документа. Автоматичний зміст дає змогу швидко переходити до потрібних розділів.",task:["1. Яке скорочення зазвичай відкриває вікно вставлення гіперпосилання?","2. Що потрібно застосувати до назв розділів, щоб текстовий процесор міг автоматично сформувати зміст?","3. Як називається команда для автоматичного створення змісту?","4. Що відбувається після натискання пункту автоматичного змісту?"],fields:[
+["Вставити гіперпосилання","text",[],["ctrl+k"]],
+["Форматування назв розділів","select",["Стилі заголовків","Колір шрифту","Міжрядковий інтервал"],["стилі заголовків"]],
+["Команда для формування змісту","text",[],["зміст","автоматичний зміст","таблиця змісту","вставити зміст"]],
+["Дія пункту змісту","select",["Перехід до відповідного розділу","Видалення розділу","Зміна шрифту"],["перехід до відповідного розділу"]]]}
+];
+
+function norm(v){return String(v??"").trim().toLowerCase().replace(/\s+/g,"").replace(/ё/g,"е").replace(/–|—/g,"-");}
+function renderMissions(){
+ const root=document.getElementById("missions");
+ root.innerHTML=missions.map((m,i)=>{
+  const n=i+1;
+  const fields=m.fields.map((f,j)=>{
+   const id="m"+n+"_"+j;
+   const control=f[1]==="select"
+    ? `<select id="${id}"><option value="">Обери відповідь</option>${f[2].map(x=>`<option value="${x}">${x}</option>`).join("")}</select>`
+    : `<input id="${id}" type="text" placeholder="Введи відповідь">`;
+   return `<div class="answer-field"><label for="${id}">${f[0]}</label>${control}</div>`;
+  }).join("");
+  return `<section class="mission" id="mission${n}"><div class="mission-head"><div class="mission-number">${n}</div><div><h3>${m.title}</h3><div class="mission-subtitle">${m.sub} · 10 балів</div></div><span class="mission-status" id="status${n}">Не виконано</span></div><p class="mission-text">${m.desc}</p><div class="task-box">${m.task.map(x=>`<p>${x}</p>`).join("")}</div><div class="answer-grid">${fields}</div><button class="primary check-button" onclick="checkMission(${n})">Перевірити відповіді</button><div class="feedback" id="feedback${n}"></div></section>`;
+ }).join("");
+}
+renderMissions();
+
+document.getElementById("studentForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ student={surname:document.getElementById("surname").value.trim(),firstName:document.getElementById("firstName").value.trim(),studentClass:document.getElementById("studentClass").value};
+ if(!student.surname||!student.firstName||!student.studentClass){alert("Будь ласка, заповни всі поля.");return;}
+ attemptId=(crypto.randomUUID?crypto.randomUUID():"attempt-"+Date.now()+"-"+Math.random().toString(36).slice(2));
+ startedAt=Date.now();
+ document.getElementById("registration").classList.add("hidden");
+ document.getElementById("training").classList.remove("hidden");
+ document.getElementById("studentInfo").innerHTML="Учень: <strong>"+escapeHTML(student.surname+" "+student.firstName)+"</strong><br>Клас: <strong>"+escapeHTML(student.studentClass)+"</strong>";
+ updateDashboard();
+ document.getElementById("saveMessage").textContent="Тренування розпочато. Надсилаємо початковий запис до журналу.";
+ sendProgress("У процесі");
+});
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+
+function checkMission(number){
+ if(completedMissions.has(number))return;
+ const m=missions[number-1];
+ const ok=m.fields.every((f,j)=>f[3].map(norm).includes(norm(document.getElementById("m"+number+"_"+j).value)));
+ const fb=document.getElementById("feedback"+number);
+ if(!ok){
+  fb.className="feedback error";
+  fb.textContent="Є помилки. Перевір відповіді та спробуй ще раз. Підказка: уважно прочитай запитання й обери відповідний інструмент або команду.";
+  return;
+ }
+ completedMissions.add(number);points=completedMissions.size*10;
+ fb.className="feedback success";fb.textContent="Чудово! Усі відповіді правильні. Місію виконано — 10 балів.";
+ const card=document.getElementById("mission"+number);
+ card.classList.add("completed");
+ const status=document.getElementById("status"+number);status.textContent="✓ Виконано";status.classList.add("done");
+ const button=card.querySelector(".check-button");button.textContent="Місію виконано";button.disabled=true;
+ updateDashboard();
+ if(completedMissions.size===TOTAL_MISSIONS){attemptFinished=true;showFinish();sendProgress("Завершено");}
+ else sendProgress("У процесі");
+}
+function updateDashboard(){
+ const count=completedMissions.size,pct=Math.round(count/TOTAL_MISSIONS*100);
+ document.getElementById("completedCount").textContent=count+" / "+TOTAL_MISSIONS;
+ document.getElementById("pointsCount").textContent=points+" / "+MAX_POINTS;
+ document.getElementById("percentCount").textContent=pct+"%";
+ document.getElementById("progressFill").style.width=pct+"%";
+}
+function getDuration(){return startedAt?Math.max(0,Math.floor((Date.now()-startedAt)/1000)):0;}
+function formatDuration(s){return Math.floor(s/60)+" хв "+(s%60)+" с";}
+function createPayload(status){return {surname:student.surname,firstName:student.firstName,studentClass:student.studentClass,exercise:"Тренажер текстового процесора",completed:completedMissions.size,total:TOTAL_MISSIONS,points:points,maxPoints:MAX_POINTS,duration:getDuration(),attemptId:attemptId,status:status};}
+function sendProgress(status){
+ if(!attemptId||!student.surname)return Promise.resolve();
+ const payload=createPayload(status);
+ saveQueue=saveQueue.catch(()=>{}).then(()=>sendRequest(payload));
+ return saveQueue;
+}
+function sendRequest(payload){
+ const msg=document.getElementById("saveMessage"),btn=document.getElementById("saveButton");
+ btn.disabled=true;btn.textContent="Надсилання...";msg.textContent="Надсилаємо запит до журналу...";
+ const body=new URLSearchParams();body.append("data",JSON.stringify(payload));
+ return fetch(WEB_APP_URL,{method:"POST",mode:"no-cors",body:body})
+ .then(()=>{msg.textContent="Запит на збереження надіслано. Перевірити запис можна в журналі.";})
+ .catch(err=>{console.error("Помилка надсилання:",err);msg.textContent="Не вдалося надіслати запит. Перевір підключення до Інтернету та спробуй зберегти ще раз.";})
+ .finally(()=>{btn.disabled=false;btn.textContent="💾 Зберегти результат";});
+}
+document.getElementById("saveButton").addEventListener("click",()=>{if(attemptId)sendProgress(attemptFinished?"Завершено":"У процесі");});
+function showFinish(){
+ document.getElementById("finish").classList.remove("hidden");
+ document.getElementById("finishText").textContent="Ти виконав усі десять місій і набрав "+points+" із "+MAX_POINTS+" балів. Час виконання: "+formatDuration(getDuration())+".";
+ document.getElementById("finish").scrollIntoView({behavior:"smooth",block:"center"});
+}
+</script>
+</body>
+</html>
