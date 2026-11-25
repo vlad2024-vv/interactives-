@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Логічний двіж — 12 випробувань для мозку</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #f1f5f9;
+    background:
+        radial-gradient(circle at 15% 15%, #164e63 0, transparent 35%),
+        radial-gradient(circle at 85% 85%, #312e81 0, transparent 35%),
+        #071426;
+    padding: 25px 15px;
+}
+
+.container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    padding: 25px 10px;
+}
+
+.logo {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: clamp(27px, 5vw, 42px);
+    margin: 0 0 12px;
+    color: #67e8f9;
+}
+
+.subtitle {
+    color: #cbd5e1;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.game {
+    background: rgba(15, 31, 53, 0.95);
+    border: 1px solid rgba(103, 232, 249, 0.2);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.35);
+}
+
+.top-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    color: #a5f3fc;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.progress-bg {
+    height: 10px;
+    background: #26374d;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 28px;
+}
+
+.progress {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #06b6d4, #818cf8);
+    transition: width 0.3s;
+}
+
+.question {
+    font-size: 23px;
+    line-height: 1.45;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.answers {
+    display: grid;
+    gap: 12px;
+}
+
+.answer {
+    width: 100%;
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 17px;
+    color: #e2e8f0;
+    background: #1e334e;
+    border: 2px solid #344b68;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.answer:hover:not(:disabled) {
+    border-color: #67e8f9;
+    background: #254765;
+    transform: translateY(-2px);
+}
+
+.answer:disabled {
+    cursor: default;
+}
+
+.answer.correct {
+    background: #14532d;
+    border-color: #4ade80;
+}
+
+.answer.wrong {
+    background: #7f1d1d;
+    border-color: #f87171;
+}
+
+.feedback {
+    display: none;
+    margin-top: 22px;
+    padding: 18px;
+    border-radius: 13px;
+    background: #172f49;
+    border-left: 4px solid #67e8f9;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.feedback strong {
+    color: #67e8f9;
+}
+
+.next-btn, .restart-btn {
+    display: block;
+    width: 100%;
+    margin-top: 22px;
+    padding: 16px;
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(90deg, #0891b2, #4f46e5);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.next-btn:hover, .restart-btn:hover {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+}
+
+.next-btn {
+    display: none;
+}
+
+.result {
+    display: none;
+    text-align: center;
+}
+
+.result-emoji {
+    font-size: 75px;
+    margin: 10px 0;
+}
+
+.result h2 {
+    color: #67e8f9;
+    font-size: 30px;
+}
+
+.score {
+    font-size: 35px;
+    font-weight: bold;
+    color: #fde68a;
+    margin: 20px 0;
+}
+
+.result-text {
+    color: #cbd5e1;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+    padding: 25px 10px;
+}
+
+@media (max-width: 600px) {
+    .game {
+        padding: 20px 16px;
+    }
+
+    .question {
+        font-size: 20px;
+    }
+
+    .answer {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <div class="logo">🧠</div>
+    <h1>Логічний двіж</h1>
+    <div class="subtitle">
+        12 випробувань для мозку!<br>
+        Перевір, чи не заснув твій внутрішній геній 😎
+    </div>
+</header>
+
+<div class="game">
+
+    <div id="quiz">
+
+        <div class="top-info">
+            <span id="questionNumber">Запитання 1 із 12</span>
+            <span id="score">⭐ Бали: 0</span>
+        </div>
+
+        <div class="progress-bg">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="question" id="question"></div>
+
+        <div class="answers" id="answers"></div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+            Наступне випробування →
+        </button>
+
+    </div>
+
+    <div class="result" id="result">
+        <div class="result-emoji" id="resultEmoji"></div>
+        <h2 id="resultTitle"></h2>
+        <div class="score" id="finalScore"></div>
+        <div class="result-text" id="resultText"></div>
+
+        <button class="restart-btn" onclick="startGame()">
+            🔄 Спробувати ще раз
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    Кабінет інформатики · Логічний двіж
+</footer>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+    q: "У кімнаті горіло 5 свічок. Дві з них загасили. Скільки свічок залишилося?",
+    a: [
+        {t: "3", c: false},
+        {t: "2", c: false},
+        {t: "5", c: true},
+        {t: "Жодної, прийшов вітер", c: false}
+    ],
+    why: "Усі 5 свічок залишилися в кімнаті. Просто дві загасилися. А ті три, що горіли, з часом згорять. 😉"
+},
+
+{
+    q: "Що важче: кілограм заліза чи кілограм пір'я?",
+    a: [
+        {t: "Залізо", c: false},
+        {t: "Пір'я", c: false},
+        {t: "Однакова вага", c: true},
+        {t: "Залежить від погоди", c: false}
+    ],
+    why: "Кілограм є кілограм! Хоч залізо, хоч пір'я. Але спробуй підняти кілограм пір'я — займе пів парти! 😁"
+},
+
+{
+    q: "Продовж послідовність: 2, 4, 8, 16, ...",
+    a: [
+        {t: "18", c: false},
+        {t: "24", c: false},
+        {t: "32", c: true},
+        {t: "30", c: false}
+    ],
+    why: "Кожне наступне число вдвічі більше за попереднє. 16 × 2 = 32. Математика сьогодні на твоєму боці!"
+},
+
+{
+    q: "У батька Марійки є три доньки: Оля, Іра і... Як звати третю?",
+    a: [
+        {t: "Наталя", c: false},
+        {t: "Марійка", c: true},
+        {t: "Катя", c: false},
+        {t: "Тут бракує даних", c: false}
+    ],
+    why: "Уважно прочитай початок запитання! У батька Марійки є три доньки. Третя — Марійка. 😉"
+},
+
+{
+    q: "Скільки місяців у році мають 28 днів?",
+    a: [
+        {t: "Один", c: false},
+        {t: "Два", c: false},
+        {t: "Шість", c: false},
+        {t: "Усі 12", c: true}
+    ],
+    why: "У кожному місяці є щонайменше 28 днів. Не шукай підступ там, де календар усе давно вирішив! 📅"
+},
+
+{
+    q: "Петрик обігнав бігуна, який біг другим. Яким тепер біжить Петрик?",
+    a: [
+        {t: "Першим", c: false},
+        {t: "Другим", c: true},
+        {t: "Третім", c: false},
+        {t: "Він уже на фініші", c: false}
+    ],
+    why: "Якщо обігнав другого, то зайняв його місце. Отже, Петрик тепер другий. До першого ще треба попрацювати! 🏃"
+},
+
+{
+    q: "На столі лежали 3 яблука. Ти взяв 2. Скільки яблук у тебе?",
+    a: [
+        {t: "1", c: false},
+        {t: "2", c: true},
+        {t: "3", c: false},
+        {t: "Жодного, бо це не твої яблука", c: false}
+    ],
+    why: "Ти взяв два яблука. Отже, у тебе два. Не треба рахувати те, що залишилося на столі! 🍎"
+},
+
+{
+    q: "Яке число зайве: 3, 6, 9, 12, 14, 15?",
+    a: [
+        {t: "9", c: false},
+        {t: "12", c: false},
+        {t: "14", c: true},
+        {t: "15", c: false}
+    ],
+    why: "Усі числа, крім 14, діляться на 3. Чотирнадцять випадково забігло не в ту компанію."
+},
+
+{
+    q: "У темній кімнаті є свічка, гасова лампа та камін. У тебе лише один сірник. Що запалиш першим?",
+    a: [
+        {t: "Свічку", c: false},
+        {t: "Лампу", c: false},
+        {t: "Камін", c: false},
+        {t: "Сірник", c: true}
+    ],
+    why: "Спочатку потрібно запалити сірник! Без нього всі інші плани залишаться планами. 🔥"
+},
+
+{
+    q: "У кошику 5 груш. Як роздати їх п'ятьом дітям, щоб кожна дитина отримала по груші й одна груша залишилася в кошику?",
+    a: [
+        {t: "Це неможливо", c: false},
+        {t: "Одній дитині дати дві груші", c: false},
+        {t: "Останній дитині дати грушу разом із кошиком", c: true},
+        {t: "З'їсти одну грушу", c: false}
+    ],
+    why: "Чотири дитини отримують по груші, а п'ята — останню грушу разом із кошиком. Усі задоволені! 🍐"
+},
+
+{
+    q: "Продовж послідовність: 1, 1, 2, 3, 5, 8, ...",
+    a: [
+        {t: "10", c: false},
+        {t: "11", c: false},
+        {t: "13", c: true},
+        {t: "16", c: false}
+    ],
+    why: "Кожне наступне число — сума двох попередніх. 5 + 8 = 13. Це послідовність Фібоначчі. Звучить серйозно, а рахується просто!"
+},
+
+{
+    q: "У сім'ї два батьки і два сини. Вони пішли на риболовлю та спіймали 3 риби. Кожен отримав по одній. Як так?",
+    a: [
+        {t: "Один не захотів риби", c: false},
+        {t: "Було троє людей: дідусь, батько і син", c: true},
+        {t: "Рибу поділили на частини", c: false},
+        {t: "Один з'їв дві", c: false}
+    ],
+    why: "Це дідусь, його син і онук. Дідусь і батько — два батьки, батько й онук — два сини. Усього троє людей! 🎣"
+}
+
+];
+
+let gameQuestions = [];
+let current = 0;
+let points = 0;
+let answered = false;
+
+function shuffle(array) {
+    let result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+    }
+
+    return result;
+}
+
+function startGame() {
+    gameQuestions = shuffle(questions).map(item => ({
+        ...item,
+        a: shuffle(item.a)
+    }));
+
+    current = 0;
+    points = 0;
+    answered = false;
+
+    document.getElementById("quiz").style.display = "block";
+    document.getElementById("result").style.display = "none";
+
+    showQuestion();
+}
+
+function showQuestion() {
+    answered = false;
+
+    let item = gameQuestions[current];
+
+    document.getElementById("questionNumber").textContent =
+        "Запитання " + (current + 1) + " із 12";
+
+    document.getElementById("score").textContent =
+        "⭐ Бали: " + points;
+
+    document.getElementById("progress").style.width =
+        (current / 12 * 100) + "%";
+
+    document.getElementById("question").textContent = item.q;
+
+    document.getElementById("feedback").style.display = "none";
+    document.getElementById("nextBtn").style.display = "none";
+
+    let answers = document.getElementById("answers");
+    answers.innerHTML = "";
+
+    item.a.forEach((answer, index) => {
+        let button = document.createElement("button");
+
+        button.className = "answer";
+        button.textContent =
+            String.fromCharCode(65 + index) + ") " + answer.t;
+
+        button.onclick = () => checkAnswer(index);
+
+        answers.appendChild(button);
+    });
+}
+
+function checkAnswer(index) {
+    if (answered) return;
+
+    answered = true;
+
+    let item = gameQuestions[current];
+    let buttons = document.querySelectorAll(".answer");
+    let correctIndex = item.a.findIndex(answer => answer.c);
+
+    if (item.a[index].c) {
+        points++;
+    }
+
+    buttons.forEach((button, i) => {
+        button.disabled = true;
+
+        if (i === correctIndex) {
+            button.classList.add("correct");
+        }
+
+        if (i === index && !item.a[index].c) {
+            button.classList.add("wrong");
+        }
+    });
+
+    document.getElementById("score").textContent =
+        "⭐ Бали: " + points;
+
+    let feedback = document.getElementById("feedback");
+
+    if (item.a[index].c) {
+        feedback.innerHTML =
+            "<strong>🎉 Правильно! Мозок працює!</strong><br><br>" +
+            item.why;
+    } else {
+        feedback.innerHTML =
+            "<strong>😅 Не цього разу! Але не здавайся.</strong><br><br>" +
+            item.why;
+    }
+
+    feedback.style.display = "block";
+
+    let nextBtn = document.getElementById("nextBtn");
+
+    nextBtn.textContent =
+        current === 11 ? "Побачити результат 🏆" : "Наступне випробування →";
+
+    nextBtn.style.display = "block";
+}
+
+function nextQuestion() {
+    current++;
+
+    if (current < 12) {
+        showQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("progress").style.width = "100%";
+
+    document.getElementById("finalScore").textContent =
+        points + " / 12 балів";
+
+    let emoji, title, message;
+
+    if (points === 12) {
+        emoji = "👑";
+        title = "Легенда логіки!";
+        message = "12 із 12! Твій мозок сьогодні працює на максимальних обертах. Можливо, ти таємно тренуєшся з комп'ютерами?";
+    } else if (points >= 10) {
+        emoji = "🧠";
+        title = "Майстер мислення!";
+        message = "Чудовий результат! Логіка в тебе на висоті. Ще трохи — і можна відкривати власну школу детективів.";
+    } else if (points >= 7) {
+        emoji = "😎";
+        title = "Логічний боєць!";
+        message = "Дуже непогано! Деякі загадки тебе не обдурили. А деякі просто були хитріші.";
+    } else if (points >= 4) {
+        emoji = "🤔";
+        title = "Мозок на розминці!";
+        message = "Є над чим подумати! Але не хвилюйся — навіть найрозумніші іноді програють загадкам про яблука.";
+    } else {
+        emoji = "😂";
+        title = "Головне — участь!";
+        message = "Схоже, мозок сьогодні був на перерві. Нічого страшного! Спробуй ще раз — цього разу загадки вже не будуть такими підступними.";
+    }
+
+    document.getElementById("resultEmoji").textContent = emoji;
+    document.getElementById("resultTitle").textContent = title;
+    document.getElementById("resultText").textContent = message;
+}
+
+startGame();
+
+</script>
+
+</body>
+</html>
