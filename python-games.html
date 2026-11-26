@@ -185,7 +185,7 @@ header p { color: #a9bfd8; }
     cursor: pointer;
 }
 
-/* ОДНА КОНСОЛЬ */
+/* КОНСОЛЬ */
 
 .console {
     background: #061321;
@@ -311,7 +311,7 @@ header p { color: #a9bfd8; }
     transform: translate(-50%, -50%);
     font-size: 43px;
     z-index: 3;
-    transition: left 1s ease, top 1s ease, transform 1s ease;
+    transition: left 1s ease, top 1s ease;
 }
 
 .ball {
@@ -322,14 +322,6 @@ header p { color: #a9bfd8; }
     font-size: 31px;
     z-index: 4;
     transition: left 1s ease, top 1s ease, bottom 1s ease;
-}
-
-.football-field.animate .ball {
-    bottom: auto;
-}
-
-.football-field .ball.fly {
-    top: 80px;
 }
 
 /* КОСМІЧНА МІСІЯ */
@@ -367,13 +359,8 @@ header p { color: #a9bfd8; }
     transition: right 1s ease;
 }
 
-.space-field.fly .ship {
-    left: 78%;
-}
-
-.space-field.fly .obstacle {
-    right: -15%;
-}
+.space-field.fly .ship { left: 78%; }
+.space-field.fly .obstacle { right: -15%; }
 
 .space-field.crash .ship {
     left: 65%;
@@ -383,7 +370,6 @@ header p { color: #a9bfd8; }
 
 @media (max-width: 800px) {
     body { padding: 12px; }
-
     .layout { grid-template-columns: 1fr; }
 
     .sidebar {
@@ -427,8 +413,6 @@ header p { color: #a9bfd8; }
 
     <main class="main-panel">
 
-        <!-- ЗАВДАННЯ 1 -->
-
         <section id="task1">
             <h2 class="task-title">⚽ Завдання 1. Пенальті: битва з воротарем</h2>
 
@@ -449,20 +433,11 @@ header p { color: #a9bfd8; }
                     <li>нижній правий</li>
                 </ul>
 
-                <p>
-                    <b>2.</b> За допомогою <code>input()</code> запитай у гравця,
-                    куди він хоче бити.
-                </p>
+                <p><b>2.</b> За допомогою <code>input()</code> запитай у гравця, куди він хоче бити.</p>
 
-                <p>
-                    <b>3.</b> За допомогою <code>random.choice()</code>
-                    випадково обери напрямок стрибка воротаря.
-                </p>
+                <p><b>3.</b> За допомогою <code>random.choice()</code> випадково обери напрямок стрибка воротаря.</p>
 
-                <p>
-                    <b>4.</b> За допомогою <code>if/else</code> порівняй
-                    напрямки удару та стрибка воротаря.
-                </p>
+                <p><b>4.</b> За допомогою <code>if/else</code> порівняй напрямки удару та стрибка воротаря.</p>
 
                 <p>
                     Якщо напрямки однакові — воротар відбиває м'яч.
@@ -470,10 +445,7 @@ header p { color: #a9bfd8; }
                 </p>
 
                 <h3>Вхідні дані</h3>
-                <p>
-                    Гравець вводить один із чотирьох напрямків у полі
-                    введення під редактором.
-                </p>
+                <p>Гравець вводить один із чотирьох напрямків у полі введення під редактором.</p>
 
                 <h3>Вихідні дані</h3>
                 <p>Програма повинна вивести три окремі рядки:</p>
@@ -484,13 +456,9 @@ header p { color: #a9bfd8; }
                     <li><code>Результат: повідомлення</code></li>
                 </ul>
 
-                <p>
-                    Напрямки виводь у тому самому вигляді, як вони записані у списку.
-                </p>
+                <p>Напрямки виводь у тому самому вигляді, як вони записані у списку.</p>
             </div>
         </section>
-
-        <!-- ЗАВДАННЯ 2 -->
 
         <section id="task2" style="display:none">
             <h2 class="task-title">🚀 Завдання 2. Космічна місія: небезпечний політ</h2>
@@ -512,15 +480,9 @@ header p { color: #a9bfd8; }
                     <li>космічне сміття</li>
                 </ul>
 
-                <p>
-                    <b>2.</b> За допомогою <code>random.choice()</code>
-                    випадково обери одну перешкоду.
-                </p>
+                <p><b>2.</b> За допомогою <code>random.choice()</code> випадково обери одну перешкоду.</p>
 
-                <p>
-                    <b>3.</b> За допомогою <code>if/elif/else</code>
-                    визнач потрібний маневр:
-                </p>
+                <p><b>3.</b> За допомогою <code>if/elif/else</code> визнач потрібний маневр:</p>
 
                 <ul>
                     <li>астероїд — ліворуч</li>
@@ -542,10 +504,9 @@ header p { color: #a9bfd8; }
             </div>
         </section>
 
-        <!-- ОДИН РЕДАКТОР ДЛЯ ОБОХ ЗАВДАНЬ -->
+        <!-- ЄДИНИЙ РЕДАКТОР -->
 
         <h3 class="editor-title">💻 Редактор Python</h3>
-
         <textarea id="pythonEditor"></textarea>
 
         <div class="controls">
@@ -558,18 +519,14 @@ header p { color: #a9bfd8; }
             </button>
         </div>
 
-        <!-- ОДНА КОНСОЛЬ -->
+        <!-- ЄДИНА КОНСОЛЬ -->
 
         <div class="console">
             <h3>📟 Консоль — введення та виведення</h3>
 
             <div id="inputArea" class="input-area">
                 <label for="userInput">Введи напрямок удару для input():</label>
-                <input
-                    id="userInput"
-                    type="text"
-                    placeholder="Наприклад: нижній правий"
-                >
+                <input id="userInput" type="text" placeholder="Наприклад: нижній правий">
             </div>
 
             <pre id="output">Тут з'явиться результат роботи твоєї програми.</pre>
@@ -629,7 +586,7 @@ const runButton = document.getElementById("runButton");
 
 window.addEventListener("load", async function() {
 
-    // Створюємо ТІЛЬКИ ОДИН редактор.
+    // Створюємо лише один редактор.
     editor = CodeMirror.fromTextArea(
         document.getElementById("pythonEditor"),
         {
@@ -653,7 +610,6 @@ window.addEventListener("load", async function() {
     } catch (error) {
         status.textContent =
             "Не вдалося завантажити Python. Перевір підключення до інтернету.";
-
         console.error(error);
     }
 });
@@ -672,9 +628,7 @@ function selectTask(number) {
 
     if (running) return;
 
-    // Зберігаємо код попереднього завдання.
     saveCurrentCode();
-
     currentTask = number;
 
     document.getElementById("task1").style.display =
@@ -694,15 +648,9 @@ function selectTask(number) {
         "active", number === 2
     );
 
-    // У тому самому редакторі показуємо код вибраного завдання.
-    if (number === 1) {
-        editor.setValue(codeTask1);
-    } else {
-        editor.setValue(codeTask2);
-    }
+    editor.setValue(number === 1 ? codeTask1 : codeTask2);
 
-    output.textContent =
-        "Тут з'явиться результат роботи твоєї програми.";
+    output.textContent = "Тут з'явиться результат роботи твоєї програми.";
 
     hideGames();
 
@@ -724,7 +672,6 @@ function clearCode() {
     }
 
     output.textContent = "Редактор очищено.";
-
     hideGames();
 }
 
@@ -733,24 +680,22 @@ function hideGames() {
     document.getElementById("spaceGame").classList.remove("visible");
 }
 
+/*
+   Знаходимо значення після потрібного підпису.
+   Це працює навіть тоді, коли input() вивів запит
+   без переходу на новий рядок.
+*/
 function parseLine(text, label) {
 
-    const lines = text.split(/\r?\n/);
+    const marker = label.toLowerCase() + ":";
+    const position = text.toLowerCase().indexOf(marker);
 
-    for (let line of lines) {
+    if (position === -1) return null;
 
-        const index = line.indexOf(":");
+    const start = position + marker.length;
+    const rest = text.slice(start);
 
-        if (index === -1) continue;
-
-        const name = line.slice(0, index).trim().toLowerCase();
-
-        if (name === label.toLowerCase()) {
-            return line.slice(index + 1).trim().toLowerCase();
-        }
-    }
-
-    return null;
+    return rest.split(/\r?\n/)[0].trim().toLowerCase();
 }
 
 async function runCode() {
@@ -781,7 +726,6 @@ async function runCode() {
             return;
         }
 
-        // Перетворюємо введення на UTF-8 байти для Python input().
         inputBytes = new TextEncoder().encode(value + "\n");
     }
 
@@ -795,26 +739,29 @@ async function runCode() {
     output.textContent = "";
     status.textContent = "Виконується програма...";
 
-    let resultText = "";
+    let outputBytes = [];
 
     try {
 
-        // Кожен print() відображається окремим рядком.
+        /*
+           Збираємо виведення побайтно.
+           Так зберігаються справжні переноси рядків
+           і українські символи.
+        */
+
         pyodide.setStdout({
-            batched: function(text) {
-                resultText += text + "\n";
-                output.textContent = resultText;
+            raw: function(byte) {
+                outputBytes.push(byte);
             }
         });
 
         pyodide.setStderr({
-            batched: function(text) {
-                resultText += text + "\n";
-                output.textContent = resultText;
+            raw: function(byte) {
+                outputBytes.push(byte);
             }
         });
 
-        // Передаємо input() значення з поля консолі.
+        // Передаємо input() дані з поля введення.
         pyodide.setStdin({
             stdin: function() {
 
@@ -832,7 +779,11 @@ async function runCode() {
 
         await pyodide.runPythonAsync(code);
 
-        // Оновлюємо відображення результату.
+        // Перетворюємо отримані байти на звичайний текст.
+        const resultText = new TextDecoder("utf-8").decode(
+            new Uint8Array(outputBytes)
+        );
+
         output.textContent = resultText.trim() ||
             "Програма виконалася, але нічого не вивела.";
 
@@ -847,8 +798,12 @@ async function runCode() {
 
     } catch (error) {
 
+        const errorText = new TextDecoder("utf-8").decode(
+            new Uint8Array(outputBytes)
+        );
+
         output.textContent =
-            (resultText ? resultText + "\n" : "") +
+            (errorText ? errorText + "\n" : "") +
             "Помилка Python:\n" + error;
 
         status.textContent = "Під час виконання програми виникла помилка.";
@@ -874,35 +829,21 @@ function animatePenalty(text) {
 
     if (!shot || !keeperDirection) {
         status.textContent =
-            "Перевір виведення: потрібні рядки «Ваш удар» і «Воротар стрибнув».";
+            "Не знайдено напрямки удару та стрибка. Перевір рядки print().";
         return;
     }
 
     if (!directions.includes(shot) || !directions.includes(keeperDirection)) {
         status.textContent =
-            "Перевір написання напрямків. Вони мають збігатися зі списком в умові.";
+            "Перевір написання напрямків. Вони мають збігатися зі списком.";
         return;
     }
 
-    const field = document.getElementById("footballField");
+    const game = document.getElementById("penaltyGame");
     const keeper = document.getElementById("keeper");
     const ball = document.getElementById("ball");
 
-    const game = document.getElementById("penaltyGame");
     const message = document.getElementById("penaltyMessage");
-
-    // Повертаємо поле до початкового стану.
-    field.classList.remove("animate");
-    ball.classList.remove("fly");
-
-    keeper.style.left = "50%";
-    keeper.style.top = "45px";
-
-    ball.style.left = "50%";
-    ball.style.top = "";
-    ball.style.bottom = "20px";
-
-    game.classList.add("visible");
 
     const positions = {
         "верхній лівий": { left: "34%", top: "48px" },
@@ -920,9 +861,30 @@ function animatePenalty(text) {
         ? "⚽ ГОЛ! М'яч у воротах!"
         : "🧤 Воротар відбив м'яч!";
 
+    // Повертаємо всі елементи до початкового положення.
+    keeper.style.transition = "none";
+    ball.style.transition = "none";
+
+    keeper.style.left = "50%";
+    keeper.style.top = "45px";
+
+    ball.style.left = "50%";
+    ball.style.top = "auto";
+    ball.style.bottom = "20px";
+
+    game.classList.add("visible");
+
+    const field = document.getElementById("footballField");
+
+    // Перезапускаємо CSS-анімацію.
+    void field.offsetWidth;
+
     setTimeout(function() {
 
-        // Воротар стрибає у вибраний напрямок.
+        keeper.style.transition = "left 1s ease, top 1s ease";
+        ball.style.transition = "left 1s ease, top 1s ease, bottom 1s ease";
+
+        // Воротар стрибає.
         keeper.style.left = keeperPosition.left;
         keeper.style.top = keeperPosition.top;
 
@@ -931,9 +893,7 @@ function animatePenalty(text) {
         ball.style.top = shotPosition.top;
         ball.style.bottom = "auto";
 
-        ball.classList.add("fly");
-
-    }, 150);
+    }, 100);
 }
 
 /* АНІМАЦІЯ КОСМІЧНОЇ МІСІЇ */
@@ -957,7 +917,7 @@ function animateSpace(text) {
 
     if (!obstacle || !maneuver) {
         status.textContent =
-            "Перевір виведення: потрібні рядки «Перешкода» і «Маневр».";
+            "Не знайдено назву перешкоди та маневр. Перевір рядки print().";
         return;
     }
 
@@ -974,16 +934,18 @@ function animateSpace(text) {
     const game = document.getElementById("spaceGame");
     const message = document.getElementById("spaceMessage");
 
-    // Початкове положення корабля.
+    // Початкове положення.
     field.classList.remove("fly", "crash");
 
+    ship.style.transition = "none";
     ship.style.left = "13%";
     ship.style.top = "50%";
     ship.style.opacity = "1";
+    ship.style.transform = "translateY(-50%)";
 
+    obstacleElement.style.transition = "none";
     obstacleElement.style.right = "18%";
 
-    // Зображення перешкоди.
     if (obstacle === "астероїд") {
         obstacleElement.textContent = "🪨";
     } else if (obstacle === "метеорит") {
@@ -996,20 +958,25 @@ function animateSpace(text) {
 
     const success = correctManeuvers[obstacle] === maneuver;
 
-    if (success) {
-        message.textContent = "🚀 Маневр виконано! Перешкоду подолано!";
-    } else {
-        message.textContent = "💥 Неправильний маневр! Сталося зіткнення.";
-    }
+    message.textContent = success
+        ? "🚀 Маневр виконано! Перешкоду подолано!"
+        : "💥 Неправильний маневр! Сталося зіткнення.";
+
+    void field.offsetWidth;
 
     setTimeout(function() {
+
+        ship.style.transition =
+            "left 1s ease, top 1s ease, transform 1s ease";
+
+        obstacleElement.style.transition = "right 1s ease";
 
         if (!success) {
             field.classList.add("crash");
             return;
         }
 
-        // Корабель ухиляється в потрібний бік.
+        // Корабель змінює траєкторію.
         if (maneuver === "ліворуч") {
             ship.style.top = "25%";
         } else if (maneuver === "праворуч") {
