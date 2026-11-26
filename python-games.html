@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -34,13 +35,11 @@ header h1 {
     margin-bottom: 8px;
 }
 
-header p {
-    color: #a9bfd8;
-}
+header p { color: #a9bfd8; }
 
 .layout {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 220px minmax(0, 1fr);
     gap: 22px;
 }
 
@@ -72,16 +71,14 @@ header p {
     transition: .2s;
 }
 
-.task-button:hover, .task-button.active {
+.task-button:hover,
+.task-button.active {
     background: #164775;
     border-color: #54baff;
     box-shadow: 0 0 14px #168de455;
 }
 
-.task-title {
-    color: #80d0ff;
-    margin-top: 0;
-}
+.task-title { color: #80d0ff; }
 
 .description {
     background: #0a1a30;
@@ -104,15 +101,8 @@ header p {
     border-radius: 5px;
 }
 
-.example {
-    background: #061321;
-    border-left: 3px solid #36a9f5;
-    padding: 12px 15px;
-    border-radius: 6px;
-    white-space: pre-wrap;
-    font-family: Consolas, monospace;
-    color: #d4eaff;
-    overflow-wrap: anywhere;
+.description ul {
+    padding-left: 22px;
 }
 
 .editor-title {
@@ -120,13 +110,44 @@ header p {
     margin: 22px 0 10px;
 }
 
+/* ЄДИНИЙ РЕДАКТОР PYTHON */
+
 .CodeMirror {
-    height: 330px;
+    height: 350px;
+    width: 100%;
     border-radius: 10px;
     border: 1px solid #31577d;
+    background: #061321 !important;
+    color: #e2efff !important;
     font-size: 15px;
     line-height: 1.5;
 }
+
+.CodeMirror-gutters {
+    background: #0b1d32 !important;
+    border-right: 1px solid #294b70 !important;
+}
+
+.CodeMirror-linenumber {
+    color: #6685a5 !important;
+}
+
+.CodeMirror-cursor {
+    border-left: 2px solid #80d0ff !important;
+}
+
+.CodeMirror-selected {
+    background: #24517a !important;
+}
+
+.cm-s-default .cm-keyword { color: #d58cff !important; }
+.cm-s-default .cm-string { color: #9cdb9c !important; }
+.cm-s-default .cm-number { color: #ffc477 !important; }
+.cm-s-default .cm-comment { color: #7794ad !important; }
+.cm-s-default .cm-builtin { color: #76cfff !important; }
+.cm-s-default .cm-def { color: #80d0ff !important; }
+.cm-s-default .cm-variable { color: #e2efff !important; }
+.cm-s-default .cm-operator { color: #ffca80 !important; }
 
 .controls {
     display: flex;
@@ -135,7 +156,7 @@ header p {
     margin: 15px 0;
 }
 
-button.run-button {
+.run-button {
     background: linear-gradient(135deg, #087bd2, #1454a5);
     border: 1px solid #56baff;
     color: white;
@@ -146,11 +167,16 @@ button.run-button {
     font-weight: bold;
 }
 
-button.run-button:hover {
+.run-button:hover {
     box-shadow: 0 0 18px #168de477;
 }
 
-button.clear-button {
+.run-button:disabled {
+    opacity: .5;
+    cursor: wait;
+}
+
+.clear-button {
     background: #263d59;
     border: 1px solid #527293;
     color: white;
@@ -159,37 +185,13 @@ button.clear-button {
     cursor: pointer;
 }
 
-.input-area {
-    background: #0a1a30;
-    border: 1px solid #31577d;
-    border-radius: 10px;
-    padding: 14px;
-    margin-top: 15px;
-}
-
-.input-area label {
-    display: block;
-    color: #a9dfff;
-    margin-bottom: 9px;
-    font-weight: bold;
-}
-
-.input-area input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 7px;
-    border: 1px solid #47749d;
-    background: #061321;
-    color: white;
-    font-size: 15px;
-}
+/* ОДНА КОНСОЛЬ */
 
 .console {
     background: #061321;
     border: 1px solid #31577d;
     border-radius: 12px;
     padding: 17px;
-    min-height: 115px;
     margin-top: 12px;
 }
 
@@ -199,8 +201,38 @@ button.clear-button {
     font-size: 16px;
 }
 
+.input-area {
+    margin-bottom: 15px;
+    padding: 12px;
+    background: #0b1d32;
+    border: 1px solid #294b70;
+    border-radius: 9px;
+}
+
+.input-area label {
+    display: block;
+    color: #a9dfff;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.input-area input {
+    width: 100%;
+    padding: 11px;
+    border-radius: 7px;
+    border: 1px solid #47749d;
+    background: #061321;
+    color: white;
+    font-size: 15px;
+}
+
+.input-area input:focus {
+    outline: 1px solid #56baff;
+}
+
 #output {
     margin: 0;
+    min-height: 65px;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     font-family: Consolas, monospace;
@@ -211,9 +243,11 @@ button.clear-button {
 
 .status {
     color: #9cb8d3;
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 14px;
 }
+
+/* ІГРОВІ ПОЛЯ */
 
 .game {
     display: none;
@@ -224,20 +258,26 @@ button.clear-button {
     background: #091a2d;
 }
 
-.game.visible {
-    display: block;
-}
+.game.visible { display: block; }
 
 .game h3 {
     color: #8bd4ff;
     margin-top: 0;
 }
 
-/* Поле для пенальті */
+.game-message {
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 14px;
+    color: #9be7ff;
+}
+
+/* ПЕНАЛЬТІ */
 
 .football-field {
     position: relative;
-    height: 260px;
+    height: 280px;
     overflow: hidden;
     border-radius: 12px;
     border: 3px solid #6bca86;
@@ -252,74 +292,51 @@ button.clear-button {
 
 .goal {
     position: absolute;
-    width: 180px;
-    height: 100px;
+    width: 230px;
+    height: 155px;
     left: 50%;
-    top: 15px;
+    top: 12px;
     transform: translateX(-50%);
     border: 5px solid white;
     border-bottom: 0;
     background:
-        repeating-linear-gradient(90deg, transparent 0 18px, #ffffff55 19px 21px),
-        repeating-linear-gradient(0deg, transparent 0 18px, #ffffff55 19px 21px);
+        repeating-linear-gradient(90deg, transparent 0 24px, #ffffff55 25px 27px),
+        repeating-linear-gradient(0deg, transparent 0 24px, #ffffff55 25px 27px);
 }
 
 .keeper {
     position: absolute;
     left: 50%;
-    top: 50px;
-    transform: translateX(-50%);
-    font-size: 42px;
-    transition: all 1s ease;
-    z-index: 2;
+    top: 45px;
+    transform: translate(-50%, -50%);
+    font-size: 43px;
+    z-index: 3;
+    transition: left 1s ease, top 1s ease, transform 1s ease;
 }
 
 .ball {
     position: absolute;
     left: 50%;
-    bottom: 22px;
+    bottom: 20px;
     transform: translateX(-50%);
-    font-size: 30px;
-    transition: all 1s ease;
-    z-index: 3;
+    font-size: 31px;
+    z-index: 4;
+    transition: left 1s ease, top 1s ease, bottom 1s ease;
 }
 
 .football-field.animate .ball {
-    bottom: 150px;
+    bottom: auto;
 }
 
-.football-field.goal-left .ball { left: 42%; }
-.football-field.goal-right .ball { left: 58%; }
-.football-field.goal-center .ball { left: 50%; }
-
-.football-field.keeper-left .keeper {
-    left: 40%;
-    transform: rotate(-35deg);
+.football-field .ball.fly {
+    top: 80px;
 }
 
-.football-field.keeper-right .keeper {
-    left: 60%;
-    transform: rotate(35deg);
-}
-
-.football-field.keeper-center .keeper {
-    left: 50%;
-    transform: translateX(-50%) scale(1.2);
-}
-
-.game-message {
-    text-align: center;
-    font-size: 21px;
-    font-weight: bold;
-    margin-top: 14px;
-    color: #9be7ff;
-}
-
-/* Космічна місія */
+/* КОСМІЧНА МІСІЯ */
 
 .space-field {
     position: relative;
-    height: 260px;
+    height: 280px;
     overflow: hidden;
     border-radius: 12px;
     border: 1px solid #31577d;
@@ -333,49 +350,55 @@ button.clear-button {
 
 .ship {
     position: absolute;
-    left: 15%;
+    left: 13%;
     top: 50%;
     transform: translateY(-50%);
     font-size: 48px;
-    transition: all 1.2s ease;
+    transition: left 1s ease, top 1s ease, transform 1s ease;
     z-index: 2;
 }
 
 .obstacle {
     position: absolute;
-    right: 20%;
+    right: 18%;
     top: 50%;
     transform: translateY(-50%);
     font-size: 48px;
-    transition: all 1.2s ease;
-}
-
-.space-field.move-left .ship {
-    top: 25%;
-}
-
-.space-field.move-right .ship {
-    top: 75%;
-}
-
-.space-field.move-up .ship {
-    top: 12%;
+    transition: right 1s ease;
 }
 
 .space-field.fly .ship {
-    left: 72%;
+    left: 78%;
 }
 
 .space-field.fly .obstacle {
     right: -15%;
 }
 
+.space-field.crash .ship {
+    left: 65%;
+    transform: translateY(-50%) rotate(70deg);
+    opacity: .4;
+}
+
 @media (max-width: 800px) {
     body { padding: 12px; }
+
     .layout { grid-template-columns: 1fr; }
-    .sidebar { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .sidebar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
     .sidebar h3 { width: 100%; }
-    .task-button { width: auto; flex: 1; margin: 0; }
+
+    .task-button {
+        width: auto;
+        flex: 1;
+        margin: 0;
+    }
 }
 </style>
 </head>
@@ -392,9 +415,11 @@ button.clear-button {
 
     <aside class="sidebar">
         <h3>Практичні завдання</h3>
+
         <button class="task-button active" id="taskBtn1" onclick="selectTask(1)">
             ⚽ Завдання 1<br>Пенальті
         </button>
+
         <button class="task-button" id="taskBtn2" onclick="selectTask(2)">
             🚀 Завдання 2<br>Космічна місія
         </button>
@@ -409,16 +434,20 @@ button.clear-button {
 
             <div class="description">
                 <h3>Умова завдання</h3>
+
                 <p>
                     Ти виконуєш пенальті. Потрібно написати програму,
                     яка визначить, чи зможе воротар відбити твій удар.
                 </p>
 
                 <p><b>1.</b> Створи список із чотирьох можливих напрямків удару:</p>
-                <div class="example">верхній лівий
-верхній правий
-нижній лівий
-нижній правий</div>
+
+                <ul>
+                    <li>верхній лівий</li>
+                    <li>верхній правий</li>
+                    <li>нижній лівий</li>
+                    <li>нижній правий</li>
+                </ul>
 
                 <p>
                     <b>2.</b> За допомогою <code>input()</code> запитай у гравця,
@@ -441,17 +470,22 @@ button.clear-button {
                 </p>
 
                 <h3>Вхідні дані</h3>
-                <p>Гравець вводить один із чотирьох напрямків у спеціальному полі під редактором.</p>
+                <p>
+                    Гравець вводить один із чотирьох напрямків у полі
+                    введення під редактором.
+                </p>
 
                 <h3>Вихідні дані</h3>
-                <p>Програма повинна вивести три рядки саме в такому форматі:</p>
-                <div class="example">Ваш удар: нижній правий
-Воротар стрибнув: верхній лівий
-Результат: ГОЛ!</div>
+                <p>Програма повинна вивести три окремі рядки:</p>
+
+                <ul>
+                    <li><code>Ваш удар: напрямок</code></li>
+                    <li><code>Воротар стрибнув: напрямок</code></li>
+                    <li><code>Результат: повідомлення</code></li>
+                </ul>
 
                 <p>
                     Напрямки виводь у тому самому вигляді, як вони записані у списку.
-                    Текст після двокрапки можеш обирати самостійно для результату.
                 </p>
             </div>
         </section>
@@ -463,6 +497,7 @@ button.clear-button {
 
             <div class="description">
                 <h3>Умова завдання</h3>
+
                 <p>
                     Космічний корабель летить крізь небезпечну ділянку космосу.
                     На шляху з'являється перешкода. Потрібно визначити,
@@ -470,9 +505,12 @@ button.clear-button {
                 </p>
 
                 <p><b>1.</b> Створи список із трьох перешкод:</p>
-                <div class="example">астероїд
-метеорит
-космічне сміття</div>
+
+                <ul>
+                    <li>астероїд</li>
+                    <li>метеорит</li>
+                    <li>космічне сміття</li>
+                </ul>
 
                 <p>
                     <b>2.</b> За допомогою <code>random.choice()</code>
@@ -484,41 +522,56 @@ button.clear-button {
                     визнач потрібний маневр:
                 </p>
 
-                <div class="example">Астероїд — ліворуч
-Метеорит — праворуч
-Космічне сміття — угору</div>
+                <ul>
+                    <li>астероїд — ліворуч</li>
+                    <li>метеорит — праворуч</li>
+                    <li>космічне сміття — угору</li>
+                </ul>
 
                 <h3>Вхідні дані</h3>
                 <p>Учень нічого не вводить. Перешкоду випадково обирає комп'ютер.</p>
 
                 <h3>Вихідні дані</h3>
-                <p>Програма повинна вивести три рядки саме в такому форматі:</p>
-                <div class="example">Перешкода: астероїд
-Маневр: ліворуч
-Результат: Перешкоду подолано!</div>
+                <p>Програма повинна вивести три окремі рядки:</p>
 
-                <p>
-                    Назви перешкод і маневрів виводь саме так, як зазначено в умові.
-                </p>
+                <ul>
+                    <li><code>Перешкода: назва</code></li>
+                    <li><code>Маневр: напрямок</code></li>
+                    <li><code>Результат: повідомлення</code></li>
+                </ul>
             </div>
         </section>
 
-        <h3 class="editor-title">💻 Редактор Python</h3>
-        <textarea id="code1"></textarea>
-        <textarea id="code2" style="display:none"></textarea>
+        <!-- ОДИН РЕДАКТОР ДЛЯ ОБОХ ЗАВДАНЬ -->
 
-        <div id="inputArea" class="input-area">
-            <label for="userInput">Вхідні дані — напрямок удару:</label>
-            <input id="userInput" type="text" placeholder="Наприклад: нижній правий">
-        </div>
+        <h3 class="editor-title">💻 Редактор Python</h3>
+
+        <textarea id="pythonEditor"></textarea>
 
         <div class="controls">
-            <button class="run-button" onclick="runCode()">▶ Запустити програму</button>
-            <button class="clear-button" onclick="clearCode()">Очистити редактор</button>
+            <button class="run-button" id="runButton" onclick="runCode()">
+                ▶ Запустити програму
+            </button>
+
+            <button class="clear-button" onclick="clearCode()">
+                Очистити редактор
+            </button>
         </div>
 
+        <!-- ОДНА КОНСОЛЬ -->
+
         <div class="console">
-            <h3>📟 Результат виконання програми</h3>
+            <h3>📟 Консоль — введення та виведення</h3>
+
+            <div id="inputArea" class="input-area">
+                <label for="userInput">Введи напрямок удару для input():</label>
+                <input
+                    id="userInput"
+                    type="text"
+                    placeholder="Наприклад: нижній правий"
+                >
+            </div>
+
             <pre id="output">Тут з'явиться результат роботи твоєї програми.</pre>
         </div>
 
@@ -528,11 +581,13 @@ button.clear-button {
 
         <div id="penaltyGame" class="game">
             <h3>⚽ Результат пенальті</h3>
+
             <div id="footballField" class="football-field">
                 <div class="goal"></div>
-                <div class="keeper">🧤</div>
-                <div class="ball">⚽</div>
+                <div class="keeper" id="keeper">🧤</div>
+                <div class="ball" id="ball">⚽</div>
             </div>
+
             <div id="penaltyMessage" class="game-message"></div>
         </div>
 
@@ -540,10 +595,12 @@ button.clear-button {
 
         <div id="spaceGame" class="game">
             <h3>🚀 Космічна місія</h3>
+
             <div id="spaceField" class="space-field">
-                <div class="ship">🚀</div>
+                <div class="ship" id="ship">🚀</div>
                 <div class="obstacle" id="obstacle">☄️</div>
             </div>
+
             <div id="spaceMessage" class="game-message"></div>
         </div>
 
@@ -556,50 +613,68 @@ button.clear-button {
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
 
 <script>
-let editor1;
-let editor2;
+let editor;
 let currentTask = 1;
+
+let codeTask1 = "";
+let codeTask2 = "";
+
 let pyodide = null;
 let pythonReady = false;
 let running = false;
 
 const output = document.getElementById("output");
 const status = document.getElementById("status");
+const runButton = document.getElementById("runButton");
 
 window.addEventListener("load", async function() {
 
-    editor1 = CodeMirror.fromTextArea(document.getElementById("code1"), {
-        mode: "python",
-        lineNumbers: true,
-        indentUnit: 4,
-        tabSize: 4,
-        lineWrapping: true,
-        theme: "default"
-    });
+    // Створюємо ТІЛЬКИ ОДИН редактор.
+    editor = CodeMirror.fromTextArea(
+        document.getElementById("pythonEditor"),
+        {
+            mode: "python",
+            lineNumbers: true,
+            indentUnit: 4,
+            tabSize: 4,
+            lineWrapping: true,
+            theme: "default"
+        }
+    );
 
-    editor2 = CodeMirror.fromTextArea(document.getElementById("code2"), {
-        mode: "python",
-        lineNumbers: true,
-        indentUnit: 4,
-        tabSize: 4,
-        lineWrapping: true,
-        theme: "default"
-    });
-
-    editor1.setSize("100%", 330);
-    editor2.setSize("100%", 330);
+    editor.setSize("100%", 350);
 
     try {
         pyodide = await loadPyodide();
+
         pythonReady = true;
         status.textContent = "Середовище Python готове до роботи.";
+
     } catch (error) {
-        status.textContent = "Не вдалося завантажити Python. Перевір підключення до інтернету.";
+        status.textContent =
+            "Не вдалося завантажити Python. Перевір підключення до інтернету.";
+
         console.error(error);
     }
 });
 
+function saveCurrentCode() {
+    if (!editor) return;
+
+    if (currentTask === 1) {
+        codeTask1 = editor.getValue();
+    } else {
+        codeTask2 = editor.getValue();
+    }
+}
+
 function selectTask(number) {
+
+    if (running) return;
+
+    // Зберігаємо код попереднього завдання.
+    saveCurrentCode();
+
     currentTask = number;
 
     document.getElementById("task1").style.display =
@@ -608,57 +683,70 @@ function selectTask(number) {
     document.getElementById("task2").style.display =
         number === 2 ? "block" : "none";
 
-    document.getElementById("code1").style.display =
-        number === 1 ? "block" : "none";
-
-    document.getElementById("code2").style.display =
-        number === 2 ? "block" : "none";
-
     document.getElementById("inputArea").style.display =
         number === 1 ? "block" : "none";
 
-    document.getElementById("taskBtn1").classList.toggle("active", number === 1);
-    document.getElementById("taskBtn2").classList.toggle("active", number === 2);
+    document.getElementById("taskBtn1").classList.toggle(
+        "active", number === 1
+    );
 
-    document.getElementById("penaltyGame").classList.remove("visible");
-    document.getElementById("spaceGame").classList.remove("visible");
+    document.getElementById("taskBtn2").classList.toggle(
+        "active", number === 2
+    );
 
-    output.textContent = "Тут з'явиться результат роботи твоєї програми.";
+    // У тому самому редакторі показуємо код вибраного завдання.
+    if (number === 1) {
+        editor.setValue(codeTask1);
+    } else {
+        editor.setValue(codeTask2);
+    }
+
+    output.textContent =
+        "Тут з'явиться результат роботи твоєї програми.";
+
+    hideGames();
 
     setTimeout(function() {
-        if (number === 1) editor1.refresh();
-        else editor2.refresh();
+        editor.refresh();
     }, 50);
 }
 
 function clearCode() {
+
+    if (running) return;
+
+    editor.setValue("");
+
     if (currentTask === 1) {
-        editor1.setValue("");
+        codeTask1 = "";
     } else {
-        editor2.setValue("");
+        codeTask2 = "";
     }
 
     output.textContent = "Редактор очищено.";
+
+    hideGames();
+}
+
+function hideGames() {
     document.getElementById("penaltyGame").classList.remove("visible");
     document.getElementById("spaceGame").classList.remove("visible");
 }
 
-function getCurrentEditor() {
-    return currentTask === 1 ? editor1 : editor2;
-}
-
 function parseLine(text, label) {
+
     const lines = text.split(/\r?\n/);
 
     for (let line of lines) {
+
         const index = line.indexOf(":");
 
-        if (index !== -1) {
-            const name = line.slice(0, index).trim().toLowerCase();
+        if (index === -1) continue;
 
-            if (name === label.toLowerCase()) {
-                return line.slice(index + 1).trim().toLowerCase();
-            }
+        const name = line.slice(0, index).trim().toLowerCase();
+
+        if (name === label.toLowerCase()) {
+            return line.slice(index + 1).trim().toLowerCase();
         }
     }
 
@@ -674,35 +762,44 @@ async function runCode() {
 
     if (running) return;
 
-    const code = getCurrentEditor().getValue();
+    const code = editor.getValue();
 
     if (!code.trim()) {
         output.textContent = "Спочатку напиши програму в редакторі.";
         return;
     }
 
+    let inputBytes = null;
+    let inputPosition = 0;
+
     if (currentTask === 1) {
+
         const value = document.getElementById("userInput").value.trim();
 
         if (!value) {
-            output.textContent = "Введи напрямок удару в поле «Вхідні дані».";
+            output.textContent = "Введи напрямок удару в поле введення.";
             return;
         }
+
+        // Перетворюємо введення на UTF-8 байти для Python input().
+        inputBytes = new TextEncoder().encode(value + "\n");
     }
 
+    saveCurrentCode();
+
     running = true;
+    runButton.disabled = true;
+
+    hideGames();
 
     output.textContent = "";
     status.textContent = "Виконується програма...";
 
-    document.getElementById("penaltyGame").classList.remove("visible");
-    document.getElementById("spaceGame").classList.remove("visible");
-
     let resultText = "";
-    let inputUsed = false;
 
     try {
 
+        // Кожен print() відображається окремим рядком.
         pyodide.setStdout({
             batched: function(text) {
                 resultText += text + "\n";
@@ -717,31 +814,29 @@ async function runCode() {
             }
         });
 
-        if (currentTask === 1) {
-            const inputValue = document.getElementById("userInput").value.trim();
+        // Передаємо input() значення з поля консолі.
+        pyodide.setStdin({
+            stdin: function() {
 
-            pyodide.setStdin({
-                stdin: function() {
-                    if (inputUsed) return null;
-                    inputUsed = true;
-                    return inputValue;
-                }
-            });
-        } else {
-            pyodide.setStdin({
-                stdin: function() {
+                if (inputBytes === null) {
                     return null;
                 }
-            });
-        }
+
+                if (inputPosition >= inputBytes.length) {
+                    return null;
+                }
+
+                return inputBytes[inputPosition++];
+            }
+        });
 
         await pyodide.runPythonAsync(code);
 
-        // Даємо буферу виведення завершити обробку.
-        await new Promise(resolve => setTimeout(resolve, 100));
+        // Оновлюємо відображення результату.
+        output.textContent = resultText.trim() ||
+            "Програма виконалася, але нічого не вивела.";
 
-        output.textContent = resultText.trim() || "Програма виконалася, але нічого не вивела.";
-
+        // Запускаємо відповідну анімацію.
         if (currentTask === 1) {
             animatePenalty(resultText);
         } else {
@@ -751,12 +846,19 @@ async function runCode() {
         status.textContent = "Виконання завершено.";
 
     } catch (error) {
-        output.textContent = resultText + "\nПомилка Python:\n" + error;
+
+        output.textContent =
+            (resultText ? resultText + "\n" : "") +
+            "Помилка Python:\n" + error;
+
         status.textContent = "Під час виконання програми виникла помилка.";
     }
 
     running = false;
+    runButton.disabled = false;
 }
+
+/* АНІМАЦІЯ ПЕНАЛЬТІ */
 
 function animatePenalty(text) {
 
@@ -768,44 +870,73 @@ function animatePenalty(text) {
     ];
 
     const shot = parseLine(text, "Ваш удар");
-    const keeper = parseLine(text, "Воротар стрибнув");
+    const keeperDirection = parseLine(text, "Воротар стрибнув");
 
-    if (!shot || !keeper) {
+    if (!shot || !keeperDirection) {
         status.textContent =
-            "Програму виконано. Для анімації перевір формат двох перших рядків виведення.";
+            "Перевір виведення: потрібні рядки «Ваш удар» і «Воротар стрибнув».";
         return;
     }
 
-    if (!directions.includes(shot) || !directions.includes(keeper)) {
+    if (!directions.includes(shot) || !directions.includes(keeperDirection)) {
         status.textContent =
-            "Перевір написання напрямків: вони мають збігатися зі списком в умові.";
+            "Перевір написання напрямків. Вони мають збігатися зі списком в умові.";
         return;
     }
 
     const field = document.getElementById("footballField");
+    const keeper = document.getElementById("keeper");
+    const ball = document.getElementById("ball");
+
     const game = document.getElementById("penaltyGame");
     const message = document.getElementById("penaltyMessage");
 
-    field.className = "football-field";
+    // Повертаємо поле до початкового стану.
+    field.classList.remove("animate");
+    ball.classList.remove("fly");
+
+    keeper.style.left = "50%";
+    keeper.style.top = "45px";
+
+    ball.style.left = "50%";
+    ball.style.top = "";
+    ball.style.bottom = "20px";
 
     game.classList.add("visible");
 
-    const shotSide = shot.includes("лівий") ? "left" : "right";
-    const keeperSide = keeper.includes("лівий") ? "left" : "right";
+    const positions = {
+        "верхній лівий": { left: "34%", top: "48px" },
+        "верхній правий": { left: "66%", top: "48px" },
+        "нижній лівий": { left: "34%", top: "115px" },
+        "нижній правий": { left: "66%", top: "115px" }
+    };
 
-    field.classList.add("keeper-" + keeperSide);
-    field.classList.add("goal-" + shotSide);
+    const shotPosition = positions[shot];
+    const keeperPosition = positions[keeperDirection];
 
-    if (shot === keeper) {
-        message.textContent = "🧤 Воротар відбив м'яч!";
-    } else {
-        message.textContent = "⚽ ГОЛ! М'яч у воротах!";
-    }
+    const isGoal = shot !== keeperDirection;
+
+    message.textContent = isGoal
+        ? "⚽ ГОЛ! М'яч у воротах!"
+        : "🧤 Воротар відбив м'яч!";
 
     setTimeout(function() {
-        field.classList.add("animate");
+
+        // Воротар стрибає у вибраний напрямок.
+        keeper.style.left = keeperPosition.left;
+        keeper.style.top = keeperPosition.top;
+
+        // М'яч летить у напрямку удару.
+        ball.style.left = shotPosition.left;
+        ball.style.top = shotPosition.top;
+        ball.style.bottom = "auto";
+
+        ball.classList.add("fly");
+
     }, 150);
 }
+
+/* АНІМАЦІЯ КОСМІЧНОЇ МІСІЇ */
 
 function animateSpace(text) {
 
@@ -826,7 +957,7 @@ function animateSpace(text) {
 
     if (!obstacle || !maneuver) {
         status.textContent =
-            "Програму виконано. Для анімації перевір формат двох перших рядків виведення.";
+            "Перевір виведення: потрібні рядки «Перешкода» і «Маневр».";
         return;
     }
 
@@ -837,34 +968,60 @@ function animateSpace(text) {
     }
 
     const field = document.getElementById("spaceField");
+    const ship = document.getElementById("ship");
+    const obstacleElement = document.getElementById("obstacle");
+
     const game = document.getElementById("spaceGame");
     const message = document.getElementById("spaceMessage");
-    const obstacleIcon = document.getElementById("obstacle");
 
-    field.className = "space-field";
+    // Початкове положення корабля.
+    field.classList.remove("fly", "crash");
 
+    ship.style.left = "13%";
+    ship.style.top = "50%";
+    ship.style.opacity = "1";
+
+    obstacleElement.style.right = "18%";
+
+    // Зображення перешкоди.
     if (obstacle === "астероїд") {
-        obstacleIcon.textContent = "🪨";
+        obstacleElement.textContent = "🪨";
     } else if (obstacle === "метеорит") {
-        obstacleIcon.textContent = "☄️";
+        obstacleElement.textContent = "☄️";
     } else {
-        obstacleIcon.textContent = "🛰️";
+        obstacleElement.textContent = "🛰️";
     }
 
     game.classList.add("visible");
 
-    if (correctManeuvers[obstacle] === maneuver) {
+    const success = correctManeuvers[obstacle] === maneuver;
+
+    if (success) {
         message.textContent = "🚀 Маневр виконано! Перешкоду подолано!";
     } else {
         message.textContent = "💥 Неправильний маневр! Сталося зіткнення.";
     }
 
     setTimeout(function() {
-        field.classList.add("move-" + maneuvers[maneuver]);
+
+        if (!success) {
+            field.classList.add("crash");
+            return;
+        }
+
+        // Корабель ухиляється в потрібний бік.
+        if (maneuver === "ліворуч") {
+            ship.style.top = "25%";
+        } else if (maneuver === "праворуч") {
+            ship.style.top = "75%";
+        } else {
+            ship.style.top = "12%";
+        }
 
         setTimeout(function() {
             field.classList.add("fly");
-        }, 500);
+        }, 550);
+
     }, 150);
 }
 </script>
