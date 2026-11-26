@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Python Games — Практичні завдання</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+
+<style>
+:root {
+    --bg: #071426;
+    --panel: #10233e;
+    --panel2: #142b49;
+    --blue: #2786ff;
+    --cyan: #35d5f5;
+    --text: #edf5ff;
+    --muted: #a5bad2;
+    --green: #38d996;
+    --red: #ff657c;
+    --border: rgba(125,170,220,.17);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 15% 5%, rgba(32,111,205,.2), transparent 32%),
+        radial-gradient(circle at 90% 80%, rgba(20,165,220,.12), transparent 30%),
+        var(--bg);
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 28px 16px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(25px, 4vw, 36px);
+    color: #fff;
+}
+
+header p {
+    color: var(--muted);
+    margin: 10px 0 0;
+}
+
+.container {
+    width: min(1250px, 94%);
+    margin: auto;
+    padding-bottom: 40px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.sidebar, .panel {
+    background: rgba(16,35,62,.92);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.2);
+}
+
+.sidebar {
+    padding: 17px;
+    position: sticky;
+    top: 15px;
+}
+
+.sidebar h3 {
+    margin: 2px 0 15px;
+    font-size: 17px;
+}
+
+.task-btn {
+    width: 100%;
+    border: 1px solid transparent;
+    background: #142b49;
+    color: var(--text);
+    border-radius: 12px;
+    padding: 14px 12px;
+    margin-bottom: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .2s;
+}
+
+.task-btn:hover {
+    background: #1a3b63;
+    border-color: #328dff;
+    transform: translateY(-2px);
+}
+
+.task-btn.active {
+    background: linear-gradient(120deg, #1459a8, #167caa);
+    border-color: #52c5ff;
+    box-shadow: 0 0 18px rgba(39,134,255,.22);
+}
+
+.task-btn span {
+    display: block;
+    font-size: 12px;
+    color: #c4d9ef;
+    margin-top: 5px;
+}
+
+.main { min-width: 0; }
+
+.panel {
+    padding: 22px;
+    margin-bottom: 18px;
+}
+
+.task-title {
+    font-size: 25px;
+    margin: 0 0 14px;
+}
+
+.description {
+    color: #d4e2f2;
+    line-height: 1.65;
+}
+
+.description ul {
+    padding-left: 22px;
+}
+
+.description li { margin: 7px 0; }
+
+.note {
+    background: rgba(39,134,255,.1);
+    border-left: 3px solid var(--blue);
+    padding: 13px 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    line-height: 1.55;
+}
+
+.note code {
+    color: #8be5ff;
+}
+
+.output-format {
+    background: #08182b;
+    padding: 12px 15px;
+    border-radius: 9px;
+    color: #a9e9ff;
+    font-family: Consolas, monospace;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.editor-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.editor-head h3 { margin: 0; }
+
+.editor-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.CodeMirror {
+    height: 310px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: Consolas, monospace;
+    border: 1px solid #294765;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+button.action {
+    border: 0;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 14px;
+}
+
+button.action:hover { transform: translateY(-2px); }
+
+.run {
+    background: linear-gradient(120deg, #1687ed, #16b7d4);
+    color: white;
+}
+
+.clear {
+    background: #263e5c;
+    color: white;
+}
+
+.console {
+    background: #06111f;
+    border: 1px solid #233b57;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 100px;
+    color: #d4e6f7;
+    font-family: Consolas, monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.55;
+    margin-top: 12px;
+}
+
+.console .success { color: var(--green); }
+.console .error { color: var(--red); }
+
+.status {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.game {
+    display: none;
+    overflow: hidden;
+}
+
+.game.show { display: block; }
+
+.scene {
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: linear-gradient(#07152d, #102b4d);
+    border: 1px solid #31577d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scene-label {
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    color: #c6dff7;
+    font-size: 13px;
+    z-index: 5;
+}
+
+.result-message {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 17px;
+    min-height: 32px;
+}
+
+.result-message.good { color: var(--green); }
+.result-message.bad { color: var(--red); }
+
+.goal {
+    position: relative;
+    width: 340px;
+    height: 190px;
+    border: 9px solid #e5edf5;
+    border-bottom: 0;
+    background:
+        linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.16) 50%, transparent 50.5%),
+        linear-gradient(0deg, transparent 49.5%, rgba(255,255,255,.16) 50%, transparent 50.5%),
+        repeating-linear-gradient(90deg, transparent 0 32px, rgba(255,255,255,.13) 33px 34px),
+        repeating-linear-gradient(0deg, transparent 0 32px, rgba(255,255,255,.13) 33px 34px),
+        rgba(255,255,255,.06);
+    box-shadow: 0 0 22px rgba(255,255,255,.12);
+}
+
+.goal:after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: -30px;
+    width: calc(100% + 60px);
+    height: 12px;
+    background: #dbe7f3;
+}
+
+.ball {
+    position: absolute;
+    font-size: 34px;
+    z-index: 3;
+    left: 48%;
+    bottom: 8px;
+    transition: all 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.goalkeeper {
+    position: absolute;
+    font-size: 49px;
+    left: 43%;
+    bottom: 4px;
+    z-index: 2;
+    transition: all .8s ease;
+}
+
+.ball.fly { bottom: 145px; }
+.ball.ul { left: 5%; }
+.ball.ur { left: 83%; }
+.ball.ll { left: 5%; bottom: 30px; }
+.ball.lr { left: 83%; bottom: 30px; }
+
+.goalkeeper.ul { left: 5%; bottom: 65px; transform: rotate(-45deg); }
+.goalkeeper.ur { left: 83%; bottom: 65px; transform: rotate(45deg); }
+.goalkeeper.ll { left: 10%; bottom: 4px; transform: rotate(-25deg); }
+.goalkeeper.lr { left: 78%; bottom: 4px; transform: rotate(25deg); }
+
+.space-scene {
+    background:
+        radial-gradient(circle at 20% 30%, white 1px, transparent 2px),
+        radial-gradient(circle at 70% 20%, white 1px, transparent 2px),
+        radial-gradient(circle at 40% 70%, white 1px, transparent 2px),
+        radial-gradient(circle at 85% 75%, white 1px, transparent 2px),
+        linear-gradient(120deg, #080c2c, #152b59, #10152e);
+    background-size: auto, auto, auto, auto, cover;
+}
+
+.ship {
+    position: absolute;
+    left: 18%;
+    top: 43%;
+    font-size: 55px;
+    transition: all 1.2s ease;
+    z-index: 3;
+}
+
+.ship.dodge-left { top: 15%; transform: rotate(-20deg); }
+.ship.dodge-right { top: 72%; transform: rotate(20deg); }
+.ship.dodge-up { left: 72%; top: 12%; transform: rotate(15deg); }
+
+.obstacle {
+    position: absolute;
+    right: -80px;
+    top: 43%;
+    font-size: 54px;
+    transition: all 1.6s linear;
+    z-index: 2;
+}
+
+.obstacle.move { right: 38%; }
+
+.space-caption {
+    position: absolute;
+    bottom: 17px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #d5eaff;
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    color: #7f9bb8;
+    padding: 20px;
+    font-size: 13px;
+}
+
+@media(max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .sidebar-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .task-btn { margin: 0; }
+    .panel { padding: 16px; }
+    .goal { width: 270px; height: 160px; }
+    .scene { height: 260px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎮 Python Games</h1>
+    <p>Практичні завдання: програмуй, запускай, грай!</p>
+</header>
+
+<div class="container">
+<div class="layout">
+
+    <aside class="sidebar">
+        <h3>📚 Практичні роботи</h3>
+        <div class="sidebar-buttons">
+            <button class="task-btn active" onclick="selectTask(1)" id="btn1">
+                ⚽ Завдання 1
+                <span>Пенальті</span>
+            </button>
+            <button class="task-btn" onclick="selectTask(2)" id="btn2">
+                🚀 Завдання 2
+                <span>Космічна місія</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <section class="panel">
+            <h2 class="task-title" id="taskTitle">⚽ Пенальті: битва з воротарем</h2>
+            <div class="description" id="taskDescription"></div>
+        </section>
+
+        <section class="panel">
+            <div class="editor-head">
+                <h3>💻 Редактор Python</h3>
+                <span class="editor-label">Напиши власну програму</span>
+            </div>
+
+            <textarea id="code"></textarea>
+
+            <div class="actions">
+                <button class="action run" onclick="runCode()">▶ Запустити код</button>
+                <button class="action clear" onclick="clearCode()">Очистити редактор</button>
+            </div>
+
+            <div class="status" id="pythonStatus">Завантаження Python...</div>
+            <div class="console" id="console">Тут з'явиться результат виконання програми.</div>
+        </section>
+
+        <section class="panel game" id="gamePanel">
+            <h3>🎬 Результат твоєї програми</h3>
+            <div class="scene" id="gameScene"></div>
+            <div class="result-message" id="gameMessage"></div>
+        </section>
+
+    </main>
+</div>
+</div>
+
+<footer>Кабінет інформатики • Практичні завдання Python</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.2/full/pyodide.js"></script>
+
+<script>
+let currentTask = 1;
+let pyodide = null;
+let isRunning = false;
+
+const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    mode: "python",
+    theme: "dracula",
+    lineNumbers: true,
+    indentUnit: 4,
+    tabSize: 4,
+    lineWrapping: true,
+    autofocus: false
+});
+
+const tasks = {
+    1: {
+        title: "⚽ Пенальті: битва з воротарем",
+        description: `
+            <p><b>Сюжет:</b> Ти пробиваєш пенальті у футбольному матчі.
+            Твоє завдання — створити програму, яка визначає, куди летить м'яч
+            і куди стрибає воротар.</p>
+
+            <p><b>Що потрібно зробити:</b></p>
+            <ul>
+                <li>Підключити модуль <code>random</code>.</li>
+                <li>Створити список із чотирьох кутів воріт.</li>
+                <li>Запропонувати гравцеві ввести напрямок удару через <code>input()</code>.</li>
+                <li>За допомогою <code>random.choice()</code> випадково обрати напрямок стрибка воротаря.</li>
+                <li>Використати <code>if/else</code>, щоб визначити результат.</li>
+                <li>Вивести напрямок удару та стрибка воротаря.</li>
+            </ul>
+
+            <p><b>Можливі напрямки:</b> верхній лівий, верхній правий,
+            нижній лівий, нижній правий.</p>
+
+            <div class="note">
+                <b>Важливо для анімації:</b> наприкінці програми виведи два рядки
+                у такому форматі:
+                <div class="output-format">
+                    УДАР: верхній правий<br>
+                    ВОРОТАР: нижній лівий
+                </div>
+                Замість прикладів виведи фактичні значення зі своєї програми.
+            </div>
+        `
+    },
+
+    2: {
+        title: "🚀 Космічна місія: небезпечний політ",
+        description: `
+            <p><b>Сюжет:</b> Твій космічний корабель летить крізь небезпечне
+            поле астероїдів. Попереду з'являється перешкода!
+            Потрібно створити програму, яка допоможе кораблю виконати маневр.</p>
+
+            <p><b>Що потрібно зробити:</b></p>
+            <ul>
+                <li>Підключити модуль <code>random</code>.</li>
+                <li>Створити список перешкод: астероїд, метеорит, космічне сміття.</li>
+                <li>За допомогою <code>random.choice()</code> випадково обрати перешкоду.</li>
+                <li>За допомогою <code>if/elif/else</code> визначити потрібний маневр.</li>
+                <li>Вивести назву перешкоди та обраний маневр.</li>
+            </ul>
+
+            <p><b>Правила маневру:</b></p>
+            <ul>
+                <li>Астероїд — маневр ліворуч.</li>
+                <li>Метеорит — маневр праворуч.</li>
+                <li>Космічне сміття — маневр угору.</li>
+            </ul>
+
+            <div class="note">
+                <b>Важливо для анімації:</b> наприкінці програми виведи два рядки
+                у такому форматі:
+                <div class="output-format">
+                    ПЕРЕШКОДА: астероїд<br>
+                    МАНЕВР: ліворуч
+                </div>
+                Замість прикладів виведи фактичні значення зі своєї програми.
+            </div>
+        `
+    }
+};
+
+function selectTask(number) {
+    if (isRunning) return;
+
+    currentTask = number;
+
+    document.getElementById("btn1").classList.toggle("active", number === 1);
+    document.getElementById("btn2").classList.toggle("active", number === 2);
+
+    document.getElementById("taskTitle").textContent = tasks[number].title;
+    document.getElementById("taskDescription").innerHTML = tasks[number].description;
+
+    editor.setValue("");
+    document.getElementById("console").textContent =
+        "Напиши програму та натисни «Запустити код».";
+    document.getElementById("gamePanel").classList.remove("show");
+}
+
+async function initPython() {
+    try {
+        pyodide = await loadPyodide();
+        document.getElementById("pythonStatus").textContent =
+            "Python готовий до роботи!";
+    } catch (error) {
+        document.getElementById("pythonStatus").textContent =
+            "Не вдалося завантажити Python. Перевірте підключення до інтернету.";
+    }
+}
+
+function clearCode() {
+    if (isRunning) return;
+    editor.setValue("");
+    document.getElementById("console").textContent =
+        "Редактор очищено. Напиши свою програму.";
+    document.getElementById("gamePanel").classList.remove("show");
+}
+
+function getValue(text, prefix) {
+    const lines = text.split(/\r?\n/);
+    for (const line of lines) {
+        if (line.trim().toUpperCase().startsWith(prefix)) {
+            return line.substring(line.indexOf(":") + 1).trim().toLowerCase();
+        }
+    }
+    return null;
+}
+
+function showConsole(text, className = "") {
+    const box = document.getElementById("console");
+    box.textContent = text || "Програма виконалася без виведення результату.";
+    box.className = "console " + className;
+}
+
+async function runCode() {
+    if (isRunning) return;
+
+    if (!pyodide) {
+        showConsole("Python ще завантажується. Зачекай трохи.", "error");
+        return;
+    }
+
+    const code = editor.getValue().trim();
+
+    if (!code) {
+        showConsole("Спочатку напиши програму в редакторі.", "error");
+        return;
+    }
+
+    isRunning = true;
+    document.getElementById("pythonStatus").textContent = "Виконання програми...";
+    document.getElementById("gamePanel").classList.remove("show");
+    showConsole("Виконання програми...");
+
+    try {
+        let output = "";
+
+        pyodide.setStdout({
+            batched: (text) => { output += text; }
+        });
+
+        pyodide.setStderr({
+            batched: (text) => { output += text; }
+        });
+
+        pyodide.setStdin({
+            stdin: () => {
+                const answer = window.prompt("Введи відповідь для програми:");
+                return answer === null ? "" : answer;
+            }
+        });
+
+        await pyodide.runPythonAsync(code);
+
+        showConsole(output);
+        document.getElementById("pythonStatus").textContent =
+            "Програму виконано.";
+
+        if (currentTask === 1) {
+            const shot = getValue(output, "УДАР:");
+            const keeper = getValue(output, "ВОРОТАР:");
+
+            if (!shot || !keeper) {
+                showConsole(
+                    output + "\n\nДля футбольної анімації потрібні рядки УДАР: та ВОРОТАР: у зазначеному форматі.",
+                    "error"
+                );
+            } else {
+                showPenalty(shot, keeper);
+            }
+        } else {
+            const obstacle = getValue(output, "ПЕРЕШКОДА:");
+            const maneuver = getValue(output, "МАНЕВР:");
+
+            if (!obstacle || !maneuver) {
+                showConsole(
+                    output + "\n\nДля космічної анімації потрібні рядки ПЕРЕШКОДА: та МАНЕВР: у зазначеному форматі.",
+                    "error"
+                );
+            } else {
+                showSpace(obstacle, maneuver);
+            }
+        }
+
+    } catch (error) {
+        showConsole("Помилка у програмі:\n" + error, "error");
+        document.getElementById("pythonStatus").textContent =
+            "Виправ помилки та спробуй ще раз.";
+    } finally {
+        isRunning = false;
+    }
+}
+
+const corners = {
+    "верхній лівий": "ul",
+    "верхній правий": "ur",
+    "нижній лівий": "ll",
+    "нижній правий": "lr"
+};
+
+function showPenalty(shot, keeper) {
+    const shotKey = corners[shot];
+    const keeperKey = corners[keeper];
+
+    if (!shotKey || !keeperKey) {
+        showConsole(
+            document.getElementById("console").textContent +
+            "\n\nПеревір назви кутів. Використовуй: верхній лівий, верхній правий, нижній лівий або нижній правий.",
+            "error"
+        );
+        return;
+    }
+
+    const panel = document.getElementById("gamePanel");
+    const scene = document.getElementById("gameScene");
+    const message = document.getElementById("gameMessage");
+
+    scene.className = "scene";
+    scene.innerHTML = `
+        <div class="scene-label">⚽ ПЕНАЛЬТІ</div>
+        <div class="goal">
+            <div class="goalkeeper" id="keeper">🧍</div>
+            <div class="ball" id="ball">⚽</div>
+        </div>
+    `;
+
+    message.textContent = "Увага! Удар...";
+    message.className = "result-message";
+
+    panel.classList.add("show");
+
+    setTimeout(() => {
+        document.getElementById("keeper").classList.add(keeperKey);
+        document.getElementById("ball").classList.add("fly", shotKey);
+    }, 400);
+
+    setTimeout(() => {
+        if (shotKey === keeperKey) {
+            message.textContent = "🧤 ВОРОТАР ВІДБИВ М'ЯЧ!";
+            message.className = "result-message bad";
+        } else {
+            message.textContent = "⚽ ГООООЛ! М'ЯЧ У ВОРОТАХ!";
+            message.className = "result-message good";
+        }
+    }, 1500);
+}
+
+function showSpace(obstacle, maneuver) {
+    const obstacleIcons = {
+        "астероїд": "☄️",
+        "метеорит": "🔥",
+        "космічне сміття": "🛰️"
+    };
+
+    const maneuvers = {
+        "ліворуч": "dodge-left",
+        "праворуч": "dodge-right",
+        "угору": "dodge-up"
+    };
+
+    const safeManeuvers = {
+        "астероїд": "ліворуч",
+        "метеорит": "праворуч",
+        "космічне сміття": "угору"
+    };
+
+    if (!obstacleIcons[obstacle] || !maneuvers[maneuver]) {
+        showConsole(
+            document.getElementById("console").textContent +
+            "\n\nПеревір назву перешкоди або маневру. Використовуй значення з умови.",
+            "error"
+        );
+        return;
+    }
+
+    const panel = document.getElementById("gamePanel");
+    const scene = document.getElementById("gameScene");
+    const message = document.getElementById("gameMessage");
+
+    scene.className = "scene space-scene";
+    scene.innerHTML = `
+        <div class="scene-label">🚀 КОСМІЧНА МІСІЯ</div>
+        <div class="ship" id="ship">🚀</div>
+        <div class="obstacle" id="obstacle">${obstacleIcons[obstacle]}</div>
+        <div class="space-caption">Небезпечна перешкода попереду!</div>
+    `;
+
+    message.textContent = "Увага! Виконуємо маневр...";
+    message.className = "result-message";
+
+    panel.classList.add("show");
+
+    setTimeout(() => {
+        document.getElementById("obstacle").classList.add("move");
+        document.getElementById("ship").classList.add(maneuvers[maneuver]);
+    }, 350);
+
+    setTimeout(() => {
+        if (safeManeuvers[obstacle] === maneuver) {
+            message.textContent = "🌟 МАНЕВР УСПІШНИЙ! Корабель уникнув зіткнення!";
+            message.className = "result-message good";
+        } else {
+            message.textContent = "💥 ЗІТКНЕННЯ! Маневр не допоміг уникнути перешкоди.";
+            message.className = "result-message bad";
+        }
+    }, 1900);
+}
+
+selectTask(1);
+initPython();
+</script>
+
+</body>
+</html>
