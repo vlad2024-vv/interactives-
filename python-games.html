@@ -12,385 +12,434 @@
 
 <style>
 :root {
-    --bg: #071426;
-    --panel: #10233e;
-    --panel2: #142b49;
-    --blue: #2786ff;
-    --cyan: #35d5f5;
-    --text: #edf5ff;
-    --muted: #a5bad2;
-    --green: #38d996;
-    --red: #ff657c;
-    --border: rgba(125,170,220,.17);
+    --bg:#071426;
+    --panel:#10233e;
+    --panel2:#172e4c;
+    --blue:#2786ff;
+    --cyan:#35d5f5;
+    --text:#edf5ff;
+    --muted:#a5bad2;
+    --green:#38d996;
+    --red:#ff657c;
+    --border:rgba(125,170,220,.18);
 }
 
-* { box-sizing: border-box; }
+* { box-sizing:border-box; }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: var(--text);
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:var(--text);
     background:
-        radial-gradient(circle at 15% 5%, rgba(32,111,205,.2), transparent 32%),
-        radial-gradient(circle at 90% 80%, rgba(20,165,220,.12), transparent 30%),
+        radial-gradient(circle at 15% 5%,rgba(32,111,205,.2),transparent 32%),
+        radial-gradient(circle at 90% 80%,rgba(20,165,220,.12),transparent 30%),
         var(--bg);
-    min-height: 100vh;
+    min-height:100vh;
 }
 
 header {
-    text-align: center;
-    padding: 28px 16px 20px;
+    text-align:center;
+    padding:28px 16px 22px;
 }
 
 header h1 {
-    margin: 0;
-    font-size: clamp(25px, 4vw, 36px);
-    color: #fff;
+    margin:0;
+    font-size:clamp(25px,4vw,36px);
 }
 
 header p {
-    color: var(--muted);
-    margin: 10px 0 0;
+    color:var(--muted);
+    margin:10px 0 0;
 }
 
 .container {
-    width: min(1250px, 94%);
-    margin: auto;
-    padding-bottom: 40px;
+    width:min(1250px,94%);
+    margin:auto;
+    padding-bottom:40px;
 }
 
 .layout {
-    display: grid;
-    grid-template-columns: 230px 1fr;
-    gap: 20px;
-    align-items: start;
+    display:grid;
+    grid-template-columns:225px minmax(0,1fr);
+    gap:20px;
+    align-items:start;
 }
 
-.sidebar, .panel {
-    background: rgba(16,35,62,.92);
-    border: 1px solid var(--border);
-    border-radius: 17px;
-    box-shadow: 0 12px 35px rgba(0,0,0,.2);
+.sidebar,.panel {
+    background:rgba(16,35,62,.94);
+    border:1px solid var(--border);
+    border-radius:17px;
+    box-shadow:0 12px 35px rgba(0,0,0,.2);
 }
 
 .sidebar {
-    padding: 17px;
-    position: sticky;
-    top: 15px;
+    padding:17px;
+    position:sticky;
+    top:15px;
 }
 
 .sidebar h3 {
-    margin: 2px 0 15px;
-    font-size: 17px;
+    margin:2px 0 15px;
+    font-size:17px;
 }
 
 .task-btn {
-    width: 100%;
-    border: 1px solid transparent;
-    background: #142b49;
-    color: var(--text);
-    border-radius: 12px;
-    padding: 14px 12px;
-    margin-bottom: 10px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 15px;
-    transition: .2s;
+    width:100%;
+    border:1px solid transparent;
+    background:#142b49;
+    color:var(--text);
+    border-radius:12px;
+    padding:14px 12px;
+    margin-bottom:10px;
+    text-align:left;
+    cursor:pointer;
+    font-size:15px;
+    transition:.2s;
 }
 
 .task-btn:hover {
-    background: #1a3b63;
-    border-color: #328dff;
-    transform: translateY(-2px);
+    background:#1a3b63;
+    border-color:#328dff;
+    transform:translateY(-2px);
 }
 
 .task-btn.active {
-    background: linear-gradient(120deg, #1459a8, #167caa);
-    border-color: #52c5ff;
-    box-shadow: 0 0 18px rgba(39,134,255,.22);
+    background:linear-gradient(120deg,#1459a8,#167caa);
+    border-color:#52c5ff;
+    box-shadow:0 0 18px rgba(39,134,255,.22);
 }
 
 .task-btn span {
-    display: block;
-    font-size: 12px;
-    color: #c4d9ef;
-    margin-top: 5px;
+    display:block;
+    font-size:12px;
+    color:#c4d9ef;
+    margin-top:5px;
 }
 
-.main { min-width: 0; }
+.main { min-width:0; }
 
 .panel {
-    padding: 22px;
-    margin-bottom: 18px;
+    padding:22px;
+    margin-bottom:18px;
 }
 
 .task-title {
-    font-size: 25px;
-    margin: 0 0 14px;
+    font-size:25px;
+    margin:0 0 14px;
 }
 
 .description {
-    color: #d4e2f2;
-    line-height: 1.65;
+    color:#d4e2f2;
+    line-height:1.65;
 }
 
 .description ul {
-    padding-left: 22px;
+    padding-left:22px;
 }
 
-.description li { margin: 7px 0; }
+.description li { margin:7px 0; }
+
+.description code {
+    color:#8be5ff;
+    background:#0b1b30;
+    padding:2px 5px;
+    border-radius:4px;
+}
 
 .note {
-    background: rgba(39,134,255,.1);
-    border-left: 3px solid var(--blue);
-    padding: 13px 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-    line-height: 1.55;
+    background:rgba(39,134,255,.1);
+    border-left:3px solid var(--blue);
+    padding:13px 15px;
+    border-radius:8px;
+    margin-top:15px;
+    line-height:1.55;
 }
 
-.note code {
-    color: #8be5ff;
+.example {
+    background:#08182b;
+    padding:12px 15px;
+    border-radius:9px;
+    color:#a9e9ff;
+    font-family:Consolas,monospace;
+    line-height:1.8;
+    overflow-wrap:anywhere;
+    margin:9px 0;
 }
 
-.output-format {
-    background: #08182b;
-    padding: 12px 15px;
-    border-radius: 9px;
-    color: #a9e9ff;
-    font-family: Consolas, monospace;
-    line-height: 1.8;
-    overflow-wrap: anywhere;
+.input-area {
+    background:#0b1d34;
+    border:1px solid #294765;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:17px;
+}
+
+.input-area label {
+    display:block;
+    font-weight:bold;
+    margin-bottom:9px;
+}
+
+.input-area p {
+    color:var(--muted);
+    font-size:13px;
+    margin:0 0 10px;
+}
+
+.input-area select {
+    width:100%;
+    max-width:420px;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #416487;
+    background:#172e4c;
+    color:white;
+    font-size:15px;
+}
+
+.no-input {
+    color:#a9e9ff;
+    background:#0b1d34;
+    border:1px solid #294765;
+    border-radius:10px;
+    padding:13px;
+    margin-bottom:17px;
+    line-height:1.5;
 }
 
 .editor-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
 }
 
-.editor-head h3 { margin: 0; }
+.editor-head h3 { margin:0; }
 
 .editor-label {
-    color: var(--muted);
-    font-size: 13px;
+    color:var(--muted);
+    font-size:13px;
 }
 
 .CodeMirror {
-    height: 310px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-family: Consolas, monospace;
-    border: 1px solid #294765;
+    height:320px;
+    border-radius:10px;
+    font-size:14px;
+    font-family:Consolas,monospace;
+    border:1px solid #294765;
 }
 
 .actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 14px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:14px;
 }
 
 button.action {
-    border: 0;
-    border-radius: 10px;
-    padding: 12px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .2s;
-    font-size: 14px;
+    border:0;
+    border-radius:10px;
+    padding:12px 20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+    font-size:14px;
 }
 
-button.action:hover { transform: translateY(-2px); }
+button.action:hover { transform:translateY(-2px); }
+button.action:disabled { opacity:.55; cursor:not-allowed; transform:none; }
 
 .run {
-    background: linear-gradient(120deg, #1687ed, #16b7d4);
-    color: white;
+    background:linear-gradient(120deg,#1687ed,#16b7d4);
+    color:white;
 }
 
 .clear {
-    background: #263e5c;
-    color: white;
+    background:#263e5c;
+    color:white;
 }
 
 .console {
-    background: #06111f;
-    border: 1px solid #233b57;
-    border-radius: 10px;
-    padding: 15px;
-    min-height: 100px;
-    color: #d4e6f7;
-    font-family: Consolas, monospace;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    line-height: 1.55;
-    margin-top: 12px;
+    background:#06111f;
+    border:1px solid #233b57;
+    border-radius:10px;
+    padding:15px;
+    min-height:125px;
+    color:#d4e6f7;
+    font-family:Consolas,monospace;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+    line-height:1.6;
+    margin-top:12px;
 }
-
-.console .success { color: var(--green); }
-.console .error { color: var(--red); }
 
 .status {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 10px;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:12px;
 }
+
+.status.good { color:var(--green); }
+.status.bad { color:var(--red); }
 
 .game {
-    display: none;
-    overflow: hidden;
+    display:none;
+    overflow:hidden;
 }
 
-.game.show { display: block; }
+.game.show { display:block; }
 
 .scene {
-    height: 300px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 14px;
-    background: linear-gradient(#07152d, #102b4d);
-    border: 1px solid #31577d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height:300px;
+    position:relative;
+    overflow:hidden;
+    border-radius:14px;
+    background:linear-gradient(#07152d,#102b4d);
+    border:1px solid #31577d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .scene-label {
-    position: absolute;
-    top: 13px;
-    left: 15px;
-    color: #c6dff7;
-    font-size: 13px;
-    z-index: 5;
+    position:absolute;
+    top:13px;
+    left:15px;
+    color:#c6dff7;
+    font-size:13px;
+    z-index:5;
 }
 
 .result-message {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 17px;
-    min-height: 32px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:17px;
+    min-height:32px;
+    line-height:1.4;
 }
 
-.result-message.good { color: var(--green); }
-.result-message.bad { color: var(--red); }
+.result-message.good { color:var(--green); }
+.result-message.bad { color:var(--red); }
 
 .goal {
-    position: relative;
-    width: 340px;
-    height: 190px;
-    border: 9px solid #e5edf5;
-    border-bottom: 0;
+    position:relative;
+    width:340px;
+    height:190px;
+    border:9px solid #e5edf5;
+    border-bottom:0;
     background:
-        linear-gradient(90deg, transparent 49.5%, rgba(255,255,255,.16) 50%, transparent 50.5%),
-        linear-gradient(0deg, transparent 49.5%, rgba(255,255,255,.16) 50%, transparent 50.5%),
-        repeating-linear-gradient(90deg, transparent 0 32px, rgba(255,255,255,.13) 33px 34px),
-        repeating-linear-gradient(0deg, transparent 0 32px, rgba(255,255,255,.13) 33px 34px),
+        linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.16) 50%,transparent 50.5%),
+        linear-gradient(0deg,transparent 49.5%,rgba(255,255,255,.16) 50%,transparent 50.5%),
+        repeating-linear-gradient(90deg,transparent 0 32px,rgba(255,255,255,.13) 33px 34px),
+        repeating-linear-gradient(0deg,transparent 0 32px,rgba(255,255,255,.13) 33px 34px),
         rgba(255,255,255,.06);
-    box-shadow: 0 0 22px rgba(255,255,255,.12);
+    box-shadow:0 0 22px rgba(255,255,255,.12);
 }
 
 .goal:after {
-    content: "";
-    position: absolute;
-    bottom: -12px;
-    left: -30px;
-    width: calc(100% + 60px);
-    height: 12px;
-    background: #dbe7f3;
+    content:"";
+    position:absolute;
+    bottom:-12px;
+    left:-30px;
+    width:calc(100% + 60px);
+    height:12px;
+    background:#dbe7f3;
 }
 
 .ball {
-    position: absolute;
-    font-size: 34px;
-    z-index: 3;
-    left: 48%;
-    bottom: 8px;
-    transition: all 1s cubic-bezier(.2,.7,.2,1);
+    position:absolute;
+    font-size:34px;
+    z-index:3;
+    left:48%;
+    bottom:8px;
+    transition:all 1s cubic-bezier(.2,.7,.2,1);
 }
 
 .goalkeeper {
-    position: absolute;
-    font-size: 49px;
-    left: 43%;
-    bottom: 4px;
-    z-index: 2;
-    transition: all .8s ease;
+    position:absolute;
+    font-size:49px;
+    left:43%;
+    bottom:4px;
+    z-index:2;
+    transition:all .8s ease;
 }
 
-.ball.fly { bottom: 145px; }
-.ball.ul { left: 5%; }
-.ball.ur { left: 83%; }
-.ball.ll { left: 5%; bottom: 30px; }
-.ball.lr { left: 83%; bottom: 30px; }
+.ball.fly { bottom:145px; }
+.ball.ul { left:5%; }
+.ball.ur { left:83%; }
+.ball.ll { left:5%; bottom:30px; }
+.ball.lr { left:83%; bottom:30px; }
 
-.goalkeeper.ul { left: 5%; bottom: 65px; transform: rotate(-45deg); }
-.goalkeeper.ur { left: 83%; bottom: 65px; transform: rotate(45deg); }
-.goalkeeper.ll { left: 10%; bottom: 4px; transform: rotate(-25deg); }
-.goalkeeper.lr { left: 78%; bottom: 4px; transform: rotate(25deg); }
+.goalkeeper.ul { left:5%; bottom:65px; transform:rotate(-45deg); }
+.goalkeeper.ur { left:83%; bottom:65px; transform:rotate(45deg); }
+.goalkeeper.ll { left:10%; bottom:4px; transform:rotate(-25deg); }
+.goalkeeper.lr { left:78%; bottom:4px; transform:rotate(25deg); }
 
 .space-scene {
     background:
-        radial-gradient(circle at 20% 30%, white 1px, transparent 2px),
-        radial-gradient(circle at 70% 20%, white 1px, transparent 2px),
-        radial-gradient(circle at 40% 70%, white 1px, transparent 2px),
-        radial-gradient(circle at 85% 75%, white 1px, transparent 2px),
-        linear-gradient(120deg, #080c2c, #152b59, #10152e);
-    background-size: auto, auto, auto, auto, cover;
+        radial-gradient(circle at 20% 30%,white 1px,transparent 2px),
+        radial-gradient(circle at 70% 20%,white 1px,transparent 2px),
+        radial-gradient(circle at 40% 70%,white 1px,transparent 2px),
+        radial-gradient(circle at 85% 75%,white 1px,transparent 2px),
+        linear-gradient(120deg,#080c2c,#152b59,#10152e);
 }
 
 .ship {
-    position: absolute;
-    left: 18%;
-    top: 43%;
-    font-size: 55px;
-    transition: all 1.2s ease;
-    z-index: 3;
+    position:absolute;
+    left:18%;
+    top:43%;
+    font-size:55px;
+    transition:all 1.2s ease;
+    z-index:3;
 }
 
-.ship.dodge-left { top: 15%; transform: rotate(-20deg); }
-.ship.dodge-right { top: 72%; transform: rotate(20deg); }
-.ship.dodge-up { left: 72%; top: 12%; transform: rotate(15deg); }
+.ship.dodge-left { top:15%; transform:rotate(-20deg); }
+.ship.dodge-right { top:72%; transform:rotate(20deg); }
+.ship.dodge-up { left:72%; top:12%; transform:rotate(15deg); }
 
 .obstacle {
-    position: absolute;
-    right: -80px;
-    top: 43%;
-    font-size: 54px;
-    transition: all 1.6s linear;
-    z-index: 2;
+    position:absolute;
+    right:-80px;
+    top:43%;
+    font-size:54px;
+    transition:all 1.6s linear;
+    z-index:2;
 }
 
-.obstacle.move { right: 38%; }
+.obstacle.move { right:38%; }
 
 .space-caption {
-    position: absolute;
-    bottom: 17px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: #d5eaff;
-    font-size: 14px;
+    position:absolute;
+    bottom:17px;
+    left:0;
+    right:0;
+    text-align:center;
+    color:#d5eaff;
+    font-size:14px;
 }
 
 footer {
-    text-align: center;
-    color: #7f9bb8;
-    padding: 20px;
-    font-size: 13px;
+    text-align:center;
+    color:#7f9bb8;
+    padding:20px;
+    font-size:13px;
 }
 
-@media(max-width: 760px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; }
-    .sidebar-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .task-btn { margin: 0; }
-    .panel { padding: 16px; }
-    .goal { width: 270px; height: 160px; }
-    .scene { height: 260px; }
+@media(max-width:760px) {
+    .layout { grid-template-columns:1fr; }
+    .sidebar { position:static; }
+    .sidebar-buttons {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+    .task-btn { margin:0; }
+    .panel { padding:16px; }
+    .goal { width:270px; height:160px; }
+    .scene { height:260px; }
 }
 </style>
 </head>
@@ -422,25 +471,41 @@ footer {
     <main class="main">
 
         <section class="panel">
-            <h2 class="task-title" id="taskTitle">⚽ Пенальті: битва з воротарем</h2>
+            <h2 class="task-title" id="taskTitle"></h2>
             <div class="description" id="taskDescription"></div>
         </section>
 
         <section class="panel">
+
+            <div id="inputArea" class="input-area">
+                <label for="userInput">⌨️ Вхідні дані</label>
+                <p>Обери напрямок, у який хочеш пробити пенальті. Це значення отримає твоя програма через input().</p>
+                <select id="userInput">
+                    <option value="верхній лівий">Верхній лівий кут</option>
+                    <option value="верхній правий">Верхній правий кут</option>
+                    <option value="нижній лівий">Нижній лівий кут</option>
+                    <option value="нижній правий">Нижній правий кут</option>
+                </select>
+            </div>
+
+            <div id="noInput" class="no-input" style="display:none">
+                ℹ️ У цьому завданні користувач нічого не вводить. Комп'ютер самостійно обирає перешкоду випадковим чином.
+            </div>
+
             <div class="editor-head">
                 <h3>💻 Редактор Python</h3>
-                <span class="editor-label">Напиши власну програму</span>
+                <span class="editor-label">Напиши програму самостійно</span>
             </div>
 
             <textarea id="code"></textarea>
 
             <div class="actions">
-                <button class="action run" onclick="runCode()">▶ Запустити код</button>
-                <button class="action clear" onclick="clearCode()">Очистити редактор</button>
+                <button class="action run" id="runButton" onclick="runCode()">▶ Запустити програму</button>
+                <button class="action clear" onclick="clearCode()">Очистити код</button>
             </div>
 
             <div class="status" id="pythonStatus">Завантаження Python...</div>
-            <div class="console" id="console">Тут з'явиться результат виконання програми.</div>
+            <div class="console" id="console">Тут з'явиться результат виконання твоєї програми.</div>
         </section>
 
         <section class="panel game" id="gamePanel">
@@ -464,45 +529,45 @@ let currentTask = 1;
 let pyodide = null;
 let isRunning = false;
 
+const codeByTask = {
+    1: "",
+    2: ""
+};
+
 const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     mode: "python",
     theme: "dracula",
     lineNumbers: true,
     indentUnit: 4,
     tabSize: 4,
-    lineWrapping: true,
-    autofocus: false
+    lineWrapping: true
 });
 
 const tasks = {
     1: {
         title: "⚽ Пенальті: битва з воротарем",
         description: `
-            <p><b>Сюжет:</b> Ти пробиваєш пенальті у футбольному матчі.
-            Твоє завдання — створити програму, яка визначає, куди летить м'яч
-            і куди стрибає воротар.</p>
+            <p><b>Сюжет.</b> Ти пробиваєш пенальті у футбольному матчі.
+            Створи програму, яка визначить, чи зможе воротар відбити твій удар.</p>
 
-            <p><b>Що потрібно зробити:</b></p>
-            <ul>
-                <li>Підключити модуль <code>random</code>.</li>
-                <li>Створити список із чотирьох кутів воріт.</li>
-                <li>Запропонувати гравцеві ввести напрямок удару через <code>input()</code>.</li>
-                <li>За допомогою <code>random.choice()</code> випадково обрати напрямок стрибка воротаря.</li>
-                <li>Використати <code>if/else</code>, щоб визначити результат.</li>
-                <li>Вивести напрямок удару та стрибка воротаря.</li>
-            </ul>
+            <p><b>Порядок виконання:</b></p>
+            <ol>
+                <li>Підключи модуль <code>random</code>.</li>
+                <li>Створи список із чотирьох напрямків удару: верхній лівий, верхній правий, нижній лівий, нижній правий.</li>
+                <li>За допомогою <code>input()</code> отримай напрямок удару гравця.</li>
+                <li>За допомогою <code>random.choice()</code> випадково обери напрямок стрибка воротаря.</li>
+                <li>Використай <code>if/else</code>, щоб порівняти напрямки.</li>
+                <li>Виведи результат пенальті.</li>
+            </ol>
 
-            <p><b>Можливі напрямки:</b> верхній лівий, верхній правий,
-            нижній лівий, нижній правий.</p>
+            <p><b>Правило гри:</b> якщо гравець і воротар обрали однаковий кут — воротар відбиває м'яч. Якщо різні — це гол.</p>
 
             <div class="note">
-                <b>Важливо для анімації:</b> наприкінці програми виведи два рядки
-                у такому форматі:
-                <div class="output-format">
-                    УДАР: верхній правий<br>
-                    ВОРОТАР: нижній лівий
-                </div>
-                Замість прикладів виведи фактичні значення зі своєї програми.
+                <b>Вхідні дані:</b> напрямок удару. Його потрібно отримати за допомогою <code>input()</code>. Вибір робиться у полі над редактором.
+                <br><br>
+                <b>Вихідні дані:</b> програма повинна вивести три рядки в такому форматі:
+                <div class="example">Ваш удар: верхній правий<br>Воротар стрибнув: нижній лівий<br>Результат: ГОЛ!</div>
+                У другому рядку буде випадковий напрямок воротаря, а в третьому — результат порівняння.
             </div>
         `
     },
@@ -510,34 +575,30 @@ const tasks = {
     2: {
         title: "🚀 Космічна місія: небезпечний політ",
         description: `
-            <p><b>Сюжет:</b> Твій космічний корабель летить крізь небезпечне
-            поле астероїдів. Попереду з'являється перешкода!
-            Потрібно створити програму, яка допоможе кораблю виконати маневр.</p>
+            <p><b>Сюжет.</b> Твій космічний корабель летить крізь небезпечне поле перешкод. Комп'ютер випадково створює перешкоду, а твоя програма повинна визначити, як кораблю її подолати.</p>
 
-            <p><b>Що потрібно зробити:</b></p>
-            <ul>
-                <li>Підключити модуль <code>random</code>.</li>
-                <li>Створити список перешкод: астероїд, метеорит, космічне сміття.</li>
-                <li>За допомогою <code>random.choice()</code> випадково обрати перешкоду.</li>
-                <li>За допомогою <code>if/elif/else</code> визначити потрібний маневр.</li>
-                <li>Вивести назву перешкоди та обраний маневр.</li>
-            </ul>
+            <p><b>Порядок виконання:</b></p>
+            <ol>
+                <li>Підключи модуль <code>random</code>.</li>
+                <li>Створи список із трьох перешкод: астероїд, метеорит, космічне сміття.</li>
+                <li>За допомогою <code>random.choice()</code> випадково обери одну перешкоду.</li>
+                <li>Використай <code>if/elif/else</code>, щоб визначити маневр корабля.</li>
+                <li>Виведи назву перешкоди та обраний маневр.</li>
+            </ol>
 
             <p><b>Правила маневру:</b></p>
             <ul>
-                <li>Астероїд — маневр ліворуч.</li>
-                <li>Метеорит — маневр праворуч.</li>
-                <li>Космічне сміття — маневр угору.</li>
+                <li>Астероїд — ліворуч.</li>
+                <li>Метеорит — праворуч.</li>
+                <li>Космічне сміття — угору.</li>
             </ul>
 
             <div class="note">
-                <b>Важливо для анімації:</b> наприкінці програми виведи два рядки
-                у такому форматі:
-                <div class="output-format">
-                    ПЕРЕШКОДА: астероїд<br>
-                    МАНЕВР: ліворуч
-                </div>
-                Замість прикладів виведи фактичні значення зі своєї програми.
+                <b>Вхідні дані:</b> не потрібні. Перешкоду обирає комп'ютер.
+                <br><br>
+                <b>Вихідні дані:</b> програма повинна вивести три рядки в такому форматі:
+                <div class="example">Перешкода: астероїд<br>Маневр: ліворуч<br>Результат: Перешкоду подолано!</div>
+                Назва перешкоди та маневр мають відповідати правилам гри.
             </div>
         `
     }
@@ -546,6 +607,7 @@ const tasks = {
 function selectTask(number) {
     if (isRunning) return;
 
+    codeByTask[currentTask] = editor.getValue();
     currentTask = number;
 
     document.getElementById("btn1").classList.toggle("active", number === 1);
@@ -554,9 +616,32 @@ function selectTask(number) {
     document.getElementById("taskTitle").textContent = tasks[number].title;
     document.getElementById("taskDescription").innerHTML = tasks[number].description;
 
-    editor.setValue("");
+    document.getElementById("inputArea").style.display =
+        number === 1 ? "block" : "none";
+
+    document.getElementById("noInput").style.display =
+        number === 2 ? "block" : "none";
+
+    editor.setValue(codeByTask[number]);
+
     document.getElementById("console").textContent =
-        "Напиши програму та натисни «Запустити код».";
+        "Тут з'явиться результат виконання твоєї програми.";
+
+    document.getElementById("pythonStatus").textContent =
+        pyodide ? "Python готовий до роботи!" : "Завантаження Python...";
+
+    document.getElementById("gamePanel").classList.remove("show");
+}
+
+function clearCode() {
+    if (isRunning) return;
+
+    editor.setValue("");
+    codeByTask[currentTask] = "";
+
+    document.getElementById("console").textContent =
+        "Редактор очищено. Напиши свою програму.";
+
     document.getElementById("gamePanel").classList.remove("show");
 }
 
@@ -567,32 +652,29 @@ async function initPython() {
             "Python готовий до роботи!";
     } catch (error) {
         document.getElementById("pythonStatus").textContent =
-            "Не вдалося завантажити Python. Перевірте підключення до інтернету.";
+            "Не вдалося завантажити Python. Перевір підключення до інтернету.";
     }
 }
 
-function clearCode() {
-    if (isRunning) return;
-    editor.setValue("");
-    document.getElementById("console").textContent =
-        "Редактор очищено. Напиши свою програму.";
-    document.getElementById("gamePanel").classList.remove("show");
-}
-
-function getValue(text, prefix) {
-    const lines = text.split(/\r?\n/);
-    for (const line of lines) {
-        if (line.trim().toUpperCase().startsWith(prefix)) {
-            return line.substring(line.indexOf(":") + 1).trim().toLowerCase();
-        }
-    }
-    return null;
-}
-
-function showConsole(text, className = "") {
+function showConsole(text, type = "") {
     const box = document.getElementById("console");
     box.textContent = text || "Програма виконалася без виведення результату.";
-    box.className = "console " + className;
+    box.className = "console";
+    if (type === "error") box.style.borderColor = "#ff657c";
+    else box.style.borderColor = "#233b57";
+}
+
+function getLineValue(text, label) {
+    const lines = text.split(/\r?\n/);
+
+    for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed.toLowerCase().startsWith(label.toLowerCase())) {
+            return trimmed.substring(trimmed.indexOf(":") + 1).trim().toLowerCase();
+        }
+    }
+
+    return null;
 }
 
 async function runCode() {
@@ -610,67 +692,168 @@ async function runCode() {
         return;
     }
 
+    codeByTask[currentTask] = editor.getValue();
+
+    const inputValue = document.getElementById("userInput").value;
+
     isRunning = true;
+    document.getElementById("runButton").disabled = true;
     document.getElementById("pythonStatus").textContent = "Виконання програми...";
     document.getElementById("gamePanel").classList.remove("show");
     showConsole("Виконання програми...");
 
     try {
         let output = "";
+        let inputWasUsed = false;
 
         pyodide.setStdout({
-            batched: (text) => { output += text; }
+            batched: (text) => {
+                output += text;
+            }
         });
 
         pyodide.setStderr({
-            batched: (text) => { output += text; }
+            batched: (text) => {
+                output += text;
+            }
         });
 
         pyodide.setStdin({
             stdin: () => {
-                const answer = window.prompt("Введи відповідь для програми:");
-                return answer === null ? "" : answer;
+                if (currentTask === 1 && !inputWasUsed) {
+                    inputWasUsed = true;
+                    return inputValue;
+                }
+                return "";
             }
         });
 
         await pyodide.runPythonAsync(code);
 
         showConsole(output);
-        document.getElementById("pythonStatus").textContent =
-            "Програму виконано.";
 
         if (currentTask === 1) {
-            const shot = getValue(output, "УДАР:");
-            const keeper = getValue(output, "ВОРОТАР:");
-
-            if (!shot || !keeper) {
+            if (!inputWasUsed) {
                 showConsole(
-                    output + "\n\nДля футбольної анімації потрібні рядки УДАР: та ВОРОТАР: у зазначеному форматі.",
+                    output + "\n\nПрограма не використала input(). Додай введення напрямку удару.",
                     "error"
                 );
-            } else {
-                showPenalty(shot, keeper);
+                document.getElementById("pythonStatus").textContent =
+                    "Перевір програму.";
+                return;
             }
+
+            const shot = getLineValue(output, "Ваш удар:");
+            const keeper = getLineValue(output, "Воротар стрибнув:");
+            const result = getLineValue(output, "Результат:");
+
+            const corners = [
+                "верхній лівий",
+                "верхній правий",
+                "нижній лівий",
+                "нижній правий"
+            ];
+
+            if (!shot || !keeper || !result) {
+                showConsole(
+                    output + "\n\nНе знайдено всі три потрібні рядки. Перевір формат виведення в умові.",
+                    "error"
+                );
+                document.getElementById("pythonStatus").textContent =
+                    "Перевір формат виведення.";
+                return;
+            }
+
+            if (shot !== inputValue.toLowerCase()) {
+                showConsole(
+                    output + "\n\nУ рядку «Ваш удар» має бути напрямок, який ввів гравець.",
+                    "error"
+                );
+                return;
+            }
+
+            if (!corners.includes(keeper)) {
+                showConsole(output + "\n\nНевідомий напрямок стрибка воротаря.", "error");
+                return;
+            }
+
+            const expected = shot === keeper ? "воротар відбив м'яч!" : "гол!";
+
+            if (result !== expected) {
+                showConsole(
+                    output + "\n\nПеревір умову if/else: результат має залежати від збігу напрямків.",
+                    "error"
+                );
+                document.getElementById("pythonStatus").textContent =
+                    "Логіку результату потрібно виправити.";
+                return;
+            }
+
+            document.getElementById("pythonStatus").textContent =
+                "Програму виконано. Дивись результат!";
+            document.getElementById("pythonStatus").className = "status good";
+
+            showPenalty(shot, keeper);
+
         } else {
-            const obstacle = getValue(output, "ПЕРЕШКОДА:");
-            const maneuver = getValue(output, "МАНЕВР:");
+            const obstacle = getLineValue(output, "Перешкода:");
+            const maneuver = getLineValue(output, "Маневр:");
+            const result = getLineValue(output, "Результат:");
 
-            if (!obstacle || !maneuver) {
+            const rules = {
+                "астероїд": "ліворуч",
+                "метеорит": "праворуч",
+                "космічне сміття": "угору"
+            };
+
+            if (!obstacle || !maneuver || !result) {
                 showConsole(
-                    output + "\n\nДля космічної анімації потрібні рядки ПЕРЕШКОДА: та МАНЕВР: у зазначеному форматі.",
+                    output + "\n\nНе знайдено всі три потрібні рядки. Перевір формат виведення в умові.",
                     "error"
                 );
-            } else {
-                showSpace(obstacle, maneuver);
+                document.getElementById("pythonStatus").textContent =
+                    "Перевір формат виведення.";
+                return;
             }
+
+            if (!Object.prototype.hasOwnProperty.call(rules, obstacle)) {
+                showConsole(output + "\n\nНевідома перешкода.", "error");
+                return;
+            }
+
+            if (maneuver !== rules[obstacle]) {
+                showConsole(
+                    output + "\n\nНеправильний маневр. Перевір умови if/elif/else.",
+                    "error"
+                );
+                document.getElementById("pythonStatus").textContent =
+                    "Логіку маневру потрібно виправити.";
+                return;
+            }
+
+            if (result !== "перешкоду подолано!") {
+                showConsole(
+                    output + "\n\nВиведи результат: Перешкоду подолано!",
+                    "error"
+                );
+                return;
+            }
+
+            document.getElementById("pythonStatus").textContent =
+                "Програму виконано. Дивись результат!";
+            document.getElementById("pythonStatus").className = "status good";
+
+            showSpace(obstacle, maneuver);
         }
 
     } catch (error) {
         showConsole("Помилка у програмі:\n" + error, "error");
         document.getElementById("pythonStatus").textContent =
             "Виправ помилки та спробуй ще раз.";
+        document.getElementById("pythonStatus").className = "status bad";
     } finally {
         isRunning = false;
+        document.getElementById("runButton").disabled = false;
     }
 }
 
@@ -685,15 +868,6 @@ function showPenalty(shot, keeper) {
     const shotKey = corners[shot];
     const keeperKey = corners[keeper];
 
-    if (!shotKey || !keeperKey) {
-        showConsole(
-            document.getElementById("console").textContent +
-            "\n\nПеревір назви кутів. Використовуй: верхній лівий, верхній правий, нижній лівий або нижній правий.",
-            "error"
-        );
-        return;
-    }
-
     const panel = document.getElementById("gamePanel");
     const scene = document.getElementById("gameScene");
     const message = document.getElementById("gameMessage");
@@ -707,7 +881,7 @@ function showPenalty(shot, keeper) {
         </div>
     `;
 
-    message.textContent = "Увага! Удар...";
+    message.textContent = "Гравець готується до удару...";
     message.className = "result-message";
 
     panel.classList.add("show");
@@ -715,7 +889,7 @@ function showPenalty(shot, keeper) {
     setTimeout(() => {
         document.getElementById("keeper").classList.add(keeperKey);
         document.getElementById("ball").classList.add("fly", shotKey);
-    }, 400);
+    }, 450);
 
     setTimeout(() => {
         if (shotKey === keeperKey) {
@@ -725,7 +899,7 @@ function showPenalty(shot, keeper) {
             message.textContent = "⚽ ГООООЛ! М'ЯЧ У ВОРОТАХ!";
             message.className = "result-message good";
         }
-    }, 1500);
+    }, 1600);
 }
 
 function showSpace(obstacle, maneuver) {
@@ -741,21 +915,6 @@ function showSpace(obstacle, maneuver) {
         "угору": "dodge-up"
     };
 
-    const safeManeuvers = {
-        "астероїд": "ліворуч",
-        "метеорит": "праворуч",
-        "космічне сміття": "угору"
-    };
-
-    if (!obstacleIcons[obstacle] || !maneuvers[maneuver]) {
-        showConsole(
-            document.getElementById("console").textContent +
-            "\n\nПеревір назву перешкоди або маневру. Використовуй значення з умови.",
-            "error"
-        );
-        return;
-    }
-
     const panel = document.getElementById("gamePanel");
     const scene = document.getElementById("gameScene");
     const message = document.getElementById("gameMessage");
@@ -768,7 +927,7 @@ function showSpace(obstacle, maneuver) {
         <div class="space-caption">Небезпечна перешкода попереду!</div>
     `;
 
-    message.textContent = "Увага! Виконуємо маневр...";
+    message.textContent = "Увага! Корабель виконує маневр...";
     message.className = "result-message";
 
     panel.classList.add("show");
@@ -779,13 +938,8 @@ function showSpace(obstacle, maneuver) {
     }, 350);
 
     setTimeout(() => {
-        if (safeManeuvers[obstacle] === maneuver) {
-            message.textContent = "🌟 МАНЕВР УСПІШНИЙ! Корабель уникнув зіткнення!";
-            message.className = "result-message good";
-        } else {
-            message.textContent = "💥 ЗІТКНЕННЯ! Маневр не допоміг уникнути перешкоди.";
-            message.className = "result-message bad";
-        }
+        message.textContent = "🌟 МАНЕВР УСПІШНИЙ! Перешкоду подолано!";
+        message.className = "result-message good";
     }, 1900);
 }
 
